@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_bg"
+              android:id="@+id/base_layout"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/title_style"
+        android:text="数据查询"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="16dp"
+        android:text="请选择查询条件"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单位类型"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:gravity="center"
+            android:inputType="none"
+            android:id="@+id/et_danweileixing"
+            style="@style/et_style"
+            android:layout_marginLeft="4dp"
+            android:hint="请选择"
+            android:layout_width="80dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重点单位"
+            android:textSize="14sp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_zhongdian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_zhongdian_buxian"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不限"/>
+
+            <RadioButton
+                android:id="@+id/rb_zhongdian_shi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="是"/>
+
+            <RadioButton
+                android:id="@+id/rb_zhongdian_fou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="否"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="检查项目"
+            android:textSize="14sp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_xiangmu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_xiangmu_shu"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="鼠"/>
+
+            <RadioButton
+                android:id="@+id/rb_xiangmu_ying"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="蝇"/>
+
+            <RadioButton
+                android:id="@+id/rb_xiangmu_zhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="蟑螂"/>
+
+            <RadioButton
+                android:id="@+id/rb_xiangmu_wen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="蚊"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_tv_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="室内鼠迹"
+            android:textSize="14sp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_3_1"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不限"/>
+
+            <RadioButton
+                android:id="@+id/rb_3_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="阳性"/>
+
+            <RadioButton
+                android:id="@+id/rb_3_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="阴性"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_tv_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="防鼠设施"
+            android:textSize="14sp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_4_1"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不限"/>
+
+            <RadioButton
+                android:id="@+id/rb_4_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="合格"/>
+
+            <RadioButton
+                android:id="@+id/rb_4_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="不合格"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_tv_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="外环境鼠迹"
+            android:textSize="14sp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_5_1"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不限"/>
+
+            <RadioButton
+                android:id="@+id/rb_5_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="阳性"/>
+
+            <RadioButton
+                android:id="@+id/rb_5_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="阴性"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_query"
+        android:text="查询"
+        style="@style/btn_style"/>
+
+
+</LinearLayout>

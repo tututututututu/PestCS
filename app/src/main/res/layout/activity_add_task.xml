@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical"
+    android:id="@+id/base_layout"
+    tools:context="com.tutu.pestcs.activity.AddTask">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        android:background="@color/colorPrimary">
+
+        <include
+            android:id="@+id/ll_back"
+            layout="@layout/back_layout"/>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/title_style"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="增加考评任务"/>
+
+
+        <include
+            android:id="@+id/ll_confirm"
+            layout="@layout/conrim_layout"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="考评任务代码:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:enabled="false"
+            android:text="填写完毕保存之后自动生成"
+            android:id="@+id/tv_code"
+            style="@style/et_style"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="考评城名称:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_city"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="城市代码:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:maxLength="4"
+            android:inputType="number"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_city_code"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="城区人口数:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:hint="单位:万"
+            android:maxLength="3"
+            android:inputType="number"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_population"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="本机专家姓名:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_cheaker_name"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="专家编号:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:maxLength="4"
+            android:inputType="number"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_number"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="检查分组数:"
+            android:textSize="@dimen/sp16"/>
+
+        <EditText
+            android:maxLength="3"
+            android:inputType="number"
+            android:layout_width="100dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_group_number"
+            />
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="组"
+            android:textSize="@dimen/sp16"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="考评开始时间:"
+            android:textSize="@dimen/sp16"/>
+
+        <TextView
+            android:paddingRight="4dp"
+            android:hint="选择"
+            android:gravity="center_vertical"
+            android:minWidth="100dp"
+            android:layout_width="wrap_content"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="4dp"
+            android:layout_height="36dp"
+            style="@style/et_style"
+            android:id="@+id/et_time"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/colorTableTile"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:text="本次考评项目"
+            android:textColor="@color/dark_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:text="鼠"
+                android:id="@+id/cb_shu"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/cb_wen"
+                android:layout_marginLeft="16dp"
+                android:text="蚊"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/cb_ying"
+                android:layout_marginLeft="16dp"
+                android:text="蝇"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/cb_zhang"
+                android:layout_marginLeft="16dp"
+                android:text="蟑螂"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

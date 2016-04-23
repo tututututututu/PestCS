@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorTableTile">#348F9F</color>
+
+    <color name="colorAccent">#3F51B5</color>
+
+    <color name="half_black">#bb000000</color>
+    <color name="half_white">#f2ffffff</color>
+    <color name="divider">#d7dbe0</color>
+    <color name="title">#808992</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="main_bg">#f3f5f6</color>
+    <color name="main_bg2">#FFEAEDEF</color>
+    <color name="main_text">#474b4f</color>
+    <color name="text_half_white">#F3F5F6</color>
+    <color name="declare_text">#181a1b</color>
+    <color name="layout_click">#FFAEB0B1</color>
+    <color name="dark_red">#880000</color>
+    <color name="transparent">#00ffffff</color>
+
+
+</resources>

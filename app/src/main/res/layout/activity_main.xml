@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:id="@+id/base_layout"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/tab_height"
+        android:background="@color/half_white"
+        android:orientation="vertical">
+
+        <View style="@style/divider_line"/>
+
+        <RadioGroup
+            android:id="@+id/rg_tab"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/half_white"
+            android:orientation="horizontal">
+
+            <com.tutu.pestcs.widget.TabRadioButton
+                android:id="@+id/rb_index"
+                style="@style/rb_style"
+                android:checked="true"
+                android:drawableTop="@drawable/tab_index_selector"
+                android:text="@string/tab_index"
+                android:textColor="@drawable/tab_text_selector"
+                app:hasNew="false"/>
+
+            <com.tutu.pestcs.widget.TabRadioButton
+                android:id="@+id/rb_progress"
+                style="@style/rb_style"
+                android:drawableTop="@drawable/rb_progress_selector"
+                android:text="@string/tab_progress"
+                android:textColor="@drawable/tab_text_selector"
+                app:hasNew="false"/>
+
+            <com.tutu.pestcs.widget.TabRadioButton
+                android:id="@+id/rb_insert"
+                style="@style/rb_style"
+                android:drawableTop="@drawable/rb_insert_selector"
+                android:text="@string/tab_insert"
+                android:textColor="@drawable/tab_text_selector"
+                app:hasNew="false"/>
+
+            <com.tutu.pestcs.widget.TabRadioButton
+                android:id="@+id/rb_query"
+                style="@style/rb_style"
+                android:drawableTop="@drawable/rb_query_selector"
+                android:text="@string/tab_query"
+                android:textColor="@drawable/tab_text_selector"
+                app:hasNew="false"/>
+
+            <com.tutu.pestcs.widget.TabRadioButton
+                android:id="@+id/rb_help"
+                style="@style/rb_style"
+                android:drawableTop="@drawable/rb_help_selector"
+                android:text="@string/tab_help"
+                android:textColor="@drawable/tab_text_selector"
+                app:hasNew="false"/>
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>

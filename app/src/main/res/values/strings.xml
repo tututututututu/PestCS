@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">PestCS</string>
+    <string name="tab_progress">进度</string>
+    <string name="tab_insert">录入</string>
+    <string name="tab_index">首页</string>
+    <string name="tab_query">查询</string>
+    <string name="tab_help">帮助</string>
+    <string name="img_description">选项</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="prompt_email">用户名</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登  录</string>
+    <string name="action_sign_in_short">登录中...</string>
+    <string name="error_invalid_email">用户名不合法</string>
+    <string name="error_invalid_password">密码太短</string>
+    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_field_required">请输入完整</string>
+</resources>

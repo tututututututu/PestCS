@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:id="@+id/base_layout"
+    android:orientation="vertical"
+    tools:context="com.tutu.pestcs.activity.ChangeFocusType">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        android:background="@color/colorPrimary">
+
+        <include
+            android:id="@+id/ll_back"
+            layout="@layout/back_layout"/>
+
+
+        <TextView
+            style="@style/title_style"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="设置重点单位类型"/>
+
+
+        <include
+            android:id="@+id/ll_confirm"
+            layout="@layout/conrim_layout"/>
+    </RelativeLayout>
+
+    <com.tutu.pestcs.widget.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <RadioButton
+                android:id="@+id/rb1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="餐饮店"/>
+
+            <RadioButton
+                android:id="@+id/rb2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="商场超市"/>
+
+            <RadioButton
+                android:id="@+id/rb3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="机关"/>
+
+            <RadioButton
+                android:id="@+id/rb4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="饭店宾馆"/>
+
+            <RadioButton
+                android:id="@+id/rb5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="农贸市场"/>
+
+            <RadioButton
+                android:id="@+id/rb6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="机场车站"/>
+
+            <RadioButton
+                android:id="@+id/rb7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="医院"/>
+
+            <RadioButton
+                android:id="@+id/rb8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:enabled="false"
+                android:text="学校"/>
+
+            <RadioButton
+                android:id="@+id/rb9"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="建筑拆迁工地"/>
+
+            <RadioButton
+                android:id="@+id/rb10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="居(家)委会"/>
+
+            <RadioButton
+                android:id="@+id/rb11"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="食品加工企业"/>
+
+            <RadioButton
+                android:id="@+id/rb12"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="其他企业"/>
+
+            <RadioButton
+                android:id="@+id/rb13"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="道路"/>
+
+            <RadioButton
+                android:id="@+id/rb14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="公园公共绿地"/>
+
+            <RadioButton
+                android:id="@+id/rb15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="垃圾中转站"/>
+
+
+            <RadioButton
+                android:id="@+id/rb16"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="公共厕所"/>
+
+            <RadioButton
+                android:id="@+id/rb17"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:enabled="false"
+                android:text="大中型水体"/>
+
+            <RadioButton
+                android:id="@+id/rb18"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:button="@null"
+                android:drawableRight="@drawable/rb_check_selector"
+                android:text="特殊场所"/>
+        </LinearLayout>
+    </com.tutu.pestcs.widget.OverScrollView>
+</LinearLayout>

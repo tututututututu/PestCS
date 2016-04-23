@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_bg"
+              android:id="@+id/base_layout"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height">
+
+        <TextView
+            style="@style/title_style"
+            android:layout_centerInParent="true"
+            android:text="检查录入"/>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:text="单位类型:"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:id="@+id/et_unit_type"
+            android:minWidth="100dp"
+            android:layout_width="wrap_content"
+            style="@style/et_style"
+            android:hint="请填写"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_zhongdian"
+            android:layout_width="wrap_content"
+            android:text="是否是重点单位"
+            android:checked="true"
+            android:layout_marginLeft="11dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:text="单位名称/检查地点"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:hint="请填写"
+            style="@style/et_style"/>
+    </LinearLayout>
+
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:background="@color/main_bg2"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/colors"
+        android:layout_below="@+id/tabs"
+        />
+
+
+</LinearLayout>
