@@ -16,10 +16,12 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.adapter.SetCurrentTaskAdapter;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.TaskDao;
+import com.tutu.pestcs.event.SetCurrentTaskEvent;
 
 import java.util.List;
 
@@ -153,6 +155,8 @@ public class SetCurrenTask extends BaseActivity {
 			tvCity.setText(mCurrentTask.getCityName());
 			tvTaskCode.setText(mCurrentTask.getTaskCode());
 			tvTime.setText(mCurrentTask.getStartDate());
+
+			RxBus.postEvent(new SetCurrentTaskEvent(),SetCurrentTaskEvent.class);
 		}
 	}
 

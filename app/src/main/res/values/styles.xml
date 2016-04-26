@@ -109,9 +109,12 @@
     </style>
 
     <style name="rb_unit_style">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
         <item name="android:button">@null</item>
         <item name="android:paddingTop">6dp</item>
         <item name="android:paddingBottom">6dp</item>
+        <item name="android:background">@drawable/rb_dialog_bg_selector</item>
         <item name="android:drawableRight">@drawable/rb_check_selector</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

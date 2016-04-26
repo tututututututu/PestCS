@@ -18,30 +18,46 @@ import java.util.ArrayList;
 public class InsertFragmentAdapter extends FragmentPagerAdapter {
 	private ArrayList<Fragment> fragments;
 
-	private final String[] TITLES = {"鼠", "蝇", "蚊", "蟑螂", "备注"};
+	private ArrayList<String> TITLES = new ArrayList<>();//{"鼠", "蝇", "蚊", "蟑螂", "备注"};
+	private boolean[] cheakItems = {true, true, true, true};
 
-	public InsertFragmentAdapter(FragmentManager fm) {
+	public InsertFragmentAdapter(FragmentManager fm, boolean[] cheakItems) {
 		super(fm);
+		this.cheakItems = cheakItems;
 		initFragment();
 	}
 
 	private void initFragment() {
 		fragments = new ArrayList<>();
-		fragments.add(new MouseFragment());
-		fragments.add(new FliesFragment());
-		fragments.add(new CockFragment());
-		fragments.add(new MosquitosFragment());
+		if (cheakItems[0]) {
+			fragments.add(new MouseFragment());
+			TITLES.add("鼠");
+		}
+		if (cheakItems[1]) {
+			fragments.add(new FliesFragment());
+			TITLES.add("蝇");
+		}
+		if (cheakItems[2]) {
+			fragments.add(new CockFragment());
+			TITLES.add("蚊");
+		}
+		if (cheakItems[3]) {
+			fragments.add(new MosquitosFragment());
+			TITLES.add("蟑螂");
+		}
+
 		fragments.add(new NoteFragment());
+		TITLES.add("备注");
 	}
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		return TITLES[position];
+		return TITLES.get(position);
 	}
 
 	@Override
 	public int getCount() {
-		return TITLES.length;
+		return TITLES.size();
 	}
 
 	@Override

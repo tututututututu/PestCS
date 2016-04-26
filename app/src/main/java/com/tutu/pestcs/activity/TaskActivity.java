@@ -29,7 +29,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -43,7 +42,7 @@ public class TaskActivity extends BaseActivity {
 	@Bind(R.id.tv_empty)
 	TextView tvEmpty;
 	TaskAdapter adapter;
-	private List<Subscription> subscriptions;
+//	private List<Subscription> subscriptions;
 
 
 	private List<TaskBean> data = new ArrayList<>();
@@ -100,7 +99,7 @@ public class TaskActivity extends BaseActivity {
 
 
 	private void RegistAddTaskEvent() {
-		subscriptions = new ArrayList<>();
+//		subscriptions = new ArrayList<>();
 		subscriptions.add(RxBus.obtainEvent(TaskEvent.class).
 			observeOn(AndroidSchedulers.mainThread()).
 			subscribe(new Action1<TaskEvent>() {
@@ -141,4 +140,9 @@ public class TaskActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+	}
 }

@@ -11,8 +11,12 @@ import android.view.View;
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.tutu.pestcs.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscription;
 
 /**
  * Created by tutu on 16/4/10.
@@ -30,6 +34,7 @@ public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
 	protected Context mBaseActivityContext;
 	protected Context mApplicationContext;
 	public SVProgressHUD svProgressHUD;
+	protected List<Subscription> subscriptions;
 
 
 	private Handler mHandler = new Handler() {
@@ -45,6 +50,7 @@ public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutID());
 		ButterKnife.bind(this);
+		subscriptions = new ArrayList<>();
 		svProgressHUD = new SVProgressHUD(this);
 		mBaseActivityContext = this;
 		mApplicationContext = getApplicationContext();
@@ -104,6 +110,11 @@ public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
 		hideKeyBoard();
 		super.onDestroy();
 		ButterKnife.unbind(this);
+		for (Subscription subscription : subscriptions) {
+			if (subscription != null && !subscription.isUnsubscribed()) {
+				subscription.unsubscribe();
+			}
+		}
 	}
 
 

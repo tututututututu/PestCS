@@ -5,6 +5,7 @@
     <color name="colorTableTile">#348F9F</color>
 
     <color name="colorAccent">#3F51B5</color>
+    <color name="lightColorAccent">#979fd1</color>
 
     <color name="half_black">#bb000000</color>
     <color name="half_white">#f2ffffff</color>

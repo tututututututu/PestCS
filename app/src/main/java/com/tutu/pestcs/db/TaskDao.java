@@ -70,8 +70,11 @@ public class TaskDao {
 	public static void resetCurrent() {
 		try {
 			TaskBean bean = queryCurrent();
-			bean.setCurrent(false);
-			DBHelper.getDBManager().update(bean);
+			if (bean != null) {
+				bean.setCurrent(false);
+				DBHelper.getDBManager().update(bean);
+			}
+
 		} catch (DbException e) {
 			e.printStackTrace();
 		}

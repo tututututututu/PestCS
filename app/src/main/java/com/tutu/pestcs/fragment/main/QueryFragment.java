@@ -191,7 +191,7 @@ public class QueryFragment extends BaseFragment {
 	private void query() {
 		UnitTypeDialog.getInstace(mActivityContext, new UnitTypeDialog.onDialogClick() {
 			@Override
-			public void onCofirm(int cheakIndex) {
+			public void onCofirm(String cheakIndex,String cheakString) {
 				Toast.makeText(getActivity(), "" + cheakIndex, Toast.LENGTH_LONG).show();
 			}
 

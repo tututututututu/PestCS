@@ -15,7 +15,11 @@ import android.view.inputmethod.InputMethodManager;
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.bumptech.glide.RequestManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
+import rx.Subscription;
 
 
 /**
@@ -34,6 +38,7 @@ public abstract class BaseFragment extends Fragment {
 
 	private InputMethodManager imm;
 	protected Context mActivityContext;
+	protected List<Subscription> subscriptions;
 
 
 	private View rootView;
@@ -56,6 +61,7 @@ public abstract class BaseFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		subscriptions = new ArrayList<>();
 		mActivityContext = getContext();
 		svProgressHUD = ((BaseActivity) getActivity()).getSVProgressHUD();
 	}
@@ -82,6 +88,11 @@ public abstract class BaseFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 		ButterKnife.unbind(this);
+		for (Subscription subscription : subscriptions) {
+			if (subscription != null && !subscription.isUnsubscribed()) {
+				subscription.unsubscribe();
+			}
+		}
 	}
 
 	/**

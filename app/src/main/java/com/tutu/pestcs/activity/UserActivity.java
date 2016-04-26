@@ -22,12 +22,10 @@ import com.tutu.pestcs.event.AddUserEvent;
 
 import org.xutils.common.util.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -38,7 +36,7 @@ public class UserActivity extends BaseActivity {
 	View empty;
 	private UserAdapter adapter;
 	private List<User> users;
-	private List<Subscription> subscriptions;
+//	private List<Subscription> subscriptions;
 
 	@Override
 	public void handleMessage(Message msg) {
@@ -53,7 +51,7 @@ public class UserActivity extends BaseActivity {
 	}
 
 	private void RegistAddUserEvent() {
-		subscriptions = new ArrayList<>();
+//		subscriptions = new ArrayList<>();
 		subscriptions.add(RxBus.obtainEvent(AddUserEvent.class).
 			observeOn(AndroidSchedulers.mainThread()).
 			subscribe(new Action1<AddUserEvent>() {
@@ -138,11 +136,6 @@ public class UserActivity extends BaseActivity {
 
 	@Override
 	protected void onDestroy() {
-		for (Subscription subscription : subscriptions) {
-			if (subscription != null && !subscription.isUnsubscribed()) {
-				subscription.unsubscribe();
-			}
-		}
 		super.onDestroy();
 
 	}
