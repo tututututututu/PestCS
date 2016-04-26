@@ -1,42 +1,92 @@
 package com.tutu.pestcs.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+
 /**
  * Created by tutu on 16/4/19.
  */
-public class ShuBean {
+@Table(name = "T_ShuRecord")
+public class ShuBean implements Parcelable {
+	@Column(name = "id",isId = true)
+	private int id;
+	@Column(name = "UnitCode",property = "UNIQUE")
 	private String UnitCode;
+	@Column(name = "CheckRoom")
 	private int CheckRoom;
+	@Column(name = "ShuRoom")
 	private int ShuRoom;
+	@Column(name = "ShuFen")
 	private int ShuFen;
+	@Column(name = "ShuDong")
 	private int ShuDong;
+	@Column(name = "ZhuaYin")
 	private int ZhuaYin;
+	@Column(name = "ShuShi")
 	private int ShuShi;
+	@Column(name = "HuoShu")
 	private int HuoShu;
+	@Column(name = "FangShuRoom")
 	private int FangShuRoom;
+	@Column(name = "FangShuBadRoom")
 	private int FangShuBadRoom;
+	@Column(name = "ChuShuiKou")
 	private int ChuShuiKou;
+	@Column(name = "PaiShuiGou")
 	private int PaiShuiGou;
+	@Column(name = "DiLou")
 	private int DiLou;
+	@Column(name = "MenFeng")
 	private int MenFeng;
+	@Column(name = "WoodDoor")
 	private int WoodDoor;
+	@Column(name = "DangShuBan")
 	private int DangShuBan;
+	@Column(name = "TongFengKou")
 	private int TongFengKou;
+	@Column(name = "Window")
 	private int Window;
+	@Column(name = "CheckDistance")
 	private int CheckDistance;
+	@Column(name = "ShuJiNum")
 	private int ShuJiNum;
+	@Column(name = "ShuFen2")
 	private int ShuFen2;
+	@Column(name = "ShuDong2")
 	private int ShuDong2;
+	@Column(name = "ShuDao2")
 	private int ShuDao2;
+	@Column(name = "ShuYaoHen2")
 	private int ShuYaoHen2;
+	@Column(name = "DaoTu2")
 	private int DaoTu2;
+	@Column(name = "ShuShi2")
 	private int ShuShi2;
+	@Column(name = "BaitStation")
 	private int BaitStation;
+	@Column(name = "WuYaoStation")
 	private int WuYaoStation;
+	@Column(name = "WuXiaoYaoStation")
 	private int WuXiaoYaoStation;
+	@Column(name = "PlaceBadStation")
 	private int PlaceBadStation;
+	@Column(name = "NoWarningStation")
 	private int NoWarningStation;
 
 	public ShuBean() {
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getUnitCode() {
@@ -323,4 +373,92 @@ public class ShuBean {
 			", NoWarningStation=" + NoWarningStation +
 			'}';
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeString(this.UnitCode);
+		dest.writeInt(this.CheckRoom);
+		dest.writeInt(this.ShuRoom);
+		dest.writeInt(this.ShuFen);
+		dest.writeInt(this.ShuDong);
+		dest.writeInt(this.ZhuaYin);
+		dest.writeInt(this.ShuShi);
+		dest.writeInt(this.HuoShu);
+		dest.writeInt(this.FangShuRoom);
+		dest.writeInt(this.FangShuBadRoom);
+		dest.writeInt(this.ChuShuiKou);
+		dest.writeInt(this.PaiShuiGou);
+		dest.writeInt(this.DiLou);
+		dest.writeInt(this.MenFeng);
+		dest.writeInt(this.WoodDoor);
+		dest.writeInt(this.DangShuBan);
+		dest.writeInt(this.TongFengKou);
+		dest.writeInt(this.Window);
+		dest.writeInt(this.CheckDistance);
+		dest.writeInt(this.ShuJiNum);
+		dest.writeInt(this.ShuFen2);
+		dest.writeInt(this.ShuDong2);
+		dest.writeInt(this.ShuDao2);
+		dest.writeInt(this.ShuYaoHen2);
+		dest.writeInt(this.DaoTu2);
+		dest.writeInt(this.ShuShi2);
+		dest.writeInt(this.BaitStation);
+		dest.writeInt(this.WuYaoStation);
+		dest.writeInt(this.WuXiaoYaoStation);
+		dest.writeInt(this.PlaceBadStation);
+		dest.writeInt(this.NoWarningStation);
+	}
+
+	protected ShuBean(Parcel in) {
+		this.id = in.readInt();
+		this.UnitCode = in.readString();
+		this.CheckRoom = in.readInt();
+		this.ShuRoom = in.readInt();
+		this.ShuFen = in.readInt();
+		this.ShuDong = in.readInt();
+		this.ZhuaYin = in.readInt();
+		this.ShuShi = in.readInt();
+		this.HuoShu = in.readInt();
+		this.FangShuRoom = in.readInt();
+		this.FangShuBadRoom = in.readInt();
+		this.ChuShuiKou = in.readInt();
+		this.PaiShuiGou = in.readInt();
+		this.DiLou = in.readInt();
+		this.MenFeng = in.readInt();
+		this.WoodDoor = in.readInt();
+		this.DangShuBan = in.readInt();
+		this.TongFengKou = in.readInt();
+		this.Window = in.readInt();
+		this.CheckDistance = in.readInt();
+		this.ShuJiNum = in.readInt();
+		this.ShuFen2 = in.readInt();
+		this.ShuDong2 = in.readInt();
+		this.ShuDao2 = in.readInt();
+		this.ShuYaoHen2 = in.readInt();
+		this.DaoTu2 = in.readInt();
+		this.ShuShi2 = in.readInt();
+		this.BaitStation = in.readInt();
+		this.WuYaoStation = in.readInt();
+		this.WuXiaoYaoStation = in.readInt();
+		this.PlaceBadStation = in.readInt();
+		this.NoWarningStation = in.readInt();
+	}
+
+	public static final Parcelable.Creator<ShuBean> CREATOR = new Parcelable.Creator<ShuBean>() {
+		@Override
+		public ShuBean createFromParcel(Parcel source) {
+			return new ShuBean(source);
+		}
+
+		@Override
+		public ShuBean[] newArray(int size) {
+			return new ShuBean[size];
+		}
+	};
 }

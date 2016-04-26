@@ -1,7 +1,9 @@
 package com.tutu.pestcs.utils;
 
 import android.text.TextUtils;
+import android.text.format.Time;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -210,12 +212,32 @@ public class DateHelper {
 	}
 
 	public static String getNowTime() {
+		StringBuilder builder = new StringBuilder();
 		Calendar c = Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		int hour = c.get(Calendar.HOUR_OF_DAY);
 		int minute = c.get(Calendar.MINUTE);
-		return String.valueOf(year + month + day + hour + minute);
+		return builder.append(year).append(month).append(day).append(hour).append(minute).toString();
+	}
+
+	//获取字符串年月日时分秒 共十四位 2010 02 01 90 29 99
+	public static String getNowTimeSecond() {
+		StringBuilder builder = new StringBuilder();
+
+
+		Time time = new Time("GMT+8");
+		time.setToNow();
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH) + 1;
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		int sec = c.get(Calendar.SECOND);
+		return builder.append(year).append(new DecimalFormat("00").format(month)).append(new DecimalFormat("00")
+			.format(day)).append(new DecimalFormat("00").format(hour)).append(new DecimalFormat("00").format(minute))
+			.append(new DecimalFormat("00").format(sec)).toString();
 	}
 }

@@ -23,7 +23,7 @@ public class CheakInsertBean implements Parcelable {
 	@Column(name = "AreaCode") //地区代码 0715
 	private String AreaCode;
 	@Column(name = "UnitClassID")
-	private int UnitClassID;//单位分类代码
+	private String UnitClassID;//单位分类代码
 	@Column(name = "NamePlace")
 	private String NamePlace;//地点
 	@Column(name = "IsKeyUnit")
@@ -35,7 +35,7 @@ public class CheakInsertBean implements Parcelable {
 	@Column(name = "Note")
 	private String Note;//400 备注
 
-	public CheakInsertBean(int id,String unitCode, String taskCode, String areaCode, int unitClassID, String namePlace,
+	public CheakInsertBean(int id,String unitCode, String taskCode, String areaCode, String unitClassID, String namePlace,
 	                       boolean isKeyUnit, String expertCode, long chkDateTime, String note) {
 		this.id = id;
 		UnitCode = unitCode;
@@ -84,11 +84,11 @@ public class CheakInsertBean implements Parcelable {
 		AreaCode = areaCode;
 	}
 
-	public int getUnitClassID() {
+	public String getUnitClassID() {
 		return UnitClassID;
 	}
 
-	public void setUnitClassID(int unitClassID) {
+	public void setUnitClassID(String unitClassID) {
 		UnitClassID = unitClassID;
 	}
 
@@ -139,10 +139,11 @@ public class CheakInsertBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
 		dest.writeString(this.UnitCode);
 		dest.writeString(this.TaskCode);
 		dest.writeString(this.AreaCode);
-		dest.writeInt(this.UnitClassID);
+		dest.writeString(this.UnitClassID);
 		dest.writeString(this.NamePlace);
 		dest.writeByte(IsKeyUnit ? (byte) 1 : (byte) 0);
 		dest.writeString(this.ExpertCode);
@@ -151,10 +152,11 @@ public class CheakInsertBean implements Parcelable {
 	}
 
 	protected CheakInsertBean(Parcel in) {
+		this.id = in.readInt();
 		this.UnitCode = in.readString();
 		this.TaskCode = in.readString();
 		this.AreaCode = in.readString();
-		this.UnitClassID = in.readInt();
+		this.UnitClassID = in.readString();
 		this.NamePlace = in.readString();
 		this.IsKeyUnit = in.readByte() != 0;
 		this.ExpertCode = in.readString();
@@ -162,7 +164,7 @@ public class CheakInsertBean implements Parcelable {
 		this.Note = in.readString();
 	}
 
-	public static final Parcelable.Creator<CheakInsertBean> CREATOR = new Parcelable.Creator<CheakInsertBean>() {
+	public static final Creator<CheakInsertBean> CREATOR = new Creator<CheakInsertBean>() {
 		@Override
 		public CheakInsertBean createFromParcel(Parcel source) {
 			return new CheakInsertBean(source);
@@ -173,4 +175,20 @@ public class CheakInsertBean implements Parcelable {
 			return new CheakInsertBean[size];
 		}
 	};
+
+	@Override
+	public String toString() {
+		return "CheakInsertBean{" +
+			"id=" + id +
+			", UnitCode='" + UnitCode + '\'' +
+			", TaskCode='" + TaskCode + '\'' +
+			", AreaCode='" + AreaCode + '\'' +
+			", UnitClassID='" + UnitClassID + '\'' +
+			", NamePlace='" + NamePlace + '\'' +
+			", IsKeyUnit=" + IsKeyUnit +
+			", ExpertCode='" + ExpertCode + '\'' +
+			", ChkDateTime=" + ChkDateTime +
+			", Note='" + Note + '\'' +
+			'}';
+	}
 }

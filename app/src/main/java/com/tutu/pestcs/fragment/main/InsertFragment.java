@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +28,11 @@ import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
 import com.tutu.pestcs.bean.TaskBean;
+import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
+import com.tutu.pestcs.utils.DateHelper;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
 import java.util.ArrayList;
@@ -58,7 +63,7 @@ public class InsertFragment extends BaseFragment {
 	LinearLayout ll_no_current_task;
 
 	private InsertFragmentAdapter adapter;
-	private ExtendSortUnitBean  extendSortUnitBean = new ExtendSortUnitBean();
+	private ExtendSortUnitBean extendSortUnitBean = new ExtendSortUnitBean();
 	private CheakInsertBean cheakInsertBean = new CheakInsertBean();
 	//当前任务(可能为空)
 	private TaskBean CurrentTaskBean;
@@ -73,35 +78,66 @@ public class InsertFragment extends BaseFragment {
 	public void initView() {
 		addSetCurrentTaskLister();
 		queryCurrentTask();
-
-
 		addSetCurrentTaskLister();
+		addTextWather();
+	}
 
+	private void addTextWather() {
+		etName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (TextUtils.isEmpty(s.toString().trim())){
+					//do nothing
+				}else{
+					insertCheakRecode();
+				}
+			}
+		});
+	}
+
+
+	private void insertCheakRecode() {
+		cheakInsertBean.setUnitClassID(extendSortUnitBean.getUnitID());
+		cheakInsertBean.setKeyUnit(cbZhongdian.isChecked());
+		cheakInsertBean.setNamePlace(etName.getText().toString().trim());
+		//生成一条记录到数据库
+		CheakInsertDao.saveOrUpdate(cheakInsertBean);
 	}
 
 
 	private void initUI() {
-		if (CurrentTaskBean.isShu()){
+
+		if (CurrentTaskBean.isShu()) {
 			cheakItems[0] = true;
-		}else{
+		} else {
 			cheakItems[0] = false;
 		}
-		if (CurrentTaskBean.isYing()){
+		if (CurrentTaskBean.isYing()) {
 			cheakItems[1] = true;
-		}else{
+		} else {
 			cheakItems[1] = false;
 		}
-		if (CurrentTaskBean.isWen()){
+		if (CurrentTaskBean.isWen()) {
 			cheakItems[2] = true;
-		}else{
+		} else {
 			cheakItems[2] = false;
 		}
-		if (CurrentTaskBean.isZhang()){
+		if (CurrentTaskBean.isZhang()) {
 			cheakItems[3] = true;
-		}else {
+		} else {
 			cheakItems[3] = false;
 		}
-		adapter = new InsertFragmentAdapter(getChildFragmentManager(),cheakItems);
+		adapter = new InsertFragmentAdapter(getChildFragmentManager(), cheakItems, cheakInsertBean);
 		pager.setAdapter(adapter);
 		tabs.setShouldExpand(true);
 		tabs.setUnderlineColorResource(R.color.main_bg2);
@@ -113,7 +149,8 @@ public class InsertFragment extends BaseFragment {
 		//tabs.setTabBackground(); //设置点击时的颜色变化
 		tabs.setUnderlineHeight(2);
 
-		//已页面载入时间和 检查人员code组成taskCode 十八位
+		insertCheakRecode();
+
 	}
 
 	private void queryCurrentTask() {
@@ -125,11 +162,15 @@ public class InsertFragment extends BaseFragment {
 		}, new Completion<TaskBean>() {
 			@Override
 			public void onSuccess(Context context, TaskBean result) {
-				if (result==null){
+				if (result == null) {
 					ll_no_current_task.setVisibility(View.VISIBLE);
-				}else{
+				} else {
 					CurrentTaskBean = result;
 					cheakInsertBean.setTaskCode(CurrentTaskBean.getTaskCode());
+					cheakInsertBean.setExpertCode(CurrentTaskBean.getExpertCode());
+					cheakInsertBean.setAreaCode(CurrentTaskBean.getAreaCode());
+					cheakInsertBean.setChkDateTime(System.currentTimeMillis());
+					cheakInsertBean.setUnitCode(DateHelper.getNowTimeSecond() + CurrentTaskBean.getExpertCode());
 					initUI();
 				}
 			}
@@ -139,7 +180,6 @@ public class InsertFragment extends BaseFragment {
 
 			}
 		});
-
 
 
 	}
@@ -164,9 +204,9 @@ public class InsertFragment extends BaseFragment {
 		ButterKnife.unbind(this);
 	}
 
-	@OnClick({R.id.et_unit_type,R.id.ll_camara,R.id.tv_set_current_task})
-	public void OnClick(View view){
-		switch (view.getId()){
+	@OnClick({R.id.et_unit_type, R.id.ll_camara, R.id.tv_set_current_task})
+	public void OnClick(View view) {
+		switch (view.getId()) {
 			case R.id.et_unit_type:
 				showUnitTypeDialog();
 				break;
@@ -182,7 +222,7 @@ public class InsertFragment extends BaseFragment {
 	private void showUnitTypeDialog() {
 		UnitTypeDialog.getInstace(mActivityContext, new UnitTypeDialog.onDialogClick() {
 			@Override
-			public void onCofirm(String cheakIndex,String cheakString) {
+			public void onCofirm(String cheakIndex, String cheakString) {
 				etUnitType.setText(cheakString);
 				extendSortUnitBean = ExtendUnitDao.queryByUnitID(cheakIndex);
 				cbZhongdian.setChecked(extendSortUnitBean.iskeyClass());
@@ -196,7 +236,7 @@ public class InsertFragment extends BaseFragment {
 	}
 
 
-	private void addSetCurrentTaskLister(){
+	private void addSetCurrentTaskLister() {
 		subscriptions = new ArrayList<>();
 		subscriptions.add(RxBus.obtainEvent(SetCurrentTaskEvent.class).
 			observeOn(AndroidSchedulers.mainThread()).

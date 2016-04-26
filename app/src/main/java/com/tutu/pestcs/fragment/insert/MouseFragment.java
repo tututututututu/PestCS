@@ -11,6 +11,13 @@ import android.widget.LinearLayout;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.MainActivity;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.ShuBean;
+import com.tutu.pestcs.comfig.ActivityJumpParams;
+import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -135,6 +142,10 @@ public class MouseFragment extends BaseFragment {
 	LinearLayout ll_qizhong;
 
 
+	private CheakInsertBean cheakInsertBean;
+	private ShuBean shuBean = new ShuBean();
+
+
 	@Override
 	public void handleMessage(Message msg) {
 
@@ -142,6 +153,9 @@ public class MouseFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
+		cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
+
+
 		et_yangxing.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -254,12 +268,126 @@ public class MouseFragment extends BaseFragment {
 	public void OnClick(View view) {
 		switch (view.getId()) {
 			case R.id.btn_exit:
-				//回首页
-				((MainActivity) getActivity()).toFragment(0);
+				// TODO: 16/4/26 弹窗提示
+				AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
+					@Override
+					public void OnConfrim() {
+						((MainActivity) getActivity()).toFragment(0);
+					}
+
+					@Override
+					public void OnCancel() {
+
+					}
+				});
+
 				break;
 			case R.id.btn_save:
-				// TODO: 16/4/17 存入表中
+				formatData();
+				if (verifyInput()) {
+					ShuDao.saveOrUpdate(shuBean);
+				}
 				break;
 		}
+	}
+
+
+	private void formatData() {
+		jianchashu = Integer.valueOf(TextUtils.isEmpty(et_jianchashu.getText().toString().trim()) ? "0" :
+			et_jianchashu.getText().toString().trim());
+		yangxing = Integer.valueOf(TextUtils.isEmpty(et_yangxing.getText().toString().trim()) ? "0" : et_yangxing
+			.getText().toString().trim());
+		shufen = Integer.valueOf(TextUtils.isEmpty(et_shufen.getText().toString().trim()) ? "0" : et_shufen.getText()
+			.toString().trim());
+		shudong = Integer.valueOf(TextUtils.isEmpty(et_shudong.getText().toString().trim()) ? "0" : et_shudong.getText
+			().toString().trim());
+		shudao = Integer.valueOf(TextUtils.isEmpty(et_shudao.getText().toString().trim()) ? "0" : et_shudao.getText()
+			.toString().trim());
+		yaoheng = Integer.valueOf(TextUtils.isEmpty(et_yaoheng.getText().toString().trim()) ? "0" : et_yaoheng.getText
+			().toString().trim());
+		shuzhua = Integer.valueOf(TextUtils.isEmpty(et_shuzhua.getText().toString().trim()) ? "0" : et_shuzhua.getText
+			().toString().trim());
+		shushi = Integer.valueOf(TextUtils.isEmpty(et_shushi.getText().toString().trim()) ? "0" : et_shushi.getText()
+			.toString().trim());
+		huoshu = Integer.valueOf(TextUtils.isEmpty(et_huoshu.getText().toString().trim()) ? "0" : et_huoshu.getText()
+			.toString().trim());
+		sheshi_rooms = Integer.valueOf(TextUtils.isEmpty(et_sheshi_rooms.getText().toString().trim()) ? "0" :
+			et_sheshi_rooms.getText().toString().trim());
+		sheshi_buhege = Integer.valueOf(TextUtils.isEmpty(et_sheshi_buhege.getText().toString().trim()) ? "0" :
+			et_sheshi_buhege.getText().toString().trim());
+		paishuigou = Integer.valueOf(TextUtils.isEmpty(et_paishuigou.getText().toString().trim()) ? "0" :
+			et_paishuigou.getText().toString().trim());
+		dilou = Integer.valueOf(TextUtils.isEmpty(et_dilou.getText().toString().trim()) ? "0" : et_dilou.getText()
+			.toString().trim());
+		paifengshan = Integer.valueOf(TextUtils.isEmpty(et_paifengshan.getText().toString().trim()) ? "0" :
+			et_paifengshan.getText().toString().trim());
+		chuanghu = Integer.valueOf(TextUtils.isEmpty(et_chuanghu.getText().toString().trim()) ? "0" : et_chuanghu
+			.getText().toString().trim());
+		menfeng = Integer.valueOf(TextUtils.isEmpty(et_menfeng.getText().toString().trim()) ? "0" : et_menfeng.getText
+			().toString().trim());
+		tongfengkou = Integer.valueOf(TextUtils.isEmpty(et_tongfengkou.getText().toString().trim()) ? "0" :
+			et_tongfengkou.getText().toString().trim());
+		kongdong = Integer.valueOf(TextUtils.isEmpty(et_kongdong.getText().toString().trim()) ? "0" : et_kongdong
+			.getText().toString().trim());
+		mumen = Integer.valueOf(TextUtils.isEmpty(et_mumen.getText().toString().trim()) ? "0" : et_mumen.getText()
+			.toString().trim());
+		dangshuban = Integer.valueOf(TextUtils.isEmpty(et_dangshuban.getText().toString().trim()) ? "0" :
+			et_dangshuban.getText().toString().trim());
+		jianchalujing = Integer.valueOf(TextUtils.isEmpty(et_jianchalujing.getText().toString().trim()) ? "0" :
+			et_jianchalujing.getText().toString().trim());
+		shujiyangxing = Integer.valueOf(TextUtils.isEmpty(et_shujiyangxing.getText().toString().trim()) ? "0" :
+			et_shujiyangxing.getText().toString().trim());
+		wai_shufen = Integer.valueOf(TextUtils.isEmpty(et_wai_shufen.getText().toString().trim()) ? "0" :
+			et_wai_shufen.getText().toString().trim());
+		wai_shudong = Integer.valueOf(TextUtils.isEmpty(et_wai_shudong.getText().toString().trim()) ? "0" :
+			et_wai_shudong.getText().toString().trim());
+		wai_shudao = Integer.valueOf(TextUtils.isEmpty(et_wai_shudao.getText().toString().trim()) ? "0" :
+			et_wai_shudao.getText().toString().trim());
+		wai_yaoheng = Integer.valueOf(TextUtils.isEmpty(et_wai_yaoheng.getText().toString().trim()) ? "0" :
+			et_wai_yaoheng.getText().toString().trim());
+		wai_daotu = Integer.valueOf(TextUtils.isEmpty(et_wai_daotu.getText().toString().trim()) ? "0" : et_wai_daotu
+			.getText().toString().trim());
+		wai_shushi = Integer.valueOf(TextUtils.isEmpty(et_wai_shushi.getText().toString().trim()) ? "0" :
+			et_wai_shushi.getText().toString().trim());
+		wai_huoshu = Integer.valueOf(TextUtils.isEmpty(et_wai_huoshu.getText().toString().trim()) ? "0" :
+			et_wai_huoshu.getText().toString().trim());
+		mieshuzhan = Integer.valueOf(TextUtils.isEmpty(et_mieshuzhan.getText().toString().trim()) ? "0" :
+			et_mieshuzhan.getText().toString().trim());
+		wushuyao = Integer.valueOf(TextUtils.isEmpty(et_wushuyao.getText().toString().trim()) ? "0" : et_wushuyao
+			.getText().toString().trim());
+		shuyaowuxiao = Integer.valueOf(TextUtils.isEmpty(et_shuyaowuxiao.getText().toString().trim()) ? "0" :
+			et_shuyaowuxiao.getText().toString().trim());
+		fangzhibuzhengque = Integer.valueOf(TextUtils.isEmpty(et_fangzhibuzhengque.getText().toString().trim()) ? "0"
+			: et_fangzhibuzhengque.getText().toString().trim());
+		wujinshipai = Integer.valueOf(TextUtils.isEmpty(et_wujinshipai.getText().toString().trim()) ? "0" :
+			et_wujinshipai.getText().toString().trim());
+
+		verifyInput();
+	}
+
+	//检查输入合法性
+	private boolean verifyInput() {
+		if (yangxing > jianchashu) {
+			ToastUtils.showToast("<阳性房间数填写>不合法");
+			return false;
+		}
+		if (sheshi_buhege > sheshi_rooms) {
+			ToastUtils.showToast("<不合格房间数填写>不合法");
+			return false;
+		}
+
+
+		if (shujiyangxing > jianchalujing) {
+			ToastUtils.showToast("<鼠迹阳性填写>不合法");
+			return false;
+		}
+
+		if ((wushuyao + shuyaowuxiao + fangzhibuzhengque + wujinshipai) > mieshuzhan) {
+			ToastUtils.showToast("<灭鼠毒饵站子类填写>不合法");
+			return false;
+		}
+
+
+		return true;
 	}
 }

@@ -21,6 +21,16 @@ public class CheakInsertDao {
 		}
 	}
 
+	public static void saveOrUpdate(CheakInsertBean bean) {
+		if (bean.getId() == 0) {
+			LogUtil.e("CheakInsertDao 插入一条记录=" + bean.toString());
+			saveBindID(bean);
+		} else {
+			LogUtil.e("CheakInsertDao 更新一条记录=" + bean.toString());
+			update(bean);
+		}
+	}
+
 	public static void update(CheakInsertBean bean) {
 		try {
 			if (TextUtils.isEmpty(bean.getTaskCode())) {
@@ -51,10 +61,10 @@ public class CheakInsertDao {
 	}
 
 
-
 	public static CheakInsertBean queryByUnitID(String unitID) {
 		try {
-			CheakInsertBean bean = DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=", unitID)
+			CheakInsertBean bean = DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=",
+				unitID)
 				.findFirst();
 			return bean;
 		} catch (DbException e) {
