@@ -15,71 +15,87 @@ public class ShuBean implements Parcelable {
 	private int id;
 	@Column(name = "UnitCode",property = "UNIQUE")
 	private String UnitCode;
-	@Column(name = "CheckRoom")
+
 	private int CheckRoom;
-	@Column(name = "ShuRoom")
 	private int ShuRoom;
-	@Column(name = "ShuFen")
 	private int ShuFen;
-	@Column(name = "ShuDong")
 	private int ShuDong;
-	@Column(name = "ZhuaYin")
+	private int ShuDao;
+	private int ShuYaoHen;
 	private int ZhuaYin;
-	@Column(name = "ShuShi")
 	private int ShuShi;
-	@Column(name = "HuoShu")
 	private int HuoShu;
-	@Column(name = "FangShuRoom")
 	private int FangShuRoom;
-	@Column(name = "FangShuBadRoom")
 	private int FangShuBadRoom;
-	@Column(name = "ChuShuiKou")
 	private int ChuShuiKou;
-	@Column(name = "PaiShuiGou")
 	private int PaiShuiGou;
-	@Column(name = "DiLou")
 	private int DiLou;
-	@Column(name = "MenFeng")
 	private int MenFeng;
-	@Column(name = "WoodDoor")
 	private int WoodDoor;
-	@Column(name = "DangShuBan")
 	private int DangShuBan;
-	@Column(name = "TongFengKou")
+	private int KongDong;
+	private int PaiFengShan;
 	private int TongFengKou;
-	@Column(name = "Window")
 	private int Window;
-	@Column(name = "CheckDistance")
 	private int CheckDistance;
-	@Column(name = "ShuJiNum")
 	private int ShuJiNum;
-	@Column(name = "ShuFen2")
 	private int ShuFen2;
-	@Column(name = "ShuDong2")
 	private int ShuDong2;
-	@Column(name = "ShuDao2")
 	private int ShuDao2;
-	@Column(name = "ShuYaoHen2")
 	private int ShuYaoHen2;
-	@Column(name = "DaoTu2")
 	private int DaoTu2;
-	@Column(name = "ShuShi2")
 	private int ShuShi2;
-	@Column(name = "BaitStation")
+	private int HuoShu2;
 	private int BaitStation;
-	@Column(name = "WuYaoStation")
 	private int WuYaoStation;
-	@Column(name = "WuXiaoYaoStation")
 	private int WuXiaoYaoStation;
-	@Column(name = "PlaceBadStation")
 	private int PlaceBadStation;
-	@Column(name = "NoWarningStation")
 	private int NoWarningStation;
 
 	public ShuBean() {
 	}
 
 
+
+	public int getShuDao() {
+		return ShuDao;
+	}
+
+	public void setShuDao(int shuDao) {
+		ShuDao = shuDao;
+	}
+
+	public int getShuYaoHen() {
+		return ShuYaoHen;
+	}
+
+	public void setShuYaoHen(int shuYaoHen) {
+		ShuYaoHen = shuYaoHen;
+	}
+
+	public int getKongDong() {
+		return KongDong;
+	}
+
+	public void setKongDong(int kongDong) {
+		KongDong = kongDong;
+	}
+
+	public int getPaiFengShan() {
+		return PaiFengShan;
+	}
+
+	public void setPaiFengShan(int paiFengShan) {
+		PaiFengShan = paiFengShan;
+	}
+
+	public int getHuoShu2() {
+		return HuoShu2;
+	}
+
+	public void setHuoShu2(int huoShu2) {
+		HuoShu2 = huoShu2;
+	}
 
 	public int getId() {
 		return id;
@@ -340,11 +356,14 @@ public class ShuBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "ShuBean{" +
-			"UnitCode='" + UnitCode + '\'' +
+			"id=" + id +
+			", UnitCode='" + UnitCode + '\'' +
 			", CheckRoom=" + CheckRoom +
 			", ShuRoom=" + ShuRoom +
 			", ShuFen=" + ShuFen +
 			", ShuDong=" + ShuDong +
+			", ShuDao=" + ShuDao +
+			", ShuYaoHen=" + ShuYaoHen +
 			", ZhuaYin=" + ZhuaYin +
 			", ShuShi=" + ShuShi +
 			", HuoShu=" + HuoShu +
@@ -356,6 +375,8 @@ public class ShuBean implements Parcelable {
 			", MenFeng=" + MenFeng +
 			", WoodDoor=" + WoodDoor +
 			", DangShuBan=" + DangShuBan +
+			", KongDong=" + KongDong +
+			", PaiFengShan=" + PaiFengShan +
 			", TongFengKou=" + TongFengKou +
 			", Window=" + Window +
 			", CheckDistance=" + CheckDistance +
@@ -366,6 +387,7 @@ public class ShuBean implements Parcelable {
 			", ShuYaoHen2=" + ShuYaoHen2 +
 			", DaoTu2=" + DaoTu2 +
 			", ShuShi2=" + ShuShi2 +
+			", HuoShu2=" + HuoShu2 +
 			", BaitStation=" + BaitStation +
 			", WuYaoStation=" + WuYaoStation +
 			", WuXiaoYaoStation=" + WuXiaoYaoStation +
@@ -387,6 +409,8 @@ public class ShuBean implements Parcelable {
 		dest.writeInt(this.ShuRoom);
 		dest.writeInt(this.ShuFen);
 		dest.writeInt(this.ShuDong);
+		dest.writeInt(this.ShuDao);
+		dest.writeInt(this.ShuYaoHen);
 		dest.writeInt(this.ZhuaYin);
 		dest.writeInt(this.ShuShi);
 		dest.writeInt(this.HuoShu);
@@ -398,6 +422,8 @@ public class ShuBean implements Parcelable {
 		dest.writeInt(this.MenFeng);
 		dest.writeInt(this.WoodDoor);
 		dest.writeInt(this.DangShuBan);
+		dest.writeInt(this.KongDong);
+		dest.writeInt(this.PaiFengShan);
 		dest.writeInt(this.TongFengKou);
 		dest.writeInt(this.Window);
 		dest.writeInt(this.CheckDistance);
@@ -408,6 +434,7 @@ public class ShuBean implements Parcelable {
 		dest.writeInt(this.ShuYaoHen2);
 		dest.writeInt(this.DaoTu2);
 		dest.writeInt(this.ShuShi2);
+		dest.writeInt(this.HuoShu2);
 		dest.writeInt(this.BaitStation);
 		dest.writeInt(this.WuYaoStation);
 		dest.writeInt(this.WuXiaoYaoStation);
@@ -422,6 +449,8 @@ public class ShuBean implements Parcelable {
 		this.ShuRoom = in.readInt();
 		this.ShuFen = in.readInt();
 		this.ShuDong = in.readInt();
+		this.ShuDao = in.readInt();
+		this.ShuYaoHen = in.readInt();
 		this.ZhuaYin = in.readInt();
 		this.ShuShi = in.readInt();
 		this.HuoShu = in.readInt();
@@ -433,6 +462,8 @@ public class ShuBean implements Parcelable {
 		this.MenFeng = in.readInt();
 		this.WoodDoor = in.readInt();
 		this.DangShuBan = in.readInt();
+		this.KongDong = in.readInt();
+		this.PaiFengShan = in.readInt();
 		this.TongFengKou = in.readInt();
 		this.Window = in.readInt();
 		this.CheckDistance = in.readInt();
@@ -443,6 +474,7 @@ public class ShuBean implements Parcelable {
 		this.ShuYaoHen2 = in.readInt();
 		this.DaoTu2 = in.readInt();
 		this.ShuShi2 = in.readInt();
+		this.HuoShu2 = in.readInt();
 		this.BaitStation = in.readInt();
 		this.WuYaoStation = in.readInt();
 		this.WuXiaoYaoStation = in.readInt();
@@ -450,7 +482,7 @@ public class ShuBean implements Parcelable {
 		this.NoWarningStation = in.readInt();
 	}
 
-	public static final Parcelable.Creator<ShuBean> CREATOR = new Parcelable.Creator<ShuBean>() {
+	public static final Creator<ShuBean> CREATOR = new Creator<ShuBean>() {
 		@Override
 		public ShuBean createFromParcel(Parcel source) {
 			return new ShuBean(source);

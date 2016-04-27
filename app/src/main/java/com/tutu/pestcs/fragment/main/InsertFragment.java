@@ -96,9 +96,9 @@ public class InsertFragment extends BaseFragment {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (TextUtils.isEmpty(s.toString().trim())){
+				if (TextUtils.isEmpty(s.toString().trim())) {
 					//do nothing
-				}else{
+				} else {
 					insertCheakRecode();
 				}
 			}

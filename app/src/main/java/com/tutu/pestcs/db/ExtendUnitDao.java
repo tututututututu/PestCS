@@ -40,7 +40,7 @@ public class ExtendUnitDao {
 
 	public static ExtendSortUnitBean queryByUnitID(String unitID) {
 		try {
-			return DBHelper.getDBManager().selector(ExtendSortUnitBean.class).where("UnitCode", "=", unitID)
+			return DBHelper.getDBManager().selector(ExtendSortUnitBean.class).where("unitID", "=", unitID)
 				.findFirst();
 		} catch (DbException e) {
 			e.printStackTrace();

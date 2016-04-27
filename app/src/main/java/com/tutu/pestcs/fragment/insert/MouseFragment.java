@@ -155,7 +155,7 @@ public class MouseFragment extends BaseFragment {
 	public void initView() {
 		cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
 
-
+		shuBean.setUnitCode(cheakInsertBean.getUnitCode());
 		et_yangxing.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -361,6 +361,44 @@ public class MouseFragment extends BaseFragment {
 			: et_fangzhibuzhengque.getText().toString().trim());
 		wujinshipai = Integer.valueOf(TextUtils.isEmpty(et_wujinshipai.getText().toString().trim()) ? "0" :
 			et_wujinshipai.getText().toString().trim());
+
+		shuBean.setBaitStation(mieshuzhan);
+		shuBean.setCheckDistance(jianchalujing);
+		shuBean.setCheckRoom(jianchashu);
+		shuBean.setChuShuiKou(chushuikou);
+		shuBean.setDangShuBan(dangshuban);
+		shuBean.setDaoTu2(wai_daotu);
+		shuBean.setDiLou(dilou);
+		shuBean.setFangShuBadRoom(sheshi_buhege);
+		shuBean.setHuoShu(huoshu);
+		shuBean.setMenFeng(menfeng);
+		shuBean.setNoWarningStation(wujinshipai);
+		shuBean.setCheckDistance(jianchalujing);
+		shuBean.setPaiShuiGou(paishuigou);
+		shuBean.setFangShuRoom(sheshi_rooms);
+		shuBean.setPlaceBadStation(fangzhibuzhengque);
+		shuBean.setShuDao2(wai_shudao);
+		shuBean.setShuDong(shudong);
+		shuBean.setShuDong2(wai_shudong);
+		shuBean.setZhuaYin(shuzhua);
+		shuBean.setWuYaoStation(wushuyao);
+		shuBean.setWuXiaoYaoStation(shuyaowuxiao);
+		shuBean.setWoodDoor(mumen);
+		shuBean.setWindow(chuanghu);
+		shuBean.setTongFengKou(tongfengkou);
+		shuBean.setShuYaoHen2(wai_yaoheng);
+		shuBean.setShuShi2(wai_shushi);
+		shuBean.setShuShi(shushi);
+		shuBean.setShuRoom(yangxing);
+		shuBean.setShuJiNum(shujiyangxing);
+		shuBean.setShuFen(shufen);
+		shuBean.setShuFen2(wai_shufen);
+		shuBean.setShuDao(shudao);
+		shuBean.setShuYaoHen(yaoheng);
+		shuBean.setKongDong(kongdong);
+		shuBean.setPaiFengShan(paifengshan);
+		shuBean.setHuoShu2(wai_huoshu);
+
 
 		verifyInput();
 	}
