@@ -1,41 +1,87 @@
 package com.tutu.pestcs.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+
 /**
  * Created by tutu on 16/4/19.
  */
 //T_YingRecord
-public class YingBean {
+@Table(name = "T_YingRecord")
+public class YingBean implements Parcelable {
+	@Column(name = "id", isId = true)
+	private int id;
+	@Column(name = "UnitCode", property = "UNIQUE")
 	private String UnitCode;
+	@Column(name = "CheckRoom")
 	private int CheckRoom;
+	@Column(name = "YingRoom")
 	private int YingRoom;
+	@Column(name = "YingNum")
 	private int YingNum;
+	@Column(name = "FangYingPlace")
 	private int FangYingPlace;
+	@Column(name = "FangYingBadPlace")
 	private int FangYingBadPlace;
+	@Column(name = "Gate_FangYing")
 	private int Gate_FangYing;
+	@Column(name = "Window_FangYing")
 	private int Window_FangYing;
+	@Column(name = "Door_FangYing")
 	private int Door_FangYing;
+	@Column(name = "ShushiRoom")
 	private int ShushiRoom;
+	@Column(name = "LiangcaiRoom")
 	private int LiangcaiRoom;
+	@Column(name = "ChuGui_FangYing")
 	private int ChuGui_FangYing;
+	@Column(name = "tandian")
 	private int tandian;
+	@Column(name = "QiTa_FangYing")
 	private int QiTa_FangYing;
+	@Column(name = "InnerZhiShengDi")
 	private int InnerZhiShengDi;
+	@Column(name = "InnerYangXin")
 	private int InnerYangXin;
+	@Column(name = "FoodPlaceNum")
 	private int FoodPlaceNum;
+	@Column(name = "FoodPlaceFly")
 	private int FoodPlaceFly;
+	@Column(name = "LampNum")
 	private int LampNum;
+	@Column(name = "LampBadPlaceNum")
 	private int LampBadPlaceNum;
+	@Column(name = "LaJiRongQiNum")
 	private int LaJiRongQiNum;
+	@Column(name = "YangXinRongQi")
 	private int YangXinRongQi;
+	@Column(name = "ToiletNum")
 	private int ToiletNum;
+	@Column(name = "Toilet_Ying")
 	private int Toilet_Ying;
+	@Column(name = "LaJiStation")
 	private int LaJiStation;
+	@Column(name = "Station_Ying")
 	private int Station_Ying;
+	@Column(name = "CheckDistance")
 	private int CheckDistance;
+	@Column(name = "SanZaiLaJiNum")
 	private int SanZaiLaJiNum;
+	@Column(name = "SanZaiYangXinNum")
 	private int SanZaiYangXinNum;
 
 	public YingBean() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getUnitCode() {
@@ -273,7 +319,8 @@ public class YingBean {
 	@Override
 	public String toString() {
 		return "YingBean{" +
-			"UnitCode='" + UnitCode + '\'' +
+			"id=" + id +
+			", UnitCode='" + UnitCode + '\'' +
 			", CheckRoom=" + CheckRoom +
 			", YingRoom=" + YingRoom +
 			", YingNum=" + YingNum +
@@ -304,4 +351,88 @@ public class YingBean {
 			", SanZaiYangXinNum=" + SanZaiYangXinNum +
 			'}';
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeString(this.UnitCode);
+		dest.writeInt(this.CheckRoom);
+		dest.writeInt(this.YingRoom);
+		dest.writeInt(this.YingNum);
+		dest.writeInt(this.FangYingPlace);
+		dest.writeInt(this.FangYingBadPlace);
+		dest.writeInt(this.Gate_FangYing);
+		dest.writeInt(this.Window_FangYing);
+		dest.writeInt(this.Door_FangYing);
+		dest.writeInt(this.ShushiRoom);
+		dest.writeInt(this.LiangcaiRoom);
+		dest.writeInt(this.ChuGui_FangYing);
+		dest.writeInt(this.tandian);
+		dest.writeInt(this.QiTa_FangYing);
+		dest.writeInt(this.InnerZhiShengDi);
+		dest.writeInt(this.InnerYangXin);
+		dest.writeInt(this.FoodPlaceNum);
+		dest.writeInt(this.FoodPlaceFly);
+		dest.writeInt(this.LampNum);
+		dest.writeInt(this.LampBadPlaceNum);
+		dest.writeInt(this.LaJiRongQiNum);
+		dest.writeInt(this.YangXinRongQi);
+		dest.writeInt(this.ToiletNum);
+		dest.writeInt(this.Toilet_Ying);
+		dest.writeInt(this.LaJiStation);
+		dest.writeInt(this.Station_Ying);
+		dest.writeInt(this.CheckDistance);
+		dest.writeInt(this.SanZaiLaJiNum);
+		dest.writeInt(this.SanZaiYangXinNum);
+	}
+
+	protected YingBean(Parcel in) {
+		this.id = in.readInt();
+		this.UnitCode = in.readString();
+		this.CheckRoom = in.readInt();
+		this.YingRoom = in.readInt();
+		this.YingNum = in.readInt();
+		this.FangYingPlace = in.readInt();
+		this.FangYingBadPlace = in.readInt();
+		this.Gate_FangYing = in.readInt();
+		this.Window_FangYing = in.readInt();
+		this.Door_FangYing = in.readInt();
+		this.ShushiRoom = in.readInt();
+		this.LiangcaiRoom = in.readInt();
+		this.ChuGui_FangYing = in.readInt();
+		this.tandian = in.readInt();
+		this.QiTa_FangYing = in.readInt();
+		this.InnerZhiShengDi = in.readInt();
+		this.InnerYangXin = in.readInt();
+		this.FoodPlaceNum = in.readInt();
+		this.FoodPlaceFly = in.readInt();
+		this.LampNum = in.readInt();
+		this.LampBadPlaceNum = in.readInt();
+		this.LaJiRongQiNum = in.readInt();
+		this.YangXinRongQi = in.readInt();
+		this.ToiletNum = in.readInt();
+		this.Toilet_Ying = in.readInt();
+		this.LaJiStation = in.readInt();
+		this.Station_Ying = in.readInt();
+		this.CheckDistance = in.readInt();
+		this.SanZaiLaJiNum = in.readInt();
+		this.SanZaiYangXinNum = in.readInt();
+	}
+
+	public static final Parcelable.Creator<YingBean> CREATOR = new Parcelable.Creator<YingBean>() {
+		@Override
+		public YingBean createFromParcel(Parcel source) {
+			return new YingBean(source);
+		}
+
+		@Override
+		public YingBean[] newArray(int size) {
+			return new YingBean[size];
+		}
+	};
 }

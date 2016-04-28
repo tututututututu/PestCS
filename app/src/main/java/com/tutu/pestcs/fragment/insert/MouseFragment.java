@@ -268,7 +268,6 @@ public class MouseFragment extends BaseFragment {
 	public void OnClick(View view) {
 		switch (view.getId()) {
 			case R.id.btn_exit:
-				// TODO: 16/4/26 弹窗提示
 				AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
 					@Override
 					public void OnConfrim() {

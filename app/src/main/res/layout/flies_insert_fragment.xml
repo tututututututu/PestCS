@@ -94,7 +94,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="4dp"
                     android:gravity="center"
-                    android:text="间"/>
+                    android:text="只"/>
             </LinearLayout>
         </LinearLayout>
 

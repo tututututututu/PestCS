@@ -1,11 +1,19 @@
 package com.tutu.pestcs.bean;
 
+import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+
 /**
  * Created by tutu on 16/4/19.
  */
 //T_WenRecord
+@Table(name = "T_WenRecord")
 public class WenBean {
+	@Column(name = "id",isId = true)
+	private int id;
+	@Column(name = "UnitCode",property = "UNIQUE")
 	private String UnitCode;
+	@Column(name = "CheckDistance")
 	private int CheckDistance;
 	private int SmallWater;
 	private int YangXinWater;
@@ -27,7 +35,16 @@ public class WenBean {
 	private int WenStopNum;
 	private int MieWenDengNum;
 
+
 	public WenBean() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getUnitCode() {
@@ -201,7 +218,8 @@ public class WenBean {
 	@Override
 	public String toString() {
 		return "WenBean{" +
-			"UnitCode='" + UnitCode + '\'' +
+			"id=" + id +
+			", UnitCode='" + UnitCode + '\'' +
 			", CheckDistance=" + CheckDistance +
 			", SmallWater=" + SmallWater +
 			", YangXinWater=" + YangXinWater +

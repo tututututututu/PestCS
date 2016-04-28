@@ -1,12 +1,19 @@
 package com.tutu.pestcs.fragment.insert;
 
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.MainActivity;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.WenBean;
+import com.tutu.pestcs.comfig.ActivityJumpParams;
+import com.tutu.pestcs.db.WenDao;
+import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.widget.AlertDialogUtil;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -42,6 +49,10 @@ public class CockFragment extends BaseFragment {
 	EditText et_zhanglangfenbian;
 
 
+	private CheakInsertBean cheakInsertBean;
+	private WenBean wenBean = new WenBean();
+
+
 	@Override
 	public void handleMessage(Message msg) {
 
@@ -50,6 +61,9 @@ public class CockFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
+		cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
+
+		wenBean.setUnitCode(cheakInsertBean.getUnitCode());
 
 	}
 
@@ -67,11 +81,38 @@ public class CockFragment extends BaseFragment {
 	public void OnClick(View view) {
 		switch (view.getId()) {
 			case R.id.btn_exit:
-				((MainActivity) getActivity()).toFragment(0);
+				AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
+					@Override
+					public void OnConfrim() {
+						((MainActivity) getActivity()).toFragment(0);
+					}
+
+					@Override
+					public void OnCancel() {
+
+					}
+				});
+
 				break;
 			case R.id.btn_save:
-				// TODO: 16/4/17 插入表 
+				formatData();
+				if (verifyInput()) {
+					WenDao.saveOrUpdate(wenBean);
+				}
 				break;
 		}
+	}
+
+	private void formatData() {
+
+	}
+
+	private int dealData(EditText et) {
+		return Integer.valueOf(TextUtils.isEmpty(et.getText().toString().trim()) ? "0" :
+			et.getText().toString().trim());
+	}
+
+	private boolean verifyInput() {
+		return true;
 	}
 }

@@ -49,15 +49,15 @@ public class InsertFragmentAdapter extends FragmentPagerAdapter {
 			TITLES.add("蝇");
 		}
 		if (cheakItems[2]) {
-			CockFragment cockFragment = new CockFragment();
-			cockFragment.setArguments(bundle);
-			fragments.add(cockFragment);
-			TITLES.add("蚊");
-		}
-		if (cheakItems[3]) {
 			MosquitosFragment mosquitosFragment = new MosquitosFragment();
 			mosquitosFragment.setArguments(bundle);
 			fragments.add(mosquitosFragment);
+			TITLES.add("蚊");
+		}
+		if (cheakItems[3]) {
+			CockFragment cockFragment = new CockFragment();
+			cockFragment.setArguments(bundle);
+			fragments.add(cockFragment);
 			TITLES.add("蟑螂");
 		}
 
