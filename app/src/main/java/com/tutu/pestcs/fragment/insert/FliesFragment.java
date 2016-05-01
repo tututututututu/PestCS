@@ -168,6 +168,7 @@ public class FliesFragment extends BaseFragment {
 				formatData();
 				if (verifyInput()) {
 					YingDao.saveOrUpdate(yingBean);
+					ToastUtils.showToast("保存成功");
 				}
 				break;
 			case R.id.btn_exit:

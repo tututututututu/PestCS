@@ -58,7 +58,7 @@ public class YingDao {
 
 	public static YingBean queryByUnitID(String unitID) {
 		try {
-			YingBean bean = DBHelper.getDBManager().selector(YingBean.class).where("TaskCode", "=",
+			YingBean bean = DBHelper.getDBManager().selector(YingBean.class).where("UnitCode", "=",
 				unitID)
 				.findFirst();
 			return bean;

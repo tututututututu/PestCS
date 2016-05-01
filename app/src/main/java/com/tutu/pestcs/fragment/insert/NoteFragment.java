@@ -8,6 +8,12 @@ import android.widget.EditText;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.MainActivity;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.NoteBean;
+import com.tutu.pestcs.bean.ZhangBean;
+import com.tutu.pestcs.comfig.ActivityJumpParams;
+import com.tutu.pestcs.db.NoteDao;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -20,6 +26,9 @@ public class NoteFragment extends BaseFragment {
 	EditText et_note;
 
 
+	private CheakInsertBean cheakInsertBean;
+	private NoteBean bean = new NoteBean();
+
 	@Override
 	public void handleMessage(Message msg) {
 
@@ -27,7 +36,8 @@ public class NoteFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
-
+		cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
+		bean.setUnitCode(cheakInsertBean.getUnitCode());
 	}
 
 	@Override
@@ -43,7 +53,6 @@ public class NoteFragment extends BaseFragment {
 				((MainActivity) getActivity()).toFragment(0);
 				break;
 			case R.id.btn_save:
-				// TODO: 16/4/17 插入表
 				saveData();
 				break;
 		}
@@ -55,6 +64,8 @@ public class NoteFragment extends BaseFragment {
 			svProgressHUD.showErrorWithStatus("请输入内容");
 		} else {
 			//保存
+			NoteDao.saveOrUpdate(bean);
+			ToastUtils.showToast("保存成功");
 		}
 	}
 }

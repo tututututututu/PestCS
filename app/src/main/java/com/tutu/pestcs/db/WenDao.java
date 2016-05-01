@@ -59,7 +59,7 @@ public class WenDao {
 
 	public static WenBean queryByUnitID(String unitID) {
 		try {
-			WenBean bean = DBHelper.getDBManager().selector(WenBean.class).where("TaskCode", "=",
+			WenBean bean = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=",
 				unitID)
 				.findFirst();
 			return bean;
