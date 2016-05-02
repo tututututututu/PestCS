@@ -48,5 +48,23 @@ public class ExtendUnitDao {
 		return null;
 	}
 
+	public static List<ExtendSortUnitBean> queryFocusType() {
+		try {
+			return DBHelper.getDBManager().selector(ExtendSortUnitBean.class).where("IskeyClass", "=", true).findAll();
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static List<ExtendSortUnitBean> queryNoFocusType() {
+		try {
+			return DBHelper.getDBManager().selector(ExtendSortUnitBean.class).where("IskeyClass", "=", false).findAll();
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 }

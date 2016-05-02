@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.activity.FocusTypeActivity;
 import com.tutu.pestcs.activity.LoginActivity;
 import com.tutu.pestcs.activity.SetCurrenTask;
 import com.tutu.pestcs.activity.TaskActivity;
@@ -52,6 +53,8 @@ public class IndexFragment extends BaseFragment {
 				Intent intent = null;
 				switch (position) {
 					case 0:
+						intent = new Intent(mActivityContext, FocusTypeActivity.class);
+						startActivity(intent);
 						break;
 					case 1:
 						intent = new Intent(mActivityContext, SetCurrenTask.class);

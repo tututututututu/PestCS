@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by tutu on 16/4/8.
  */
-public class InsertFragmentAdapter extends FragmentPagerAdapter {
+public class InsertFragmentAdapter extends TFragmentPagerAdapter {
 	private ArrayList<Fragment> fragments;
 
 	private ArrayList<String> TITLES = new ArrayList<>();//{"鼠", "蝇", "蚊", "蟑螂", "备注"};

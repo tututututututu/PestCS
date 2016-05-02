@@ -3,12 +3,19 @@ package com.tutu.pestcs.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+
 /**
  * Created by 47066 on 2016/5/1.
  */
+@Table(name = "T_Note")
 public class NoteBean implements Parcelable {
+    @Column(name = "id",isId = true)
     private int id;
+    @Column(name = "note")
     private String note;
+    @Column(name = "UnitCode",property = "UNIQUE")
     private String UnitCode;
 
     public NoteBean() {

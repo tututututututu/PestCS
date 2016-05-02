@@ -64,6 +64,7 @@ public class NoteFragment extends BaseFragment {
 			svProgressHUD.showErrorWithStatus("请输入内容");
 		} else {
 			//保存
+			bean.setNote(note);
 			NoteDao.saveOrUpdate(bean);
 			ToastUtils.showToast("保存成功");
 		}

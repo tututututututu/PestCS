@@ -21,12 +21,11 @@ public class ZhangDao {
 	}
 
 	public static void saveOrUpdate(ZhangBean bean) {
-		if (bean.getId() == 0) {
-			LogUtil.e("CheakInsertDao 插入一条记录=" + bean.toString());
-			saveBindID(bean);
-		} else {
-			LogUtil.e("CheakInsertDao 更新一条记录=" + bean.toString());
-			update(bean);
+		try {
+			DBHelper.getDBManager().saveOrUpdate(bean);
+			LogUtil.e("ZhangDao saveOrUpdate 变化一条记录=" + bean.toString());
+		} catch (DbException e) {
+			e.printStackTrace();
 		}
 	}
 
