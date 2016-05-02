@@ -4,6 +4,7 @@ package com.tutu.pestcs.bean;
  * Created by tutu on 16/4/19.
  */
 public class QueryResultBean {
+	private String UnitCode;
 	private String UnitName;
 	private int col1Start;
 	private int col1End;
@@ -15,15 +16,12 @@ public class QueryResultBean {
 	public QueryResultBean() {
 	}
 
-	public QueryResultBean(String unitName, int col1Start, int col1End, int col2Start, int col2End, int col3Start, int
-		col3End) {
-		UnitName = unitName;
-		this.col1Start = col1Start;
-		this.col1End = col1End;
-		this.col2Start = col2Start;
-		this.col2End = col2End;
-		this.col3Start = col3Start;
-		this.col3End = col3End;
+	public String getUnitCode() {
+		return UnitCode;
+	}
+
+	public void setUnitCode(String unitCode) {
+		UnitCode = unitCode;
 	}
 
 	public String getUnitName() {
@@ -85,13 +83,14 @@ public class QueryResultBean {
 	@Override
 	public String toString() {
 		return "QueryResultBean{" +
-			"UnitName='" + UnitName + '\'' +
-			", col1Start=" + col1Start +
-			", col1End=" + col1End +
-			", col2Start=" + col2Start +
-			", col2End=" + col2End +
-			", col3Start=" + col3Start +
-			", col3End=" + col3End +
-			'}';
+				"UnitCode='" + UnitCode + '\'' +
+				", UnitName='" + UnitName + '\'' +
+				", col1Start=" + col1Start +
+				", col1End=" + col1End +
+				", col2Start=" + col2Start +
+				", col2End=" + col2End +
+				", col3Start=" + col3Start +
+				", col3End=" + col3End +
+				'}';
 	}
 }
