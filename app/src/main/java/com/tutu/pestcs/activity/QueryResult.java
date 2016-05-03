@@ -63,12 +63,7 @@ public class QueryResult extends BaseActivity {
 
 	@Override
 	public void handleMessage(Message msg) {
-		switch (msg.what) {
-			case 1:   //查询成功
-				break;
-			case -1: //查询失败
-				break;
-		}
+
 	}
 
 	@Override
@@ -114,33 +109,10 @@ public class QueryResult extends BaseActivity {
 			tvTitle4.setText("蟑迹");
 		}
 
-		Tasks.executeInBackground(this, new BackgroundWork<List<QueryResultBean>>() {
-			@Override
-			public List<QueryResultBean> doInBackground() throws Exception {
-				return readData();
-			}
-		}, new Completion<List<QueryResultBean>>() {
-			@Override
-			public void onSuccess(Context context, List<QueryResultBean> result) {
-				Message msg = new Message();
-				msg.what = 1;
-				sendMessage(msg);
-			}
-
-			@Override
-			public void onError(Context context, Exception e) {
-				Message msg = new Message();
-				msg.what = -1;
-				sendMessage(msg);
-			}
-		});
+		query();
 	}
 
-	private List<QueryResultBean> readData() {
-		// TODO: 16/4/19 读取数据填充
 
-		return null;
-	}
 
 	@Override
 	public void initData() {
@@ -246,9 +218,21 @@ public class QueryResult extends BaseActivity {
 
 	private void queryWenDetail(List<CheakInsertBean> result) {
 		for (CheakInsertBean bean : result) {
-			// TODO: 2016/5/2 写到此处 已经查询到了具体的unitCode  根据这个查询到具体的单位数据
-			ShuBean shuBean = ShuDao.queryByUnitID(bean.getUnitCode());
+
+			ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
+			QueryResultBean queryResultBean = new QueryResultBean();
+			queryResultBean.setUnitName(bean.getNamePlace());
+			queryResultBean.setUnitCode(bean.getUnitCode());
+			queryResultBean.setCol1Start(shuBean.getShuRoom());
+			queryResultBean.setCol1End(shuBean.getCheckRoom());
+			queryResultBean.setCol2Start(shuBean.getFangShuBadRoom());
+			queryResultBean.setCol2End(shuBean.getFangShuRoom());
+			queryResultBean.setCol3Start(shuBean.getShuJiNum());
+			queryResultBean.setCol3End(shuBean.getCheckDistance());
+			data.add(queryResultBean);
 		}
+		initData();
+
 	}
 
 	private void queryZhangDetail(List<CheakInsertBean> result) {
