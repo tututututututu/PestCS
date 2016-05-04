@@ -12,10 +12,8 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_UnitClass")
 public class ExtendSortUnitBean implements Parcelable {
-	@Column(name = "id",isId = true)
-	private int id;
 	//单位的分类id
-	@Column(name = "unitID")
+	@Column(name = "unitID",isId = true)
 	private String unitID; //
 	//单位分类的名称
 	@Column(name = "ClassName")
@@ -31,14 +29,6 @@ public class ExtendSortUnitBean implements Parcelable {
 		this.unitID = unitID;
 		ClassName = className;
 		IskeyClass = iskeyClass;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUnitID() {
@@ -98,7 +88,6 @@ public class ExtendSortUnitBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "ExtendSortUnitBean{" +
-			"id=" + id +
 			", unitID='" + unitID + '\'' +
 			", ClassName='" + ClassName + '\'' +
 			", IskeyClass=" + IskeyClass +

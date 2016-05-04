@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -19,9 +20,11 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.QueryBean;
 import com.tutu.pestcs.bean.QueryResultBean;
 import com.tutu.pestcs.bean.ShuBean;
+import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.db.YingDao;
 
 import org.xutils.common.util.LogUtil;
 
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class QueryResult extends BaseActivity {
 	public static final int TYPE_SHU = 1;
@@ -68,8 +72,8 @@ public class QueryResult extends BaseActivity {
 
 	@Override
 	public void initView(Bundle savedInstanceState) {
-		queryBean = getIntent().getParcelableExtra(ActivityJumpParams.queryType);
-		if (queryBean.getQueryType() == -1) {
+		queryBean = getIntent().getParcelableExtra(ActivityJumpParams.QUERY_BEAN);
+		if (queryBean==null) {
 			svProgressHUD.showErrorWithStatus("系统错误");
 			llBack.postDelayed(new Runnable() {
 				@Override
@@ -116,6 +120,7 @@ public class QueryResult extends BaseActivity {
 
 	@Override
 	public void initData() {
+		svProgressHUD.dismissImmediately();
 		createTV();
 		tlTable.setStretchAllColumns(true);
 
@@ -147,6 +152,10 @@ public class QueryResult extends BaseActivity {
 		return R.layout.activity_query_result;
 	}
 
+	@OnClick(R.id.ll_back)
+	public void onClick(View view){
+		finish();
+	}
 
 	private void query() {
 		//查询分两步 1.根据单位类型和是否重点单位筛选出unitCode
@@ -176,7 +185,7 @@ public class QueryResult extends BaseActivity {
 
 	private void queryDetail(final List<CheakInsertBean> result) {
 		for (CheakInsertBean bean : result) {
-			LogUtil.e("查询unitCode结果如下:");
+ 			LogUtil.e("查询unitCode结果如下:");
 			LogUtil.e(bean.getUnitCode());
 		}
 
@@ -206,7 +215,7 @@ public class QueryResult extends BaseActivity {
 		}, new Completion<List<QueryResultBean>>() {
 			@Override
 			public void onSuccess(Context context, List<QueryResultBean> result) {
-
+				initData();
 			}
 
 			@Override
@@ -217,21 +226,7 @@ public class QueryResult extends BaseActivity {
 	}
 
 	private void queryWenDetail(List<CheakInsertBean> result) {
-		for (CheakInsertBean bean : result) {
 
-			ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
-			QueryResultBean queryResultBean = new QueryResultBean();
-			queryResultBean.setUnitName(bean.getNamePlace());
-			queryResultBean.setUnitCode(bean.getUnitCode());
-			queryResultBean.setCol1Start(shuBean.getShuRoom());
-			queryResultBean.setCol1End(shuBean.getCheckRoom());
-			queryResultBean.setCol2Start(shuBean.getFangShuBadRoom());
-			queryResultBean.setCol2End(shuBean.getFangShuRoom());
-			queryResultBean.setCol3Start(shuBean.getShuJiNum());
-			queryResultBean.setCol3End(shuBean.getCheckDistance());
-			data.add(queryResultBean);
-		}
-		initData();
 
 	}
 
@@ -243,14 +238,47 @@ public class QueryResult extends BaseActivity {
 
 	private void queryYingDetail(List<CheakInsertBean> result) {
 		for (CheakInsertBean bean : result) {
+			YingBean bean1 = YingDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
+			if (bean1==null){
+				LogUtil.e("没有符合要求的结果"+bean.toString());
+				return;
+			}
+
+			QueryResultBean queryResultBean = new QueryResultBean();
+			queryResultBean.setUnitName(bean.getNamePlace());
+			queryResultBean.setUnitCode(bean.getUnitCode());
+			queryResultBean.setCol1Start(bean1.getYingRoom());
+			queryResultBean.setCol1End(bean1.getFangYingBadPlace());
+			queryResultBean.setCol2Start(bean1.getFangYingPlace());
+			queryResultBean.setCol2End(bean1.getFangYingPlace());
+			queryResultBean.setCol3Start(bean1.getSanZaiYangXinNum());
+			queryResultBean.setCol3End(bean1.getSanZaiLaJiNum());
+			data.add(queryResultBean);
 
 		}
 	}
 
 	private void queryShuDetail(List<CheakInsertBean> result) {
 		for (CheakInsertBean bean : result) {
+			ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
+			if (shuBean==null){
+				LogUtil.e("没有符合要求的结果"+bean.toString());
+				return;
+			}
+
+			QueryResultBean queryResultBean = new QueryResultBean();
+			queryResultBean.setUnitName(bean.getNamePlace());
+			queryResultBean.setUnitCode(bean.getUnitCode());
+			queryResultBean.setCol1Start(shuBean.getShuRoom());
+			queryResultBean.setCol1End(shuBean.getCheckRoom());
+			queryResultBean.setCol2Start(shuBean.getFangShuBadRoom());
+			queryResultBean.setCol2End(shuBean.getFangShuRoom());
+			queryResultBean.setCol3Start(shuBean.getShuJiNum());
+			queryResultBean.setCol3End(shuBean.getCheckDistance());
+			data.add(queryResultBean);
 
 		}
+
 	}
 
 }

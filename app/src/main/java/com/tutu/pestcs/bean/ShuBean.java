@@ -11,9 +11,7 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_ShuRecord")
 public class ShuBean implements Parcelable {
-	@Column(name = "id",isId = true)
-	private int id;
-	@Column(name = "UnitCode",property = "UNIQUE")
+	@Column(name = "UnitCode",isId = true)
 	private String UnitCode;
 	@Column(name = "CheckRoom")
 	private int CheckRoom;
@@ -129,14 +127,6 @@ public class ShuBean implements Parcelable {
 
 	public void setHuoShu2(int huoShu2) {
 		HuoShu2 = huoShu2;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUnitCode() {
@@ -390,7 +380,6 @@ public class ShuBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "ShuBean{" +
-			"id=" + id +
 			", UnitCode='" + UnitCode + '\'' +
 			", CheckRoom=" + CheckRoom +
 			", ShuRoom=" + ShuRoom +
@@ -437,7 +426,6 @@ public class ShuBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.UnitCode);
 		dest.writeInt(this.CheckRoom);
 		dest.writeInt(this.ShuRoom);
@@ -477,7 +465,6 @@ public class ShuBean implements Parcelable {
 	}
 
 	protected ShuBean(Parcel in) {
-		this.id = in.readInt();
 		this.UnitCode = in.readString();
 		this.CheckRoom = in.readInt();
 		this.ShuRoom = in.readInt();

@@ -12,9 +12,7 @@ import org.xutils.db.annotation.Table;
 //T_YingRecord
 @Table(name = "T_YingRecord")
 public class YingBean implements Parcelable {
-	@Column(name = "id", isId = true)
-	private int id;
-	@Column(name = "UnitCode", property = "UNIQUE")
+	@Column(name = "UnitCode", isId = true)
 	private String UnitCode;
 	@Column(name = "CheckRoom")
 	private int CheckRoom;
@@ -74,14 +72,6 @@ public class YingBean implements Parcelable {
 	private int SanZaiYangXinNum;
 
 	public YingBean() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUnitCode() {
@@ -319,7 +309,6 @@ public class YingBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "YingBean{" +
-			"id=" + id +
 			", UnitCode='" + UnitCode + '\'' +
 			", CheckRoom=" + CheckRoom +
 			", YingRoom=" + YingRoom +
@@ -359,7 +348,6 @@ public class YingBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.UnitCode);
 		dest.writeInt(this.CheckRoom);
 		dest.writeInt(this.YingRoom);
@@ -392,7 +380,6 @@ public class YingBean implements Parcelable {
 	}
 
 	protected YingBean(Parcel in) {
-		this.id = in.readInt();
 		this.UnitCode = in.readString();
 		this.CheckRoom = in.readInt();
 		this.YingRoom = in.readInt();

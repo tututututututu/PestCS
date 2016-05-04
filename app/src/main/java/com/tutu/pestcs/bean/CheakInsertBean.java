@@ -11,12 +11,11 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_CheckUnit")
 public class CheakInsertBean implements Parcelable {
-	@Column(name = "id",isId = true)
-	private int id;
 	/**
 	 * 十八位数字,由当前时间2016 03 04 20 30 +检查人员code 2222
 	 */
-	@Column(name = "UnitCode",property = "UNIQUE")
+
+	@Column(name = "UnitCode",isId = true)
 	private String UnitCode;//unique 检查单位代码
 	@Column(name = "TaskCode")
 	private String TaskCode;//任务代码
@@ -35,9 +34,9 @@ public class CheakInsertBean implements Parcelable {
 	@Column(name = "Note")
 	private String Note;//400 备注
 
-	public CheakInsertBean(int id,String unitCode, String taskCode, String areaCode, String unitClassID, String namePlace,
+	public CheakInsertBean(String unitCode, String taskCode, String areaCode, String unitClassID, String namePlace,
 	                       boolean isKeyUnit, String expertCode, long chkDateTime, String note) {
-		this.id = id;
+
 		UnitCode = unitCode;
 		TaskCode = taskCode;
 		AreaCode = areaCode;
@@ -49,13 +48,6 @@ public class CheakInsertBean implements Parcelable {
 		Note = note;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public CheakInsertBean() {
 	}
@@ -139,7 +131,6 @@ public class CheakInsertBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.UnitCode);
 		dest.writeString(this.TaskCode);
 		dest.writeString(this.AreaCode);
@@ -152,7 +143,6 @@ public class CheakInsertBean implements Parcelable {
 	}
 
 	protected CheakInsertBean(Parcel in) {
-		this.id = in.readInt();
 		this.UnitCode = in.readString();
 		this.TaskCode = in.readString();
 		this.AreaCode = in.readString();
@@ -179,7 +169,6 @@ public class CheakInsertBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "CheakInsertBean{" +
-			"id=" + id +
 			", UnitCode='" + UnitCode + '\'' +
 			", TaskCode='" + TaskCode + '\'' +
 			", AreaCode='" + AreaCode + '\'' +

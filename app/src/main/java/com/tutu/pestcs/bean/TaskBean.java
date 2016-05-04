@@ -11,9 +11,7 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_Task")
 public class TaskBean implements Parcelable {
-	@Column(name = "id", isId = true)
-	int id;
-	@Column(name = "TaskCode", property = "UNIQUE")
+	@Column(name = "TaskCode", isId = true)
 	String TaskCode;
 	@Column(name = "CityName")
 	String CityName;
@@ -43,12 +41,11 @@ public class TaskBean implements Parcelable {
 	public TaskBean() {
 	}
 
-	public TaskBean(int id, String taskCode, String cityName, String areaCode, int population, String expertName,
+	public TaskBean(String taskCode, String cityName, String areaCode, int population, String expertName,
 	                String
 		                expertCode, int groups, String startDate, boolean shu, boolean wen, boolean ying, boolean
 		                zhang, boolean
 		                isCurrent) {
-		this.id = id;
 		this.TaskCode = taskCode;
 		this.CityName = cityName;
 		this.AreaCode = areaCode;
@@ -62,14 +59,6 @@ public class TaskBean implements Parcelable {
 		this.Ying = ying;
 		this.Zhang = zhang;
 		this.IsCurrent = isCurrent;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTaskCode() {
@@ -179,7 +168,6 @@ public class TaskBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "TaskBean{" +
-			"id='" + id + '\'' +
 			"TaskCode='" + TaskCode + '\'' +
 			", CityName='" + CityName + '\'' +
 			", AreaCode='" + AreaCode + '\'' +
@@ -203,7 +191,6 @@ public class TaskBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.TaskCode);
 		dest.writeString(this.CityName);
 		dest.writeString(this.AreaCode);
@@ -220,7 +207,6 @@ public class TaskBean implements Parcelable {
 	}
 
 	protected TaskBean(Parcel in) {
-		this.id = in.readInt();
 		this.TaskCode = in.readString();
 		this.CityName = in.readString();
 		this.AreaCode = in.readString();

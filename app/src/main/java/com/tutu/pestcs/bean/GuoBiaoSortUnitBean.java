@@ -12,9 +12,7 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_GB2011")
 public class GuoBiaoSortUnitBean implements Parcelable {
-	@Column(name = "id",isId = true)
-	private int id;
-	@Column(name = "sortID")
+	@Column(name = "sortID",isId = true)
 	private String sortID;
 	@Column(name = "Item")
 	private String Item;
@@ -63,14 +61,6 @@ public class GuoBiaoSortUnitBean implements Parcelable {
 		P10Room = p10Room;
 		P01Unit = p01Unit;
 		P01Room = p01Room;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getSortID() {
@@ -192,7 +182,6 @@ public class GuoBiaoSortUnitBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.sortID);
 		dest.writeString(this.Item);
 		dest.writeString(this.ClassName);
@@ -210,7 +199,6 @@ public class GuoBiaoSortUnitBean implements Parcelable {
 	}
 
 	protected GuoBiaoSortUnitBean(Parcel in) {
-		this.id = in.readInt();
 		this.sortID = in.readString();
 		this.Item = in.readString();
 		this.ClassName = in.readString();
@@ -243,7 +231,6 @@ public class GuoBiaoSortUnitBean implements Parcelable {
 	@Override
 	public String toString() {
 		return "GuoBiaoSortUnitBean{" +
-			"id=" + id +
 			", sortID='" + sortID + '\'' +
 			", Item='" + Item + '\'' +
 			", ClassName='" + ClassName + '\'' +

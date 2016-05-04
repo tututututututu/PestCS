@@ -1,6 +1,5 @@
 package com.tutu.pestcs.bean;
 
-import android.nfc.tech.NfcA;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,9 +12,7 @@ import org.xutils.db.annotation.Table;
 //T_ZhangRecord
 	@Table(name = "T_ZhangRecord")
 public class ZhangBean implements Parcelable {
-	@Column(name = "id",isId = true)
-	private int id;
-	@Column(name = "UnitCode",property = "UNIQUE")
+	@Column(name = "UnitCode",isId = true)
 	private String UnitCode;
 	@Column(name = "CheckRoom")
 	private int CheckRoom;
@@ -43,14 +40,6 @@ public class ZhangBean implements Parcelable {
 	private int TuiPi;
 
 	public ZhangBean() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUnitCode() {
@@ -183,7 +172,6 @@ public class ZhangBean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.UnitCode);
 		dest.writeInt(this.CheckRoom);
 		dest.writeInt(this.ChengCongRoom);
@@ -200,7 +188,6 @@ public class ZhangBean implements Parcelable {
 	}
 
 	protected ZhangBean(Parcel in) {
-		this.id = in.readInt();
 		this.UnitCode = in.readString();
 		this.CheckRoom = in.readInt();
 		this.ChengCongRoom = in.readInt();
