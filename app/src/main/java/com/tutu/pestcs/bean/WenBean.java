@@ -35,7 +35,6 @@ public class WenBean {
 	private int WenStopNum;
 	private int MieWenDengNum;
 
-
 	public WenBean() {
 	}
 
