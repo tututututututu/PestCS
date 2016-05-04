@@ -66,7 +66,6 @@ public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
 	@OnClick(R.id.base_layout)
 	public void onBaseClick(View view) {
 		hideKeyBoard();
-
 	}
 
 	public void showLoadingDialog(String msg) {

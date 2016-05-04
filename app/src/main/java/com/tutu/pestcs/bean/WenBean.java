@@ -1,5 +1,8 @@
 package com.tutu.pestcs.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
@@ -8,237 +11,391 @@ import org.xutils.db.annotation.Table;
  */
 //T_WenRecord
 @Table(name = "T_WenRecord")
-public class WenBean {
-	@Column(name = "id",isId = true)
-	private int id;
-	@Column(name = "UnitCode",property = "UNIQUE")
-	private String UnitCode;
-	@Column(name = "CheckDistance")
-	private int CheckDistance;
-	private int SmallWater;
-	private int YangXinWater;
-	private int RongQi;
-	private int RongQiYangXin;
-	private int KengWa;
-	private int KengWaYangXin;
-	private int JingKou;
-	private int JingKouYangXin;
-	private int JingGuanChi;
-	private int JingGuanChiYangXin;
-	private int DiXiaShi;
-	private int DiXiaShiYangXin;
-	private int luntai;
-	private int luntaiYangXin;
-	private int QiTa;
-	private int QiTaYangXin;
-	private int YouWenRenCi;
-	private int WenStopNum;
-	private int MieWenDengNum;
+public class WenBean implements Parcelable {
+    @Column(name = "id", isId = true)
+    private int id;
+    @Column(name = "UnitCode", property = "UNIQUE")
+    private String UnitCode;
+    @Column(name = "CheckDistance")
+    private int CheckDistance;
+    @Column(name = "SmallWater")
+    private int SmallWater;
+    @Column(name = "YangXinWater")
+    private int YangXinWater;
+    @Column(name = "RongQi")
+    private int RongQi;
+    @Column(name = "RongQiYangXin")
+    private int RongQiYangXin;
+    @Column(name = "KengWa")
+    private int KengWa;
+    @Column(name = "KengWaYangXin")
+    private int KengWaYangXin;
+    @Column(name = "JingKou")
+    private int JingKou;
+    @Column(name = "JingKouYangXin")
+    private int JingKouYangXin;
+    @Column(name = "JingGuanChi")
+    private int JingGuanChi;
+    @Column(name = "JingGuanChiYangXin")
+    private int JingGuanChiYangXin;
+    @Column(name = "DiXiaShi")
+    private int DiXiaShi;
+    @Column(name = "DiXiaShiYangXin")
+    private int DiXiaShiYangXin;
+    @Column(name = "luntai")
+    private int luntai;
+    @Column(name = "luntaiYangXin")
+    private int luntaiYangXin;
+    @Column(name = "QiTa")
+    private int QiTa;
+    @Column(name = "QiTaYangXin")
+    private int QiTaYangXin;
+    @Column(name = "YouWenRenCi")
+    private int YouWenRenCi;
+    @Column(name = "WenStopNum")
+    private int WenStopNum;
+    @Column(name = "MieWenDengNum")
+    private int MieWenDengNum;
 
-	public WenBean() {
-	}
+    @Column(name = "CaiYangShaoNum")
+    private int CaiYangShaoNum;
+    @Column(name = "YangXinShaoNum")
+    private int YangXinShaoNum;
+    @Column(name = "WenYouNum")
+    private int WenYouNum;
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * 水体类型
+     * 1.湖泊
+     * 2.河流
+     * 3.人工湖
+     * 4.景观池
+     * 5.池塘
+     * 6.沟渠
+     * 7.其他
+     */
+    @Column(name = "ShuiTiType")
+    private int ShuiTiType;
 
-	public String getUnitCode() {
-		return UnitCode;
-	}
 
-	public void setUnitCode(String unitCode) {
-		UnitCode = unitCode;
-	}
+    public WenBean() {
+    }
 
-	public int getCheckDistance() {
-		return CheckDistance;
-	}
 
-	public void setCheckDistance(int checkDistance) {
-		CheckDistance = checkDistance;
-	}
+    public int getCaiYangShaoNum() {
+        return CaiYangShaoNum;
+    }
 
-	public int getSmallWater() {
-		return SmallWater;
-	}
+    public void setCaiYangShaoNum(int caiYangShaoNum) {
+        CaiYangShaoNum = caiYangShaoNum;
+    }
 
-	public void setSmallWater(int smallWater) {
-		SmallWater = smallWater;
-	}
+    public int getYangXinShaoNum() {
+        return YangXinShaoNum;
+    }
 
-	public int getYangXinWater() {
-		return YangXinWater;
-	}
+    public void setYangXinShaoNum(int yangXinShaoNum) {
+        YangXinShaoNum = yangXinShaoNum;
+    }
 
-	public void setYangXinWater(int yangXinWater) {
-		YangXinWater = yangXinWater;
-	}
+    public int getWenYouNum() {
+        return WenYouNum;
+    }
 
-	public int getRongQi() {
-		return RongQi;
-	}
+    public void setWenYouNum(int wenYouNum) {
+        WenYouNum = wenYouNum;
+    }
 
-	public void setRongQi(int rongQi) {
-		RongQi = rongQi;
-	}
+    public int getShuiTiType() {
+        return ShuiTiType;
+    }
 
-	public int getRongQiYangXin() {
-		return RongQiYangXin;
-	}
+    public void setShuiTiType(int shuiTiType) {
+        ShuiTiType = shuiTiType;
+    }
 
-	public void setRongQiYangXin(int rongQiYangXin) {
-		RongQiYangXin = rongQiYangXin;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getKengWa() {
-		return KengWa;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setKengWa(int kengWa) {
-		KengWa = kengWa;
-	}
+    public String getUnitCode() {
+        return UnitCode;
+    }
 
-	public int getKengWaYangXin() {
-		return KengWaYangXin;
-	}
+    public void setUnitCode(String unitCode) {
+        UnitCode = unitCode;
+    }
 
-	public void setKengWaYangXin(int kengWaYangXin) {
-		KengWaYangXin = kengWaYangXin;
-	}
+    public int getCheckDistance() {
+        return CheckDistance;
+    }
 
-	public int getJingKou() {
-		return JingKou;
-	}
+    public void setCheckDistance(int checkDistance) {
+        CheckDistance = checkDistance;
+    }
 
-	public void setJingKou(int jingKou) {
-		JingKou = jingKou;
-	}
+    public int getSmallWater() {
+        return SmallWater;
+    }
 
-	public int getJingKouYangXin() {
-		return JingKouYangXin;
-	}
+    public void setSmallWater(int smallWater) {
+        SmallWater = smallWater;
+    }
 
-	public void setJingKouYangXin(int jingKouYangXin) {
-		JingKouYangXin = jingKouYangXin;
-	}
+    public int getYangXinWater() {
+        return YangXinWater;
+    }
 
-	public int getJingGuanChi() {
-		return JingGuanChi;
-	}
+    public void setYangXinWater(int yangXinWater) {
+        YangXinWater = yangXinWater;
+    }
 
-	public void setJingGuanChi(int jingGuanChi) {
-		JingGuanChi = jingGuanChi;
-	}
+    public int getRongQi() {
+        return RongQi;
+    }
 
-	public int getJingGuanChiYangXin() {
-		return JingGuanChiYangXin;
-	}
+    public void setRongQi(int rongQi) {
+        RongQi = rongQi;
+    }
 
-	public void setJingGuanChiYangXin(int jingGuanChiYangXin) {
-		JingGuanChiYangXin = jingGuanChiYangXin;
-	}
+    public int getRongQiYangXin() {
+        return RongQiYangXin;
+    }
 
-	public int getDiXiaShi() {
-		return DiXiaShi;
-	}
+    public void setRongQiYangXin(int rongQiYangXin) {
+        RongQiYangXin = rongQiYangXin;
+    }
 
-	public void setDiXiaShi(int diXiaShi) {
-		DiXiaShi = diXiaShi;
-	}
+    public int getKengWa() {
+        return KengWa;
+    }
 
-	public int getDiXiaShiYangXin() {
-		return DiXiaShiYangXin;
-	}
+    public void setKengWa(int kengWa) {
+        KengWa = kengWa;
+    }
 
-	public void setDiXiaShiYangXin(int diXiaShiYangXin) {
-		DiXiaShiYangXin = diXiaShiYangXin;
-	}
+    public int getKengWaYangXin() {
+        return KengWaYangXin;
+    }
 
-	public int getLuntai() {
-		return luntai;
-	}
+    public void setKengWaYangXin(int kengWaYangXin) {
+        KengWaYangXin = kengWaYangXin;
+    }
 
-	public void setLuntai(int luntai) {
-		this.luntai = luntai;
-	}
+    public int getJingKou() {
+        return JingKou;
+    }
 
-	public int getLuntaiYangXin() {
-		return luntaiYangXin;
-	}
+    public void setJingKou(int jingKou) {
+        JingKou = jingKou;
+    }
 
-	public void setLuntaiYangXin(int luntaiYangXin) {
-		this.luntaiYangXin = luntaiYangXin;
-	}
+    public int getJingKouYangXin() {
+        return JingKouYangXin;
+    }
 
-	public int getQiTa() {
-		return QiTa;
-	}
+    public void setJingKouYangXin(int jingKouYangXin) {
+        JingKouYangXin = jingKouYangXin;
+    }
 
-	public void setQiTa(int qiTa) {
-		QiTa = qiTa;
-	}
+    public int getJingGuanChi() {
+        return JingGuanChi;
+    }
 
-	public int getQiTaYangXin() {
-		return QiTaYangXin;
-	}
+    public void setJingGuanChi(int jingGuanChi) {
+        JingGuanChi = jingGuanChi;
+    }
 
-	public void setQiTaYangXin(int qiTaYangXin) {
-		QiTaYangXin = qiTaYangXin;
-	}
+    public int getJingGuanChiYangXin() {
+        return JingGuanChiYangXin;
+    }
 
-	public int getYouWenRenCi() {
-		return YouWenRenCi;
-	}
+    public void setJingGuanChiYangXin(int jingGuanChiYangXin) {
+        JingGuanChiYangXin = jingGuanChiYangXin;
+    }
 
-	public void setYouWenRenCi(int youWenRenCi) {
-		YouWenRenCi = youWenRenCi;
-	}
+    public int getDiXiaShi() {
+        return DiXiaShi;
+    }
 
-	public int getWenStopNum() {
-		return WenStopNum;
-	}
+    public void setDiXiaShi(int diXiaShi) {
+        DiXiaShi = diXiaShi;
+    }
 
-	public void setWenStopNum(int wenStopNum) {
-		WenStopNum = wenStopNum;
-	}
+    public int getDiXiaShiYangXin() {
+        return DiXiaShiYangXin;
+    }
 
-	public int getMieWenDengNum() {
-		return MieWenDengNum;
-	}
+    public void setDiXiaShiYangXin(int diXiaShiYangXin) {
+        DiXiaShiYangXin = diXiaShiYangXin;
+    }
 
-	public void setMieWenDengNum(int mieWenDengNum) {
-		MieWenDengNum = mieWenDengNum;
-	}
+    public int getLuntai() {
+        return luntai;
+    }
 
-	@Override
-	public String toString() {
-		return "WenBean{" +
-			"id=" + id +
-			", UnitCode='" + UnitCode + '\'' +
-			", CheckDistance=" + CheckDistance +
-			", SmallWater=" + SmallWater +
-			", YangXinWater=" + YangXinWater +
-			", RongQi=" + RongQi +
-			", RongQiYangXin=" + RongQiYangXin +
-			", KengWa=" + KengWa +
-			", KengWaYangXin=" + KengWaYangXin +
-			", JingKou=" + JingKou +
-			", JingKouYangXin=" + JingKouYangXin +
-			", JingGuanChi=" + JingGuanChi +
-			", JingGuanChiYangXin=" + JingGuanChiYangXin +
-			", DiXiaShi=" + DiXiaShi +
-			", DiXiaShiYangXin=" + DiXiaShiYangXin +
-			", luntai=" + luntai +
-			", luntaiYangXin=" + luntaiYangXin +
-			", QiTa=" + QiTa +
-			", QiTaYangXin=" + QiTaYangXin +
-			", YouWenRenCi=" + YouWenRenCi +
-			", WenStopNum=" + WenStopNum +
-			", MieWenDengNum=" + MieWenDengNum +
-			'}';
-	}
+    public void setLuntai(int luntai) {
+        this.luntai = luntai;
+    }
+
+    public int getLuntaiYangXin() {
+        return luntaiYangXin;
+    }
+
+    public void setLuntaiYangXin(int luntaiYangXin) {
+        this.luntaiYangXin = luntaiYangXin;
+    }
+
+    public int getQiTa() {
+        return QiTa;
+    }
+
+    public void setQiTa(int qiTa) {
+        QiTa = qiTa;
+    }
+
+    public int getQiTaYangXin() {
+        return QiTaYangXin;
+    }
+
+    public void setQiTaYangXin(int qiTaYangXin) {
+        QiTaYangXin = qiTaYangXin;
+    }
+
+    public int getYouWenRenCi() {
+        return YouWenRenCi;
+    }
+
+    public void setYouWenRenCi(int youWenRenCi) {
+        YouWenRenCi = youWenRenCi;
+    }
+
+    public int getWenStopNum() {
+        return WenStopNum;
+    }
+
+    public void setWenStopNum(int wenStopNum) {
+        WenStopNum = wenStopNum;
+    }
+
+    public int getMieWenDengNum() {
+        return MieWenDengNum;
+    }
+
+    public void setMieWenDengNum(int mieWenDengNum) {
+        MieWenDengNum = mieWenDengNum;
+    }
+
+    @Override
+    public String toString() {
+        return "WenBean{" +
+                "id=" + id +
+                ", UnitCode='" + UnitCode + '\'' +
+                ", CheckDistance=" + CheckDistance +
+                ", SmallWater=" + SmallWater +
+                ", YangXinWater=" + YangXinWater +
+                ", RongQi=" + RongQi +
+                ", RongQiYangXin=" + RongQiYangXin +
+                ", KengWa=" + KengWa +
+                ", KengWaYangXin=" + KengWaYangXin +
+                ", JingKou=" + JingKou +
+                ", JingKouYangXin=" + JingKouYangXin +
+                ", JingGuanChi=" + JingGuanChi +
+                ", JingGuanChiYangXin=" + JingGuanChiYangXin +
+                ", DiXiaShi=" + DiXiaShi +
+                ", DiXiaShiYangXin=" + DiXiaShiYangXin +
+                ", luntai=" + luntai +
+                ", luntaiYangXin=" + luntaiYangXin +
+                ", QiTa=" + QiTa +
+                ", QiTaYangXin=" + QiTaYangXin +
+                ", YouWenRenCi=" + YouWenRenCi +
+                ", WenStopNum=" + WenStopNum +
+                ", MieWenDengNum=" + MieWenDengNum +
+                ", CaiYangShaoNum=" + CaiYangShaoNum +
+                ", YangXinShaoNum=" + YangXinShaoNum +
+                ", WenYouNum=" + WenYouNum +
+                ", ShuiTiType=" + ShuiTiType +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.UnitCode);
+        dest.writeInt(this.CheckDistance);
+        dest.writeInt(this.SmallWater);
+        dest.writeInt(this.YangXinWater);
+        dest.writeInt(this.RongQi);
+        dest.writeInt(this.RongQiYangXin);
+        dest.writeInt(this.KengWa);
+        dest.writeInt(this.KengWaYangXin);
+        dest.writeInt(this.JingKou);
+        dest.writeInt(this.JingKouYangXin);
+        dest.writeInt(this.JingGuanChi);
+        dest.writeInt(this.JingGuanChiYangXin);
+        dest.writeInt(this.DiXiaShi);
+        dest.writeInt(this.DiXiaShiYangXin);
+        dest.writeInt(this.luntai);
+        dest.writeInt(this.luntaiYangXin);
+        dest.writeInt(this.QiTa);
+        dest.writeInt(this.QiTaYangXin);
+        dest.writeInt(this.YouWenRenCi);
+        dest.writeInt(this.WenStopNum);
+        dest.writeInt(this.MieWenDengNum);
+        dest.writeInt(this.CaiYangShaoNum);
+        dest.writeInt(this.YangXinShaoNum);
+        dest.writeInt(this.WenYouNum);
+        dest.writeInt(this.ShuiTiType);
+    }
+
+    protected WenBean(Parcel in) {
+        this.id = in.readInt();
+        this.UnitCode = in.readString();
+        this.CheckDistance = in.readInt();
+        this.SmallWater = in.readInt();
+        this.YangXinWater = in.readInt();
+        this.RongQi = in.readInt();
+        this.RongQiYangXin = in.readInt();
+        this.KengWa = in.readInt();
+        this.KengWaYangXin = in.readInt();
+        this.JingKou = in.readInt();
+        this.JingKouYangXin = in.readInt();
+        this.JingGuanChi = in.readInt();
+        this.JingGuanChiYangXin = in.readInt();
+        this.DiXiaShi = in.readInt();
+        this.DiXiaShiYangXin = in.readInt();
+        this.luntai = in.readInt();
+        this.luntaiYangXin = in.readInt();
+        this.QiTa = in.readInt();
+        this.QiTaYangXin = in.readInt();
+        this.YouWenRenCi = in.readInt();
+        this.WenStopNum = in.readInt();
+        this.MieWenDengNum = in.readInt();
+        this.CaiYangShaoNum = in.readInt();
+        this.YangXinShaoNum = in.readInt();
+        this.WenYouNum = in.readInt();
+        this.ShuiTiType = in.readInt();
+    }
+
+    public static final Creator<WenBean> CREATOR = new Creator<WenBean>() {
+        @Override
+        public WenBean createFromParcel(Parcel source) {
+            return new WenBean(source);
+        }
+
+        @Override
+        public WenBean[] newArray(int size) {
+            return new WenBean[size];
+        }
+    };
 }

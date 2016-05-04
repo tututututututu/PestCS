@@ -3,11 +3,11 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/base_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_bg"
@@ -111,12 +111,12 @@
 
     <LinearLayout
         android:id="@+id/ll_no_current_task"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/half_black"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,13 +128,13 @@
 
         <TextView
             android:id="@+id/tv_set_current_task"
-            android:background="@drawable/tv_empty_rectangle"
-            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
-            android:minWidth="160dp"
-            android:height="60dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:height="60dp"
+            android:background="@drawable/tv_empty_rectangle"
             android:gravity="center"
+            android:minWidth="160dp"
             android:text="去设置"
             android:textColor="@color/lightColorAccent"
             android:textSize="@dimen/sp18"/>

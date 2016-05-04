@@ -35,6 +35,8 @@ import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.utils.DateHelper;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
+import org.xutils.common.util.LogUtil;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -57,8 +59,6 @@ public class InsertFragment extends BaseFragment {
 	CheckBox cbZhongdian;
 	@Bind(R.id.et_name)
 	EditText etName;
-	@Bind(R.id.base_layout)
-	LinearLayout baseLayout;
 	@Bind(R.id.ll_no_current_task)
 	LinearLayout ll_no_current_task;
 
@@ -80,6 +80,15 @@ public class InsertFragment extends BaseFragment {
 		queryCurrentTask();
 		addSetCurrentTaskLister();
 		addTextWather();
+	}
+
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		LogUtil.e("onHiddenChanged ="+hidden);
+		if (!hidden){
+			initView();
+		}
 	}
 
 	private void addTextWather() {
@@ -166,7 +175,7 @@ public class InsertFragment extends BaseFragment {
 					ll_no_current_task.setVisibility(View.VISIBLE);
 				} else {
 					CurrentTaskBean = result;
-					cheakInsertBean.setTaskCode(CurrentTaskBean.getTaskCode());
+ 					cheakInsertBean.setTaskCode(CurrentTaskBean.getTaskCode());
 					cheakInsertBean.setExpertCode(CurrentTaskBean.getExpertCode());
 					cheakInsertBean.setAreaCode(CurrentTaskBean.getAreaCode());
 					cheakInsertBean.setChkDateTime(System.currentTimeMillis());

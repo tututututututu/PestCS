@@ -285,6 +285,7 @@ public class MouseFragment extends BaseFragment {
 				formatData();
 				if (verifyInput()) {
 					ShuDao.saveOrUpdate(shuBean);
+					ToastUtils.showToast("保存成功");
 				}
 				break;
 		}

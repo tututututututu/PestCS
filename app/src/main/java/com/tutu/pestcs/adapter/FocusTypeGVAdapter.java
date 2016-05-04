@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.bean.ExtendSortUnitBean;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ import java.util.List;
  * Created by tutu on 16/4/8.
  */
 public class FocusTypeGVAdapter extends BaseAdapter {
-	private List<String> data;
+	private List<ExtendSortUnitBean> data;
 	private Context mContext;
 
 
-	public FocusTypeGVAdapter(Context context, List<String> data) {
+	public FocusTypeGVAdapter(Context context, List<ExtendSortUnitBean> data) {
 		this.data = data;
 		this.mContext = context;
 	}
@@ -51,7 +52,7 @@ public class FocusTypeGVAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.tv_text.setText(data.get(position));
+		holder.tv_text.setText(data.get(position).getClassName());
 
 		return convertView;
 	}

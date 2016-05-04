@@ -21,6 +21,7 @@
             android:layout_margin="16dp"
             android:gravity="top|left"
             android:hint="简要记录,限200字以内"
+            android:maxLength="200"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"/>
 

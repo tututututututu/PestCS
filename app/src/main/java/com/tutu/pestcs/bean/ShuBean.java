@@ -15,41 +15,75 @@ public class ShuBean implements Parcelable {
 	private int id;
 	@Column(name = "UnitCode",property = "UNIQUE")
 	private String UnitCode;
-
+	@Column(name = "CheckRoom")
 	private int CheckRoom;
+	@Column(name = "ShuRoom")
 	private int ShuRoom;
+	@Column(name = "ShuFen")
 	private int ShuFen;
+	@Column(name = "ShuDong")
 	private int ShuDong;
+	@Column(name = "ShuDao")
 	private int ShuDao;
+	@Column(name = "ShuYaoHen")
 	private int ShuYaoHen;
+	@Column(name = "ZhuaYin")
 	private int ZhuaYin;
+	@Column(name = "ShuShi")
 	private int ShuShi;
+	@Column(name = "HuoShu")
 	private int HuoShu;
+	@Column(name = "FangShuRoom")
 	private int FangShuRoom;
+	@Column(name = "FangShuBadRoom")
 	private int FangShuBadRoom;
+	@Column(name = "ChuShuiKou")
 	private int ChuShuiKou;
+	@Column(name = "PaiShuiGou")
 	private int PaiShuiGou;
+	@Column(name = "DiLou")
 	private int DiLou;
+	@Column(name = "MenFeng")
 	private int MenFeng;
+	@Column(name = "WoodDoor")
 	private int WoodDoor;
+	@Column(name = "DangShuBan")
 	private int DangShuBan;
+	@Column(name = "KongDong")
 	private int KongDong;
+	@Column(name = "PaiFengShan")
 	private int PaiFengShan;
+	@Column(name = "TongFengKou")
 	private int TongFengKou;
+	@Column(name = "Window")
 	private int Window;
+	@Column(name = "CheckDistance")
 	private int CheckDistance;
+	@Column(name = "ShuJiNum")
 	private int ShuJiNum;
+	@Column(name = "ShuFen2")
 	private int ShuFen2;
+	@Column(name = "ShuDong2")
 	private int ShuDong2;
+	@Column(name = "ShuDao2")
 	private int ShuDao2;
+	@Column(name = "ShuYaoHen2")
 	private int ShuYaoHen2;
+	@Column(name = "DaoTu2")
 	private int DaoTu2;
+	@Column(name = "ShuShi2")
 	private int ShuShi2;
+	@Column(name = "HuoShu2")
 	private int HuoShu2;
+	@Column(name = "BaitStation")
 	private int BaitStation;
+	@Column(name = "WuYaoStation")
 	private int WuYaoStation;
+	@Column(name = "WuXiaoYaoStation")
 	private int WuXiaoYaoStation;
+	@Column(name = "PlaceBadStation")
 	private int PlaceBadStation;
+	@Column(name = "NoWarningStation")
 	private int NoWarningStation;
 
 	public ShuBean() {

@@ -15,8 +15,15 @@ import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.base.BaseActivity;
+import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.QueryBean;
 import com.tutu.pestcs.bean.QueryResultBean;
+import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
+import com.tutu.pestcs.db.CheakInsertDao;
+import com.tutu.pestcs.db.ShuDao;
+
+import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,22 +59,17 @@ public class QueryResult extends BaseActivity {
 	private List<QueryResultBean> data = new ArrayList<>();
 
 
-	private int queryType = -1;
+	private QueryBean queryBean;
 
 	@Override
 	public void handleMessage(Message msg) {
-		switch (msg.what) {
-			case 1:   //查询成功
-				break;
-			case -1: //查询失败
-				break;
-		}
+
 	}
 
 	@Override
 	public void initView(Bundle savedInstanceState) {
-		queryType = getIntent().getIntExtra(ActivityJumpParams.queryType, -1);
-		if (queryType == -1) {
+		queryBean = getIntent().getParcelableExtra(ActivityJumpParams.queryType);
+		if (queryBean.getQueryType() == -1) {
 			svProgressHUD.showErrorWithStatus("系统错误");
 			llBack.postDelayed(new Runnable() {
 				@Override
@@ -77,28 +79,28 @@ public class QueryResult extends BaseActivity {
 			}, 1000);
 		}
 
-		if (queryType == TYPE_SHU) {
+		if (queryBean.getQueryType() == TYPE_SHU) {
 			tvText1.setText("室内鼠迹:阳性房间数/检查房间数");
 			tvText2.setText("防鼠设施:不合格房间数/检查房间数");
 			tvText3.setText("室外鼠迹:鼠迹阳性处数/检查路径延长米");
 			tvTitle2.setText("室内鼠迹");
 			tvTitle3.setText("防鼠设施");
 			tvTitle4.setText("室外鼠迹");
-		} else if (TYPE_WEN == queryType) {
+		} else if (TYPE_WEN == queryBean.getQueryType()) {
 			tvText1.setText("小型积水:蚊幼虫阳性积水处数/检查路径延长米");
 			tvText2.setText("诱蚊人次:停落蚊数/人次");
 			tvText3.setText("大中型水体:阳性勺数/采样勺数");
 			tvTitle2.setText("小型积水");
 			tvTitle3.setText("诱蚊人次");
 			tvTitle4.setText("大中型水体");
-		} else if (TYPE_YING == queryType) {
+		} else if (TYPE_YING == queryBean.getQueryType()) {
 			tvText1.setText("室内成蝇:阳性房间数/检查房间数");
 			tvText2.setText("防蝇设施:不合格场所数/检查场所数");
 			tvText3.setText("蝇滋生地:阳性数/检查孳生地数");
 			tvTitle2.setText("室内成蝇");
 			tvTitle3.setText("防蝇设施");
 			tvTitle4.setText("蝇滋生地");
-		} else if (TYPE_ZHANG == queryType) {
+		} else if (TYPE_ZHANG == queryBean.getQueryType()) {
 			tvText1.setText("成虫数:阳性房间数/检查房间数");
 			tvText2.setText("卵鞘:阳性房间数/检查房间数");
 			tvText3.setText("蟑迹:阳性房间数/检查房间数");
@@ -107,33 +109,10 @@ public class QueryResult extends BaseActivity {
 			tvTitle4.setText("蟑迹");
 		}
 
-		Tasks.executeInBackground(this, new BackgroundWork<List<QueryResultBean>>() {
-			@Override
-			public List<QueryResultBean> doInBackground() throws Exception {
-				return readData();
-			}
-		}, new Completion<List<QueryResultBean>>() {
-			@Override
-			public void onSuccess(Context context, List<QueryResultBean> result) {
-				Message msg = new Message();
-				msg.what = 1;
-				sendMessage(msg);
-			}
-
-			@Override
-			public void onError(Context context, Exception e) {
-				Message msg = new Message();
-				msg.what = -1;
-				sendMessage(msg);
-			}
-		});
+		query();
 	}
 
-	private List<QueryResultBean> readData() {
-		// TODO: 16/4/19 读取数据填充
 
-		return null;
-	}
 
 	@Override
 	public void initData() {
@@ -166,6 +145,112 @@ public class QueryResult extends BaseActivity {
 	@Override
 	public int getLayoutID() {
 		return R.layout.activity_query_result;
+	}
+
+
+	private void query() {
+		//查询分两步 1.根据单位类型和是否重点单位筛选出unitCode
+		//         2.根据unitCode查询出具体单位的数据并计算组装成格式化数据
+		svProgressHUD.showWithStatus("查询中...");
+		queryUnitCode();
+	}
+
+	private void queryUnitCode() {
+		Tasks.executeInBackground(this, new BackgroundWork<List<CheakInsertBean>>() {
+			@Override
+			public List<CheakInsertBean> doInBackground() throws Exception {
+				return CheakInsertDao.queryByUnitTypeAndIsKeyClass(queryBean.getUnitType(), queryBean.getIsKeyUnit());
+			}
+		}, new Completion<List<CheakInsertBean>>() {
+			@Override
+			public void onSuccess(Context context, List<CheakInsertBean> result) {
+				queryDetail(result);
+			}
+
+			@Override
+			public void onError(Context context, Exception e) {
+
+			}
+		});
+	}
+
+	private void queryDetail(final List<CheakInsertBean> result) {
+		for (CheakInsertBean bean : result) {
+			LogUtil.e("查询unitCode结果如下:");
+			LogUtil.e(bean.getUnitCode());
+		}
+
+		Tasks.executeInBackground(this, new BackgroundWork<List<QueryResultBean>>() {
+			@Override
+			public List<QueryResultBean> doInBackground() throws Exception {
+
+				switch (queryBean.getQueryType()) {
+					case TYPE_SHU:
+						queryShuDetail(result);
+						break;
+					case TYPE_YING:
+						queryYingDetail(result);
+						break;
+					case TYPE_ZHANG:
+						queryZhangDetail(result);
+						break;
+					case TYPE_WEN:
+						queryWenDetail(result);
+						break;
+				}
+
+				return null;
+			}
+
+
+		}, new Completion<List<QueryResultBean>>() {
+			@Override
+			public void onSuccess(Context context, List<QueryResultBean> result) {
+
+			}
+
+			@Override
+			public void onError(Context context, Exception e) {
+
+			}
+		});
+	}
+
+	private void queryWenDetail(List<CheakInsertBean> result) {
+		for (CheakInsertBean bean : result) {
+
+			ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
+			QueryResultBean queryResultBean = new QueryResultBean();
+			queryResultBean.setUnitName(bean.getNamePlace());
+			queryResultBean.setUnitCode(bean.getUnitCode());
+			queryResultBean.setCol1Start(shuBean.getShuRoom());
+			queryResultBean.setCol1End(shuBean.getCheckRoom());
+			queryResultBean.setCol2Start(shuBean.getFangShuBadRoom());
+			queryResultBean.setCol2End(shuBean.getFangShuRoom());
+			queryResultBean.setCol3Start(shuBean.getShuJiNum());
+			queryResultBean.setCol3End(shuBean.getCheckDistance());
+			data.add(queryResultBean);
+		}
+		initData();
+
+	}
+
+	private void queryZhangDetail(List<CheakInsertBean> result) {
+		for (CheakInsertBean bean : result) {
+
+		}
+	}
+
+	private void queryYingDetail(List<CheakInsertBean> result) {
+		for (CheakInsertBean bean : result) {
+
+		}
+	}
+
+	private void queryShuDetail(List<CheakInsertBean> result) {
+		for (CheakInsertBean bean : result) {
+
+		}
 	}
 
 }

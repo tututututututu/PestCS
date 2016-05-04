@@ -1,7 +1,7 @@
 package com.tutu.pestcs.db;
 
 import com.tutu.pestcs.bean.WenBean;
-import com.tutu.pestcs.bean.YingBean;
+import com.tutu.pestcs.bean.ZhangBean;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.ex.DbException;
@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * Created by tutu on 16/4/21.
  */
-public class WenDao {
-	public static void saveBindID(WenBean bean) {
+public class ZhangDao {
+	public static void saveBindID(ZhangBean bean) {
 		try {
 			DBHelper.getDBManager().saveBindingId(bean);
 		} catch (DbException e) {
@@ -20,16 +20,16 @@ public class WenDao {
 		}
 	}
 
-	public static void saveOrUpdate(WenBean bean) {
+	public static void saveOrUpdate(ZhangBean bean) {
 		try {
 			DBHelper.getDBManager().saveOrUpdate(bean);
-			LogUtil.e("WenDao saveOrUpdate 变化一条记录=" + bean.toString());
+			LogUtil.e("ZhangDao saveOrUpdate 变化一条记录=" + bean.toString());
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void update(WenBean bean) {
+	public static void update(ZhangBean bean) {
 		try {
 			DBHelper.getDBManager().update(bean);
 		} catch (Exception e) {
@@ -37,9 +37,9 @@ public class WenDao {
 		}
 	}
 
-	public static List<WenBean> queryAll() {
+	public static List<ZhangBean> queryAll() {
 		try {
-			return DBHelper.getDBManager().findAll(WenBean.class);
+			return DBHelper.getDBManager().findAll(ZhangBean.class);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public class WenDao {
 	}
 
 
-	public static void delete(WenBean bean) {
+	public static void delete(ZhangBean bean) {
 		try {
 			DBHelper.getDBManager().delete(bean);
 		} catch (DbException e) {
@@ -56,9 +56,9 @@ public class WenDao {
 	}
 
 
-	public static WenBean queryByUnitID(String unitID) {
+	public static ZhangBean queryByUnitID(String unitID) {
 		try {
-			WenBean bean = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=",
+			ZhangBean bean = DBHelper.getDBManager().selector(ZhangBean.class).where("UnitCode", "=",
 				unitID)
 				.findFirst();
 			return bean;
