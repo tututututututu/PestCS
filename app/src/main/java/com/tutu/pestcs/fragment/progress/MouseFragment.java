@@ -59,6 +59,9 @@ public class MouseFragment extends BaseFragment {
 				} else if (col == 3) {
 					tv.setText(inDoorData.get(row).getToCheakNumS() + "-" + inDoorData.get(row).getToCheakNumE());
 				}
+
+
+				tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
 				tableRow.addView(tv);
 			}
 			tl_table.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));

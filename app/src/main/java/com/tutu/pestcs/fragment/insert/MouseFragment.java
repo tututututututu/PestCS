@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.MainActivity;
+import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ShuBean;
@@ -271,7 +271,7 @@ public class MouseFragment extends BaseFragment {
 				AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
 					@Override
 					public void OnConfrim() {
-						((MainActivity) getActivity()).toFragment(0);
+						getActivity().finish();
 					}
 
 					@Override
@@ -282,11 +282,17 @@ public class MouseFragment extends BaseFragment {
 
 				break;
 			case R.id.btn_save:
-				formatData();
-				if (verifyInput()) {
-					ShuDao.saveOrUpdate(shuBean);
-					ToastUtils.showToast("保存成功");
+
+				if (((InsertActivity) getActivity()).canSave()) {
+					formatData();
+					if (verifyInput()) {
+						ShuDao.saveOrUpdate(shuBean);
+						ToastUtils.showToast("保存成功");
+					}
+				} else {
+					ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
 				}
+
 				break;
 		}
 	}

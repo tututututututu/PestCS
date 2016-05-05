@@ -70,9 +70,9 @@ public class ShuDao {
         return null;
     }
 
-    // shuji           1.阳性 2.阴性   3.不限
-    // fangshusheshi   1.合格 2.不合格  3.不限
-    // waihuanjinshuji 1.阳性 2.阴性    3.不限
+    // shuji           1.不限 2.阴性   3.阳性
+    // fangshusheshi   1.不限 2.合格   3.不合格
+    // waihuanjinshuji 1.不限 2.阴性    3.阳性
     public static ShuBean queryByUnitIDWithConditon(String unitID, int shuji, int fangshusheshi, int waihuanjinshuji) {
         try {
             ShuBean beans;
@@ -81,7 +81,7 @@ public class ShuDao {
             WhereBuilder waihuanjinshujiBuilder = null;
             WhereBuilder builder = WhereBuilder.b();
             switch (shuji) {
-                case 1:
+                case 3:
                     shujiBuilder = WhereBuilder.b("ShuRoom", ">", "0");
                     break;
                 case 2:
@@ -90,16 +90,16 @@ public class ShuDao {
             }
 
             switch (fangshusheshi) {
-                case 1:
+                case 2:
                     fangshusheshiBuilder = WhereBuilder.b("FangShuBadRoom", "<", "1");
                     break;
-                case 2:
+                case 3:
                     fangshusheshiBuilder = WhereBuilder.b("FangShuBadRoom", ">", "0");
                     break;
             }
 
             switch (waihuanjinshuji) {
-                case 1:
+                case 3:
                     waihuanjinshujiBuilder = WhereBuilder.b("ShuJiNum", ">", "0");
                     break;
                 case 2:

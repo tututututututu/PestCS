@@ -95,17 +95,17 @@ public class QueryFragment extends BaseFragment {
     /**
      * 1.选择的选项一 2.选择的选项2 3.选择的是选项3
      */
-    private int condition1 = 3;
+    private int condition1 = 1;
 
     /**
      * 1.选择的选项二 2.选择的选项2 3.选择的是选项3
      */
-    private int condition2 = 3;
+    private int condition2 = 1;
 
     /**
      * 1.选择的选项三 2.选择的选项2 3.选择的是选项3
      */
-    private int condition3 = 3;
+    private int condition3 = 1;
 
     @Override
     public void handleMessage(Message msg) {
@@ -123,36 +123,36 @@ public class QueryFragment extends BaseFragment {
                         tvTv3.setText("室内鼠迹");
                         tvTv4.setText("防鼠设施");
                         tvTv5.setText("外环境鼠迹");
-                        rb41.setText("合格");
-                        rb42.setText("不合格");
-                        rb43.setText("不限");
+                        rb41.setText("不限");
+                        rb42.setText("合格");
+                        rb43.setText("不合格");
                         cheakObject = 1;
                         break;
                     case R.id.rb_xiangmu_ying:
                         tvTv3.setText("室内成蝇");
                         tvTv4.setText("防蝇设施");
                         tvTv5.setText("室外蝇类滋生地");
-                        rb41.setText("合格");
-                        rb42.setText("不合格");
-                        rb43.setText("不限");
+                        rb41.setText("不限");
+                        rb42.setText("合格");
+                        rb43.setText("不合格");
                         cheakObject = 3;
                         break;
                     case R.id.rb_xiangmu_zhang:
                         tvTv3.setText("蟑螂成虫");
                         tvTv4.setText("蟑螂卵鞘");
                         tvTv5.setText("蟑迹");
-                        rb41.setText("阳性");
+                        rb41.setText("不限");
                         rb42.setText("阴性");
-                        rb43.setText("不限");
+                        rb43.setText("阳性");
                         cheakObject = 4;
                         break;
                     case R.id.rb_xiangmu_wen:
                         tvTv3.setText("小型积水蚊幼");
                         tvTv4.setText("特殊场所人诱蚊");
                         tvTv5.setText("大中型水体采样");
-                        rb41.setText("阳性");
-                        rb42.setText("阴性");
-                        rb43.setText("不限");
+                        rb41.setText("不限");
+                        rb42.setText("否");
+                        rb43.setText("是");
                         cheakObject = 2;
                         break;
                 }

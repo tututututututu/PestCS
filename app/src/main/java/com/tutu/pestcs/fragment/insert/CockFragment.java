@@ -6,13 +6,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.MainActivity;
+import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
-import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
 import com.tutu.pestcs.widget.AlertDialogUtil;
@@ -94,7 +92,7 @@ public class CockFragment extends BaseFragment {
                 AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
                     @Override
                     public void OnConfrim() {
-                        ((MainActivity) getActivity()).toFragment(0);
+                        getActivity().finish();
                     }
 
                     @Override
@@ -105,11 +103,16 @@ public class CockFragment extends BaseFragment {
 
                 break;
             case R.id.btn_save:
-                formatData();
-                if (verifyInput()) {
-                    ZhangDao.saveOrUpdate(bean);
-                    ToastUtils.showToast("保存成功");
+                if (((InsertActivity) getActivity()).canSave()) {
+                    formatData();
+                    if (verifyInput()) {
+                        ZhangDao.saveOrUpdate(bean);
+                        ToastUtils.showToast("保存成功");
+                    }
+                } else {
+                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
                 }
+
                 break;
         }
     }

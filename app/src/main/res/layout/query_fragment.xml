@@ -178,14 +178,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="阳性"/>
+                android:text="阴性"/>
 
             <RadioButton
                 android:id="@+id/rb_3_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="阴性"/>
+                android:text="阳性"/>
 
         </RadioGroup>
 
@@ -271,14 +271,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="阳性"/>
+                android:text="阴性"/>
 
             <RadioButton
                 android:id="@+id/rb_5_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="阴性"/>
+                android:text="阳性"/>
 
         </RadioGroup>
 

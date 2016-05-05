@@ -1,9 +1,11 @@
 package com.tutu.pestcs.db;
 
+import android.text.TextUtils;
+
 import com.tutu.pestcs.bean.WenBean;
-import com.tutu.pestcs.bean.YingBean;
 
 import org.xutils.common.util.LogUtil;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
 import java.util.List;
@@ -68,5 +70,74 @@ public class WenDao {
 		return null;
 	}
 
+
+	// xiaoxing          1.不限 2.阴性   3.阳性
+	// teshu             1.不限 2.否     3.是
+	// dazhongxing       1.不限 2.阴性    3.阳性
+	public static WenBean queryByUnitIDWithConditon(String unitID, int xiaoxing, int teshu, int dazhongxing) {
+		try {
+			WenBean beans;
+			WhereBuilder xiaoxingBuilder = null;
+			WhereBuilder teshuBuilder = null;
+			WhereBuilder dazhongxingBuilder = null;
+			WhereBuilder builder = WhereBuilder.b();
+			switch (xiaoxing) {
+				case 3:
+					xiaoxingBuilder = WhereBuilder.b("YangXinWater", ">", "0");
+					break;
+				case 2:
+					xiaoxingBuilder = WhereBuilder.b("YangXinWater", "<", "1");
+					break;
+			}
+
+			switch (teshu) {
+				case 2:
+					teshuBuilder = WhereBuilder.b("YouWenRenCi", "<", "1");
+					break;
+				case 3:
+					teshuBuilder = WhereBuilder.b("YouWenRenCi", ">", "0");
+					break;
+			}
+
+			switch (dazhongxing) {
+				case 2:
+					dazhongxingBuilder = WhereBuilder.b("YangXinShaoNum", "<", "1");
+					break;
+				case 3:
+					dazhongxingBuilder = WhereBuilder.b("YangXinShaoNum", ">", "0");
+					break;
+
+			}
+
+
+			if (xiaoxingBuilder != null) {
+				builder.and(xiaoxingBuilder);
+			}
+
+			if (teshuBuilder != null) {
+				builder.and(teshuBuilder);
+			}
+
+			if (dazhongxingBuilder != null) {
+				builder.and(dazhongxingBuilder);
+			}
+
+			if (!TextUtils.isEmpty(builder.toString())) {
+				beans = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=",
+						unitID).and(builder)
+						.findFirst();
+			} else {
+				beans = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=",
+						unitID)
+						.findFirst();
+			}
+
+
+			return beans;
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

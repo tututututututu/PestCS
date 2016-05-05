@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.tutu.pestcs"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.tutu.pestcs">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -54,11 +54,14 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan|adjustResize">
-
+            >
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>
+        <activity
+            android:name=".activity.InsertActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            ></activity>
     </application>
 
 </manifest>

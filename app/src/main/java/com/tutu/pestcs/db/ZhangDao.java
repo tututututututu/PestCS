@@ -1,9 +1,11 @@
 package com.tutu.pestcs.db;
 
-import com.tutu.pestcs.bean.WenBean;
+import android.text.TextUtils;
+
 import com.tutu.pestcs.bean.ZhangBean;
 
 import org.xutils.common.util.LogUtil;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
 import java.util.List;
@@ -68,5 +70,73 @@ public class ZhangDao {
 		return null;
 	}
 
+	// chengchong           1.不限 2.阴性   3.阳性
+	// luanqiao             1.不限 2.阴性   3.阳性
+	// zhangji              1.不限 2.阴性    3.阳性
+	public static ZhangBean queryByUnitIDWithConditon(String unitID, int chengchong, int luanqiao, int zhangji) {
+		try {
+			ZhangBean beans;
+			WhereBuilder chengchongBuilder = null;
+			WhereBuilder luanqiaoBuilder = null;
+			WhereBuilder zhangjiBuilder = null;
+			WhereBuilder builder = WhereBuilder.b();
+			switch (chengchong) {
+				case 3:
+					chengchongBuilder = WhereBuilder.b("ChengCongRoom", ">", "0");
+					break;
+				case 2:
+					chengchongBuilder = WhereBuilder.b("ChengCongRoom", "<", "1");
+					break;
+			}
+
+			switch (luanqiao) {
+				case 2:
+					luanqiaoBuilder = WhereBuilder.b("LuanQiaoRoom", "<", "1");
+					break;
+				case 3:
+					luanqiaoBuilder = WhereBuilder.b("LuanQiaoRoom", ">", "0");
+					break;
+			}
+
+			switch (zhangji) {
+				case 2:
+					zhangjiBuilder = WhereBuilder.b("ZhangJiRoom", "<", "1");
+					break;
+				case 3:
+					zhangjiBuilder = WhereBuilder.b("ZhangJiRoom", ">", "0");
+					break;
+
+			}
+
+
+			if (chengchongBuilder != null) {
+				builder.and(chengchongBuilder);
+			}
+
+			if (luanqiaoBuilder != null) {
+				builder.and(luanqiaoBuilder);
+			}
+
+			if (zhangjiBuilder != null) {
+				builder.and(zhangjiBuilder);
+			}
+
+			if (!TextUtils.isEmpty(builder.toString())) {
+				beans = DBHelper.getDBManager().selector(ZhangBean.class).where("UnitCode", "=",
+						unitID).and(builder)
+						.findFirst();
+			} else {
+				beans = DBHelper.getDBManager().selector(ZhangBean.class).where("UnitCode", "=",
+						unitID)
+						.findFirst();
+			}
+
+
+			return beans;
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

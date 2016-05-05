@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.MainActivity;
+import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.YingBean;
@@ -165,17 +165,21 @@ public class FliesFragment extends BaseFragment {
 	public void OnClick(View view) {
 		switch (view.getId()) {
 			case R.id.btn_save:
-				formatData();
-				if (verifyInput()) {
-					YingDao.saveOrUpdate(yingBean);
-					ToastUtils.showToast("保存成功");
+				if (((InsertActivity) getActivity()).canSave()) {
+					formatData();
+					if (verifyInput()) {
+						YingDao.saveOrUpdate(yingBean);
+						ToastUtils.showToast("保存成功");
+					}
+				} else {
+					ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
 				}
 				break;
 			case R.id.btn_exit:
 				AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
 					@Override
 					public void OnConfrim() {
-						((MainActivity) getActivity()).toFragment(0);
+						getActivity().finish();
 					}
 
 					@Override

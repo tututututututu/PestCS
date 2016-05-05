@@ -74,7 +74,7 @@
                     android:gravity="left|center_vertical"
                     android:paddingLeft="16dp"
                     android:text="防鼠设施:不合格房间数/检查房间数"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/tv_text3"
@@ -84,7 +84,7 @@
                     android:gravity="left|center_vertical"
                     android:paddingLeft="16dp"
                     android:text="室外鼠迹:鼠迹阳性处数/检查路径延长米"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
                 <TableLayout
                     android:id="@+id/tl_table"
@@ -102,7 +102,7 @@
                             android:gravity="center"
                             android:paddingBottom="2dp"
                             android:paddingTop="2dp"
-                            android:text="单位类型"
+                            android:text="单位名称"
                             android:textSize="12sp"
                             android:textStyle="bold"/>
 

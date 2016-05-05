@@ -71,9 +71,9 @@ public class YingDao {
 	}
 
 
-	// shileichengying           1.不限 2.阳性   3.阴性
-	// fangyingsheshi            1.合格 2.不合格  3.不限
-	// shiwaiyingleizishendi     1.不限 2.阳性    3.阴性
+	// shileichengying           1.不限 2.阴性   3.阳性
+	// fangyingsheshi            1.不限 2.合格   3.不合格
+	// shiwaiyingleizishendi     1.不限 2.阴性    3.阳性
 	public static YingBean queryByUnitIDWithConditon(String unitID, int shileichengying, int fangyingsheshi, int shiwaiyingleizishendi) {
 		try {
 			YingBean beans;
@@ -91,19 +91,19 @@ public class YingDao {
 			}
 
 			switch (fangyingsheshi) {
-				case 1:
+				case 2:
 					fangshusheshiBuilder = WhereBuilder.b("FangYingBadPlace", "<", "1");
 					break;
-				case 2:
+				case 3:
 					fangshusheshiBuilder = WhereBuilder.b("FangYingBadPlace", ">", "0");
 					break;
 			}
 
 			switch (shiwaiyingleizishendi) {
-				case 2:
+				case 3:
 					waihuanjinshujiBuilder = WhereBuilder.b("SanZaiYangXinNum", ">", "0");
 					break;
-				case 3:
+				case 2:
 					waihuanjinshujiBuilder = WhereBuilder.b("SanZaiYangXinNum", "<", "1");
 					break;
 			}

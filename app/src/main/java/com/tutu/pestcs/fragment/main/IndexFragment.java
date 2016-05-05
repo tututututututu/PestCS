@@ -9,7 +9,9 @@ import android.widget.GridView;
 
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.FocusTypeActivity;
+import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.activity.LoginActivity;
+import com.tutu.pestcs.activity.MainActivity;
 import com.tutu.pestcs.activity.SetCurrenTask;
 import com.tutu.pestcs.activity.TaskActivity;
 import com.tutu.pestcs.activity.UserActivity;
@@ -65,8 +67,11 @@ public class IndexFragment extends BaseFragment {
 						startActivity(intent);
 						break;
 					case 3:
+						intent = new Intent(mActivityContext, InsertActivity.class);
+						startActivity(intent);
 						break;
 					case 4:
+						((MainActivity)getActivity()).toFragment(3);
 						break;
 					case 5:
 						break;

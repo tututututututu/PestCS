@@ -20,11 +20,15 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.QueryBean;
 import com.tutu.pestcs.bean.QueryResultBean;
 import com.tutu.pestcs.bean.ShuBean;
+import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.bean.YingBean;
+import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.YingDao;
+import com.tutu.pestcs.db.ZhangDao;
 
 import org.xutils.common.util.LogUtil;
 
@@ -137,6 +141,7 @@ public class QueryResult extends BaseActivity {
 				} else if (col == 3) {
 					tv.setText(data.get(row).getCol3Start() + "/" + data.get(row).getCol3End());
 				}
+				tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
 				tableRow.addView(tv);
 			}
 			tlTable.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));
@@ -173,7 +178,7 @@ public class QueryResult extends BaseActivity {
 		}, new Completion<List<CheakInsertBean>>() {
 			@Override
 			public void onSuccess(Context context, List<CheakInsertBean> result) {
-				queryDetail(result);
+  				queryDetail(result);
 			}
 
 			@Override
@@ -226,12 +231,45 @@ public class QueryResult extends BaseActivity {
 	}
 
 	private void queryWenDetail(List<CheakInsertBean> result) {
+		for (CheakInsertBean bean : result) {
+			WenBean bean1 = WenDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
+			if (bean1==null){
+				LogUtil.e("没有符合要求的结果"+bean.toString());
+				continue;
+			}
 
+			QueryResultBean queryResultBean = new QueryResultBean();
+			queryResultBean.setUnitName(bean.getNamePlace());
+			queryResultBean.setUnitCode(bean.getUnitCode());
+			queryResultBean.setCol1Start(bean1.getYangXinWater());
+			queryResultBean.setCol1End(bean1.getCheckDistance());
+			queryResultBean.setCol2Start(bean1.getWenStopNum());
+			queryResultBean.setCol2End(bean1.getYouWenRenCi());
+			queryResultBean.setCol3Start(bean1.getYangXinShaoNum());
+			queryResultBean.setCol3End(bean1.getCaiYangShaoNum());
+			data.add(queryResultBean);
 
+		}
 	}
 
 	private void queryZhangDetail(List<CheakInsertBean> result) {
 		for (CheakInsertBean bean : result) {
+			ZhangBean bean1 = ZhangDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
+			if (bean1==null){
+				LogUtil.e("没有符合要求的结果"+bean.toString());
+				continue;
+			}
+
+			QueryResultBean queryResultBean = new QueryResultBean();
+			queryResultBean.setUnitName(bean.getNamePlace());
+			queryResultBean.setUnitCode(bean.getUnitCode());
+			queryResultBean.setCol1Start(bean1.getChengCongRoom());
+			queryResultBean.setCol1End(bean1.getCheckRoom());
+			queryResultBean.setCol2Start(bean1.getLuanQiaoRoom());
+			queryResultBean.setCol2End(bean1.getCheckRoom());
+			queryResultBean.setCol3Start(bean1.getZhangJiRoom());
+			queryResultBean.setCol3End(bean1.getCheckRoom());
+			data.add(queryResultBean);
 
 		}
 	}
@@ -241,7 +279,7 @@ public class QueryResult extends BaseActivity {
 			YingBean bean1 = YingDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
 			if (bean1==null){
 				LogUtil.e("没有符合要求的结果"+bean.toString());
-				return;
+				continue;
 			}
 
 			QueryResultBean queryResultBean = new QueryResultBean();
@@ -263,7 +301,7 @@ public class QueryResult extends BaseActivity {
 			ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(),queryBean.getCondition1(),queryBean.getCondition2(),queryBean.getCondition3());
 			if (shuBean==null){
 				LogUtil.e("没有符合要求的结果"+bean.toString());
-				return;
+				continue;
 			}
 
 			QueryResultBean queryResultBean = new QueryResultBean();
