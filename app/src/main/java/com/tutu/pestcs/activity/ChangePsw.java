@@ -11,9 +11,9 @@ import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.User;
-import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
+import com.tutu.pestcs.sp.SPUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -36,7 +36,7 @@ public class ChangePsw extends BaseActivity {
 
 	@Override
 	public void initView(Bundle savedInstanceState) {
-		user = getIntent().getParcelableExtra(ActivityJumpParams.USER_BEAN);
+		user = UserDao.queryByName(SPUtils.getStringSP(SPUtils.USERNAME));
 		if (user == null) {
 			svProgressHUD.showErrorWithStatus("系统错误");
 			et_new_psw.postDelayed(new Runnable() {
@@ -44,7 +44,8 @@ public class ChangePsw extends BaseActivity {
 				public void run() {
 					finish();
 				}
-			}, 1000);
+			}, 2000);
+			return;
 		}
 		username.setText(user.getUserName());
 	}

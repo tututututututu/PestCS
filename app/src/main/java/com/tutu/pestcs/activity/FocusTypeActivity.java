@@ -5,16 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-import android.widget.GridView;
 
 import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.adapter.FocusTypeGVAdapter;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
 import com.tutu.pestcs.db.ExtendUnitDao;
+import com.tutu.pestcs.event.ChangeFocusTypeEvent;
 import com.tutu.pestcs.widget.NoScrollGridView;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class FocusTypeActivity extends BaseActivity {
     @Bind(R.id.gv_focus)
@@ -52,6 +55,7 @@ public class FocusTypeActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         readData();
+        registChangeFocusLister();
     }
 
     @Override
@@ -72,6 +76,22 @@ public class FocusTypeActivity extends BaseActivity {
     @Override
     public int getLayoutID() {
         return R.layout.activity_focus_type;
+    }
+
+    private void registChangeFocusLister() {
+        subscriptions.add(RxBus.obtainEvent(ChangeFocusTypeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ChangeFocusTypeEvent>() {
+                    @Override
+                    public void call(ChangeFocusTypeEvent taskEvent) {
+                        readData();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
     }
 
     private void readData() {
@@ -117,7 +137,7 @@ public class FocusTypeActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.btn_change,R.id.ll_back})
+    @OnClick({R.id.btn_change, R.id.ll_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_change:

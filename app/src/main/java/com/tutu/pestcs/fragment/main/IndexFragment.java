@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.activity.ChangePsw;
+import com.tutu.pestcs.activity.DataManageActivitay;
 import com.tutu.pestcs.activity.FocusTypeActivity;
 import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.activity.LoginActivity;
@@ -76,12 +78,16 @@ public class IndexFragment extends BaseFragment {
 					case 5:
 						break;
 					case 6:
+						intent = new Intent(mActivityContext, DataManageActivitay.class);
+						startActivity(intent);
 						break;
 					case 7:
 						intent = new Intent(mActivityContext, UserActivity.class);
 						startActivity(intent);
 						break;
 					case 8:
+						intent = new Intent(mActivityContext, ChangePsw.class);
+						startActivity(intent);
 						break;
 					case 9:
 						logout(mActivityContext);

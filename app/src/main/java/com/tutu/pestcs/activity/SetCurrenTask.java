@@ -47,6 +47,8 @@ public class SetCurrenTask extends BaseActivity {
 	LinearLayout baseLayout;
 	@Bind(R.id.emptyView)
 	View emptyView;
+	@Bind(R.id.tv_empty)
+	View emptyView2;
 	private SetCurrentTaskAdapter adapter;
 	private List<TaskBean> data;
 	private TaskBean mCurrentTask;
@@ -75,7 +77,7 @@ public class SetCurrenTask extends BaseActivity {
 			public void onSuccess(Context context, List<TaskBean> result) {
 				if (result == null || result.isEmpty()) {
 					//没有数据
-					lvTask.setEmptyView(emptyView);
+					lvTask.setEmptyView(emptyView2);
 				} else {
 					data = result;
 					updateTaskUI();

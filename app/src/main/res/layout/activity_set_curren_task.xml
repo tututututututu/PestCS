@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/base_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
@@ -176,24 +176,28 @@
         android:text="长按下列选项\n切换当前考评任务"
         android:textSize="@dimen/sp16"/>
 
-    <ListView
-        android:id="@+id/lv_task"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/transparent"
-        android:dividerHeight="4dp">
-    </ListView>
+        android:layout_height="match_parent">
 
+        <ListView
+            android:id="@+id/lv_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/transparent"
+            android:dividerHeight="4dp">
+        </ListView>
 
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/main_bg"
-        android:gravity="center"
-        android:text="没有数据"
-        android:textColor="@color/title"
-        android:textSize="16dp"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_bg"
+            android:gravity="center"
+            android:text="没有数据"
+            android:textColor="@color/title"
+            android:textSize="16dp"
+            android:visibility="gone"/>
+    </FrameLayout>
 
 </LinearLayout>

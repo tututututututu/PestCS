@@ -10,14 +10,6 @@ import java.util.List;
  * Created by tutu on 16/4/21.
  */
 public class UserDao {
-	public static void saveBindID(User user) {
-		try {
-			DBHelper.getDBManager().saveBindingId(user);
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public static void saveOrUpdate(User user) {
 		try {
 			DBHelper.getDBManager().saveOrUpdate(user);

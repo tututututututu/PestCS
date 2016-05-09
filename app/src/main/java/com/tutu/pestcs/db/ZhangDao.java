@@ -139,4 +139,31 @@ public class ZhangDao {
 		return null;
 	}
 
+
+	public static int getHadCheakedRoomInCount(String unitType) {
+		try {
+			List<ZhangBean> beans = DBHelper.getDBManager().selector(ZhangBean.class).where("uniType","=",unitType).findAll();
+			if (beans==null){
+				return 0;
+			}
+			int count = 0;
+			for (ZhangBean bean : beans){
+				count += bean.getCheckRoom();
+			}
+			return count;
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public static int getHadCheakedUnitInCount(String unitType) {
+		try {
+			return (int)DBHelper.getDBManager().selector(ZhangBean.class).where("uniType","=",unitType).count();
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

@@ -13,6 +13,8 @@ import org.xutils.db.annotation.Table;
 public class ShuBean implements Parcelable {
 	@Column(name = "UnitCode",isId = true)
 	private String UnitCode;
+	@Column(name = "uniType")
+	private String uniType;
 	@Column(name = "CheckRoom")
 	private int CheckRoom;
 	@Column(name = "ShuRoom")
@@ -87,7 +89,56 @@ public class ShuBean implements Parcelable {
 	public ShuBean() {
 	}
 
+	@Override
+	public String toString() {
+		return "ShuBean{" +
+				"UnitCode='" + UnitCode + '\'' +
+				", uniType='" + uniType + '\'' +
+				", CheckRoom=" + CheckRoom +
+				", ShuRoom=" + ShuRoom +
+				", ShuFen=" + ShuFen +
+				", ShuDong=" + ShuDong +
+				", ShuDao=" + ShuDao +
+				", ShuYaoHen=" + ShuYaoHen +
+				", ZhuaYin=" + ZhuaYin +
+				", ShuShi=" + ShuShi +
+				", HuoShu=" + HuoShu +
+				", FangShuRoom=" + FangShuRoom +
+				", FangShuBadRoom=" + FangShuBadRoom +
+				", ChuShuiKou=" + ChuShuiKou +
+				", PaiShuiGou=" + PaiShuiGou +
+				", DiLou=" + DiLou +
+				", MenFeng=" + MenFeng +
+				", WoodDoor=" + WoodDoor +
+				", DangShuBan=" + DangShuBan +
+				", KongDong=" + KongDong +
+				", PaiFengShan=" + PaiFengShan +
+				", TongFengKou=" + TongFengKou +
+				", Window=" + Window +
+				", CheckDistance=" + CheckDistance +
+				", ShuJiNum=" + ShuJiNum +
+				", ShuFen2=" + ShuFen2 +
+				", ShuDong2=" + ShuDong2 +
+				", ShuDao2=" + ShuDao2 +
+				", ShuYaoHen2=" + ShuYaoHen2 +
+				", DaoTu2=" + DaoTu2 +
+				", ShuShi2=" + ShuShi2 +
+				", HuoShu2=" + HuoShu2 +
+				", BaitStation=" + BaitStation +
+				", WuYaoStation=" + WuYaoStation +
+				", WuXiaoYaoStation=" + WuXiaoYaoStation +
+				", PlaceBadStation=" + PlaceBadStation +
+				", NoWarningStation=" + NoWarningStation +
+				'}';
+	}
 
+	public String getUniType() {
+		return uniType;
+	}
+
+	public void setUniType(String uniType) {
+		this.uniType = uniType;
+	}
 
 	public int getShuDao() {
 		return ShuDao;
@@ -378,48 +429,6 @@ public class ShuBean implements Parcelable {
 	}
 
 	@Override
-	public String toString() {
-		return "ShuBean{" +
-			", UnitCode='" + UnitCode + '\'' +
-			", CheckRoom=" + CheckRoom +
-			", ShuRoom=" + ShuRoom +
-			", ShuFen=" + ShuFen +
-			", ShuDong=" + ShuDong +
-			", ShuDao=" + ShuDao +
-			", ShuYaoHen=" + ShuYaoHen +
-			", ZhuaYin=" + ZhuaYin +
-			", ShuShi=" + ShuShi +
-			", HuoShu=" + HuoShu +
-			", FangShuRoom=" + FangShuRoom +
-			", FangShuBadRoom=" + FangShuBadRoom +
-			", ChuShuiKou=" + ChuShuiKou +
-			", PaiShuiGou=" + PaiShuiGou +
-			", DiLou=" + DiLou +
-			", MenFeng=" + MenFeng +
-			", WoodDoor=" + WoodDoor +
-			", DangShuBan=" + DangShuBan +
-			", KongDong=" + KongDong +
-			", PaiFengShan=" + PaiFengShan +
-			", TongFengKou=" + TongFengKou +
-			", Window=" + Window +
-			", CheckDistance=" + CheckDistance +
-			", ShuJiNum=" + ShuJiNum +
-			", ShuFen2=" + ShuFen2 +
-			", ShuDong2=" + ShuDong2 +
-			", ShuDao2=" + ShuDao2 +
-			", ShuYaoHen2=" + ShuYaoHen2 +
-			", DaoTu2=" + DaoTu2 +
-			", ShuShi2=" + ShuShi2 +
-			", HuoShu2=" + HuoShu2 +
-			", BaitStation=" + BaitStation +
-			", WuYaoStation=" + WuYaoStation +
-			", WuXiaoYaoStation=" + WuXiaoYaoStation +
-			", PlaceBadStation=" + PlaceBadStation +
-			", NoWarningStation=" + NoWarningStation +
-			'}';
-	}
-
-	@Override
 	public int describeContents() {
 		return 0;
 	}
@@ -427,6 +436,7 @@ public class ShuBean implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(this.UnitCode);
+		dest.writeString(this.uniType);
 		dest.writeInt(this.CheckRoom);
 		dest.writeInt(this.ShuRoom);
 		dest.writeInt(this.ShuFen);
@@ -466,6 +476,7 @@ public class ShuBean implements Parcelable {
 
 	protected ShuBean(Parcel in) {
 		this.UnitCode = in.readString();
+		this.uniType = in.readString();
 		this.CheckRoom = in.readInt();
 		this.ShuRoom = in.readInt();
 		this.ShuFen = in.readInt();

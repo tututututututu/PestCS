@@ -140,4 +140,30 @@ public class WenDao {
 		return null;
 	}
 
+
+	public static int getHadCheakedRoomInCount(String unitType) {
+		try {
+			List<WenBean> beans = DBHelper.getDBManager().selector(WenBean.class).where("uniType","=",unitType).findAll();
+			if (beans==null){
+				return 0;
+			}
+			int count = 0;
+			for (WenBean bean : beans){
+				count += bean.getCheckDistance();
+			}
+			return count;
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public static int getHadCheakedUnitInCount(String unitType) {
+		try {
+			return (int)DBHelper.getDBManager().selector(WenBean.class).where("uniType","=",unitType).count();
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

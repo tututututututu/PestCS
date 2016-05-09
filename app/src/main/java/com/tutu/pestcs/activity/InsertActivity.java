@@ -34,8 +34,6 @@ import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.utils.DateHelper;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
-import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
@@ -64,6 +62,9 @@ public class InsertActivity extends BaseActivity {
     //当前任务(可能为空)
     private TaskBean CurrentTaskBean;
     private boolean[] cheakItems = {true, true, true, true};
+
+    //任务的单位类型
+    private String mUnitType;
 
     @Override
     public void handleMessage(Message msg) {
@@ -224,8 +225,9 @@ public class InsertActivity extends BaseActivity {
             case R.id.ll_camara:
                 break;
             case R.id.tv_set_current_task:
-                Intent intent = new Intent(this, SetCurrenTask.class);
+                Intent intent = new Intent(this, TaskActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }
@@ -236,6 +238,7 @@ public class InsertActivity extends BaseActivity {
             public void onCofirm(String cheakIndex, String cheakString) {
                 etUnitType.setText(cheakString);
                 extendSortUnitBean = ExtendUnitDao.queryByUnitID(cheakIndex);
+                mUnitType = cheakIndex;
                 cbZhongdian.setChecked(extendSortUnitBean.iskeyClass());
             }
 
@@ -248,7 +251,6 @@ public class InsertActivity extends BaseActivity {
 
 
     private void addSetCurrentTaskLister() {
-        subscriptions = new ArrayList<>();
         subscriptions.add(RxBus.obtainEvent(SetCurrentTaskEvent.class).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Action1<SetCurrentTaskEvent>() {
@@ -263,6 +265,14 @@ public class InsertActivity extends BaseActivity {
 
                     }
                 }));
+    }
+
+    public String getUnitType(){
+        return  mUnitType;
+    }
+
+    public String getUnitName(){
+        return etName.getText().toString().trim();
     }
 
     public boolean canSave() {

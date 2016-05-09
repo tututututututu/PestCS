@@ -11,10 +11,7 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_User")
 public class User implements Parcelable {
-	@Column(name = "id", isId = true)
-	int id;
-
-	@Column(name = "UserName")
+	@Column(name = "UserName",isId = true)
 	String UserName;
 	@Column(name = "PassWord")
 	String PassWord;
@@ -24,22 +21,13 @@ public class User implements Parcelable {
 	@Column(name = "UserGrade")
 	String UserGrade;
 
-	public User(int id, String userName, String passWord, String userGrade) {
-		this.id = id;
+	public User(String userName, String passWord, String userGrade) {
 		UserName = userName;
 		PassWord = passWord;
 		UserGrade = userGrade;
 	}
 
 	public User() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUserName() {
@@ -69,8 +57,7 @@ public class User implements Parcelable {
 	@Override
 	public String toString() {
 		return "User{" +
-			"id='" + id + '\'' +
-			", UserName='" + UserName + '\'' +
+			"UserName='" + UserName + '\'' +
 			", PassWord='" + PassWord + '\'' +
 			", UserGrade='" + UserGrade + '\'' +
 			'}';
@@ -83,20 +70,18 @@ public class User implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
 		dest.writeString(this.UserName);
 		dest.writeString(this.PassWord);
 		dest.writeString(this.UserGrade);
 	}
 
 	protected User(Parcel in) {
-		this.id = in.readInt();
 		this.UserName = in.readString();
 		this.PassWord = in.readString();
 		this.UserGrade = in.readString();
 	}
 
-	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+	public static final Creator<User> CREATOR = new Creator<User>() {
 		@Override
 		public User createFromParcel(Parcel source) {
 			return new User(source);

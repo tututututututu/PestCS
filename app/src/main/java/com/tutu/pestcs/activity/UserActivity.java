@@ -19,6 +19,7 @@ import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
+import com.tutu.pestcs.event.UserEidteEvent;
 
 import org.xutils.common.util.LogUtil;
 
@@ -36,7 +37,6 @@ public class UserActivity extends BaseActivity {
 	View empty;
 	private UserAdapter adapter;
 	private List<User> users;
-//	private List<Subscription> subscriptions;
 
 	@Override
 	public void handleMessage(Message msg) {
@@ -46,12 +46,11 @@ public class UserActivity extends BaseActivity {
 	@Override
 	public void initView(Bundle savedInstanceState) {
 		readData();
-
 		RegistAddUserEvent();
+		registUserEditeEvent();
 	}
 
 	private void RegistAddUserEvent() {
-//		subscriptions = new ArrayList<>();
 		subscriptions.add(RxBus.obtainEvent(AddUserEvent.class).
 			observeOn(AndroidSchedulers.mainThread()).
 			subscribe(new Action1<AddUserEvent>() {
@@ -69,6 +68,24 @@ public class UserActivity extends BaseActivity {
 			}));
 	}
 
+	private void registUserEditeEvent(){
+		subscriptions.add(RxBus.obtainEvent(UserEidteEvent.class).
+				observeOn(AndroidSchedulers.mainThread()).
+				subscribe(new Action1<UserEidteEvent>() {
+					@Override
+					public void call(UserEidteEvent Event) {
+
+						readData();
+
+					}
+				}, new Action1<Throwable>() {
+					@Override
+					public void call(Throwable throwable) {
+
+					}
+				}));
+	}
+
 	@Override
 	public void initData() {
 		if (users == null) {
@@ -80,7 +97,7 @@ public class UserActivity extends BaseActivity {
 		lv_users.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(UserActivity.this, ChangePsw.class);
+				Intent intent = new Intent(UserActivity.this, EditUser.class);
 				intent.putExtra(ActivityJumpParams.USER_BEAN, users.get(position));
 				startActivity(intent);
 			}
@@ -137,7 +154,6 @@ public class UserActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-
 	}
 
 }

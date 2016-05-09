@@ -82,8 +82,6 @@ public class Splash extends AbsActivity {
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("10", "shu_in", "居（家）委会", 10, 8, 80, 5, 50, 5, 50, 3, 30, 2, 20);
 		GuoBiaoUnitDao.saveBindID(guobiao);
-		guobiao = new GuoBiaoSortUnitBean("11", "shu_in", "合计", 11, 234, 2340, 174, 1750, 119, 1190, 64, 635, 34, 340);
-		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("12", "shu_out", "公共绿地、公园或道路两侧", 12, 10, 1000, 8, 800, 5, 500, 4, 400, 2,
 			200);
 		GuoBiaoUnitDao.saveBindID(guobiao);
@@ -92,8 +90,6 @@ public class Splash extends AbsActivity {
 		guobiao = new GuoBiaoSortUnitBean("14", "shu_out", "单位或居民区院内", 14, 10, 1000, 7, 700, 5, 500, 5, 500, 3, 300);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("15", "shu_out", "农贸市场、工地或车站", 15, 5, 500, 5, 500, 5, 500, 3, 300, 3, 300);
-		GuoBiaoUnitDao.saveBindID(guobiao);
-		guobiao = new GuoBiaoSortUnitBean("16", "shu_out", "合计", 16, 30, 3000, 25, 2500, 20, 2000, 15, 1500, 10, 1000);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("17", "ying_in", "餐饮店", 17, 80, 800, 60, 600, 40, 400, 20, 200, 10, 100);
 		GuoBiaoUnitDao.saveBindID(guobiao);
@@ -110,9 +106,6 @@ public class Splash extends AbsActivity {
 		guobiao = new GuoBiaoSortUnitBean("23", "ying_in", "医院", 23, 10, 100, 7, 75, 5, 50, 3, 30, 2, 20);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("24", "ying_in", "建筑拆迁工地", 24, 10, 100, 7, 75, 5, 50, 3, 30, 2, 20);
-		GuoBiaoUnitDao.saveBindID(guobiao);
-		guobiao = new GuoBiaoSortUnitBean("25", "ying_in", "合计", 25, 216, 2160, 161, 1620, 108, 1080, 57, 565, 30,
-			300);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("26", "ying_out", "室外垃圾容器", 26, 0, 200, 0, 150, 0, 100, 0, 50, 0, 25);
 		GuoBiaoUnitDao.saveBindID(guobiao);
@@ -142,8 +135,6 @@ public class Splash extends AbsActivity {
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("38", "zhang", "居（家）委会", 38, 8, 80, 5, 50, 5, 50, 3, 30, 2, 20);
 		GuoBiaoUnitDao.saveBindID(guobiao);
-		guobiao = new GuoBiaoSortUnitBean("39", "zhang", "合计", 39, 310, 3100, 210, 2100, 165, 1650, 110, 1100, 60,
-			600);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("40", "wen01", "居委会", 40, 40, 5000, 30, 4000, 20, 3000, 10, 2000, 5, 1000);
 		GuoBiaoUnitDao.saveBindID(guobiao);
@@ -153,9 +144,6 @@ public class Splash extends AbsActivity {
 		guobiao = new GuoBiaoSortUnitBean("42", "wen01", "建筑工地", 42, 20, 5000, 15, 4000, 12, 3000, 8, 2000, 3, 1000);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("43", "wen01", "道路（雨水井口)", 43, 0, 5000, 0, 4000, 0, 3000, 0, 2000, 0, 1000);
-		GuoBiaoUnitDao.saveBindID(guobiao);
-		guobiao = new GuoBiaoSortUnitBean("44", "wen01", "合计", 44, 110, 20000, 80, 16000, 52, 12000, 33, 8000, 18,
-			4000);
 		GuoBiaoUnitDao.saveBindID(guobiao);
 		guobiao = new GuoBiaoSortUnitBean("45", "wen02", "大中型水体/个", 45, 20, 0, 15, 0, 10, 0, 5, 0, 3, 0);
 		GuoBiaoUnitDao.saveBindID(guobiao);
@@ -220,11 +208,11 @@ public class Splash extends AbsActivity {
 		user2.setPassWord("123456");
 
 		//创建表
-		UserDao.saveBindID(user);
+		UserDao.saveOrUpdate(user);
 		LogUtil.e("saveOrUpdate(user)");
-		UserDao.saveBindID(user1);
+		UserDao.saveOrUpdate(user1);
 		LogUtil.e("saveOrUpdate(user1)");
-		UserDao.saveBindID(user2);
+		UserDao.saveOrUpdate(user2);
 		LogUtil.e("saveOrUpdate(user2)");
 		SPUtils.writeBooleanSP(SPUtils.IS_FRESH_APP, true);
 		LogUtil.e("taskOver");

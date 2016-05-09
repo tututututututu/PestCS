@@ -156,6 +156,7 @@ public class MouseFragment extends BaseFragment {
 		cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
 
 		shuBean.setUnitCode(cheakInsertBean.getUnitCode());
+		shuBean.setUniType(cheakInsertBean.getUnitClassID());
 		et_yangxing.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -286,6 +287,7 @@ public class MouseFragment extends BaseFragment {
 				if (((InsertActivity) getActivity()).canSave()) {
 					formatData();
 					if (verifyInput()) {
+						shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
 						ShuDao.saveOrUpdate(shuBean);
 						ToastUtils.showToast("保存成功");
 					}

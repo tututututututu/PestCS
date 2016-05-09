@@ -66,7 +66,7 @@ public class AddUser extends BaseActivity {
 		int id = rg_type.getCheckedRadioButtonId();
 		user.setUserGrade(id == R.id.rg_type ? "0" : "1");
 		user.setUserName(et_username.getText().toString().trim());
-		UserDao.saveBindID(user);
+		UserDao.saveOrUpdate(user);
 		RxBus.postEvent(new AddUserEvent(user), AddUserEvent.class);
 		finish();
 	}

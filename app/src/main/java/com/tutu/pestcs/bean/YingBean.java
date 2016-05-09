@@ -14,6 +14,8 @@ import org.xutils.db.annotation.Table;
 public class YingBean implements Parcelable {
 	@Column(name = "UnitCode", isId = true)
 	private String UnitCode;
+	@Column(name = "uniType")
+	private String uniType;
 	@Column(name = "CheckRoom")
 	private int CheckRoom;
 	@Column(name = "YingRoom")
@@ -72,6 +74,14 @@ public class YingBean implements Parcelable {
 	private int SanZaiYangXinNum;
 
 	public YingBean() {
+	}
+
+	public String getUniType() {
+		return uniType;
+	}
+
+	public void setUniType(String uniType) {
+		this.uniType = uniType;
 	}
 
 	public String getUnitCode() {
@@ -349,6 +359,7 @@ public class YingBean implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(this.UnitCode);
+		dest.writeString(this.uniType);
 		dest.writeInt(this.CheckRoom);
 		dest.writeInt(this.YingRoom);
 		dest.writeInt(this.YingNum);
@@ -381,6 +392,7 @@ public class YingBean implements Parcelable {
 
 	protected YingBean(Parcel in) {
 		this.UnitCode = in.readString();
+		this.uniType = in.readString();
 		this.CheckRoom = in.readInt();
 		this.YingRoom = in.readInt();
 		this.YingNum = in.readInt();
@@ -411,7 +423,7 @@ public class YingBean implements Parcelable {
 		this.SanZaiYangXinNum = in.readInt();
 	}
 
-	public static final Parcelable.Creator<YingBean> CREATOR = new Parcelable.Creator<YingBean>() {
+	public static final Creator<YingBean> CREATOR = new Creator<YingBean>() {
 		@Override
 		public YingBean createFromParcel(Parcel source) {
 			return new YingBean(source);
