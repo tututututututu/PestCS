@@ -39,7 +39,7 @@ public class EditUser extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         user = getIntent().getParcelableExtra(ActivityJumpParams.USER_BEAN);
-        LogUtil.e("EditUser user="+user.toString());
+        LogUtil.e("EditUser user=" + user.toString());
         if (user == null) {
             svProgressHUD.showErrorWithStatus("系统错误");
             finish();
@@ -115,14 +115,14 @@ public class EditUser extends BaseActivity {
 
     private void saveChange() {
         int cheakid = rg_type.getCheckedRadioButtonId();
-        if (cheakid==R.id.rb_normal){
+        if (cheakid == R.id.rb_normal) {
             user.setUserGrade("1");
-        }else{
+        } else {
             user.setUserGrade("0");
         }
 
-        RxBus.postEvent(new UserEidteEvent(user),UserEidteEvent.class);
-        LogUtil.e("准备修改的用户="+user.toString());
+        RxBus.postEvent(new UserEidteEvent(user), UserEidteEvent.class);
+        LogUtil.e("准备修改的用户=" + user.toString());
         UserDao.saveOrUpdate(user);
         ToastUtils.showToast("修改成功");
         finish();

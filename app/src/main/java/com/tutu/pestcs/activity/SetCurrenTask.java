@@ -29,160 +29,160 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class SetCurrenTask extends BaseActivity {
-	@Bind(R.id.ll_back)
-	LinearLayout llBack;
-	@Bind(R.id.iv_img)
-	ImageView ivImg;
-	@Bind(R.id.tv_city)
-	TextView tvCity;
-	@Bind(R.id.tv_task_code)
-	TextView tvTaskCode;
-	@Bind(R.id.tv_cheaker_name)
-	TextView tvCheakerName;
-	@Bind(R.id.tv_time)
-	TextView tvTime;
-	@Bind(R.id.lv_task)
-	ListView lvTask;
-	@Bind(R.id.base_layout)
-	LinearLayout baseLayout;
-	@Bind(R.id.emptyView)
-	View emptyView;
-	@Bind(R.id.tv_empty)
-	View emptyView2;
-	private SetCurrentTaskAdapter adapter;
-	private List<TaskBean> data;
-	private TaskBean mCurrentTask;
+    @Bind(R.id.ll_back)
+    LinearLayout llBack;
+    @Bind(R.id.iv_img)
+    ImageView ivImg;
+    @Bind(R.id.tv_city)
+    TextView tvCity;
+    @Bind(R.id.tv_task_code)
+    TextView tvTaskCode;
+    @Bind(R.id.tv_cheaker_name)
+    TextView tvCheakerName;
+    @Bind(R.id.tv_time)
+    TextView tvTime;
+    @Bind(R.id.lv_task)
+    ListView lvTask;
+    @Bind(R.id.base_layout)
+    LinearLayout baseLayout;
+    @Bind(R.id.emptyView)
+    View emptyView;
+    @Bind(R.id.tv_empty)
+    View emptyView2;
+    private SetCurrentTaskAdapter adapter;
+    private List<TaskBean> data;
+    private TaskBean mCurrentTask;
 
 
-	@Override
-	public void handleMessage(Message msg) {
+    @Override
+    public void handleMessage(Message msg) {
 
-	}
+    }
 
-	@Override
-	public void initView(Bundle savedInstanceState) {
-		readData();
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        readData();
 
-	}
+    }
 
-	private void readData() {
-		Tasks.executeInBackground(this, new BackgroundWork<List<TaskBean>>() {
-			@Override
-			public List<TaskBean> doInBackground() throws Exception {
+    private void readData() {
+        Tasks.executeInBackground(this, new BackgroundWork<List<TaskBean>>() {
+            @Override
+            public List<TaskBean> doInBackground() throws Exception {
 
-				return TaskDao.queryAllExceptCurrent();
-			}
-		}, new Completion<List<TaskBean>>() {
-			@Override
-			public void onSuccess(Context context, List<TaskBean> result) {
-				if (result == null || result.isEmpty()) {
-					//没有数据
-					lvTask.setEmptyView(emptyView2);
-				} else {
-					data = result;
-					updateTaskUI();
-				}
+                return TaskDao.queryAllExceptCurrent();
+            }
+        }, new Completion<List<TaskBean>>() {
+            @Override
+            public void onSuccess(Context context, List<TaskBean> result) {
+                if (result == null || result.isEmpty()) {
+                    //没有数据
+                    lvTask.setEmptyView(emptyView2);
+                } else {
+                    data = result;
+                    updateTaskUI();
+                }
 
-			}
+            }
 
-			@Override
-			public void onError(Context context, Exception e) {
+            @Override
+            public void onError(Context context, Exception e) {
 
-			}
-		});
-
-
-		Tasks.executeInBackground(this, new BackgroundWork<TaskBean>() {
-			@Override
-			public TaskBean doInBackground() throws Exception {
-
-				return TaskDao.queryCurrent();
-			}
-		}, new Completion<TaskBean>() {
-			@Override
-			public void onSuccess(Context context, TaskBean result) {
-				mCurrentTask = result;
-				updateCurrent();
-			}
-
-			@Override
-			public void onError(Context context, Exception e) {
-
-			}
-		});
-	}
-
-	private void updateTaskUI() {
-		adapter = new SetCurrentTaskAdapter(data, this, R.layout.set_current_task_item);
-		lvTask.setAdapter(adapter);
-		lvTask.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
-				AlertDialog.Builder builder = new AlertDialog.Builder(SetCurrenTask.this);
-				builder.setMessage("确定设置为当前任务?");
-				builder.setTitle("提示");
-				builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						//设置
-						TaskBean task = data.get(position);
-						task.setCurrent(true);
-						TaskDao.resetCurrent();
-						TaskDao.update(task);
-						readData();
-					}
-				});
-				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						//取消
-						dialog.cancel();
-					}
-				});
-				builder.create().show();
+            }
+        });
 
 
-				return false;
-			}
-		});
-	}
+        Tasks.executeInBackground(this, new BackgroundWork<TaskBean>() {
+            @Override
+            public TaskBean doInBackground() throws Exception {
 
-	private void updateCurrent() {
-		if (mCurrentTask == null) {
-			emptyView.setVisibility(View.VISIBLE);
-		} else {
-			emptyView.setVisibility(View.GONE);
-			tvCheakerName.setText(mCurrentTask.getExpertName());
-			tvCity.setText(mCurrentTask.getCityName());
-			tvTaskCode.setText(mCurrentTask.getTaskCode());
-			tvTime.setText(mCurrentTask.getStartDate());
+                return TaskDao.queryCurrent();
+            }
+        }, new Completion<TaskBean>() {
+            @Override
+            public void onSuccess(Context context, TaskBean result) {
+                mCurrentTask = result;
+                updateCurrent();
+            }
 
-			RxBus.postEvent(new SetCurrentTaskEvent(),SetCurrentTaskEvent.class);
-		}
-	}
+            @Override
+            public void onError(Context context, Exception e) {
 
-	@Override
-	public void initData() {
+            }
+        });
+    }
 
-	}
+    private void updateTaskUI() {
+        adapter = new SetCurrentTaskAdapter(data, this, R.layout.set_current_task_item);
+        lvTask.setAdapter(adapter);
+        lvTask.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-	@Override
-	public int getLayoutID() {
-		return R.layout.activity_set_curren_task;
-	}
+                AlertDialog.Builder builder = new AlertDialog.Builder(SetCurrenTask.this);
+                builder.setMessage("确定设置为当前任务?");
+                builder.setTitle("提示");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //设置
+                        TaskBean task = data.get(position);
+                        task.setCurrent(true);
+                        TaskDao.resetCurrent();
+                        TaskDao.update(task);
+                        readData();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //取消
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
 
-	@OnClick(R.id.ll_back)
-	public void onClick(View view) {
-		switch (view.getId()) {
-			case R.id.ll_back:
-				finish();
-				break;
-		}
-	}
+                return false;
+            }
+        });
+    }
+
+    private void updateCurrent() {
+        if (mCurrentTask == null) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+            tvCheakerName.setText(mCurrentTask.getExpertName());
+            tvCity.setText(mCurrentTask.getCityName());
+            tvTaskCode.setText(mCurrentTask.getTaskCode());
+            tvTime.setText(mCurrentTask.getStartDate());
+
+            RxBus.postEvent(new SetCurrentTaskEvent(), SetCurrentTaskEvent.class);
+        }
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.activity_set_curren_task;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @OnClick(R.id.ll_back)
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+        }
+    }
 }

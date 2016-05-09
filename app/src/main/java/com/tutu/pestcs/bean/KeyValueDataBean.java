@@ -14,7 +14,6 @@ public class KeyValueDataBean implements Parcelable {
     }
 
 
-
     @Override
     public String toString() {
         return "KeyValueDataBean{" +

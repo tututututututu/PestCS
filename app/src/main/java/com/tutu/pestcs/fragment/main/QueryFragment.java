@@ -241,7 +241,7 @@ public class QueryFragment extends BaseFragment {
                 showUnitType();
                 break;
             case R.id.btn_query:
-                if (TextUtils.isEmpty(unitType)){
+                if (TextUtils.isEmpty(unitType)) {
                     ToastUtils.showToast("请选择单位类型");
                     break;
                 }
@@ -253,13 +253,11 @@ public class QueryFragment extends BaseFragment {
                 bean.setIsKeyUnit(isKeyUnit);
                 bean.setQueryType(cheakObject);
                 bean.setUnitType(unitType);
-                intent.putExtra(ActivityJumpParams.QUERY_BEAN,bean);
+                intent.putExtra(ActivityJumpParams.QUERY_BEAN, bean);
                 startActivity(intent);
                 break;
         }
     }
-
-
 
 
     private void showUnitType() {

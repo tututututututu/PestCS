@@ -67,13 +67,13 @@ public abstract class TFragmentPagerAdapter extends PagerAdapter {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
         if (DEBUG) Log.v(TAG, "Detaching item #" + getItemId(position) + ": f=" + object
-                + " v=" + ((Fragment)object).getView());
-        mCurTransaction.detach((Fragment)object);
+                + " v=" + ((Fragment) object).getView());
+        mCurTransaction.detach((Fragment) object);
     }
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        Fragment fragment = (Fragment)object;
+        Fragment fragment = (Fragment) object;
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
@@ -98,7 +98,7 @@ public abstract class TFragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return ((Fragment)object).getView() == view;
+        return ((Fragment) object).getView() == view;
     }
 
     @Override
@@ -112,7 +112,7 @@ public abstract class TFragmentPagerAdapter extends PagerAdapter {
 
     /**
      * Return a unique identifier for the item at the given position.
-     *
+     * <p>
      * <p>The default implementation returns the given position.
      * Subclasses should override this method if the positions of items can change.</p>
      *

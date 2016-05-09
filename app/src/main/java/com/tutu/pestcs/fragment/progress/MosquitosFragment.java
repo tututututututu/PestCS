@@ -109,7 +109,6 @@ public class MosquitosFragment extends BaseFragment {
         int totleCheakedRoom = 0;
 
 
-
         int hadCCheakedUnitIn09 = WenDao.getHadCheakedUnitInCount("10");
         int hadCCheakedRoomIn09 = WenDao.getHadCheakedRoomInCount("10");
         totleCheakedUnit += hadCCheakedUnitIn09;
@@ -117,17 +116,26 @@ public class MosquitosFragment extends BaseFragment {
         addRow("居(家)委会", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0).getValue
                 ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
 
-        int hadCCheakedUnitIn01 = WenDao.getHadCheakedUnitInCount("01")+WenDao.getHadCheakedUnitInCount("02")+WenDao.getHadCheakedUnitInCount("03")+WenDao.getHadCheakedUnitInCount("04")+WenDao.getHadCheakedUnitInCount("05")+
-                WenDao.getHadCheakedUnitInCount("06")+WenDao.getHadCheakedUnitInCount("07")+WenDao.getHadCheakedUnitInCount("08")+WenDao.getHadCheakedUnitInCount("10")+
-                WenDao.getHadCheakedUnitInCount("11")+WenDao.getHadCheakedUnitInCount("12")+WenDao.getHadCheakedUnitInCount("15")+WenDao.getHadCheakedUnitInCount("18");
+        int hadCCheakedUnitIn01 = WenDao.getHadCheakedUnitInCount("01") + WenDao.getHadCheakedUnitInCount("02") +
+                WenDao.getHadCheakedUnitInCount("03") + WenDao.getHadCheakedUnitInCount("04") + WenDao
+                .getHadCheakedUnitInCount("05") +
+                WenDao.getHadCheakedUnitInCount("06") + WenDao.getHadCheakedUnitInCount("07") + WenDao
+                .getHadCheakedUnitInCount("08") + WenDao.getHadCheakedUnitInCount("10") +
+                WenDao.getHadCheakedUnitInCount("11") + WenDao.getHadCheakedUnitInCount("12") + WenDao
+                .getHadCheakedUnitInCount("15") + WenDao.getHadCheakedUnitInCount("18");
 
-        int hadCCheakedRoomIn01 = WenDao.getHadCheakedRoomInCount("01")+WenDao.getHadCheakedRoomInCount("02")+WenDao.getHadCheakedRoomInCount("03")+WenDao.getHadCheakedRoomInCount("04")+
-                WenDao.getHadCheakedRoomInCount("05")+WenDao.getHadCheakedRoomInCount("06")+WenDao.getHadCheakedRoomInCount("07")+WenDao.getHadCheakedRoomInCount("08")+
-                WenDao.getHadCheakedRoomInCount("10")+WenDao.getHadCheakedRoomInCount("11")+WenDao.getHadCheakedRoomInCount("12")+WenDao.getHadCheakedRoomInCount("15")+WenDao.getHadCheakedRoomInCount("18");
+        int hadCCheakedRoomIn01 = WenDao.getHadCheakedRoomInCount("01") + WenDao.getHadCheakedRoomInCount("02") +
+                WenDao.getHadCheakedRoomInCount("03") + WenDao.getHadCheakedRoomInCount("04") +
+                WenDao.getHadCheakedRoomInCount("05") + WenDao.getHadCheakedRoomInCount("06") + WenDao
+                .getHadCheakedRoomInCount("07") + WenDao.getHadCheakedRoomInCount("08") +
+                WenDao.getHadCheakedRoomInCount("10") + WenDao.getHadCheakedRoomInCount("11") + WenDao
+                .getHadCheakedRoomInCount("12") + WenDao.getHadCheakedRoomInCount("15") + WenDao
+                .getHadCheakedRoomInCount("18");
 
-     totleCheakedUnit += hadCCheakedUnitIn01;
+        totleCheakedUnit += hadCCheakedUnitIn01;
         totleCheakedRoom += hadCCheakedRoomIn01;
-        addRow("单位(有独立院落)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1).getValue
+        addRow("单位(有独立院落)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1)
+                .getValue
                 ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
 
         int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("09");
@@ -141,7 +149,8 @@ public class MosquitosFragment extends BaseFragment {
         int hadCCheakedRoomIn13 = WenDao.getHadCheakedRoomInCount("13");
         totleCheakedUnit += hadCCheakedUnitIn13;
         totleCheakedRoom += hadCCheakedRoomIn13;
-        addRow("道路(雨水井口)", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3).getValue
+        addRow("道路(雨水井口)", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3)
+                .getValue
                 ()), hadCCheakedUnitIn13, hadCCheakedRoomIn13);
 
 

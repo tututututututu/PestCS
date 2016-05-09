@@ -141,12 +141,13 @@ public class ShuDao {
 
     public static int getHadCheakedRoomInCount(String unitType) {
         try {
-           List<ShuBean> beans = DBHelper.getDBManager().selector(ShuBean.class).where("uniType","=",unitType).findAll();
-            if (beans==null){
+            List<ShuBean> beans = DBHelper.getDBManager().selector(ShuBean.class).where("uniType", "=", unitType)
+                    .findAll();
+            if (beans == null) {
                 return 0;
             }
             int count = 0;
-            for (ShuBean bean : beans){
+            for (ShuBean bean : beans) {
                 count += bean.getCheckRoom();
             }
             return count;
@@ -158,7 +159,7 @@ public class ShuDao {
 
     public static int getHadCheakedUnitInCount(String unitType) {
         try {
-            return (int)DBHelper.getDBManager().selector(ShuBean.class).where("uniType","=",unitType).count();
+            return (int) DBHelper.getDBManager().selector(ShuBean.class).where("uniType", "=", unitType).count();
         } catch (DbException e) {
             e.printStackTrace();
         }

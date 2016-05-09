@@ -267,11 +267,11 @@ public class InsertActivity extends BaseActivity {
                 }));
     }
 
-    public String getUnitType(){
-        return  mUnitType;
+    public String getUnitType() {
+        return mUnitType;
     }
 
-    public String getUnitName(){
+    public String getUnitName() {
         return etName.getText().toString().trim();
     }
 

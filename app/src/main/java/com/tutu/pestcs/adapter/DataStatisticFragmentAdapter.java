@@ -15,36 +15,36 @@ import java.util.ArrayList;
  * Created by tutu on 16/4/8.
  */
 public class DataStatisticFragmentAdapter extends FragmentPagerAdapter {
-	private ArrayList<Fragment> fragments;
+    private ArrayList<Fragment> fragments;
 
-	private final String[] TITLES = {"鼠", "蝇", "蟑螂", "蚊"};
+    private final String[] TITLES = {"鼠", "蝇", "蟑螂", "蚊"};
 
-	public DataStatisticFragmentAdapter(FragmentManager fm) {
-		super(fm);
-		initFragment();
-	}
+    public DataStatisticFragmentAdapter(FragmentManager fm) {
+        super(fm);
+        initFragment();
+    }
 
-	private void initFragment() {
-		fragments = new ArrayList<>();
-		fragments.add(new MouseFragment());
-		fragments.add(new FliesFragment());
-		fragments.add(new CockFragment());
-		fragments.add(new MosquitosFragment());
-	}
+    private void initFragment() {
+        fragments = new ArrayList<>();
+        fragments.add(new MouseFragment());
+        fragments.add(new FliesFragment());
+        fragments.add(new CockFragment());
+        fragments.add(new MosquitosFragment());
+    }
 
-	@Override
-	public CharSequence getPageTitle(int position) {
-		return TITLES[position];
-	}
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return TITLES[position];
+    }
 
-	@Override
-	public int getCount() {
-		return TITLES.length;
-	}
+    @Override
+    public int getCount() {
+        return TITLES.length;
+    }
 
-	@Override
-	public Fragment getItem(int position) {
-		return fragments.get(position);
-	}
+    @Override
+    public Fragment getItem(int position) {
+        return fragments.get(position);
+    }
 
 }

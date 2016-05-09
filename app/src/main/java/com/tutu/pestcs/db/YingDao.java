@@ -143,7 +143,8 @@ public class YingDao {
 
     public static int getHadCheakedRoomInCount(String unitType) {
         try {
-            List<YingBean> beans = DBHelper.getDBManager().selector(YingBean.class).where("uniType", "=", unitType).findAll();
+            List<YingBean> beans = DBHelper.getDBManager().selector(YingBean.class).where("uniType", "=", unitType)
+                    .findAll();
             if (beans == null) {
                 return 0;
             }

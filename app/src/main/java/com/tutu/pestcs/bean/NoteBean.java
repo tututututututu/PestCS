@@ -13,7 +13,7 @@ import org.xutils.db.annotation.Table;
 public class NoteBean implements Parcelable {
     @Column(name = "note")
     private String note;
-    @Column(name = "UnitCode",isId = true)
+    @Column(name = "UnitCode", isId = true)
     private String UnitCode;
 
     public NoteBean() {

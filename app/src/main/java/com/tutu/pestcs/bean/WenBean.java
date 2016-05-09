@@ -12,7 +12,7 @@ import org.xutils.db.annotation.Table;
 //T_WenRecord
 @Table(name = "T_WenRecord")
 public class WenBean implements Parcelable {
-    @Column(name = "UnitCode",isId = true)
+    @Column(name = "UnitCode", isId = true)
     private String UnitCode;
     @Column(name = "CheckDistance")
     private int CheckDistance;

@@ -9,21 +9,21 @@ import org.xutils.x;
 
 
 public class TApplication extends Application {
-	private static TApplication app;
+    private static TApplication app;
 
-	@Override
-	public void onCreate() {
-		// TODO Auto-generated method stub
-		super.onCreate();
-		app = this;
-		//PhoneInfo.initPhoneInfo(getApplicationContext());
-		x.Ext.init(this);
-		x.Ext.setDebug(ConfigString.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
-		ToastUtils.initToast(this);
-	}
+    @Override
+    public void onCreate() {
+        // TODO Auto-generated method stub
+        super.onCreate();
+        app = this;
+        //PhoneInfo.initPhoneInfo(getApplicationContext());
+        x.Ext.init(this);
+        x.Ext.setDebug(ConfigString.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
+        ToastUtils.initToast(this);
+    }
 
-	public static TApplication getInstance() {
-		return app;
-	}
+    public static TApplication getInstance() {
+        return app;
+    }
 
 }

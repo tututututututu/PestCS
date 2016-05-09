@@ -14,15 +14,15 @@ import java.util.List;
  */
 public class TaskAdapter extends HelperAdapter<TaskBean> {
 
-	public TaskAdapter(List<TaskBean> mList, Context context, int... layoutIds) {
-		super(mList, context, layoutIds);
-	}
+    public TaskAdapter(List<TaskBean> mList, Context context, int... layoutIds) {
+        super(mList, context, layoutIds);
+    }
 
-	@Override
-	public void HelpConvert(HelperHolder viewHolder, int position, TaskBean s) {
-		viewHolder.setText(R.id.tv_city, s.getCityName());
-		viewHolder.setText(R.id.tv_cheaker_name, s.getExpertName());
-		viewHolder.setText(R.id.tv_task_code, s.getTaskCode());
-		viewHolder.setText(R.id.tv_time, s.getStartDate());
-	}
+    @Override
+    public void HelpConvert(HelperHolder viewHolder, int position, TaskBean s) {
+        viewHolder.setText(R.id.tv_city, s.getCityName());
+        viewHolder.setText(R.id.tv_cheaker_name, s.getExpertName());
+        viewHolder.setText(R.id.tv_task_code, s.getTaskCode());
+        viewHolder.setText(R.id.tv_time, s.getStartDate());
+    }
 }

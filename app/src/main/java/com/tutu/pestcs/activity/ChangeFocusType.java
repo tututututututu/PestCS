@@ -170,7 +170,7 @@ public class ChangeFocusType extends BaseActivity {
         }, new Completion<Void>() {
             @Override
             public void onSuccess(Context context, Void result) {
-                RxBus.postEvent(new ChangeFocusTypeEvent(),ChangeFocusTypeEvent.class);
+                RxBus.postEvent(new ChangeFocusTypeEvent(), ChangeFocusTypeEvent.class);
                 svProgressHUD.dismissImmediately();
                 finish();
             }

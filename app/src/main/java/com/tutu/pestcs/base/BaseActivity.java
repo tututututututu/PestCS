@@ -23,106 +23,106 @@ import rx.Subscription;
  */
 public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
 
-	public abstract void handleMessage(Message msg);
+    public abstract void handleMessage(Message msg);
 
-	public abstract void initView(Bundle savedInstanceState);
+    public abstract void initView(Bundle savedInstanceState);
 
-	public abstract void initData();
+    public abstract void initData();
 
-	public abstract int getLayoutID();
+    public abstract int getLayoutID();
 
-	protected Context mBaseActivityContext;
-	protected Context mApplicationContext;
-	public SVProgressHUD svProgressHUD;
-	protected List<Subscription> subscriptions;
-
-
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			handleMessage(msg);
-		}
-	};
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(getLayoutID());
-		ButterKnife.bind(this);
-		subscriptions = new ArrayList<>();
-		svProgressHUD = new SVProgressHUD(this);
-		mBaseActivityContext = this;
-		mApplicationContext = getApplicationContext();
-		initView(savedInstanceState);
-		initData();
-	}
-
-	public SVProgressHUD getSVProgressHUD() {
-		return svProgressHUD;
-	}
-
-	@Nullable
-	@OnClick(R.id.base_layout)
-	public void onBaseClick(View view) {
-		hideKeyBoard();
-	}
-
-	public void showLoadingDialog(String msg) {
-		svProgressHUD.showWithStatus(msg, SVProgressHUD.SVProgressHUDMaskType.None);
-	}
-
-	protected void sendMessage(Message msg) {
-		mHandler.sendMessage(msg);
-		handleMessage(msg);
-	}
+    protected Context mBaseActivityContext;
+    protected Context mApplicationContext;
+    public SVProgressHUD svProgressHUD;
+    protected List<Subscription> subscriptions;
 
 
-	@Override
-	public void startActivity(Intent intent) {
-		super.startActivity(intent);
-		overridePendingTransition(R.anim.slide_in_right,
-			R.anim.slide_out_left);
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            handleMessage(msg);
+        }
+    };
 
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutID());
+        ButterKnife.bind(this);
+        subscriptions = new ArrayList<>();
+        svProgressHUD = new SVProgressHUD(this);
+        mBaseActivityContext = this;
+        mApplicationContext = getApplicationContext();
+        initView(savedInstanceState);
+        initData();
+    }
 
-	@Override
-	public void startActivityForResult(Intent intent, int requestCode) {
-		// TODO Auto-generated method stub
-		super.startActivityForResult(intent, requestCode);
-		overridePendingTransition(R.anim.slide_in_right,
-			R.anim.slide_out_left);
-	}
+    public SVProgressHUD getSVProgressHUD() {
+        return svProgressHUD;
+    }
 
-	@Override
-	public void finish() {
-		// TODO Auto-generated method stub
-		super.finish();
-		overridePendingTransition(R.anim.slide_in_left,
-			R.anim.slide_out_right);
+    @Nullable
+    @OnClick(R.id.base_layout)
+    public void onBaseClick(View view) {
+        hideKeyBoard();
+    }
 
-	}
+    public void showLoadingDialog(String msg) {
+        svProgressHUD.showWithStatus(msg, SVProgressHUD.SVProgressHUDMaskType.None);
+    }
 
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		hideKeyBoard();
-		super.onDestroy();
-		ButterKnife.unbind(this);
-		for (Subscription subscription : subscriptions) {
-			if (subscription != null && !subscription.isUnsubscribed()) {
-				subscription.unsubscribe();
-			}
-		}
-	}
+    protected void sendMessage(Message msg) {
+        mHandler.sendMessage(msg);
+        handleMessage(msg);
+    }
 
 
-	protected void showLoadingDialog(Context context) {
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
 
-	}
+    }
 
-	protected void cancelLoadingDialog() {
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        // TODO Auto-generated method stub
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
+    }
 
-	}
+    @Override
+    public void finish() {
+        // TODO Auto-generated method stub
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        hideKeyBoard();
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        for (Subscription subscription : subscriptions) {
+            if (subscription != null && !subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
+            }
+        }
+    }
+
+
+    protected void showLoadingDialog(Context context) {
+
+    }
+
+    protected void cancelLoadingDialog() {
+
+    }
 
 }
