@@ -10,107 +10,107 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <RadioGroup
-        android:scrollbars="vertical"
-        android:id="@+id/rg_type"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        <RadioGroup
+            android:scrollbars="vertical"
+            android:id="@+id/rg_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-        <RadioButton
-            android:checked="true"
-            android:id="@+id/rb_1"
-            style="@style/rb_unit_style"
-            android:text="餐饮店"/>
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/rb_1"
+                style="@style/rb_unit_style"
+                android:text="餐饮店"/>
 
-        <RadioButton
-            android:id="@+id/rb_2"
-            style="@style/rb_unit_style"
-            android:text="商场超市"
-            android:checked="false"/>
+            <RadioButton
+                android:id="@+id/rb_2"
+                style="@style/rb_unit_style"
+                android:text="商场超市"
+                android:checked="false"/>
 
-        <RadioButton
-            android:id="@+id/rb_3"
-            style="@style/rb_unit_style"
-            android:text="机关"/>
+            <RadioButton
+                android:id="@+id/rb_3"
+                style="@style/rb_unit_style"
+                android:text="机关"/>
 
-        <RadioButton
-            android:id="@+id/rb_4"
-            style="@style/rb_unit_style"
-            android:text="饭店宾馆"/>
+            <RadioButton
+                android:id="@+id/rb_4"
+                style="@style/rb_unit_style"
+                android:text="饭店宾馆"/>
 
-        <RadioButton
-            android:id="@+id/rb_5"
-            style="@style/rb_unit_style"
-            android:text="农贸市场"/>
+            <RadioButton
+                android:id="@+id/rb_5"
+                style="@style/rb_unit_style"
+                android:text="农贸市场"/>
 
-        <RadioButton
-            android:id="@+id/rb_6"
-            style="@style/rb_unit_style"
-            android:text="机场车站"/>
+            <RadioButton
+                android:id="@+id/rb_6"
+                style="@style/rb_unit_style"
+                android:text="机场车站"/>
 
-        <RadioButton
-            android:id="@+id/rb_7"
-            style="@style/rb_unit_style"
-            android:text="医院"/>
+            <RadioButton
+                android:id="@+id/rb_7"
+                style="@style/rb_unit_style"
+                android:text="医院"/>
 
-        <RadioButton
-            android:id="@+id/rb_8"
-            style="@style/rb_unit_style"
-            android:text="学校"/>
+            <RadioButton
+                android:id="@+id/rb_8"
+                style="@style/rb_unit_style"
+                android:text="学校"/>
 
-        <RadioButton
-            android:id="@+id/rb_9"
-            style="@style/rb_unit_style"
-            android:text="建筑拆迁工地"/>
+            <RadioButton
+                android:id="@+id/rb_9"
+                style="@style/rb_unit_style"
+                android:text="建筑拆迁工地"/>
 
-        <RadioButton
-            android:id="@+id/rb_10"
-            style="@style/rb_unit_style"
-            android:text="居(家)委会"/>
+            <RadioButton
+                android:id="@+id/rb_10"
+                style="@style/rb_unit_style"
+                android:text="居(家)委会"/>
 
-        <RadioButton
-            android:id="@+id/rb_11"
-            style="@style/rb_unit_style"
-            android:text="食品加工企业"/>
+            <RadioButton
+                android:id="@+id/rb_11"
+                style="@style/rb_unit_style"
+                android:text="食品加工企业"/>
 
-        <RadioButton
-            android:id="@+id/rb_12"
-            style="@style/rb_unit_style"
-            android:text="其他企业"/>
+            <RadioButton
+                android:id="@+id/rb_12"
+                style="@style/rb_unit_style"
+                android:text="其他企业"/>
 
-        <RadioButton
-            android:id="@+id/rb_13"
-            style="@style/rb_unit_style"
-            android:text="道路"/>
+            <RadioButton
+                android:id="@+id/rb_13"
+                style="@style/rb_unit_style"
+                android:text="道路"/>
 
-        <RadioButton
-            android:id="@+id/rb_14"
-            style="@style/rb_unit_style"
-            android:text="公园公共绿地"/>
+            <RadioButton
+                android:id="@+id/rb_14"
+                style="@style/rb_unit_style"
+                android:text="公园公共绿地"/>
 
-        <RadioButton
-            android:id="@+id/rb_15"
-            style="@style/rb_unit_style"
-            android:text="垃圾中转站"/>
+            <RadioButton
+                android:id="@+id/rb_15"
+                style="@style/rb_unit_style"
+                android:text="垃圾中转站"/>
 
-        <RadioButton
-            android:id="@+id/rb_16"
-            style="@style/rb_unit_style"
-            android:text="公共厕所"/>
+            <RadioButton
+                android:id="@+id/rb_16"
+                style="@style/rb_unit_style"
+                android:text="公共厕所"/>
 
-        <RadioButton
-            android:id="@+id/rb_17"
-            style="@style/rb_unit_style"
-            android:text="大中型水体"/>
+            <RadioButton
+                android:id="@+id/rb_17"
+                style="@style/rb_unit_style"
+                android:text="大中型水体"/>
 
-        <RadioButton
-            android:id="@+id/rb_18"
-            style="@style/rb_unit_style"
-            android:text="特殊场所"/>
+            <RadioButton
+                android:id="@+id/rb_18"
+                style="@style/rb_unit_style"
+                android:text="特殊场所"/>
 
 
-    </RadioGroup>
+        </RadioGroup>
     </ScrollView>
 
 

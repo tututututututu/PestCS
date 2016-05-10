@@ -19,6 +19,7 @@ import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
+import com.tutu.pestcs.event.UserEidteEvent;
 
 import org.xutils.common.util.LogUtil;
 
@@ -30,114 +31,129 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class UserActivity extends BaseActivity {
-	@Bind(R.id.lv_users)
-	ListView lv_users;
-	@Bind(R.id.tv_empty)
-	View empty;
-	private UserAdapter adapter;
-	private List<User> users;
-//	private List<Subscription> subscriptions;
+    @Bind(R.id.lv_users)
+    ListView lv_users;
+    @Bind(R.id.tv_empty)
+    View empty;
+    private UserAdapter adapter;
+    private List<User> users;
 
-	@Override
-	public void handleMessage(Message msg) {
+    @Override
+    public void handleMessage(Message msg) {
 
-	}
+    }
 
-	@Override
-	public void initView(Bundle savedInstanceState) {
-		readData();
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        readData();
+        RegistAddUserEvent();
+        registUserEditeEvent();
+    }
 
-		RegistAddUserEvent();
-	}
+    private void RegistAddUserEvent() {
+        subscriptions.add(RxBus.obtainEvent(AddUserEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<AddUserEvent>() {
+                    @Override
+                    public void call(AddUserEvent changeAvatarEvent) {
 
-	private void RegistAddUserEvent() {
-//		subscriptions = new ArrayList<>();
-		subscriptions.add(RxBus.obtainEvent(AddUserEvent.class).
-			observeOn(AndroidSchedulers.mainThread()).
-			subscribe(new Action1<AddUserEvent>() {
-				@Override
-				public void call(AddUserEvent changeAvatarEvent) {
+                        readData();
 
-					readData();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
 
-				}
-			}, new Action1<Throwable>() {
-				@Override
-				public void call(Throwable throwable) {
+                    }
+                }));
+    }
 
-				}
-			}));
-	}
+    private void registUserEditeEvent() {
+        subscriptions.add(RxBus.obtainEvent(UserEidteEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<UserEidteEvent>() {
+                    @Override
+                    public void call(UserEidteEvent Event) {
 
-	@Override
-	public void initData() {
-		if (users == null) {
-			lv_users.setEmptyView(empty);
-			return;
-		}
-		adapter = new UserAdapter(users, this);
-		lv_users.setAdapter(adapter);
-		lv_users.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(UserActivity.this, ChangePsw.class);
-				intent.putExtra(ActivityJumpParams.USER_BEAN, users.get(position));
-				startActivity(intent);
-			}
-		});
+                        readData();
 
-		LogUtil.e(users.toString());
-	}
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
 
-	private void readData() {
-		Tasks.executeInBackground(this, new BackgroundWork<List<User>>() {
-			@Override
-			public List<User> doInBackground() throws Exception {
-				return UserDao.queryAll();
-			}
-		}, new Completion<List<User>>() {
-			@Override
-			public void onSuccess(Context context, List<User> result) {
-				users = result;
-				initData();
-			}
+                    }
+                }));
+    }
 
-			@Override
-			public void onError(Context context, Exception e) {
-				svProgressHUD.showErrorWithStatus("读取用户列表失败");
-				lv_users.postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						finish();
-					}
-				}, 1500);
-			}
-		});
-	}
+    @Override
+    public void initData() {
+        if (users == null) {
+            lv_users.setEmptyView(empty);
+            return;
+        }
+        adapter = new UserAdapter(users, this);
+        lv_users.setAdapter(adapter);
+        lv_users.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(UserActivity.this, EditUser.class);
+                intent.putExtra(ActivityJumpParams.USER_BEAN, users.get(position));
+                startActivity(intent);
+            }
+        });
 
-	@Override
-	public int getLayoutID() {
-		return R.layout.activity_user;
-	}
+        LogUtil.e(users.toString());
+    }
 
-	@OnClick({R.id.ll_back, R.id.ll_add})
-	public void OnClick(View view) {
-		switch (view.getId()) {
+    private void readData() {
+        Tasks.executeInBackground(this, new BackgroundWork<List<User>>() {
+            @Override
+            public List<User> doInBackground() throws Exception {
+                return UserDao.queryAll();
+            }
+        }, new Completion<List<User>>() {
+            @Override
+            public void onSuccess(Context context, List<User> result) {
+                users = result;
+                initData();
+            }
 
-			case R.id.ll_back:
-				finish();
-				break;
-			case R.id.ll_add:
-				Intent intent = new Intent(this, AddUser.class);
-				startActivity(intent);
-				break;
-		}
-	}
+            @Override
+            public void onError(Context context, Exception e) {
+                svProgressHUD.showErrorWithStatus("读取用户列表失败");
+                lv_users.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1500);
+            }
+        });
+    }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+    @Override
+    public int getLayoutID() {
+        return R.layout.activity_user;
+    }
 
-	}
+    @OnClick({R.id.ll_back, R.id.ll_add})
+    public void OnClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.ll_add:
+                Intent intent = new Intent(this, AddUser.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
 }

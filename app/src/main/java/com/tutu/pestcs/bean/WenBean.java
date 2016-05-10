@@ -12,9 +12,7 @@ import org.xutils.db.annotation.Table;
 //T_WenRecord
 @Table(name = "T_WenRecord")
 public class WenBean implements Parcelable {
-    @Column(name = "id", isId = true)
-    private int id;
-    @Column(name = "UnitCode", property = "UNIQUE")
+    @Column(name = "UnitCode", isId = true)
     private String UnitCode;
     @Column(name = "CheckDistance")
     private int CheckDistance;
@@ -113,14 +111,6 @@ public class WenBean implements Parcelable {
 
     public void setShuiTiType(int shuiTiType) {
         ShuiTiType = shuiTiType;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUnitCode() {
@@ -294,7 +284,6 @@ public class WenBean implements Parcelable {
     @Override
     public String toString() {
         return "WenBean{" +
-                "id=" + id +
                 ", UnitCode='" + UnitCode + '\'' +
                 ", CheckDistance=" + CheckDistance +
                 ", SmallWater=" + SmallWater +
@@ -330,7 +319,6 @@ public class WenBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
         dest.writeString(this.UnitCode);
         dest.writeInt(this.CheckDistance);
         dest.writeInt(this.SmallWater);
@@ -359,7 +347,6 @@ public class WenBean implements Parcelable {
     }
 
     protected WenBean(Parcel in) {
-        this.id = in.readInt();
         this.UnitCode = in.readString();
         this.CheckDistance = in.readInt();
         this.SmallWater = in.readInt();

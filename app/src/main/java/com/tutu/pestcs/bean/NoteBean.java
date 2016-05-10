@@ -11,22 +11,12 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "T_Note")
 public class NoteBean implements Parcelable {
-    @Column(name = "id",isId = true)
-    private int id;
     @Column(name = "note")
     private String note;
-    @Column(name = "UnitCode",property = "UNIQUE")
+    @Column(name = "UnitCode", isId = true)
     private String UnitCode;
 
     public NoteBean() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNote() {
@@ -48,7 +38,6 @@ public class NoteBean implements Parcelable {
     @Override
     public String toString() {
         return "NoteBean{" +
-                "id=" + id +
                 ", note='" + note + '\'' +
                 ", UnitCode='" + UnitCode + '\'' +
                 '}';
@@ -61,13 +50,12 @@ public class NoteBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
         dest.writeString(this.note);
         dest.writeString(this.UnitCode);
     }
 
     protected NoteBean(Parcel in) {
-        this.id = in.readInt();
+
         this.note = in.readString();
         this.UnitCode = in.readString();
     }

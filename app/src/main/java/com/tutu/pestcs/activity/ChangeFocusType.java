@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 
 import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
-import com.tutu.pestcs.bean.UnitsType;
 import com.tutu.pestcs.db.ExtendUnitDao;
+import com.tutu.pestcs.event.ChangeFocusTypeEvent;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.List;
@@ -170,6 +170,7 @@ public class ChangeFocusType extends BaseActivity {
         }, new Completion<Void>() {
             @Override
             public void onSuccess(Context context, Void result) {
+                RxBus.postEvent(new ChangeFocusTypeEvent(), ChangeFocusTypeEvent.class);
                 svProgressHUD.dismissImmediately();
                 finish();
             }

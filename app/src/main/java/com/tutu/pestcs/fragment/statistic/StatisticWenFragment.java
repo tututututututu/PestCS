@@ -21,57 +21,57 @@ import butterknife.Bind;
  */
 public class StatisticWenFragment extends BaseFragment {
 
-	@Bind(R.id.tv_content)
-	TextView tv_content;
-	private List<WenBean> wendata;
+    @Bind(R.id.tv_content)
+    TextView tv_content;
+    private List<WenBean> wendata;
 
-	@Override
-	public void handleMessage(Message msg) {
-		switch (msg.what) {
-			case 1:  //成功
-				break;
-			case -1:  //失败
-				break;
-		}
-	}
+    @Override
+    public void handleMessage(Message msg) {
+        switch (msg.what) {
+            case 1:  //成功
+                break;
+            case -1:  //失败
+                break;
+        }
+    }
 
 
-	@Override
-	public void initView() {
-		Tasks.executeInBackground(getActivity(), new BackgroundWork<List<WenBean>>() {
-			@Override
-			public List<WenBean> doInBackground() throws Exception {
-				return readData();
-			}
-		}, new Completion<List<WenBean>>() {
-			@Override
-			public void onSuccess(Context context, List<WenBean> result) {
-				Message msg = new Message();
-				msg.what = 1;
-				sendMessage(msg);
-			}
+    @Override
+    public void initView() {
+        Tasks.executeInBackground(getActivity(), new BackgroundWork<List<WenBean>>() {
+            @Override
+            public List<WenBean> doInBackground() throws Exception {
+                return readData();
+            }
+        }, new Completion<List<WenBean>>() {
+            @Override
+            public void onSuccess(Context context, List<WenBean> result) {
+                Message msg = new Message();
+                msg.what = 1;
+                sendMessage(msg);
+            }
 
-			@Override
-			public void onError(Context context, Exception e) {
-				Message msg = new Message();
-				msg.what = -1;
-				sendMessage(msg);
-			}
-		});
+            @Override
+            public void onError(Context context, Exception e) {
+                Message msg = new Message();
+                msg.what = -1;
+                sendMessage(msg);
+            }
+        });
 
-	}
+    }
 
-	private List<WenBean> readData() {
-		// TODO: 16/4/19 读取数据库数据 
-		return null;
-	}
+    private List<WenBean> readData() {
+        // TODO: 16/4/19 读取数据库数据
+        return null;
+    }
 
-	@Override
-	public int getLayoutID() {
-		return R.layout.statistic_wen_fragment;
-	}
+    @Override
+    public int getLayoutID() {
+        return R.layout.statistic_wen_fragment;
+    }
 
-	private void initData() {
+    private void initData() {
 
-	}
+    }
 }

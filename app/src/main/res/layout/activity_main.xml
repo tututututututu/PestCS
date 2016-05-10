@@ -46,14 +46,6 @@
                 app:hasNew="false"/>
 
             <com.tutu.pestcs.widget.TabRadioButton
-                android:id="@+id/rb_insert"
-                style="@style/rb_style"
-                android:drawableTop="@drawable/rb_insert_selector"
-                android:text="@string/tab_insert"
-                android:textColor="@drawable/tab_text_selector"
-                app:hasNew="false"/>
-
-            <com.tutu.pestcs.widget.TabRadioButton
                 android:id="@+id/rb_query"
                 style="@style/rb_style"
                 android:drawableTop="@drawable/rb_query_selector"

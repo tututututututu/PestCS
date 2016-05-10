@@ -16,8 +16,6 @@ import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.bumptech.glide.RequestManager;
 import com.tutu.pestcs.R;
 
-import org.xutils.common.util.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,13 +1,10 @@
 package com.tutu.pestcs.fragment.insert;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,13 +12,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.MainActivity;
+import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
-import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
 import com.tutu.pestcs.widget.AlertDialogUtil;
@@ -29,7 +24,6 @@ import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -223,7 +217,7 @@ public class MosquitosFragment extends BaseFragment {
                 AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
                     @Override
                     public void OnConfrim() {
-                        ((MainActivity) getActivity()).toFragment(0);
+                        getActivity().finish();
                     }
 
                     @Override
@@ -234,11 +228,18 @@ public class MosquitosFragment extends BaseFragment {
 
                 break;
             case R.id.btn_save:
-                formatData();
-                if (verifyInput()) {
-                    WenDao.saveOrUpdate(bean);
-                    ToastUtils.showToast("保存成功");
+
+                if (((InsertActivity) getActivity()).canSave()) {
+                    formatData();
+                    if (verifyInput()) {
+                        WenDao.saveOrUpdate(bean);
+                        ToastUtils.showToast("保存成功");
+                    }
+                } else {
+                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
                 }
+
+
                 break;
         }
     }

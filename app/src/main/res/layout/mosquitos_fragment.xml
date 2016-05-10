@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="(单位数一房间数)"
+                android:text="(单位数一延长米数)"
                 android:textSize="11sp"/>
 
             <TableLayout

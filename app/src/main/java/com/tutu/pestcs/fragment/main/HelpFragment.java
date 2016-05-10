@@ -9,19 +9,19 @@ import com.tutu.pestcs.base.BaseFragment;
  * Created by tutu on 16/4/7.
  */
 public class HelpFragment extends BaseFragment {
-	@Override
-	public void handleMessage(Message msg) {
+    @Override
+    public void handleMessage(Message msg) {
 
-	}
+    }
 
-	@Override
-	public void initView() {
+    @Override
+    public void initView() {
 
-	}
+    }
 
-	@Override
-	public int getLayoutID() {
-		return R.layout.help_fragment;
-	}
+    @Override
+    public int getLayoutID() {
+        return R.layout.help_fragment;
+    }
 
 }

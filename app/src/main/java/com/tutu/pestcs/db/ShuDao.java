@@ -1,12 +1,13 @@
 package com.tutu.pestcs.db;
 
+import android.text.TextUtils;
+
 import com.tutu.pestcs.bean.ShuBean;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,65 +70,105 @@ public class ShuDao {
         return null;
     }
 
-    // shuji           1.阳性 2.阴性   3.不限
-    // fangshusheshi   1.合格 2.不合格  3.不限
-    // waihuanjinshuji 1.阳性 2.阴性    3.不限
+    // shuji           1.不限 2.阴性   3.阳性
+    // fangshusheshi   1.不限 2.合格   3.不合格
+    // waihuanjinshuji 1.不限 2.阴性    3.阳性
     public static ShuBean queryByUnitIDWithConditon(String unitID, int shuji, int fangshusheshi, int waihuanjinshuji) {
         try {
             ShuBean beans;
-            WhereBuilder shujiBuilder=null;
-            WhereBuilder fangshusheshiBuilder=null;
-            WhereBuilder waihuanjinshujiBuilder=null;
+            WhereBuilder shujiBuilder = null;
+            WhereBuilder fangshusheshiBuilder = null;
+            WhereBuilder waihuanjinshujiBuilder = null;
             WhereBuilder builder = WhereBuilder.b();
-            switch (shuji){
-                case 1:
-                    shujiBuilder = WhereBuilder.b("ShuRoom",">","0");
+            switch (shuji) {
+                case 3:
+                    shujiBuilder = WhereBuilder.b("ShuRoom", ">", "0");
                     break;
                 case 2:
-                    shujiBuilder = WhereBuilder.b("ShuRoom","<","1");
+                    shujiBuilder = WhereBuilder.b("ShuRoom", "<", "1");
                     break;
             }
 
-            switch (fangshusheshi){
-                case 1:
-                    fangshusheshiBuilder = WhereBuilder.b("FangShuBadRoom","<","1");
-                    break;
+            switch (fangshusheshi) {
                 case 2:
-                    fangshusheshiBuilder = WhereBuilder.b("FangShuBadRoom",">","0");
+                    fangshusheshiBuilder = WhereBuilder.b("FangShuBadRoom", "<", "1");
+                    break;
+                case 3:
+                    fangshusheshiBuilder = WhereBuilder.b("FangShuBadRoom", ">", "0");
                     break;
             }
 
-            switch (waihuanjinshuji){
-                case 1:
-                    waihuanjinshujiBuilder = WhereBuilder.b("ShuJiNum",">","0");
+            switch (waihuanjinshuji) {
+                case 3:
+                    waihuanjinshujiBuilder = WhereBuilder.b("ShuJiNum", ">", "0");
                     break;
                 case 2:
-                    waihuanjinshujiBuilder = WhereBuilder.b("ShuJiNum","<","1");
+                    waihuanjinshujiBuilder = WhereBuilder.b("ShuJiNum", "<", "1");
                     break;
             }
 
 
-            if (shujiBuilder!=null) {
+            if (shujiBuilder != null) {
                 builder.and(shujiBuilder);
             }
 
-            if (fangshusheshiBuilder!=null){
+            if (fangshusheshiBuilder != null) {
                 builder.and(fangshusheshiBuilder);
             }
 
-            if (waihuanjinshujiBuilder!=null){
+            if (waihuanjinshujiBuilder != null) {
                 builder.and(waihuanjinshujiBuilder);
             }
 
-            beans = DBHelper.getDBManager().selector(ShuBean.class).where("UnitCode", "=",
-                    unitID).and(builder)
-                    .findFirst();
+            if (!TextUtils.isEmpty(builder.toString())) {
+                beans = DBHelper.getDBManager().selector(ShuBean.class).where("UnitCode", "=",
+                        unitID).and(builder)
+                        .findFirst();
+            } else {
+                beans = DBHelper.getDBManager().selector(ShuBean.class).where("UnitCode", "=",
+                        unitID)
+                        .findFirst();
+            }
+
 
             return beans;
         } catch (DbException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public static int getHadCheakedRoomInCount(String unitType) {
+        try {
+            List<ShuBean> beans = DBHelper.getDBManager().selector(ShuBean.class).where("uniType", "=", unitType)
+                    .findAll();
+            if (beans == null) {
+                return 0;
+            }
+            int count = 0;
+            for (ShuBean bean : beans) {
+                count += bean.getCheckRoom();
+            }
+            return count;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int getHadCheakedUnitInCount(String unitType) {
+        try {
+            return (int) DBHelper.getDBManager().selector(ShuBean.class).where("uniType", "=", unitType).count();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    public int getHadCheakedOutCount(String unitType) {
+        return 0;
     }
 
 

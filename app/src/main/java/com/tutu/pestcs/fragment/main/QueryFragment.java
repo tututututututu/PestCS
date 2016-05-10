@@ -1,40 +1,23 @@
 package com.tutu.pestcs.fragment.main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Message;
-import android.os.StrictMode;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.nanotasks.BackgroundWork;
-import com.nanotasks.Completion;
-import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.QueryResult;
 import com.tutu.pestcs.base.BaseFragment;
-import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.QueryBean;
-import com.tutu.pestcs.bean.QueryResultBean;
-import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.CheakInsertDao;
-import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
-import org.xutils.common.util.LogUtil;
-
-import java.util.List;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -107,22 +90,22 @@ public class QueryFragment extends BaseFragment {
     /**
      * 1.老鼠  2.苍蝇  3.蟑螂  4.蚊子
      */
-    private int cheakObject = 0;
+    private int cheakObject = 1;
 
     /**
      * 1.选择的选项一 2.选择的选项2 3.选择的是选项3
      */
-    private int condition1 = 3;
+    private int condition1 = 1;
 
     /**
      * 1.选择的选项二 2.选择的选项2 3.选择的是选项3
      */
-    private int condition2 = 3;
+    private int condition2 = 1;
 
     /**
      * 1.选择的选项三 2.选择的选项2 3.选择的是选项3
      */
-    private int condition3 = 3;
+    private int condition3 = 1;
 
     @Override
     public void handleMessage(Message msg) {
@@ -140,37 +123,37 @@ public class QueryFragment extends BaseFragment {
                         tvTv3.setText("室内鼠迹");
                         tvTv4.setText("防鼠设施");
                         tvTv5.setText("外环境鼠迹");
-                        rb41.setText("合格");
-                        rb42.setText("不合格");
-                        rb43.setText("不限");
+                        rb41.setText("不限");
+                        rb42.setText("合格");
+                        rb43.setText("不合格");
                         cheakObject = 1;
                         break;
                     case R.id.rb_xiangmu_ying:
                         tvTv3.setText("室内成蝇");
                         tvTv4.setText("防蝇设施");
                         tvTv5.setText("室外蝇类滋生地");
-                        rb41.setText("合格");
-                        rb42.setText("不合格");
-                        rb43.setText("不限");
-                        cheakObject = 2;
+                        rb41.setText("不限");
+                        rb42.setText("合格");
+                        rb43.setText("不合格");
+                        cheakObject = 3;
                         break;
                     case R.id.rb_xiangmu_zhang:
                         tvTv3.setText("蟑螂成虫");
                         tvTv4.setText("蟑螂卵鞘");
                         tvTv5.setText("蟑迹");
-                        rb41.setText("阳性");
+                        rb41.setText("不限");
                         rb42.setText("阴性");
-                        rb43.setText("不限");
-                        cheakObject = 3;
+                        rb43.setText("阳性");
+                        cheakObject = 4;
                         break;
                     case R.id.rb_xiangmu_wen:
                         tvTv3.setText("小型积水蚊幼");
                         tvTv4.setText("特殊场所人诱蚊");
                         tvTv5.setText("大中型水体采样");
-                        rb41.setText("阳性");
-                        rb42.setText("阴性");
-                        rb43.setText("不限");
-                        cheakObject = 4;
+                        rb41.setText("不限");
+                        rb42.setText("否");
+                        rb43.setText("是");
+                        cheakObject = 2;
                         break;
                 }
             }
@@ -218,7 +201,7 @@ public class QueryFragment extends BaseFragment {
                         condition3 = 1;
                         break;
                     case R.id.rb_5_2:
-                        condition2 = 2;
+                        condition3 = 2;
                         break;
                     case R.id.rb_5_3:
                         condition3 = 3;
@@ -258,6 +241,10 @@ public class QueryFragment extends BaseFragment {
                 showUnitType();
                 break;
             case R.id.btn_query:
+                if (TextUtils.isEmpty(unitType)) {
+                    ToastUtils.showToast("请选择单位类型");
+                    break;
+                }
                 Intent intent = new Intent(mActivityContext, QueryResult.class);
                 QueryBean bean = new QueryBean();
                 bean.setCondition1(condition1);
@@ -266,13 +253,11 @@ public class QueryFragment extends BaseFragment {
                 bean.setIsKeyUnit(isKeyUnit);
                 bean.setQueryType(cheakObject);
                 bean.setUnitType(unitType);
-                intent.putExtra(ActivityJumpParams.QUERY_BEAN,bean);
+                intent.putExtra(ActivityJumpParams.QUERY_BEAN, bean);
                 startActivity(intent);
                 break;
         }
     }
-
-
 
 
     private void showUnitType() {

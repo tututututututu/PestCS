@@ -12,7 +12,6 @@ import com.tutu.pestcs.R;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.fragment.main.HelpFragment;
 import com.tutu.pestcs.fragment.main.IndexFragment;
-import com.tutu.pestcs.fragment.main.InsertFragment;
 import com.tutu.pestcs.fragment.main.ProgressFragment;
 import com.tutu.pestcs.fragment.main.QueryFragment;
 
@@ -24,7 +23,6 @@ public class MainActivity extends BaseActivity {
 
     public static final String indexFragmentTag = "indexFragment";
     public static final String progressFragmentTag = "progressFragment";
-    public static final String insertFragmentTag = "insertFragment";
     public static final String queryFragmentTag = "queryFragment";
     public static final String helpFragmentTag = "helpFragment";
 
@@ -51,13 +49,11 @@ public class MainActivity extends BaseActivity {
         fragmentList = new ArrayList<>();
         IndexFragment indexFragment = new IndexFragment();
         ProgressFragment progressFragment = new ProgressFragment();
-        InsertFragment insertFragment = new InsertFragment();
         QueryFragment queryFragment = new QueryFragment();
         HelpFragment helpFragment = new HelpFragment();
 
         fragmentList.add(indexFragment);
         fragmentList.add(progressFragment);
-        fragmentList.add(insertFragment);
         fragmentList.add(queryFragment);
         fragmentList.add(helpFragment);
 
@@ -74,17 +70,13 @@ public class MainActivity extends BaseActivity {
                         changeFragment(fragmentList.get(currentIndex), fragmentList.get(1));
                         currentIndex = 1;
                         break;
-                    case R.id.rb_insert:
+                    case R.id.rb_query:
                         changeFragment(fragmentList.get(currentIndex), fragmentList.get(2));
                         currentIndex = 2;
                         break;
-                    case R.id.rb_query:
+                    case R.id.rb_help:
                         changeFragment(fragmentList.get(currentIndex), fragmentList.get(3));
                         currentIndex = 3;
-                        break;
-                    case R.id.rb_help:
-                        changeFragment(fragmentList.get(currentIndex), fragmentList.get(4));
-                        currentIndex = 4;
                         break;
                 }
 
@@ -113,12 +105,12 @@ public class MainActivity extends BaseActivity {
 
     private void changeFragment(Fragment from, Fragment to) {
 
-        fragmentTransaction.replace(R.id.fl_main, to).commit();
-//        if (!to.isAdded()) {    // 先判断是否被add过
-//            fragmentTransaction.hide(from).add(R.id.fl_main, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
-//        } else {
-//            fragmentTransaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
-//        }
+        //fragmentTransaction.replace(R.id.fl_main, to).commit();
+        if (!to.isAdded()) {    // 先判断是否被add过
+            fragmentTransaction.hide(from).add(R.id.fl_main, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+        } else {
+            fragmentTransaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
+        }
 
 
     }
@@ -132,12 +124,9 @@ public class MainActivity extends BaseActivity {
                 rg_tab.check(R.id.rb_progress);
                 break;
             case 2:
-                rg_tab.check(R.id.rb_insert);
-                break;
-            case 3:
                 rg_tab.check(R.id.rb_query);
                 break;
-            case 4:
+            case 3:
                 rg_tab.check(R.id.rb_help);
                 break;
         }

@@ -78,11 +78,14 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:background="@drawable/et_bg"
                 android:id="@+id/tv_username"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="2dp"
                 android:layout_marginLeft="12dp"
-                android:padding="0dp"/>
+                />
 
         </LinearLayout>
 
@@ -140,6 +143,13 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="重置密码"/>
+
+            <Button
+                android:id="@+id/btn_delete"
+                style="@style/btn_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="删除用户"/>
         </LinearLayout>
     </LinearLayout>
 
