@@ -15,6 +15,7 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.ZhangDao;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class CockFragment extends BaseFragment {
 
         TaskBean currentTask = TaskDao.queryCurrent();
         if (currentTask == null) {
+            ToastUtils.showToast("您可能未设置当前任务");
             return;
         }
         List<KeyValueDataBean> toCheakedBean = GuoBiaoUnitDao.getToCheak("zhang", currentTask

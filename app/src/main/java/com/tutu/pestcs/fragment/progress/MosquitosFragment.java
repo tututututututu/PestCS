@@ -15,6 +15,8 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.WenDao;
+import com.tutu.pestcs.db.YingDao;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,8 @@ public class MosquitosFragment extends BaseFragment {
 
     @Bind(R.id.tl_table)
     TableLayout tl_table;
-
+    @Bind(R.id.tl_table_wai)
+    TableLayout tl_table_wai;
 
     private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
     private final int MP = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -48,8 +51,10 @@ public class MosquitosFragment extends BaseFragment {
     @Override
     public void initView() {
         createTV();
-        initData();
+        initDataIn();
+        initDataWai();
         tl_table.setStretchAllColumns(true);
+        tl_table_wai.setStretchAllColumns(true);
 
         for (int row = 0; row < inDoorData.size(); row++) {
             TableRow tableRow = new TableRow(mActivityContext);
@@ -70,13 +75,27 @@ public class MosquitosFragment extends BaseFragment {
             tl_table.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));
         }
 
-		/*
-        TableRow tableRow = new TableRow(mActivityContext);
-		TextView tv = new TextView(mActivityContext);
-		tv.setText("的打击打击");
-		tableRow.addView(tv);
-		tl_table.addView(tableRow,new ViewGroup.LayoutParams(WC,MP));
-		*/
+
+        for (int row = 0; row < outDoorData.size(); row++) {
+            TableRow tableRow = new TableRow(mActivityContext);
+            for (int col = 0; col < 4; col++) {
+                TextView tv = createTV();
+                if (col == 0) {
+                    tv.setText(outDoorData.get(row).getUnitType());
+                } else if (col == 1) {
+                    tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row).getOriginalNumE());
+                } else if (col == 2) {
+                    tv.setText(outDoorData.get(row).getCheakedNumS() + "-" + outDoorData.get(row).getCheakedNumE());
+                } else if (col == 3) {
+                    tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + outDoorData.get(row).getToCheakNumE());
+                }
+                tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
+                tableRow.addView(tv);
+            }
+            tl_table_wai.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));
+        }
+
+
     }
 
     @Override
@@ -88,12 +107,12 @@ public class MosquitosFragment extends BaseFragment {
         return (TextView) LayoutInflater.from(mActivityContext).inflate(R.layout.table_tv, null);
     }
 
-    private void initData() {
+    private void initDataIn() {
         inDoorData.clear();
-        outDoorData.clear();
 
         TaskBean currentTask = TaskDao.queryCurrent();
         if (currentTask == null) {
+            ToastUtils.showToast("您可能未设置当前任务");
             return;
         }
         List<KeyValueDataBean> toCheakedBean = GuoBiaoUnitDao.getToCheak("wen01", currentTask
@@ -159,17 +178,62 @@ public class MosquitosFragment extends BaseFragment {
             totelTocheakRoom += Integer.parseInt(bean.getValue());
         }
         addRow("合计", totelTocheakUnit, totelTocheakRoom, totleCheakedUnit, totleCheakedRoom);
-
-
-        outDoorData.add(new ProgressMouse("公共绿地,公园或道路两侧", 35, 50, 25, 350, 10, 30, false));
-        outDoorData.add(new ProgressMouse("垃圾中转站或公共厕所", 35, 50, 25, 350, 10, 30, false));
-        outDoorData.add(new ProgressMouse("单位或居民区院内", 35, 50, 25, 350, 10, 30, false));
-        outDoorData.add(new ProgressMouse("农贸市场,工地或车站", 35, 50, 25, 350, 10, 30, false));
-        outDoorData.add(new ProgressMouse("合计", 350, 3500, 25, 350, 10, 30, false));
     }
+
+
+
+
+    private void initDataWai() {
+        outDoorData.clear();
+
+        TaskBean currentTask = TaskDao.queryCurrent();
+        if (currentTask == null) {
+            return;
+        }
+        List<KeyValueDataBean> toCheakedBean = GuoBiaoUnitDao.getToCheak("wen02", currentTask
+                .getPopulation());
+        if (toCheakedBean == null || toCheakedBean.size() < 2) {
+            return;
+        }
+
+
+        int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("22");
+        int hadCCheakedRoomIn02 = WenDao.getHadCheakedRoomInCount("22");
+
+        addRowWai("大中型水体(个)", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0).getValue
+                ()), hadCCheakedUnitIn02, hadCCheakedRoomIn02);
+
+        int hadCCheakedUnitIn01 = YingDao.getHadCheakedUnitInCount("01")+YingDao.getHadCheakedUnitInCount("02")+YingDao.getHadCheakedUnitInCount("03")+YingDao.getHadCheakedUnitInCount("04")
+                +YingDao.getHadCheakedUnitInCount("05")+YingDao.getHadCheakedUnitInCount("06")+YingDao.getHadCheakedUnitInCount("07")+YingDao.getHadCheakedUnitInCount("08")
+                +YingDao.getHadCheakedUnitInCount("09")+YingDao.getHadCheakedUnitInCount("10")+YingDao.getHadCheakedUnitInCount("11")+YingDao.getHadCheakedUnitInCount("12")
+                +YingDao.getHadCheakedUnitInCount("13")+YingDao.getHadCheakedUnitInCount("14")+YingDao.getHadCheakedUnitInCount("15")+YingDao.getHadCheakedUnitInCount("16")
+                +YingDao.getHadCheakedUnitInCount("17")+YingDao.getHadCheakedUnitInCount("18");
+        int hadCCheakedRoomIn01 = YingDao.getHadCheakedRoomInCount("01")+YingDao.getHadCheakedRoomInCount("02")+YingDao.getHadCheakedRoomInCount("03")+YingDao.getHadCheakedRoomInCount("04")
+                +YingDao.getHadCheakedRoomInCount("05")+YingDao.getHadCheakedRoomInCount("06")+YingDao.getHadCheakedRoomInCount("07")+YingDao.getHadCheakedRoomInCount("08")
+                +YingDao.getHadCheakedRoomInCount("09")+YingDao.getHadCheakedRoomInCount("10")+YingDao.getHadCheakedRoomInCount("11")+YingDao.getHadCheakedRoomInCount("12")
+                +YingDao.getHadCheakedRoomInCount("13")+YingDao.getHadCheakedRoomInCount("14")+YingDao.getHadCheakedRoomInCount("15")+YingDao.getHadCheakedRoomInCount("16")
+                +YingDao.getHadCheakedRoomInCount("17")+YingDao.getHadCheakedRoomInCount("18");
+
+        addRowWai("特殊场所诱蚊(人次)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1)
+                .getValue
+                        ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);
+    }
+
+
 
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
+                toCheakUnit,
+                toCheakRoom,
+                hadCheakUnit,
+                hadCheakRoom,
+                toCheakUnit - hadCheakUnit,
+                toCheakRoom - hadCheakRoom,
+                true));
+    }
+
+    private void addRowWai(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
+        outDoorData.add(new ProgressMouse(name,
                 toCheakUnit,
                 toCheakRoom,
                 hadCheakUnit,

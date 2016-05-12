@@ -29,6 +29,7 @@ import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.db.ZhangDao;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import org.xutils.common.util.LogUtil;
 
@@ -177,7 +178,13 @@ public class QueryResult extends BaseActivity {
         }, new Completion<List<CheakInsertBean>>() {
             @Override
             public void onSuccess(Context context, List<CheakInsertBean> result) {
-                queryDetail(result);
+                if (result==null||result.size()==0){
+                    ToastUtils.showToast("没有结果哦~");
+                    return;
+                }else{
+                    queryDetail(result);
+                }
+
             }
 
             @Override

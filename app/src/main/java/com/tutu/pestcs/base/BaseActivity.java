@@ -23,13 +23,13 @@ import rx.Subscription;
  */
 public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
 
+    public abstract int getLayoutID();
+
     public abstract void handleMessage(Message msg);
 
     public abstract void initView(Bundle savedInstanceState);
 
     public abstract void initData();
-
-    public abstract int getLayoutID();
 
     protected Context mBaseActivityContext;
     protected Context mApplicationContext;

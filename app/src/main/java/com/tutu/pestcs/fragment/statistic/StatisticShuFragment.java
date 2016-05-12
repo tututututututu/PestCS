@@ -1,15 +1,14 @@
 package com.tutu.pestcs.fragment.statistic;
 
-import android.content.Context;
 import android.os.Message;
 import android.widget.TextView;
 
-import com.nanotasks.BackgroundWork;
-import com.nanotasks.Completion;
-import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.bean.WenBean;
+import com.tutu.pestcs.comfig.ActivityJumpParams;
+import com.tutu.pestcs.utils.ColorPhrase;
 
 import java.util.List;
 
@@ -25,50 +24,33 @@ public class StatisticShuFragment extends BaseFragment {
     TextView tv_content;
     private List<WenBean> wendata;
 
+    private TaskBean taskBean;
+
     @Override
     public void handleMessage(Message msg) {
-        switch (msg.what) {
-            case 1:  //成功
-                updateUI();
-                break;
-            case -1:  //失败
-                break;
-        }
-    }
-
-    private void updateUI() {
 
     }
 
 
     @Override
     public void initView() {
-        Tasks.executeInBackground(getActivity(), new BackgroundWork<List<WenBean>>() {
-            @Override
-            public List<WenBean> doInBackground() throws Exception {
-                return readData();
-            }
-        }, new Completion<List<WenBean>>() {
-            @Override
-            public void onSuccess(Context context, List<WenBean> result) {
-                Message msg = new Message();
-                msg.what = 1;
-                sendMessage(msg);
-            }
-
-            @Override
-            public void onError(Context context, Exception e) {
-                Message msg = new Message();
-                msg.what = -1;
-                sendMessage(msg);
-            }
-        });
-
+        taskBean = getArguments().getParcelable(ActivityJumpParams.TASK_BEAN);
+        readData();
     }
 
-    private List<WenBean> readData() {
+    private void readData() {
         // TODO: 16/4/19 读取数据库数据
-        return null;
+        updateUI();
+    }
+
+    private void updateUI(){
+        CharSequence formatted = ColorPhrase.from("I'm {Chinese}, I love {China}")
+                .withSeparator("{}")
+                .innerColor(0xFFE6454A)
+                .outerColor(0xFF666666)
+                .format();
+
+        tv_content.setText(formatted);
     }
 
     @Override

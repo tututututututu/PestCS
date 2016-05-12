@@ -1,12 +1,8 @@
 package com.tutu.pestcs.fragment.statistic;
 
-import android.content.Context;
 import android.os.Message;
 import android.widget.TextView;
 
-import com.nanotasks.BackgroundWork;
-import com.nanotasks.Completion;
-import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.ZhangBean;
@@ -27,37 +23,13 @@ public class StatisticZhangFragment extends BaseFragment {
 
     @Override
     public void handleMessage(Message msg) {
-        switch (msg.what) {
-            case 1:  //成功
-                break;
-            case -1:  //失败
-                break;
-        }
+
     }
 
 
     @Override
     public void initView() {
-        Tasks.executeInBackground(getActivity(), new BackgroundWork<List<ZhangBean>>() {
-            @Override
-            public List<ZhangBean> doInBackground() throws Exception {
-                return readData();
-            }
-        }, new Completion<List<ZhangBean>>() {
-            @Override
-            public void onSuccess(Context context, List<ZhangBean> result) {
-                Message msg = new Message();
-                msg.what = 1;
-                sendMessage(msg);
-            }
 
-            @Override
-            public void onError(Context context, Exception e) {
-                Message msg = new Message();
-                msg.what = -1;
-                sendMessage(msg);
-            }
-        });
 
     }
 

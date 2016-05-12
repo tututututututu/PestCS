@@ -15,6 +15,7 @@ import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.activity.LoginActivity;
 import com.tutu.pestcs.activity.MainActivity;
 import com.tutu.pestcs.activity.SetCurrenTask;
+import com.tutu.pestcs.activity.StatisticsActivity;
 import com.tutu.pestcs.activity.TaskActivity;
 import com.tutu.pestcs.activity.UserActivity;
 import com.tutu.pestcs.adapter.IndexGVAdapter;
@@ -77,6 +78,8 @@ public class IndexFragment extends BaseFragment {
                         ((MainActivity) getActivity()).toFragment(3);
                         break;
                     case 5:
+                        intent = new Intent(mActivityContext, StatisticsActivity.class);
+                        startActivity(intent);
                         break;
                     case 6:
                         intent = new Intent(mActivityContext, DataManageActivitay.class);

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/base_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/title_style"
+        android:text="数据统计"/>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:gravity="center"
+            android:minWidth="200dp"
+            android:id="@+id/tv_task_code"
+            android:textSize="16sp"
+            android:text="考评任务编号:463782643"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:gravity="center"
+            android:minWidth="200dp"
+            android:id="@+id/tv_city"
+            android:layout_marginLeft="24dp"
+            android:textSize="16sp"
+            android:text="考评城市:黄石"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:gravity="center"
+            android:minWidth="200dp"
+            android:id="@+id/tv_time"
+            android:textSize="16sp"
+            android:text="考评开始时间:2401-19-19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:gravity="center"
+            android:minWidth="200dp"
+            android:id="@+id/tv_cheaker_name"
+            android:layout_marginLeft="24dp"
+            android:textSize="16sp"
+            android:text="检查人员:分点"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:background="@color/main_bg2"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/colors"
+        android:layout_below="@+id/tabs"
+        />
+
+
+</LinearLayout>

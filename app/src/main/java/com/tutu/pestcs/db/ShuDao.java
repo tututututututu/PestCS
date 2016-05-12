@@ -165,11 +165,4 @@ public class ShuDao {
         }
         return 0;
     }
-
-
-    public int getHadCheakedOutCount(String unitType) {
-        return 0;
-    }
-
-
 }
