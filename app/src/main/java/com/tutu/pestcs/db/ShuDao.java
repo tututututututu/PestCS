@@ -1,5 +1,6 @@
 package com.tutu.pestcs.db;
 
+import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.tutu.pestcs.bean.ShuBean;
@@ -163,6 +164,30 @@ public class ShuDao {
         } catch (DbException e) {
             e.printStackTrace();
         }
+        return 0;
+    }
+
+
+    public static long queryCount() {
+        try {
+            return DBHelper.getDBManager().selector(ShuBean.class).count();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int CheakRoom(String unitCode){
+
+        try {
+            Cursor cursor = DBHelper.getDBManager().execQuery("select sum(CheckRoom) from T_ShuRecord");
+            if (cursor.moveToNext()){
+                cursor.getInt(0);
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
         return 0;
     }
 }
