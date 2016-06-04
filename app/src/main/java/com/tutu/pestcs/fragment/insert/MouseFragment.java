@@ -433,6 +433,25 @@ public class MouseFragment extends BaseFragment {
             return false;
         }
 
+        if (yangxing>0&&shufen+shudong+shudao+yaoheng+shuzhua+shushi+huoshu<1){
+            ToastUtils.showToast("鼠迹类型至少有一项大于0");
+            return false;
+        }
+
+        if (sheshi_buhege>0&&dilou+chuanghu+menfeng+kongdong+mumen+chushuikou+paishuigou+paifengshan+
+                tongfengkou+dangshuban<1){
+            ToastUtils.showToast("防鼠设施不合格至少有一项大于0");
+            return false;
+        }
+
+        if (shujiyangxing>0&&wai_shufen+wai_shudong+wai_shudao+wai_yaoheng+wai_daotu+wai_shushi
+                +wai_huoshu<1){
+            ToastUtils.showToast("外环境鼠迹至少有一项大于0");
+            return false;
+        }
+
+
+
 
         return true;
     }

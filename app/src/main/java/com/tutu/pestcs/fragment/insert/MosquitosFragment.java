@@ -202,6 +202,35 @@ public class MosquitosFragment extends BaseFragment {
         });
 
         rbHupo.setChecked(true);
+        etRongqijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etKengwajishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etJingguanchiyangxing.addTextChangedListener(new MyTextWatcher());
+        etPaishuijinkoujishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etDixiashijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etLuntaijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etQitayangxing.addTextChangedListener(new MyTextWatcher());
+    }
+
+
+    private class MyTextWatcher implements TextWatcher{
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            int count = Rongqijishuiyangxing+Kengwajishuiyangxing+Jingguanchiyangxing+Paishuijinkoujishuiyangxing
+                    +Dixiashijishuiyangxing+Luntaijishuiyangxing+Qitayangxing;
+            etChajianxiaoxingjishuiyangxing.setText(count+"");
+        }
     }
 
     @Override
@@ -249,6 +278,7 @@ public class MosquitosFragment extends BaseFragment {
         chajianmiewendeng = dealData(etChajianmiewendeng);
         Chanjianxiaoxingjishui = dealData(etChanjianxiaoxingjishui);
         Chajianxiaoxingjishuiyangxing = dealData(etChajianxiaoxingjishuiyangxing);
+        rongqijishui = dealData(etRongqijishui);
         Rongqijishuiyangxing = dealData(etRongqijishuiyangxing);
         kengwajishui = dealData(etKengwajishui);
         Kengwajishuiyangxing = dealData(etKengwajishuiyangxing);
@@ -278,7 +308,7 @@ public class MosquitosFragment extends BaseFragment {
         bean.setJingKou(Paishuijinkoujishui);
         bean.setJingKouYangXin(Paishuijinkoujishuiyangxing);
         bean.setJingGuanChi(Jingguanchi);
-        bean.setJingKouYangXin(Jingguanchiyangxing);
+        bean.setJingGuanChiYangXin(Jingguanchiyangxing);
         bean.setDiXiaShi(Dixiashijishui);
         bean.setDiXiaShiYangXin(Dixiashijishuiyangxing);
         bean.setLuntai(Luntaijishui);
@@ -304,6 +334,10 @@ public class MosquitosFragment extends BaseFragment {
             return false;
         }
 
+        if (Rongqijishuiyangxing > rongqijishui) {
+            ToastUtils.showToast("<容器积水数填写>不合法");
+            return false;
+        }
 
         if (Kengwajishuiyangxing > kengwajishui) {
             ToastUtils.showToast("<坑洼积水数填写>不合法");
@@ -339,6 +373,12 @@ public class MosquitosFragment extends BaseFragment {
             ToastUtils.showToast("<大中型水体采样数填写>不合法");
             return false;
         }
+
+        if (Jianchalujing<1&&chajianmiewendeng>0){
+            ToastUtils.showToast("<检查路径填写>不合法");
+            return false;
+        }
+
         return true;
     }
 

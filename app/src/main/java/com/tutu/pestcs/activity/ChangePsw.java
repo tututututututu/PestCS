@@ -14,6 +14,7 @@ import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
 import com.tutu.pestcs.sp.SPUtils;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -80,16 +81,24 @@ public class ChangePsw extends BaseActivity {
 
         if (TextUtils.isEmpty(new1) || TextUtils.isEmpty(new2)) {
             svProgressHUD.showErrorWithStatus("请输入密码");
+            return;
+        }
+
+        if (new1.length() < 6 || new2.length() < 6) {
+            svProgressHUD.showErrorWithStatus("密码过短");
+            return;
         }
 
 
         if (!new1.equals(new2)) {
             svProgressHUD.showErrorWithStatus("两次密码不一致");
+            return;
         }
 
         user.setPassWord(new2);
         UserDao.saveOrUpdate(user);
         RxBus.postEvent(new AddUserEvent(user), AddUserEvent.class);
+        ToastUtils.showToast("修改成功");
         finish();
     }
 }

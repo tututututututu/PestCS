@@ -109,6 +109,7 @@
                     android:text="阳性:"/>
 
                 <EditText
+                    android:enabled="false"
                     android:id="@+id/et_chajianxiaoxingjishuiyangxing"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
@@ -125,16 +126,16 @@
         </LinearLayout>
 
 
+        <TextView
+            style="@style/describ_title"
+            android:text="小型积水类型"/>
+
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_xiaoxingjishui"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-            <TextView
-                style="@style/describ_title"
-                android:text="小型积水类型"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -523,61 +524,63 @@
                 </LinearLayout>
             </LinearLayout>
 
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="0dp"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="诱蚊人次:"/>
 
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="诱蚊人次:"/>
+                <EditText
+                    android:id="@+id/et_youwenrenci"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="50dp"/>
 
-                    <EditText
-                        android:id="@+id/et_youwenrenci"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="人"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="蚊虫停落次数:"/>
-
-                    <EditText
-                        android:id="@+id/et_wenchongtingluocishu"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="人"/>
             </LinearLayout>
 
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:paddingLeft="4dp"
+                    android:text="蚊虫停落次数:"/>
+
+                <EditText
+                    android:id="@+id/et_wenchongtingluocishu"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="50dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="个"/>
+            </LinearLayout>
         </LinearLayout>
 
         <TextView

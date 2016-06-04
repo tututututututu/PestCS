@@ -194,7 +194,7 @@ public class StatisticYingFragment extends BaseFragment {
         } else {
             waizishendiyangxingdengji = "低于C";
         }
-
+        
 
         String shumidu = "A";
         if ("低于C".equals(shineichengyinmidu) || "低于C".equals(fangyingsheshidengji) || "低于C".equals(waizishendiyangxingdengji)) {

@@ -33,12 +33,13 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:textSize="16sp"
             android:gravity="center"
             android:inputType="none"
             android:id="@+id/et_danweileixing"
             style="@style/et_style"
             android:layout_marginLeft="4dp"
-            android:hint="请选择"
+            android:hint="不限"
             android:layout_width="80dp"
             android:paddingBottom="2dp"
             android:paddingLeft="4dp"

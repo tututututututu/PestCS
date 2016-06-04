@@ -16,7 +16,6 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.TaskEvent;
-import com.tutu.pestcs.utils.DateHelper;
 import com.tutu.pestcs.widget.DateTimePickDialogUtil;
 
 import org.xutils.common.util.LogUtil;
@@ -132,17 +131,35 @@ public class AddTask extends BaseActivity {
         String expertName = etCheakerName.getText().toString().trim();
         String expertCode = etNumber.getText().toString().trim();
         String startDate = etTime.getText().toString().trim();
+
+
         if (TextUtils.isEmpty(groups) || TextUtils.isEmpty(taskCode) || TextUtils.isEmpty(city) || TextUtils.isEmpty
                 (citycode) || TextUtils.isEmpty(population) || TextUtils.isEmpty(expertCode) || TextUtils.isEmpty
                 (expertName) || TextUtils.isEmpty(startDate)) {
-            svProgressHUD.showErrorWithStatus("请输入完整");
+            svProgressHUD.showErrorWithStatus("请填写完整");
+            return;
+        }
+
+        if (taskCode.length()<18){
+            svProgressHUD.showErrorWithStatus("任务代码填写不正确");
+            return;
+        }
+
+        if (citycode.length()<6){
+            svProgressHUD.showErrorWithStatus("城市代码填写不正确");
+            return;
+        }
+
+        if(Integer.parseInt(population)<1){
+            svProgressHUD.showErrorWithStatus("人口数必须大于1");
+            return;
         }
 
 
         if (mComeFrom != 2) {
             //新增
             task = new TaskBean();
-            task.setTaskCode(DateHelper.getNowTime() + expertCode);
+            task.setTaskCode(taskCode);
             task.setCityName(city);
             task.setAreaCode(citycode);
             task.setPopulation(Integer.valueOf(population));

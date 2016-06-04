@@ -9,8 +9,10 @@ import android.widget.TextView;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseActivity;
+import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
+import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.TaskEvent;
 
@@ -86,7 +88,7 @@ public class TaskDetail extends BaseActivity {
         return R.layout.activity_task_detail;
     }
 
-    @OnClick({R.id.btn_modify, R.id.btn_del})
+    @OnClick({R.id.btn_modify, R.id.btn_del,R.id.ll_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_modify:
@@ -98,12 +100,21 @@ public class TaskDetail extends BaseActivity {
             case R.id.btn_del:
                 deleteTask();
                 break;
+            case R.id.ll_back:
+                finish();
+                break;
         }
 
     }
 
     //删除考评任务
     private void deleteTask() {
+        CheakInsertBean bean = CheakInsertDao.queryByUnitID(task.getTaskCode());
+        if (bean!=null){
+            svProgressHUD.showErrorWithStatus("该任务已有数据,不能删除");
+            return;
+        }
+
         TaskDao.delete(task);
         RxBus.postEvent(new TaskEvent(task), TaskEvent.class);
         finish();

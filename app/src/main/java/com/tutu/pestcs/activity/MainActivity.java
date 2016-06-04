@@ -1,5 +1,6 @@
 package com.tutu.pestcs.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.base.BaseActivity;
+import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.fragment.main.HelpFragment;
 import com.tutu.pestcs.fragment.main.IndexFragment;
 import com.tutu.pestcs.fragment.main.ProgressFragment;
@@ -38,6 +40,7 @@ public class MainActivity extends BaseActivity {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction;
 
+    private boolean backFromInsertActivity = false;
 
     @Override
     public void handleMessage(Message msg) {
@@ -78,6 +81,15 @@ public class MainActivity extends BaseActivity {
                         changeFragment(fragmentList.get(currentIndex), fragmentList.get(3));
                         currentIndex = 3;
                         break;
+                    case R.id.rb_insert:
+                        if (backFromInsertActivity){
+                            backFromInsertActivity = false;
+                            break;
+                        }
+                        Intent intent = new Intent(MainActivity.this, InsertActivity.class);
+                        startActivityForResult(intent, ActivityJumpParams.TO_INSERT_ACTIVITY);
+
+                        break;
                 }
 
             }
@@ -91,6 +103,15 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ActivityJumpParams.TO_INSERT_ACTIVITY) {
+            backFromInsertActivity = true;
+            toFragment(currentIndex);
+        }
     }
 
     @Override

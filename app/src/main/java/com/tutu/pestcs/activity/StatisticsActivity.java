@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.TaskDao;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class StatisticsActivity extends BaseActivity {
 
@@ -90,5 +92,10 @@ public class StatisticsActivity extends BaseActivity {
         tabs.setViewPager(pager);
         //tabs.setTabBackground(); //设置点击时的颜色变化
         tabs.setUnderlineHeight(2);
+    }
+
+    @OnClick(R.id.ll_back)
+    public void onClick(View view){
+        finish();
     }
 }

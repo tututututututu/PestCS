@@ -2,7 +2,6 @@ package com.tutu.pestcs.fragment.main;
 
 import android.content.Intent;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -14,7 +13,6 @@ import com.tutu.pestcs.activity.QueryResult;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.QueryBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
 import butterknife.Bind;
@@ -241,10 +239,10 @@ public class QueryFragment extends BaseFragment {
                 showUnitType();
                 break;
             case R.id.btn_query:
-                if (TextUtils.isEmpty(unitType)) {
-                    ToastUtils.showToast("请选择单位类型");
-                    break;
-                }
+//                if (TextUtils.isEmpty(unitType)) {
+//                    ToastUtils.showToast("请选择单位类型");
+//                    break;
+//                }
                 Intent intent = new Intent(mActivityContext, QueryResult.class);
                 QueryBean bean = new QueryBean();
                 bean.setCondition1(condition1);

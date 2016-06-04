@@ -2,10 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    android:id="@+id/base_layout"
     android:orientation="vertical"
     tools:context="com.tutu.pestcs.activity.ChangeFocusType">
 
@@ -104,7 +104,6 @@
                 android:layout_height="@dimen/dp48"
                 android:button="@null"
                 android:drawableRight="@drawable/rb_check_selector"
-                android:enabled="false"
                 android:text="学校"/>
 
             <CheckBox
@@ -145,6 +144,7 @@
                 android:layout_height="@dimen/dp48"
                 android:button="@null"
                 android:drawableRight="@drawable/rb_check_selector"
+                android:enabled="false"
                 android:text="道路"/>
 
             <CheckBox
@@ -153,6 +153,7 @@
                 android:layout_height="@dimen/dp48"
                 android:button="@null"
                 android:drawableRight="@drawable/rb_check_selector"
+                android:enabled="false"
                 android:text="公园公共绿地"/>
 
             <CheckBox

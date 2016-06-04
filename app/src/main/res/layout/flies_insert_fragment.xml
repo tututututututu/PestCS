@@ -391,19 +391,83 @@
             </LinearLayout>
 
 
+
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/describ_title"
+            android:text="生产销售直接入口食品的场所"/>/>
+
+        <LinearLayout
+            style="@style/insert_mouse_fragment_ll_style"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                style="@style/describ_title2"
+                android:paddingLeft="4dp"
+                android:text="生产销售直接入口食品的场所:"/>
+
+            <EditText
+                android:id="@+id/et_scxszjrkspdcs"
+                style="@style/et_style2"
+                android:layout_width="wrap_content"
+                android:hint="0"
+                android:minWidth="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:gravity="center"
+                android:text="个"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/insert_mouse_fragment_ll_style"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            >
+
+            <TextView
+                style="@style/describ_title2"
+                android:paddingLeft="4dp"
+                android:text="其中:有蝇场所"/>
+
+            <EditText
+                android:id="@+id/et_qizhongyouyingchangsuo"
+                style="@style/et_style2"
+                android:layout_width="wrap_content"
+                android:hint="0"
+                android:minWidth="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:gravity="center"
+                android:text="个"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
                 style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="20dp"
-                >
+                android:layout_width="0dp"
+                android:layout_weight="1">
 
                 <TextView
                     style="@style/describ_title2"
-                    android:paddingLeft="4dp"
-                    android:text="生产销售直接入口食品的场所:"/>
+                    android:text="室内灭蝇灯:"/>
 
                 <EditText
-                    android:id="@+id/et_scxszjrkspdcs"
+                    android:id="@+id/et_shineimieyingdeng"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
                     android:hint="0"
@@ -419,17 +483,47 @@
 
             <LinearLayout
                 style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="match_parent"
-                android:paddingLeft="20dp"
-                >
+                android:layout_width="0dp"
+                android:layout_weight="1">
 
                 <TextView
                     style="@style/describ_title2"
                     android:paddingLeft="4dp"
-                    android:text="其中:有蝇场所"/>
+                    android:text="放置不正确数:"/>
 
                 <EditText
-                    android:id="@+id/et_qizhongyouyingchangsuo"
+                    android:id="@+id/et_fangzhibuzhengqueshu"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="50dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="个"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="室内蝇类孳生地:"/>
+
+                <EditText
+                    android:id="@+id/et_shineiyingleizishengdi"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
                     android:hint="0"
@@ -443,116 +537,29 @@
                     android:text="个"/>
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="0dp"
+                android:layout_weight="0.7">
 
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
+                <TextView
+                    style="@style/describ_title2"
+                    android:paddingLeft="4dp"
+                    android:text="阳性:"/>
 
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="室内灭蝇灯:"/>
+                <EditText
+                    android:id="@+id/et_yangxing"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="50dp"/>
 
-                    <EditText
-                        android:id="@+id/et_shineimieyingdeng"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="放置不正确数:"/>
-
-                    <EditText
-                        android:id="@+id/et_fangzhibuzhengqueshu"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="室内蝇类孳生地:"/>
-
-                    <EditText
-                        android:id="@+id/et_shineiyingleizishengdi"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.7">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_yangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="个"/>
             </LinearLayout>
         </LinearLayout>
 

@@ -303,6 +303,23 @@ public class FliesFragment extends BaseFragment {
             return false;
         }
 
+        if (yangxingfangshu>0&&chengyingzshu<1){
+            ToastUtils.showToast("<室内成蝇总数填写>不合法");
+            return false;
+        }
+
+        if (buhegechangsuoshu>0&&shiwairumenkou+tongshiwaichuangkou+chufangmen+shushijian
+                +zhijierukoushipinchugui+liangcaijian+zhijierukoushipintandian+qita<1){
+            ToastUtils.showToast("<防蝇设施不合格部位填写>不合法");
+            return false;
+        }
+
+
+        if (sanzaizishendi>0&&jianchalujing<1){
+            ToastUtils.showToast("<检查路径填写>不合法");
+            return false;
+        }
+
         return true;
     }
 }

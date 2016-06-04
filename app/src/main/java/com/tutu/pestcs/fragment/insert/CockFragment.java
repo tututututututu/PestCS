@@ -164,6 +164,21 @@ public class CockFragment extends BaseFragment {
             return false;
         }
 
+        if (chengchongyangxingfangjianshu>0&&dalian+xiaolian<1){
+            ToastUtils.showToast("<成若虫阳性间数填写>不合法");
+            return false;
+        }
+
+        if (luanqiaoxiangxingfangjianshu>jianchafangshu){
+            ToastUtils.showToast("<检查房间数填写>不合法");
+            return false;
+        }
+
+        if (zhangjiyangxingfangjianshu>jianchafangshu){
+            ToastUtils.showToast("<检查房间数填写>不合法");
+            return false;
+        }
+
         return true;
     }
 }

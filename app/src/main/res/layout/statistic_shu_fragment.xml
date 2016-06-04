@@ -14,7 +14,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="fdsafasdf法师打发打发速度发发的萨芬\n放大师傅家客户的手机费"
             android:textSize="18sp"
             android:lineSpacingExtra="7dp"
             android:id="@+id/tv_content"

@@ -75,16 +75,28 @@ public class CheakInsertDao {
     public static List<CheakInsertBean> queryByUnitTypeAndIsKeyClass(String UnitClassID, int isKeyClass) {
         try {
             List<CheakInsertBean> beans;
-            if (isKeyClass == 1 || isKeyClass == 2) {
-                beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitClassID", "=",
+            if (TextUtils.isEmpty(UnitClassID)) {
+                if (isKeyClass == 1 || isKeyClass == 2) {
+                    beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("IsKeyUnit", "=",
+                            isKeyClass == 1 ? true : false).findAll();
+                } else {
+                    beans = DBHelper.getDBManager().selector(CheakInsertBean.class).findAll();
 
-                        UnitClassID).and("IsKeyUnit", "=", isKeyClass == 1 ? true : false).findAll();
+                }
             } else {
-                beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitClassID", "=",
+                if (isKeyClass == 1 || isKeyClass == 2) {
+                    beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitClassID", "=",
 
-                        UnitClassID).findAll();
+                            UnitClassID).and("IsKeyUnit", "=", isKeyClass == 1 ? true : false).findAll();
+                } else {
+                    beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitClassID", "=",
 
+                            UnitClassID).findAll();
+
+                }
             }
+
+
             return beans;
         } catch (DbException e) {
             e.printStackTrace();

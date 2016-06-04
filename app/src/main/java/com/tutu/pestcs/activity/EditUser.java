@@ -96,6 +96,7 @@ public class EditUser extends BaseActivity {
                 dialog.dismiss();
                 UserDao.delete(user);
                 ToastUtils.showToast("删除成功");
+                RxBus.postEvent(new UserEidteEvent(user),UserEidteEvent.class);
                 finish();
             }
         });

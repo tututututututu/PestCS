@@ -9,4 +9,5 @@ public class ActivityJumpParams {
     public final static String queryType = "query_type";
     public final static String CHEAK_INSERT_BEAN = "cheak_insert_bean";
     public final static String QUERY_BEAN = "query_bean";
+    public final static int TO_INSERT_ACTIVITY = 100;
 }

@@ -52,10 +52,11 @@
             android:textSize="@dimen/sp16"/>
 
         <EditText
-            android:enabled="false"
-            android:text="填写完毕保存之后自动生成"
+            android:hint="请正确填写任务代码 18位数字组成"
             android:id="@+id/tv_code"
             style="@style/et_style"
+            android:maxLength="18"
+            android:inputType="number"
             android:layout_height="36dp"
             android:padding="0dp"
             />
@@ -80,9 +81,11 @@
             android:textSize="@dimen/sp16"/>
 
         <EditText
+            android:hint="2到10个字符"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             android:layout_height="36dp"
+            android:maxLength="10"
             style="@style/et_style"
             android:id="@+id/et_city"
             />
@@ -107,7 +110,8 @@
             android:textSize="@dimen/sp16"/>
 
         <EditText
-            android:maxLength="4"
+            android:hint="6位数字"
+            android:maxLength="6"
             android:inputType="number"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
@@ -166,7 +170,9 @@
             android:textSize="@dimen/sp16"/>
 
         <EditText
+            android:hint="2到5个字符"
             android:paddingTop="0dp"
+            android:maxLength="5"
             android:paddingBottom="0dp"
             android:layout_height="36dp"
             style="@style/et_style"
@@ -222,6 +228,7 @@
             android:textSize="@dimen/sp16"/>
 
         <EditText
+            android:text="1"
             android:maxLength="3"
             android:inputType="number"
             android:layout_width="100dp"

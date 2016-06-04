@@ -13,7 +13,6 @@ import com.tutu.pestcs.activity.DataManageActivitay;
 import com.tutu.pestcs.activity.FocusTypeActivity;
 import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.activity.LoginActivity;
-import com.tutu.pestcs.activity.MainActivity;
 import com.tutu.pestcs.activity.SetCurrenTask;
 import com.tutu.pestcs.activity.StatisticsActivity;
 import com.tutu.pestcs.activity.TaskActivity;
@@ -36,9 +35,9 @@ public class IndexFragment extends BaseFragment {
     GridView gridView;
 
     private IndexGVAdapter adapter;
-    private String[] text = {"重点类型", "当前任务", "任务设置", "数据录入", "数据查询", "数据统计", "数据管理", "用户管理", "修改密码", "退出系统"};
+    private String[] text = {"重点类型", "当前任务", "任务设置", "数据录入", "数据统计", "数据管理", "用户管理", "修改密码", "退出系统"};
     private int[] img = {R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R
-            .mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap
+            .mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap
             .ic_launcher, R
             .mipmap.ic_launcher};
 
@@ -75,25 +74,22 @@ public class IndexFragment extends BaseFragment {
                         startActivity(intent);
                         break;
                     case 4:
-                        ((MainActivity) getActivity()).toFragment(3);
-                        break;
-                    case 5:
                         intent = new Intent(mActivityContext, StatisticsActivity.class);
                         startActivity(intent);
                         break;
-                    case 6:
+                    case 5:
                         intent = new Intent(mActivityContext, DataManageActivitay.class);
                         startActivity(intent);
                         break;
-                    case 7:
+                    case 6:
                         intent = new Intent(mActivityContext, UserActivity.class);
                         startActivity(intent);
                         break;
-                    case 8:
+                    case 7:
                         intent = new Intent(mActivityContext, ChangePsw.class);
                         startActivity(intent);
                         break;
-                    case 9:
+                    case 8:
                         logout(mActivityContext);
                         break;
                 }

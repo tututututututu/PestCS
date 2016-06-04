@@ -14,13 +14,16 @@
         android:orientation="vertical">
 
         <TextView
+            android:textSize="18sp"
+            android:lineSpacingExtra="7dp"
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingTop="6dp"/>
+            android:paddingTop="10dp"/>
+
 
     </LinearLayout>
 

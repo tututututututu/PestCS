@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:text="设置当前考评任务"/>
+            android:text="设置考评任务"/>
 
         <LinearLayout
             android:id="@+id/ll_add"
