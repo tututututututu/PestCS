@@ -294,11 +294,11 @@ public class QueryResult extends BaseActivity {
             queryResultBean.setUnitName(bean.getNamePlace());
             queryResultBean.setUnitCode(bean.getUnitCode());
             queryResultBean.setCol1Start(bean1.getYingRoom());
-            queryResultBean.setCol1End(bean1.getFangYingBadPlace());
-            queryResultBean.setCol2Start(bean1.getFangYingPlace());
+            queryResultBean.setCol1End(bean1.getCheckRoom());
+            queryResultBean.setCol2Start(bean1.getFangYingBadPlace());
             queryResultBean.setCol2End(bean1.getFangYingPlace());
-            queryResultBean.setCol3Start(bean1.getSanZaiYangXinNum());
-            queryResultBean.setCol3End(bean1.getSanZaiLaJiNum());
+            queryResultBean.setCol3Start(bean1.getInnerYangXin());
+            queryResultBean.setCol3End(bean1.getInnerZhiShengDi());
             data.add(queryResultBean);
 
         }
@@ -318,7 +318,7 @@ public class QueryResult extends BaseActivity {
             queryResultBean.setCol1Start(shuBean.getShuRoom());
             queryResultBean.setCol1End(shuBean.getCheckRoom());
             queryResultBean.setCol2Start(shuBean.getFangShuBadRoom());
-            queryResultBean.setCol2End(shuBean.getFangShuRoom());
+            queryResultBean.setCol2End(shuBean.getCheckRoom());
             queryResultBean.setCol3Start(shuBean.getShuJiNum());
             queryResultBean.setCol3End(shuBean.getCheckDistance());
             data.add(queryResultBean);

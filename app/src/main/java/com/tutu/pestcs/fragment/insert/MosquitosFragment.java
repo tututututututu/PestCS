@@ -1,15 +1,19 @@
 package com.tutu.pestcs.fragment.insert;
 
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.InsertActivity;
@@ -24,6 +28,7 @@ import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -127,6 +132,8 @@ public class MosquitosFragment extends BaseFragment {
 
     @Bind(R.id.ll_xiaoxingjishui)
     LinearLayout llXiaoxingjishui;
+    @Bind(R.id.tv_shuitileixing)
+    TextView tvShuitileixing;
 
 
     private CheakInsertBean cheakInsertBean;
@@ -144,6 +151,15 @@ public class MosquitosFragment extends BaseFragment {
 
 
         cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
+
+        //大中型水体
+        if (cheakInsertBean.getUnitClassID().equals("17")) {
+            ShuiTiType.setVisibility(View.VISIBLE);
+            tvShuitileixing.setVisibility(View.VISIBLE);
+        } else {
+            ShuiTiType.setVisibility(View.GONE);
+            tvShuitileixing.setVisibility(View.GONE);
+        }
 
         bean.setUnitCode(cheakInsertBean.getUnitCode());
 
@@ -211,8 +227,22 @@ public class MosquitosFragment extends BaseFragment {
         etQitayangxing.addTextChangedListener(new MyTextWatcher());
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
-    private class MyTextWatcher implements TextWatcher{
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+
+    private class MyTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -227,9 +257,9 @@ public class MosquitosFragment extends BaseFragment {
         @Override
         public void afterTextChanged(Editable s) {
 
-            int count = Rongqijishuiyangxing+Kengwajishuiyangxing+Jingguanchiyangxing+Paishuijinkoujishuiyangxing
-                    +Dixiashijishuiyangxing+Luntaijishuiyangxing+Qitayangxing;
-            etChajianxiaoxingjishuiyangxing.setText(count+"");
+            int count = Rongqijishuiyangxing + Kengwajishuiyangxing + Jingguanchiyangxing + Paishuijinkoujishuiyangxing
+                    + Dixiashijishuiyangxing + Luntaijishuiyangxing + Qitayangxing;
+            etChajianxiaoxingjishuiyangxing.setText(count + "");
         }
     }
 
@@ -374,7 +404,7 @@ public class MosquitosFragment extends BaseFragment {
             return false;
         }
 
-        if (Jianchalujing<1&&chajianmiewendeng>0){
+        if (Jianchalujing < 1 && chajianmiewendeng > 0) {
             ToastUtils.showToast("<检查路径填写>不合法");
             return false;
         }

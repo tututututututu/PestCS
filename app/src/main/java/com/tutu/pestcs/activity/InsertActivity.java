@@ -85,12 +85,12 @@ public class InsertActivity extends BaseActivity {
         builder.setPositiveButton("开始", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                addSetCurrentTaskLister();
-                queryCurrentTask();
-                addSetCurrentTaskLister();
-                addTextWather();
-                etName.setText("");
-                cbZhongdian.setChecked(false);
+
+
+                showUnitTypeDialog();
+
+
+
                 dialog.dismiss();
             }
         });
@@ -240,6 +240,13 @@ public class InsertActivity extends BaseActivity {
                 extendSortUnitBean = ExtendUnitDao.queryByUnitID(cheakIndex);
                 mUnitType = cheakIndex;
                 cbZhongdian.setChecked(extendSortUnitBean.iskeyClass());
+
+                addSetCurrentTaskLister();
+                queryCurrentTask();
+                addSetCurrentTaskLister();
+                addTextWather();
+                //etName.setText("");
+                //cbZhongdian.setChecked(false);
             }
 
             @Override

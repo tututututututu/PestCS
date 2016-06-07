@@ -32,7 +32,7 @@ public class UnitTypeDialog {
         View view = LayoutInflater.from(context).inflate(R.layout.unit_type_dialog, null);
         final RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.rg_type);
 
-
+        builder.setCancelable(false);
         builder.setView(view);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -115,13 +115,6 @@ public class UnitTypeDialog {
                         break;
                 }
                 listener.onCofirm(cheakIndex, cheakString);
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                listener.onCancle();
-                dialog.dismiss();
             }
         });
         return builder.create();

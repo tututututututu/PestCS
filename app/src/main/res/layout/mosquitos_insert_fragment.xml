@@ -668,6 +668,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_shuitileixing"
             style="@style/describ_title"
             android:text="水体类型"/>
 
