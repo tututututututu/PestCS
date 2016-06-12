@@ -27,6 +27,16 @@ public class UserDao {
         return null;
     }
 
+    //查询指定权限用户
+    public static List<User> queryUser(String permisson) {
+        try {
+            return DBHelper.getDBManager().selector(User.class).where("UserGrade", "=", permisson).findAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void delete(User user) {
         try {
             DBHelper.getDBManager().delete(user);

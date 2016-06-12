@@ -15,6 +15,7 @@ public class SPUtils {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "psw";
     public static final String IS_FRESH_APP = "is_fresh_app"; //是否第一次打开应用
+    public static final String PERMISSON = "permisson"; //角色权限  -1 超级管理员  0管理员 1普通用户
 
 
     public static SharedPreferences getSP() {

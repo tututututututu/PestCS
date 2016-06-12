@@ -21,6 +21,8 @@ import com.tutu.pestcs.adapter.IndexGVAdapter;
 import com.tutu.pestcs.app.AppUtils;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.IndexGVBean;
+import com.tutu.pestcs.sp.SPUtils;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +84,13 @@ public class IndexFragment extends BaseFragment {
                         startActivity(intent);
                         break;
                     case 6:
-                        intent = new Intent(mActivityContext, UserActivity.class);
-                        startActivity(intent);
+                        if ("1".equals(SPUtils.getStringSP(SPUtils.PERMISSON))) {
+                            ToastUtils.showToast("您不是管理员,没有权限");
+                        } else {
+                            intent = new Intent(mActivityContext, UserActivity.class);
+                            startActivity(intent);
+                        }
+
                         break;
                     case 7:
                         intent = new Intent(mActivityContext, ChangePsw.class);

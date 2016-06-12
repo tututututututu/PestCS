@@ -124,6 +124,16 @@ public class LoginActivity extends BaseActivity {
                     }
                     SPUtils.writeStringSP(SPUtils.USERNAME, etUsername.getText().toString().trim());
                     SPUtils.writeStringSP(SPUtils.PASSWORD, etPwd.getText().toString().trim());
+                    User user = UserDao.queryByName(etUsername.getText().toString().trim());
+                    if (TextUtils.isEmpty(user.getUserGrade())){
+                        svProgressHUD.showErrorWithStatus("系统错误");
+                        return;
+                    }
+
+                    SPUtils.writeStringSP(SPUtils.PERMISSON, user.getUserGrade());
+
+
+
                     svProgressHUD.dismissImmediately();
                     //验证成功
                     toMainActivity();

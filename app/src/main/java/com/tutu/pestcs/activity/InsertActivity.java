@@ -3,8 +3,11 @@ package com.tutu.pestcs.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -33,6 +36,8 @@ import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.utils.DateHelper;
 import com.tutu.pestcs.widget.UnitTypeDialog;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -88,7 +93,6 @@ public class InsertActivity extends BaseActivity {
 
 
                 showUnitTypeDialog();
-
 
 
                 dialog.dismiss();
@@ -207,7 +211,6 @@ public class InsertActivity extends BaseActivity {
             }
         });
 
-
     }
 
     @Override
@@ -218,14 +221,33 @@ public class InsertActivity extends BaseActivity {
 
     @OnClick({R.id.et_unit_type, R.id.ll_camara, R.id.tv_set_current_task})
     public void OnClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.et_unit_type:
                 showUnitTypeDialog();
                 break;
             case R.id.ll_camara:
+                //String sdcardPath = Environment.getExternalStorageDirectory().getPath()+"/tutu/db.db";
+                File destDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+                        + "tutu/imgs");
+                if (!destDir.exists()) {
+                    if (!destDir.mkdirs()){
+                        svProgressHUD.showErrorWithStatus("请给程序读取SD卡权限");
+                    }
+
+                }
+
+                String sFileFullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+                        "tutu/imgs" + File.separator +
+                        cheakInsertBean.getTaskCode() + DateHelper.getNowTimeSecond() + ".jpg";
+                File file = new File(sFileFullPath);
+                intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                startActivityForResult(intent, 1);
+
                 break;
             case R.id.tv_set_current_task:
-                Intent intent = new Intent(this, TaskActivity.class);
+                intent = new Intent(this, TaskActivity.class);
                 startActivity(intent);
                 finish();
                 break;

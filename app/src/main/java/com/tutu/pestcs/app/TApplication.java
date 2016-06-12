@@ -22,6 +22,7 @@ public class TApplication extends Application {
         ToastUtils.initToast(this);
     }
 
+
     public static TApplication getInstance() {
         return app;
     }

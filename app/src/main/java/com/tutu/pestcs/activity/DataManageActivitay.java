@@ -1,6 +1,8 @@
 package com.tutu.pestcs.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
@@ -33,6 +35,8 @@ public class DataManageActivitay extends BaseActivity {
     @Bind(R.id.rl_tosd)
     RelativeLayout rlTosd;
 
+    private boolean isSend =false;
+
     @Override
     public int getLayoutID() {
         return R.layout.activity_data_manage_activitay;
@@ -53,13 +57,18 @@ public class DataManageActivitay extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_tosd, R.id.ll_back})
+    @OnClick({R.id.rl_tosd, R.id.ll_back, R.id.rl_send})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
             case R.id.rl_tosd:
+                isSend = false;
+                CopyFile();
+                break;
+            case R.id.rl_send:
+                isSend = true;
                 CopyFile();
                 break;
         }
@@ -79,6 +88,18 @@ public class DataManageActivitay extends BaseActivity {
             @Override
             public void onSuccess(Context context, Void result) {
                 svProgressHUD.dismissImmediately();
+                if (isSend) {
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tutu/db/db.db");
+                    if (!file.exists()) {
+                        ToastUtils.showToast("文件不存在");
+                        return;
+                    }
+                    share.putExtra(Intent.EXTRA_STREAM,
+                            Uri.fromFile(file));
+                    share.setType("*/*");//此处可发送多种文件
+                    startActivity(Intent.createChooser(share, "Share"));
+                }
             }
 
             @Override
@@ -97,9 +118,18 @@ public class DataManageActivitay extends BaseActivity {
 
         File f = new File(src); //比如  "/data/data/com.hello/databases/test.db"
 
-        String sdcardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File destDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+                + "tutu/db");
+        if (!destDir.exists()) {
+            if (!destDir.mkdirs()) {
+                ToastUtils.showToast("请给程序读取SD卡权限");
+            }
 
-        File o = new File(sdcardPath + "/db.db"); //sdcard上的目标地址
+        }
+
+        String sdcardPath = Environment.getExternalStorageDirectory().getPath() + "/tutu/db/db.db";
+
+        File o = new File(sdcardPath); //sdcard上的目标地址
 
         if (f.exists()) {
 

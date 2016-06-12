@@ -17,6 +17,7 @@ import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.sp.SPUtils;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import org.xutils.common.util.LogUtil;
 
@@ -194,7 +195,7 @@ public class Splash extends AbsActivity {
         //创建对象，用来生成表
         User user = new User();
         user.setUserName("superadmin");
-        user.setUserGrade("0");
+        user.setUserGrade("-1");
         user.setPassWord("123456");
 
         User user1 = new User();
@@ -225,7 +226,15 @@ public class Splash extends AbsActivity {
             if (!TextUtils.isEmpty(SPUtils.getStringSP(SPUtils.USERNAME)) && !TextUtils.isEmpty(SPUtils.getStringSP
                     (SPUtils.PASSWORD))) {
                 LogUtil.e("has user");
-                loginRequest();
+                if (TextUtils.isEmpty(SPUtils.getStringSP(SPUtils.PERMISSON))) {
+                    ToastUtils.showToast("登陆错误,请联系管理员");
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    loginRequest();
+                }
+
             } else {
                 LogUtil.e("no user");
                 //没有用户处于登录状态

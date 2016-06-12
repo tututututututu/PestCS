@@ -20,6 +20,7 @@ import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
 import com.tutu.pestcs.event.UserEidteEvent;
+import com.tutu.pestcs.sp.SPUtils;
 
 import org.xutils.common.util.LogUtil;
 
@@ -37,6 +38,7 @@ public class UserActivity extends BaseActivity {
     View empty;
     private UserAdapter adapter;
     private List<User> users;
+    private String permisson;
 
     @Override
     public void handleMessage(Message msg) {
@@ -45,6 +47,8 @@ public class UserActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        permisson = SPUtils.getStringSP(SPUtils.PERMISSON);
+
         readData();
         RegistAddUserEvent();
         registUserEditeEvent();
@@ -110,7 +114,11 @@ public class UserActivity extends BaseActivity {
         Tasks.executeInBackground(this, new BackgroundWork<List<User>>() {
             @Override
             public List<User> doInBackground() throws Exception {
-                return UserDao.queryAll();
+                if (permisson.equals("-1")) {
+                    return UserDao.queryAll();
+                } else {
+                    return UserDao.queryUser("1");
+                }
             }
         }, new Completion<List<User>>() {
             @Override

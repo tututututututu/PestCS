@@ -16,7 +16,7 @@ public class User implements Parcelable {
     @Column(name = "PassWord")
     String PassWord;
     /**
-     * 用户类型 0管理员  1普通用户
+     * 用户类型 0管理员  1普通用户 -1超级管理员
      */
     @Column(name = "UserGrade")
     String UserGrade;
