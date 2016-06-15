@@ -110,12 +110,51 @@ public class StatisticZhangFragment extends BaseFragment {
         }
 
 
-        float chengruochongqinghailv = (float) chengruochongyangxingfangjianshu / (float)jianchafangjianshu * 100;
-        float dalianpingjunyangxingjian = (float) qizhongdalian / (float)chengruochongyangxingfangjianshu;
-        float xiaolianpingjunyangxingjian = (float) xiaoliangong / (float)chengruochongyangxingfangjianshu;
-        float luanqiaoyangxingfangjianshuchahuolv = (float) luanqiaoyangxingfangjianshu / (float)jianchafangjianshu * 100;
-        float chahuoluanqiaopingjunyangxingjian = (float) chahuoluanqiaogong / (float)luanqiaoyangxingfangjianshu;
-        float zhangjiyangxingfangjianchahuolv = (float)zhangjiyangxingfangjianshu / (float)jianchafangjianshu*100;
+        float chengruochongqinghailv;
+        if (jianchafangjianshu==0){
+            chengruochongqinghailv = 0;
+        }else{
+            chengruochongqinghailv = (float) chengruochongyangxingfangjianshu / (float)jianchafangjianshu * 100;
+        }
+
+        float dalianpingjunyangxingjian;
+        if (chengruochongyangxingfangjianshu==0){
+            dalianpingjunyangxingjian = 0;
+        }else{
+            dalianpingjunyangxingjian = (float) qizhongdalian / (float)chengruochongyangxingfangjianshu;
+        }
+
+
+        float xiaolianpingjunyangxingjian;
+        if (chengruochongyangxingfangjianshu==0){
+            xiaolianpingjunyangxingjian = 0;
+        }else{
+            xiaolianpingjunyangxingjian = (float) xiaoliangong / (float)chengruochongyangxingfangjianshu;
+        }
+
+
+        float luanqiaoyangxingfangjianshuchahuolv;
+        if (jianchafangjianshu==0){
+            luanqiaoyangxingfangjianshuchahuolv = 0;
+        }else {
+            luanqiaoyangxingfangjianshuchahuolv = (float) luanqiaoyangxingfangjianshu / (float)jianchafangjianshu * 100;
+        }
+
+
+        float chahuoluanqiaopingjunyangxingjian;
+        if (luanqiaoyangxingfangjianshu==0){
+            chahuoluanqiaopingjunyangxingjian = 0;
+        }else {
+            chahuoluanqiaopingjunyangxingjian = (float) chahuoluanqiaogong / (float)luanqiaoyangxingfangjianshu;
+        }
+
+
+        float zhangjiyangxingfangjianchahuolv;
+        if (jianchafangjianshu==0){
+            zhangjiyangxingfangjianchahuolv = 0;
+        }else{
+            zhangjiyangxingfangjianchahuolv = (float)zhangjiyangxingfangjianshu / (float)jianchafangjianshu*100;
+        }
 
 
         String chengruochongqianhaidengji = "A";

@@ -163,7 +163,7 @@ public class MosquitosFragment extends BaseFragment {
 
         bean.setUnitCode(cheakInsertBean.getUnitCode());
 
-        etChajianxiaoxingjishuiyangxing.addTextChangedListener(new TextWatcher() {
+        etChanjianxiaoxingjishui.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

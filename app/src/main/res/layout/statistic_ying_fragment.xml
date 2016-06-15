@@ -2,8 +2,8 @@
 
 <com.tutu.pestcs.widget.OverScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/base_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -14,16 +14,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="fdsafasdf法师打发打发速度发发的萨芬\n放大师傅家客户的手机费"
-            android:textSize="18sp"
-            android:lineSpacingExtra="7dp"
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:lineSpacingExtra="7dp"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 

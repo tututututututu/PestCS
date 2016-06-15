@@ -34,7 +34,7 @@ public class GuoBiaoSortUnitBean implements Parcelable {
     private int P50Room;
     @Column(name = "P10Unit")
     private int P10Unit;
-    @Column(name = "P10Unit")
+    @Column(name = "P10Room")
     private int P10Room;
     @Column(name = "P01Unit")
     private int P01Unit;

@@ -275,7 +275,7 @@ public class InsertActivity extends BaseActivity {
             public void onCancle() {
 
             }
-        }).show();
+        },false).show();
     }
 
 

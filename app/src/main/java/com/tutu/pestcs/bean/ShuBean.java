@@ -13,8 +13,8 @@ import org.xutils.db.annotation.Table;
 public class ShuBean implements Parcelable {
     @Column(name = "UnitCode", isId = true)
     private String UnitCode;
-    @Column(name = "uniType")
-    private String uniType;
+//    @Column(name = "uniType")
+//    private String uniType;
     @Column(name = "CheckRoom")
     private int CheckRoom;
     @Column(name = "ShuRoom")
@@ -93,7 +93,7 @@ public class ShuBean implements Parcelable {
     public String toString() {
         return "ShuBean{" +
                 "UnitCode='" + UnitCode + '\'' +
-                ", uniType='" + uniType + '\'' +
+//                ", uniType='" + uniType + '\'' +
                 ", CheckRoom=" + CheckRoom +
                 ", ShuRoom=" + ShuRoom +
                 ", ShuFen=" + ShuFen +
@@ -132,13 +132,13 @@ public class ShuBean implements Parcelable {
                 '}';
     }
 
-    public String getUniType() {
-        return uniType;
-    }
-
-    public void setUniType(String uniType) {
-        this.uniType = uniType;
-    }
+//    public String getUniType() {
+//        return uniType;
+//    }
+//
+//    public void setUniType(String uniType) {
+//        this.uniType = uniType;
+//    }
 
     public int getShuDao() {
         return ShuDao;
@@ -436,7 +436,7 @@ public class ShuBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.UnitCode);
-        dest.writeString(this.uniType);
+//        dest.writeString(this.uniType);
         dest.writeInt(this.CheckRoom);
         dest.writeInt(this.ShuRoom);
         dest.writeInt(this.ShuFen);
@@ -476,7 +476,7 @@ public class ShuBean implements Parcelable {
 
     protected ShuBean(Parcel in) {
         this.UnitCode = in.readString();
-        this.uniType = in.readString();
+//        this.uniType = in.readString();
         this.CheckRoom = in.readInt();
         this.ShuRoom = in.readInt();
         this.ShuFen = in.readInt();

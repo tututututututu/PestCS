@@ -2,6 +2,7 @@ package com.tutu.pestcs.db;
 
 import android.text.TextUtils;
 
+import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.YingBean;
 
 import org.xutils.common.util.LogUtil;
@@ -141,30 +142,39 @@ public class YingDao {
     }
 
 
-    public static int getHadCheakedRoomInCount(String unitType) {
+
+    public static int getHadCheakedRoomInCount(String unityTyppe) {
+        int count = 0;
         try {
-            List<YingBean> beans = DBHelper.getDBManager().selector(YingBean.class).where("uniType", "=", unitType)
-                    .findAll();
-            if (beans == null) {
-                return 0;
+            List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+
+            for (CheakInsertBean bean : cheakInsertList) {
+                YingBean shubena = DBHelper.getDBManager().selector(YingBean.class).where("UnitCode", "=", bean
+                        .getUnitCode())
+                        .findFirst();
+                if (shubena != null) {
+                    count += shubena.getCheckRoom();
+                }
             }
-            int count = 0;
-            for (YingBean bean : beans) {
-                count += bean.getCheckRoom();
-            }
-            return count;
         } catch (DbException e) {
             e.printStackTrace();
         }
-        return 0;
+        return count;
     }
 
     public static int getHadCheakedUnitInCount(String unitType) {
-        try {
-            return (int) DBHelper.getDBManager().selector(YingBean.class).where("uniType", "=", unitType).count();
-        } catch (DbException e) {
-            e.printStackTrace();
+
+        List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        int count = 0;
+        for (CheakInsertBean bean : list) {
+            YingBean shu = YingDao.queryByUnitID(bean.getUnitCode());
+            if (shu != null) {
+                count++;
+            }
         }
-        return 0;
+
+        return count;
+
     }
+
 }

@@ -100,9 +100,6 @@ public class StatisticYingFragment extends BaseFragment {
         int chajianshineimieyingdeng = 0;
         int fangzhifangfabuzhengqueshu = 0;
 
-
-        int waigongchayingleizishendi = 0;
-        int waizishendiyangxing = 0;
         int waijianchashiwailajirongqi = 0;
         int wailajirongqiyangxing = 0;
         int gonggongcesuo = 0;
@@ -151,8 +148,22 @@ public class StatisticYingFragment extends BaseFragment {
         }
 
 
-        float yangxingjianyingmidu = (float) shineichengyingzhishu / (float) shineiyangxingfangjianshu;
-        float youyingfangjianyangxinglv = (float) shineiyangxingfangjianshu / (float) shineijianchafangjianshu;
+        float yangxingjianyingmidu;
+        if (shineiyangxingfangjianshu == 0) {
+            yangxingjianyingmidu = 0;
+        } else {
+            yangxingjianyingmidu = (float) shineichengyingzhishu / (float) shineiyangxingfangjianshu;
+        }
+
+
+        float youyingfangjianyangxinglv;
+        if (shineijianchafangjianshu == 0) {
+            youyingfangjianyangxinglv = 0;
+        } else {
+            youyingfangjianyangxinglv = (float) shineiyangxingfangjianshu / (float) shineijianchafangjianshu;
+        }
+
+
         String shineichengyinmidu = "A";
         if (yangxingjianyingmidu > 3) {
             shineichengyinmidu = "低于C";
@@ -166,8 +177,16 @@ public class StatisticYingFragment extends BaseFragment {
             shineichengyinmidu = "低于C";
         }
 
-        float fangyingsheshihegelv = (float) (fangjianchachangsuoshu - fangbuhegechangsuoshu) / (float)
-                fangjianchachangsuoshu * 100;
+        float fangyingsheshihegelv;
+
+        if (fangjianchachangsuoshu == 0) {
+            fangyingsheshihegelv = 100;
+        } else {
+            fangyingsheshihegelv = (float) (fangjianchachangsuoshu - fangbuhegechangsuoshu) / (float)
+                    fangjianchachangsuoshu * 100;
+        }
+
+
         String fangyingsheshidengji = "A";
         if (fangyingsheshihegelv >= 98) {
             fangyingsheshidengji = "A";
@@ -180,10 +199,24 @@ public class StatisticYingFragment extends BaseFragment {
         }
 
 
-        float lajirongqiyangxinglv = (float) wailajirongqiyangxing / waijianchashiwailajirongqi * 100;
-        float waizishendiyangxinglv = (float) (wailajirongqiyangxing + gonggongcesuoyangxing +
-                lajizhongzhuanzhanyangxing + sanzaizishengdiyangxing)
-                / (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan + saizaizishendi)*100;
+        float lajirongqiyangxinglv;
+        if (waijianchashiwailajirongqi==0){
+            lajirongqiyangxinglv = 0;
+        }else{
+            lajirongqiyangxinglv = (float) wailajirongqiyangxing / waijianchashiwailajirongqi * 100;
+        }
+
+        float waizishendiyangxinglv;
+
+        if (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan + saizaizishendi==0){
+            waizishendiyangxinglv = 0;
+        }else{
+            waizishendiyangxinglv = (float) (wailajirongqiyangxing + gonggongcesuoyangxing +
+                    lajizhongzhuanzhanyangxing + sanzaizishengdiyangxing)
+                    / (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan + saizaizishendi) * 100;
+        }
+
+
         String waizishendiyangxingdengji = "A";
         if (waizishendiyangxinglv <= 1) {
             waizishendiyangxingdengji = "A";
@@ -194,14 +227,17 @@ public class StatisticYingFragment extends BaseFragment {
         } else {
             waizishendiyangxingdengji = "低于C";
         }
-        
+
 
         String shumidu = "A";
-        if ("低于C".equals(shineichengyinmidu) || "低于C".equals(fangyingsheshidengji) || "低于C".equals(waizishendiyangxingdengji)) {
+        if ("低于C".equals(shineichengyinmidu) || "低于C".equals(fangyingsheshidengji) || "低于C".equals
+                (waizishendiyangxingdengji)) {
             shumidu = "低于C";
-        } else if ("C".equals(shineichengyinmidu) || "C".equals(fangyingsheshidengji) || "C".equals(waizishendiyangxingdengji)) {
+        } else if ("C".equals(shineichengyinmidu) || "C".equals(fangyingsheshidengji) || "C".equals
+                (waizishendiyangxingdengji)) {
             shumidu = "C";
-        } else if ("B".equals(shineichengyinmidu) || "B".equals(fangyingsheshidengji) || "B".equals(waizishendiyangxingdengji)) {
+        } else if ("B".equals(shineichengyinmidu) || "B".equals(fangyingsheshidengji) || "B".equals
+                (waizishendiyangxingdengji)) {
             shumidu = "B";
         } else {
             shumidu = "A";
@@ -238,7 +274,8 @@ public class StatisticYingFragment extends BaseFragment {
                 + "}个").append("\n\n");
 
         builder.append("室外蝇类滋生地{" + waizishendiyangxingdengji + "}级").append("\n");
-        builder.append("共查蝇类滋生地{" + (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan + saizaizishendi) + "}个,").append("阳性{" + (wailajirongqiyangxing + gonggongcesuoyangxing +
+        builder.append("共查蝇类滋生地{" + (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan +
+                saizaizishendi) + "}个,").append("阳性{" + (wailajirongqiyangxing + gonggongcesuoyangxing +
                 lajizhongzhuanzhanyangxing + sanzaizishengdiyangxing) + "}个,")
                 .append("阳性率{" + waizishendiyangxinglv + "}%").append("\n");
         builder.append("其中:").append("\n");

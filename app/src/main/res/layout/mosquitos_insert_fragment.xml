@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.tutu.pestcs.widget.OverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                       android:id="@+id/base_layout"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:background="@color/main_bg">
+<com.tutu.pestcs.widget.OverScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,6 +70,10 @@
         </LinearLayout>
 
 
+        <TextView
+            style="@style/describ_title"
+            android:text="小型积水类型"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,11 +114,11 @@
                     android:text="阳性:"/>
 
                 <EditText
-                    android:enabled="false"
                     android:id="@+id/et_chajianxiaoxingjishuiyangxing"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
-                    android:hint="0"
+                    android:enabled="false"
+                    android:hint="自动计算"
                     android:minWidth="50dp"/>
 
                 <TextView
@@ -126,16 +131,12 @@
         </LinearLayout>
 
 
-        <TextView
-            style="@style/describ_title"
-            android:text="小型积水类型"/>
-
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_xiaoxingjishui"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -525,8 +526,11 @@
             </LinearLayout>
 
 
-
         </LinearLayout>
+
+        <TextView
+            style="@style/describ_title"
+            android:text="诱蚊人次"/>
 
         <LinearLayout
             android:layout_width="match_parent"

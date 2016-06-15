@@ -161,7 +161,13 @@ public class StatisticShuFragment extends BaseFragment {
         float yangxinglv = 0;
         String yangxingdengji = "A";
         if (cheakRooms > 0) {
-            yangxinglv = (float) yangxingRooms / (float) cheakRooms * 100;
+
+            if (cheakRooms==0){
+                yangxinglv = 0;
+            }else{
+                yangxinglv = (float) yangxingRooms / (float) cheakRooms * 100;
+            }
+
             if (yangxinglv <= 1) {
                 yangxingdengji = "A";
             } else if (yangxinglv <= 3) {
@@ -176,7 +182,16 @@ public class StatisticShuFragment extends BaseFragment {
         float fangshusheshihegelv = 0;
         String fangshusheshidengji = "A";
         if (fangcheakroom > 0) {
-            fangshusheshihegelv = ((float) fangcheakroom - (float) fangbuhege) / (float) fangcheakroom * 100;
+
+            if (fangcheakroom==0){
+                fangshusheshihegelv = 0;
+            }else{
+                fangshusheshihegelv = ((float) fangcheakroom - (float) fangbuhege) / (float) fangcheakroom * 100;
+            }
+
+
+
+
             if (fangshusheshihegelv >= 97) {
                 fangshusheshidengji = "A";
             } else if (fangshusheshihegelv >= 95) {
@@ -191,7 +206,15 @@ public class StatisticShuFragment extends BaseFragment {
         float lujinzhishu = 0;
         String lujinzhishudengji = "A";
         if (waijianchalujing > 0) {
-            lujinzhishu = (float) waishuji / ((float) waijianchalujing / 1000);
+
+            if (waijianchalujing==0) {
+                lujinzhishu = 0;
+            }else{
+                lujinzhishu = (float) waishuji / ((float) waijianchalujing / 1000);
+            }
+
+
+
             if (lujinzhishu <= 1) {
                 lujinzhishudengji = "A";
             } else if (lujinzhishu <= 3) {

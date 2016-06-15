@@ -20,17 +20,23 @@ public class UnitTypeDialog {
         public void onCancle();
     }
 
-    public static AlertDialog getInstace(Context context, onDialogClick listener) {
+    public static AlertDialog getInstace(Context context, onDialogClick listener,boolean buxian) {
 
-        return initDialog(context, listener);
+        return initDialog(context, listener,buxian);
     }
 
-    public static AlertDialog initDialog(Context context, final onDialogClick listener) {
+    public static AlertDialog initDialog(Context context, final onDialogClick listener,boolean buxian) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         int cheakIndex = -1;
 
         View view = LayoutInflater.from(context).inflate(R.layout.unit_type_dialog, null);
         final RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.rg_type);
+        View rbBuxian = view.findViewById(R.id.rb_0);
+        if (buxian){
+            rbBuxian.setVisibility(View.VISIBLE);
+        }else{
+            rbBuxian.setVisibility(View.GONE);
+        }
 
         builder.setCancelable(false);
         builder.setView(view);
@@ -41,6 +47,10 @@ public class UnitTypeDialog {
                 String cheakString = "";
                 int cheakedID = radioGroup.getCheckedRadioButtonId();
                 switch (cheakedID) {
+                    case R.id.rb_0:
+                        cheakIndex = "00";
+                        cheakString = "不限";
+                        break;
                     case R.id.rb_1:
                         cheakIndex = "01";
                         cheakString = "餐饮店";

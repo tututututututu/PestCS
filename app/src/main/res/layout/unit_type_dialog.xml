@@ -19,6 +19,12 @@
 
             <RadioButton
                 android:checked="true"
+                android:id="@+id/rb_0"
+                style="@style/rb_unit_style"
+                android:text="不限"/>
+
+            <RadioButton
+                android:checked="true"
                 android:id="@+id/rb_1"
                 style="@style/rb_unit_style"
                 android:text="餐饮店"/>

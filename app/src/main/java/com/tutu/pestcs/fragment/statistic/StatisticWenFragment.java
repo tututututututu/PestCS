@@ -143,7 +143,7 @@ public class StatisticWenFragment extends BaseFragment {
                 qita += bean.getQiTa();
                 qitayangxing += bean.getQiTaYangXin();
                 caiyanggong += bean.getCaiYangShaoNum();
-                yangxinggong += bean.getCaiYangShaoNum();
+                yangxinggong += bean.getYangXinShaoNum();
                 wenyouchongheyonggong += bean.getWenYouNum();
                 /* 1.湖泊
                         * 2.河流
@@ -182,8 +182,13 @@ public class StatisticWenFragment extends BaseFragment {
             }
         }
 
+        float lujingzhishu;
+        if (faxianxiaoxingjishui == 0) {
+            lujingzhishu = 0;
+        } else {
+            lujingzhishu = (float) xiaoxingjishuiyangxing / (faxianxiaoxingjishui / 1000);
+        }
 
-        float lujingzhishu = (float) xiaoxingjishuiyangxing / (faxianxiaoxingjishui / 1000);
         String xiaoxingjishuidengji = "A";
         if (lujingzhishu <= 0.1) {
             xiaoxingjishuidengji = "A";
@@ -195,8 +200,24 @@ public class StatisticWenFragment extends BaseFragment {
             xiaoxingjishuidengji = "低于C";
         }
 
-        float dazhongxingcaiyangshaozhishu = (float) yangxinggong / caiyanggong * 100;
-        float pingjunmeiyangxinshaozhishu = (float) wenyouchongheyonggong / yangxinggong;
+        float dazhongxingcaiyangshaozhishu;
+        if (caiyanggong==0){
+            dazhongxingcaiyangshaozhishu = 0;
+        }else{
+            dazhongxingcaiyangshaozhishu = (float) yangxinggong / caiyanggong * 100;
+        }
+
+
+
+
+        float pingjunmeiyangxinshaozhishu;
+        if (yangxinggong==0){
+            pingjunmeiyangxinshaozhishu = 0;
+        }else{
+            pingjunmeiyangxinshaozhishu = (float) wenyouchongheyonggong / yangxinggong;
+        }
+
+
         String dazhongxingshuitiwenchongmidudengji = "A";
         if (dazhongxingcaiyangshaozhishu <= 1 && pingjunmeiyangxinshaozhishu < 3) {
             dazhongxingshuitiwenchongmidudengji = "A";
@@ -210,7 +231,14 @@ public class StatisticWenFragment extends BaseFragment {
 
 
         String wenchongmidudengji = "A";
-        float tingluozhishu = wenchongtingluozhishu / youwenrenci;
+
+        float tingluozhishu;
+        if (youwenrenci == 0) {
+            tingluozhishu = 0;
+        } else {
+            tingluozhishu = wenchongtingluozhishu / youwenrenci;
+        }
+
         if (tingluozhishu <= 0.5) {
             wenchongmidudengji = "A";
         } else if (tingluozhishu <= 1.0) {
@@ -223,11 +251,14 @@ public class StatisticWenFragment extends BaseFragment {
 
 
         String zongmidu = "A";
-        if ("低于C".equals(xiaoxingjishuidengji) || "低于C".equals(dazhongxingshuitiwenchongmidudengji) || "低于C".equals(wenchongmidudengji)) {
+        if ("低于C".equals(xiaoxingjishuidengji) || "低于C".equals(dazhongxingshuitiwenchongmidudengji) || "低于C".equals
+                (wenchongmidudengji)) {
             zongmidu = "低于C";
-        } else if ("C".equals(xiaoxingjishuidengji) || "C".equals(dazhongxingshuitiwenchongmidudengji) || "C".equals(wenchongmidudengji)) {
+        } else if ("C".equals(xiaoxingjishuidengji) || "C".equals(dazhongxingshuitiwenchongmidudengji) || "C".equals
+                (wenchongmidudengji)) {
             zongmidu = "C";
-        } else if ("B".equals(xiaoxingjishuidengji) || "B".equals(dazhongxingshuitiwenchongmidudengji) || "B".equals(wenchongmidudengji)) {
+        } else if ("B".equals(xiaoxingjishuidengji) || "B".equals(dazhongxingshuitiwenchongmidudengji) || "B".equals
+                (wenchongmidudengji)) {
             zongmidu = "B";
         } else {
             zongmidu = "A";
@@ -255,7 +286,7 @@ public class StatisticWenFragment extends BaseFragment {
         builder.append("共查{" + gongchashuitishu + "}个水体").append("\n");
         builder.append("采样共{" + caiyanggong + "}勺,").append("阳性共{" + yangxinggong + "}勺,").append("采样指数{" +
                 dazhongxingcaiyangshaozhishu + "}%").append("\n");
-        builder.append("蚊幼虫和蛹共{" + wenyouchongheyonggong + "}只,{" + pingjunmeiyangxinshaozhishu + "}只").append("\n");
+        builder.append("蚊幼虫和蛹共{" + wenyouchongheyonggong + "}只,{" + pingjunmeiyangxinshaozhishu + "}只").append("\n\n");
         builder.append("水体类型").append("\n");
         builder.append("湖泊{" + hupo + "}处,");
         builder.append("人工湖{" + rengonghu + "}处,");

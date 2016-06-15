@@ -262,7 +262,12 @@ public class QueryFragment extends BaseFragment {
         UnitTypeDialog.getInstace(mActivityContext, new UnitTypeDialog.onDialogClick() {
             @Override
             public void onCofirm(String cheakIndex, String cheakString) {
-                unitType = cheakIndex;
+
+                if (cheakIndex.equals("00")){
+                    unitType = "";
+                }else{
+                    unitType = cheakIndex;
+                }
                 etDanweileixing.setText(cheakString);
             }
 
@@ -270,7 +275,7 @@ public class QueryFragment extends BaseFragment {
             public void onCancle() {
 
             }
-        }).show();
+        },true).show();
     }
 }
 

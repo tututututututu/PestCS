@@ -1,5 +1,6 @@
 package com.tutu.pestcs.fragment.progress;
 
+import android.content.Context;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,6 +8,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.KeyValueDataBean;
@@ -41,6 +45,7 @@ public class MosquitosFragment extends BaseFragment {
     private List<ProgressMouse> inDoorData = new ArrayList<>();
     private List<ProgressMouse> outDoorData = new ArrayList<>();
 
+    private int groupNum=1;
 
     @Override
     public void handleMessage(Message msg) {
@@ -50,6 +55,38 @@ public class MosquitosFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        getCurrentTask();
+    }
+
+    private void getCurrentTask() {
+        Tasks.executeInBackground(getContext(), new BackgroundWork<TaskBean>() {
+            @Override
+            public TaskBean doInBackground() throws Exception {
+                return TaskDao.queryCurrent();
+            }
+        }, new Completion<TaskBean>() {
+            @Override
+            public void onSuccess(Context context, TaskBean result) {
+                if (result == null) {
+                    ToastUtils.showToast("没有设置当前任务");
+                    return;
+                }
+                groupNum = result.getGroups();
+                if (groupNum==0){
+                    groupNum = 1;
+                }
+                fillData();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
+    }
+
+
+    private void fillData() {
         createTV();
         initDataIn();
         initDataWai();
@@ -94,9 +131,8 @@ public class MosquitosFragment extends BaseFragment {
             }
             tl_table_wai.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));
         }
-
-
     }
+
 
     @Override
     public int getLayoutID() {
@@ -155,7 +191,7 @@ public class MosquitosFragment extends BaseFragment {
         totleCheakedRoom += hadCCheakedRoomIn01;
         addRow("单位(有独立院落)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1)
                 .getValue
-                ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
+                ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);
 
         int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("09");
         int hadCCheakedRoomIn02 = WenDao.getHadCheakedRoomInCount("09");
@@ -223,23 +259,23 @@ public class MosquitosFragment extends BaseFragment {
 
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
-                toCheakUnit,
-                toCheakRoom,
+                toCheakUnit/groupNum,
+                toCheakRoom/groupNum,
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit - hadCheakUnit,
-                toCheakRoom - hadCheakRoom,
+                toCheakUnit/groupNum - hadCheakUnit,
+                toCheakRoom/groupNum - hadCheakRoom,
                 true));
     }
 
     private void addRowWai(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         outDoorData.add(new ProgressMouse(name,
-                toCheakUnit,
-                toCheakRoom,
+                toCheakUnit/groupNum,
+                toCheakRoom/groupNum,
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit - hadCheakUnit,
-                toCheakRoom - hadCheakRoom,
+                toCheakUnit/groupNum - hadCheakUnit,
+                toCheakRoom/groupNum - hadCheakRoom,
                 true));
     }
 }

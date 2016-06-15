@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tutu.pestcs.R;
@@ -34,6 +36,16 @@ public class TaskDetail extends BaseActivity {
     TextView tv_time;
     @Bind(R.id.tv_items)
     TextView tv_items;
+    @Bind(R.id.ll_back)
+    LinearLayout llBack;
+    @Bind(R.id.tv_group_number)
+    TextView tvGroupNumber;
+    @Bind(R.id.btn_modify)
+    Button btnModify;
+    @Bind(R.id.btn_del)
+    Button btnDel;
+    @Bind(R.id.base_layout)
+    LinearLayout baseLayout;
 
 
     private TaskBean task;
@@ -81,6 +93,8 @@ public class TaskDetail extends BaseActivity {
             builder.append("蟑螂 ");
         }
         tv_items.setText(builder.toString());
+        tvGroupNumber.setText(task.getGroups()+"");
+
     }
 
     @Override
@@ -88,7 +102,7 @@ public class TaskDetail extends BaseActivity {
         return R.layout.activity_task_detail;
     }
 
-    @OnClick({R.id.btn_modify, R.id.btn_del,R.id.ll_back})
+    @OnClick({R.id.btn_modify, R.id.btn_del, R.id.ll_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_modify:
@@ -110,7 +124,7 @@ public class TaskDetail extends BaseActivity {
     //删除考评任务
     private void deleteTask() {
         CheakInsertBean bean = CheakInsertDao.queryByUnitID(task.getTaskCode());
-        if (bean!=null){
+        if (bean != null) {
             svProgressHUD.showErrorWithStatus("该任务已有数据,不能删除");
             return;
         }
@@ -119,4 +133,5 @@ public class TaskDetail extends BaseActivity {
         RxBus.postEvent(new TaskEvent(task), TaskEvent.class);
         finish();
     }
+
 }

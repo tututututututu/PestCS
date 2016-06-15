@@ -3,6 +3,7 @@ package com.tutu.pestcs.db;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ShuBean;
 
 import org.xutils.common.util.LogUtil;
@@ -140,31 +141,36 @@ public class ShuDao {
     }
 
 
-    public static int getHadCheakedRoomInCount(String unitType) {
+    public static int getHadCheakedRoomInCount(String unityTyppe) {
+        int count = 0;
         try {
-            List<ShuBean> beans = DBHelper.getDBManager().selector(ShuBean.class).where("uniType", "=", unitType)
-                    .findAll();
-            if (beans == null) {
-                return 0;
+            List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+
+            for (CheakInsertBean bean : cheakInsertList) {
+                ShuBean shubena = DBHelper.getDBManager().selector(ShuBean.class).where("UnitCode", "=", bean
+                        .getUnitCode())
+                        .findFirst();
+                if (shubena != null) {
+                    count += shubena.getCheckRoom();
+                }
             }
-            int count = 0;
-            for (ShuBean bean : beans) {
-                count += bean.getCheckRoom();
-            }
-            return count;
         } catch (DbException e) {
             e.printStackTrace();
         }
-        return 0;
+        return count;
     }
 
     public static int getHadCheakedUnitInCount(String unitType) {
-        try {
-            return (int) DBHelper.getDBManager().selector(ShuBean.class).where("uniType", "=", unitType).count();
-        } catch (DbException e) {
-            e.printStackTrace();
+        List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        int count = 0;
+        for (CheakInsertBean bean : list) {
+            ShuBean shu = ShuDao.queryByUnitID(bean.getUnitCode());
+            if (shu != null) {
+                count++;
+            }
         }
-        return 0;
+
+        return count;
     }
 
 
@@ -177,11 +183,11 @@ public class ShuDao {
         return 0;
     }
 
-    public static int CheakRoom(String unitCode){
+    public static int CheakRoom(String unitCode) {
 
         try {
             Cursor cursor = DBHelper.getDBManager().execQuery("select sum(CheckRoom) from T_ShuRecord");
-            if (cursor.moveToNext()){
+            if (cursor.moveToNext()) {
                 cursor.getInt(0);
             }
         } catch (DbException e) {

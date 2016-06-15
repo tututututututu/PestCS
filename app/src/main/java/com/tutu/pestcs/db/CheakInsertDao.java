@@ -3,6 +3,7 @@ package com.tutu.pestcs.db;
 import android.text.TextUtils;
 
 import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.TaskBean;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.ex.DbException;
@@ -98,6 +99,22 @@ public class CheakInsertDao {
 
 
             return beans;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    //当前任务->list<CheakInsertBean> -> UnitClassID = unityType
+
+
+    //查询当前任务的单位代码
+    public static List<CheakInsertBean> queryCurrentTaskUnitCode(String unityTyppe) {
+        try {
+            TaskBean task = TaskDao.queryCurrent();
+            return DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=",
+                    task.getTaskCode()).and("UnitClassID","=",unityTyppe).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }
