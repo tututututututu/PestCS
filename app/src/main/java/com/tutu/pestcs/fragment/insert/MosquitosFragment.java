@@ -105,9 +105,10 @@ public class MosquitosFragment extends BaseFragment {
     @Bind(R.id.et_wenyouchongheyonggong)
     EditText etWenyouchongheyonggong;
     int Wenyouchongheyonggong = 0;
+    @Bind(R.id.ll_shuiti)
+    LinearLayout ll_shuiti;
     @Bind(R.id.rg_shuiTiType)
-    RadioGroup ShuiTiType;
-
+    RadioGroup rgShuiTiType;
 
     @Bind(R.id.rb_hupo)
     RadioButton rbHupo;
@@ -154,14 +155,20 @@ public class MosquitosFragment extends BaseFragment {
 
         //大中型水体
         if (cheakInsertBean.getUnitClassID().equals("17")) {
-            ShuiTiType.setVisibility(View.VISIBLE);
+            ll_shuiti.setVisibility(View.VISIBLE);
             tvShuitileixing.setVisibility(View.VISIBLE);
         } else {
-            ShuiTiType.setVisibility(View.GONE);
+            ll_shuiti.setVisibility(View.GONE);
             tvShuitileixing.setVisibility(View.GONE);
         }
 
         bean.setUnitCode(cheakInsertBean.getUnitCode());
+        bean.setUniType(cheakInsertBean.getUnitClassID());
+        bean.setAreaCode(cheakInsertBean.getAreaCode());
+        bean.setTaskCode(cheakInsertBean.getTaskCode());
+        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
+        bean.setKeyUnit(cheakInsertBean.isKeyUnit());
+        bean.setExpertCode(cheakInsertBean.getExpertCode());
 
         etChanjianxiaoxingjishui.addTextChangedListener(new TextWatcher() {
             @Override
@@ -188,7 +195,7 @@ public class MosquitosFragment extends BaseFragment {
             }
         });
 
-        ShuiTiType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgShuiTiType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -359,6 +366,13 @@ public class MosquitosFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+        if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
+                ) {
+            ToastUtils.showToast("录入数据未达到保存条件");
+            return false;
+        }
+
+
         if (Chajianxiaoxingjishuiyangxing > Chanjianxiaoxingjishui) {
             ToastUtils.showToast("<查见小型积水数填写>不合法");
             return false;

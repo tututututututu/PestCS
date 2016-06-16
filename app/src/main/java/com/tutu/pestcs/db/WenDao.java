@@ -142,7 +142,6 @@ public class WenDao {
     }
 
 
-
     public static int getHadCheakedRoomInCount(String unityTyppe) {
         int count = 0;
         try {
@@ -168,6 +167,39 @@ public class WenDao {
         for (CheakInsertBean bean : list) {
             WenBean shu = WenDao.queryByUnitID(bean.getUnitCode());
             if (shu != null) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
+    public static int getHadCheakedRoomInCountWai(String unityTyppe) {
+        int count = 0;
+        try {
+            List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+
+            for (CheakInsertBean bean : cheakInsertList) {
+                WenBean shubena = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=", bean
+                        .getUnitCode())
+                        .findFirst();
+                if (shubena != null) {
+                    count += shubena.getCaiYangShaoNum();
+                }
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public static int getHadCheakedUnitInCountWai(String unitType) {
+        List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        int count = 0;
+        for (CheakInsertBean bean : list) {
+            WenBean shu = WenDao.queryByUnitID(bean.getUnitCode());
+            if (shu != null && shu.getCaiYangShaoNum() > 0) {
                 count++;
             }
         }

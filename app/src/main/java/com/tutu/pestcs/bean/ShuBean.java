@@ -13,8 +13,20 @@ import org.xutils.db.annotation.Table;
 public class ShuBean implements Parcelable {
     @Column(name = "UnitCode", isId = true)
     private String UnitCode;
-//    @Column(name = "uniType")
-//    private String uniType;
+
+    @Column(name = "uniType")
+    private String uniType;
+    @Column(name = "TaskCode")
+    private String TaskCode;
+    @Column(name = "AreaCode")
+    private String AreaCode;
+    @Column(name = "UnitClassID")
+    private String UnitClassID;
+    @Column(name = "IsKeyUnit")
+    private boolean IsKeyUnit;
+    @Column(name = "ExpertCode")
+    private String ExpertCode;
+
     @Column(name = "CheckRoom")
     private int CheckRoom;
     @Column(name = "ShuRoom")
@@ -93,7 +105,12 @@ public class ShuBean implements Parcelable {
     public String toString() {
         return "ShuBean{" +
                 "UnitCode='" + UnitCode + '\'' +
-//                ", uniType='" + uniType + '\'' +
+                ", uniType='" + uniType + '\'' +
+                ", TaskCode='" + TaskCode + '\'' +
+                ", AreaCode='" + AreaCode + '\'' +
+                ", UnitClassID='" + UnitClassID + '\'' +
+                ", IsKeyUnit='" + IsKeyUnit + '\'' +
+                ", ExpertCode='" + ExpertCode + '\'' +
                 ", CheckRoom=" + CheckRoom +
                 ", ShuRoom=" + ShuRoom +
                 ", ShuFen=" + ShuFen +
@@ -132,13 +149,54 @@ public class ShuBean implements Parcelable {
                 '}';
     }
 
-//    public String getUniType() {
-//        return uniType;
-//    }
-//
-//    public void setUniType(String uniType) {
-//        this.uniType = uniType;
-//    }
+    public String getUniType() {
+        return uniType;
+    }
+
+    public void setUniType(String uniType) {
+        this.uniType = uniType;
+    }
+
+
+    public String getTaskCode() {
+        return TaskCode;
+    }
+
+    public void setTaskCode(String taskCode) {
+        TaskCode = taskCode;
+    }
+
+    public String getAreaCode() {
+        return AreaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        AreaCode = areaCode;
+    }
+
+    public String getUnitClassID() {
+        return UnitClassID;
+    }
+
+    public void setUnitClassID(String unitClassID) {
+        UnitClassID = unitClassID;
+    }
+
+    public boolean isKeyUnit() {
+        return IsKeyUnit;
+    }
+
+    public void setKeyUnit(boolean keyUnit) {
+        IsKeyUnit = keyUnit;
+    }
+
+    public String getExpertCode() {
+        return ExpertCode;
+    }
+
+    public void setExpertCode(String expertCode) {
+        ExpertCode = expertCode;
+    }
 
     public int getShuDao() {
         return ShuDao;
@@ -436,7 +494,12 @@ public class ShuBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.UnitCode);
-//        dest.writeString(this.uniType);
+        dest.writeString(this.uniType);
+        dest.writeString(this.TaskCode);
+        dest.writeString(this.AreaCode);
+        dest.writeString(this.UnitClassID);
+        dest.writeByte(this.IsKeyUnit ? (byte) 1 : (byte) 0);
+        dest.writeString(this.ExpertCode);
         dest.writeInt(this.CheckRoom);
         dest.writeInt(this.ShuRoom);
         dest.writeInt(this.ShuFen);
@@ -476,7 +539,12 @@ public class ShuBean implements Parcelable {
 
     protected ShuBean(Parcel in) {
         this.UnitCode = in.readString();
-//        this.uniType = in.readString();
+        this.uniType = in.readString();
+        this.TaskCode = in.readString();
+        this.AreaCode = in.readString();
+        this.UnitClassID = in.readString();
+        this.IsKeyUnit = in.readByte() != 0;
+        this.ExpertCode = in.readString();
         this.CheckRoom = in.readInt();
         this.ShuRoom = in.readInt();
         this.ShuFen = in.readInt();

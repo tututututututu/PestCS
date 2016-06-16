@@ -269,29 +269,29 @@ public class MouseFragment extends BaseFragment {
         int totleCheakedUnit = 0;
         int totleCheakedRoom = 0;
 
-        int hadCCheakedUnitIn01 = ShuDao.getHadCheakedUnitInCount("13")+ShuDao.getHadCheakedUnitInCount("14");
-        int hadCCheakedRoomIn01 = ShuDao.getHadCheakedRoomInCount("13")+ShuDao.getHadCheakedRoomInCount("14");
+        int hadCCheakedUnitIn01 = ShuDao.getHadCheakedUnitInCountWai("13")+ShuDao.getHadCheakedUnitInCountWai("14");
+        int hadCCheakedRoomIn01 = ShuDao.getHadCheakedRoomInCountWai("13")+ShuDao.getHadCheakedRoomInCountWai("14");
         totleCheakedUnit += hadCCheakedUnitIn01;
         totleCheakedRoom += hadCCheakedRoomIn01;
         addRowOut("公共绿地、公园或道路两侧", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0).getValue
                 ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);
 
-        int hadCCheakedUnitIn08 = ShuDao.getHadCheakedUnitInCount("15")+ShuDao.getHadCheakedUnitInCount("16");
-        int hadCCheakedRoomIn08 = ShuDao.getHadCheakedRoomInCount("15")+ShuDao.getHadCheakedRoomInCount("16");
+        int hadCCheakedUnitIn08 = ShuDao.getHadCheakedUnitInCountWai("15")+ShuDao.getHadCheakedUnitInCountWai("16");
+        int hadCCheakedRoomIn08 = ShuDao.getHadCheakedRoomInCountWai("15")+ShuDao.getHadCheakedRoomInCountWai("16");
         totleCheakedUnit += hadCCheakedUnitIn08;
         totleCheakedRoom += hadCCheakedRoomIn08;
         addRowOut("垃圾中转站或公共厕所", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1).getValue
                 ()), hadCCheakedUnitIn08, hadCCheakedRoomIn08);
 
-        int hadCCheakedUnitIn09 = ShuDao.getHadCheakedUnitInCount("01")+ShuDao.getHadCheakedUnitInCount("02")+ShuDao.getHadCheakedUnitInCount("03")+ShuDao.getHadCheakedUnitInCount("04")+ShuDao.getHadCheakedUnitInCount("07")+ShuDao.getHadCheakedUnitInCount("08")+ShuDao.getHadCheakedUnitInCount("10")+ShuDao.getHadCheakedUnitInCount("11")+ShuDao.getHadCheakedUnitInCount("12")+ShuDao.getHadCheakedUnitInCount("18");
-        int hadCCheakedRoomIn09 = ShuDao.getHadCheakedRoomInCount("01")+ShuDao.getHadCheakedRoomInCount("02")+ShuDao.getHadCheakedRoomInCount("03")+ShuDao.getHadCheakedRoomInCount("04")+ShuDao.getHadCheakedRoomInCount("07")+ShuDao.getHadCheakedRoomInCount("08")+ShuDao.getHadCheakedRoomInCount("10")+ShuDao.getHadCheakedRoomInCount("11")+ShuDao.getHadCheakedRoomInCount("12")+ShuDao.getHadCheakedRoomInCount("18");
+        int hadCCheakedUnitIn09 = ShuDao.getHadCheakedUnitInCountWai("01")+ShuDao.getHadCheakedUnitInCountWai("02")+ShuDao.getHadCheakedUnitInCountWai("03")+ShuDao.getHadCheakedUnitInCountWai("04")+ShuDao.getHadCheakedUnitInCountWai("07")+ShuDao.getHadCheakedUnitInCountWai("08")+ShuDao.getHadCheakedUnitInCountWai("10")+ShuDao.getHadCheakedUnitInCountWai("11")+ShuDao.getHadCheakedUnitInCountWai("12")+ShuDao.getHadCheakedUnitInCountWai("18");
+        int hadCCheakedRoomIn09 = ShuDao.getHadCheakedRoomInCountWai("01")+ShuDao.getHadCheakedRoomInCountWai("02")+ShuDao.getHadCheakedRoomInCountWai("03")+ShuDao.getHadCheakedRoomInCountWai("04")+ShuDao.getHadCheakedRoomInCountWai("07")+ShuDao.getHadCheakedRoomInCountWai("08")+ShuDao.getHadCheakedRoomInCountWai("10")+ShuDao.getHadCheakedRoomInCountWai("11")+ShuDao.getHadCheakedRoomInCountWai("12")+ShuDao.getHadCheakedRoomInCountWai("18");
         totleCheakedUnit += hadCCheakedUnitIn09;
         totleCheakedRoom += hadCCheakedRoomIn09;
         addRowOut("单位或居民区院内", Integer.parseInt(toCheakedBean.get(2).getKey()), Integer.parseInt(toCheakedBean.get(2).getValue
                 ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
 
-        int hadCCheakedUnitIn10 = ShuDao.getHadCheakedUnitInCount("05")+ShuDao.getHadCheakedUnitInCount("06")+ShuDao.getHadCheakedUnitInCount("09");
-        int hadCCheakedRoomIn10 = ShuDao.getHadCheakedRoomInCount("05")+ShuDao.getHadCheakedRoomInCount("06")+ShuDao.getHadCheakedRoomInCount("09");
+        int hadCCheakedUnitIn10 = ShuDao.getHadCheakedUnitInCountWai("05")+ShuDao.getHadCheakedUnitInCountWai("06")+ShuDao.getHadCheakedUnitInCountWai("09");
+        int hadCCheakedRoomIn10 = ShuDao.getHadCheakedRoomInCountWai("05")+ShuDao.getHadCheakedRoomInCountWai("06")+ShuDao.getHadCheakedRoomInCountWai("09");
         totleCheakedUnit += hadCCheakedUnitIn10;
         totleCheakedRoom += hadCCheakedRoomIn10;
         addRowOut("农贸市场、工地或车站", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3).getValue

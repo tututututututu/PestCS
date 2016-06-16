@@ -246,21 +246,21 @@ public class FliesFragment extends BaseFragment {
             return;
         }
 
-        int hadCCheakedUnitIn01 = YingDao.getHadCheakedUnitInCount("01")+YingDao.getHadCheakedUnitInCount("02")+YingDao.getHadCheakedUnitInCount("03")+YingDao.getHadCheakedUnitInCount("04")
-                +YingDao.getHadCheakedUnitInCount("05")+YingDao.getHadCheakedUnitInCount("06")+YingDao.getHadCheakedUnitInCount("07")+YingDao.getHadCheakedUnitInCount("08")
-                +YingDao.getHadCheakedUnitInCount("09")+YingDao.getHadCheakedUnitInCount("10")+YingDao.getHadCheakedUnitInCount("11")+YingDao.getHadCheakedUnitInCount("12")
-                +YingDao.getHadCheakedUnitInCount("13")+YingDao.getHadCheakedUnitInCount("14")+YingDao.getHadCheakedUnitInCount("15")+YingDao.getHadCheakedUnitInCount("16")
-                +YingDao.getHadCheakedUnitInCount("17")+YingDao.getHadCheakedUnitInCount("18");
-        int hadCCheakedRoomIn01 = YingDao.getHadCheakedRoomInCount("01")+YingDao.getHadCheakedRoomInCount("02")+YingDao.getHadCheakedRoomInCount("03")+YingDao.getHadCheakedRoomInCount("04")
-                +YingDao.getHadCheakedRoomInCount("05")+YingDao.getHadCheakedRoomInCount("06")+YingDao.getHadCheakedRoomInCount("07")+YingDao.getHadCheakedRoomInCount("08")
-                +YingDao.getHadCheakedRoomInCount("09")+YingDao.getHadCheakedRoomInCount("10")+YingDao.getHadCheakedRoomInCount("11")+YingDao.getHadCheakedRoomInCount("12")
-                +YingDao.getHadCheakedRoomInCount("13")+YingDao.getHadCheakedRoomInCount("14")+YingDao.getHadCheakedRoomInCount("15")+YingDao.getHadCheakedRoomInCount("16")
-                +YingDao.getHadCheakedRoomInCount("17")+YingDao.getHadCheakedRoomInCount("18");
+        int hadCCheakedUnitIn01 = YingDao.getHadCheakedUnitInCountWai("01")+YingDao.getHadCheakedUnitInCountWai("02")+YingDao.getHadCheakedUnitInCountWai("03")+YingDao.getHadCheakedUnitInCountWai("04")
+                +YingDao.getHadCheakedUnitInCountWai("05")+YingDao.getHadCheakedUnitInCountWai("06")+YingDao.getHadCheakedUnitInCountWai("07")+YingDao.getHadCheakedUnitInCountWai("08")
+                +YingDao.getHadCheakedUnitInCountWai("09")+YingDao.getHadCheakedUnitInCountWai("10")+YingDao.getHadCheakedUnitInCountWai("11")+YingDao.getHadCheakedUnitInCountWai("12")
+                +YingDao.getHadCheakedUnitInCountWai("13")+YingDao.getHadCheakedUnitInCountWai("14")+YingDao.getHadCheakedUnitInCountWai("15")+YingDao.getHadCheakedUnitInCountWai("16")
+                +YingDao.getHadCheakedUnitInCountWai("17")+YingDao.getHadCheakedUnitInCount("18");
+        int hadCCheakedRoomIn01 = YingDao.getHadCheakedRoomInCountWai("01")+YingDao.getHadCheakedRoomInCountWai("02")+YingDao.getHadCheakedRoomInCountWai("03")+YingDao.getHadCheakedRoomInCountWai("04")
+                +YingDao.getHadCheakedRoomInCountWai("05")+YingDao.getHadCheakedRoomInCountWai("06")+YingDao.getHadCheakedRoomInCountWai("07")+YingDao.getHadCheakedRoomInCountWai("08")
+                +YingDao.getHadCheakedRoomInCountWai("09")+YingDao.getHadCheakedRoomInCountWai("10")+YingDao.getHadCheakedRoomInCountWai("11")+YingDao.getHadCheakedRoomInCountWai("12")
+                +YingDao.getHadCheakedRoomInCountWai("13")+YingDao.getHadCheakedRoomInCountWai("14")+YingDao.getHadCheakedRoomInCountWai("15")+YingDao.getHadCheakedRoomInCountWai("16")
+                +YingDao.getHadCheakedRoomInCountWai("17")+YingDao.getHadCheakedRoomInCountWai("18");
         addRowWai("室外垃圾容器", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0).getValue
                 ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);
 
-        int hadCCheakedUnitIn02 = YingDao.getHadCheakedUnitInCount("15");
-        int hadCCheakedRoomIn02 = YingDao.getHadCheakedRoomInCount("15");
+        int hadCCheakedUnitIn02 = YingDao.getHadCheakedUnitInCountWai("15");
+        int hadCCheakedRoomIn02 = YingDao.getHadCheakedRoomInCountWai("15");
         addRowWai("垃圾中转站", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1).getValue
                 ()), hadCCheakedUnitIn02, hadCCheakedRoomIn02);
 
@@ -270,8 +270,8 @@ public class FliesFragment extends BaseFragment {
                 .getValue
                         ()), hadCCheakedUnitIn03, hadCCheakedRoomIn03);
 
-        int hadCCheakedUnitIn04 = YingDao.getHadCheakedUnitInCount("16");
-        int hadCCheakedRoomIn04 = YingDao.getHadCheakedRoomInCount("16");
+        int hadCCheakedUnitIn04 = YingDao.getHadCheakedUnitInCountWai("16");
+        int hadCCheakedRoomIn04 = YingDao.getHadCheakedRoomInCountWai("16");
         addRowWai("公共厕所", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3).getValue
                 ()), hadCCheakedUnitIn04, hadCCheakedRoomIn04);
     }

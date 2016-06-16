@@ -106,6 +106,8 @@ public class InsertActivity extends BaseActivity {
             }
         });
 
+        builder.setCancelable(false);
+
         builder.create().show();
 
 

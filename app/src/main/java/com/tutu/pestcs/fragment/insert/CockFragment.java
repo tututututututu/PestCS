@@ -76,7 +76,12 @@ public class CockFragment extends BaseFragment {
     public void initView() {
         cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
         bean.setUnitCode(cheakInsertBean.getUnitCode());
-
+        bean.setUniType(cheakInsertBean.getUnitClassID());
+        bean.setAreaCode(cheakInsertBean.getAreaCode());
+        bean.setTaskCode(cheakInsertBean.getTaskCode());
+        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
+        bean.setKeyUnit(cheakInsertBean.isKeyUnit());
+        bean.setExpertCode(cheakInsertBean.getExpertCode());
     }
 
     @Override
@@ -154,6 +159,13 @@ public class CockFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+
+        if (bean.getCheckRoom()<1){
+            ToastUtils.showToast("录入数据未达到保存条件");
+            return false;
+        }
+
+
         if (chengchongyangxingfangjianshu > jianchafangshu) {
             ToastUtils.showToast("<检查房间数填写>不合法");
             return false;

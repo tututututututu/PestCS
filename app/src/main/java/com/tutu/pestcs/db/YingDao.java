@@ -177,4 +177,39 @@ public class YingDao {
 
     }
 
+
+    public static int getHadCheakedRoomInCountWai(String unityTyppe) {
+        int count = 0;
+        try {
+            List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+
+            for (CheakInsertBean bean : cheakInsertList) {
+                YingBean shubena = DBHelper.getDBManager().selector(YingBean.class).where("UnitCode", "=", bean
+                        .getUnitCode())
+                        .findFirst();
+                if (shubena != null) {
+                    count += shubena.getCheckDistance();
+                }
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public static int getHadCheakedUnitInCountWai(String unitType) {
+
+        List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        int count = 0;
+        for (CheakInsertBean bean : list) {
+            YingBean shu = YingDao.queryByUnitID(bean.getUnitCode());
+            if (shu != null&&shu.getCheckDistance()>0) {
+                count++;
+            }
+        }
+
+        return count;
+
+    }
+
 }

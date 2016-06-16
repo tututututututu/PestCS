@@ -37,6 +37,12 @@ public class NoteFragment extends BaseFragment {
     public void initView() {
         cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
         bean.setUnitCode(cheakInsertBean.getUnitCode());
+        bean.setUniType(cheakInsertBean.getUnitClassID());
+        bean.setAreaCode(cheakInsertBean.getAreaCode());
+        bean.setTaskCode(cheakInsertBean.getTaskCode());
+        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
+        bean.setKeyUnit(cheakInsertBean.isKeyUnit());
+        bean.setExpertCode(cheakInsertBean.getExpertCode());
     }
 
     @Override

@@ -128,6 +128,12 @@ public class FliesFragment extends BaseFragment {
         cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
 
         yingBean.setUnitCode(cheakInsertBean.getUnitCode());
+        yingBean.setUniType(cheakInsertBean.getUnitClassID());
+        yingBean.setAreaCode(cheakInsertBean.getAreaCode());
+        yingBean.setTaskCode(cheakInsertBean.getTaskCode());
+        yingBean.setUnitClassID(cheakInsertBean.getUnitClassID());
+        yingBean.setKeyUnit(cheakInsertBean.isKeyUnit());
+        yingBean.setExpertCode(cheakInsertBean.getExpertCode());
 
         et_buhegechangsuoshu.addTextChangedListener(new TextWatcher() {
             @Override
@@ -258,6 +264,14 @@ public class FliesFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+        if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
+                && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
+                && yingBean.getLaJiStation() < 1 && yingBean.getCheckDistance() < 1) {
+            ToastUtils.showToast("录入数据未达到保存条件");
+            return false;
+        }
+
+
         if (yangxingfangshu > jianchafangshu) {
             ToastUtils.showToast("<阳性房间数填写>不合法");
             return false;
@@ -298,24 +312,24 @@ public class FliesFragment extends BaseFragment {
             return false;
         }
 
-        if(shineiyingleizishengdi>yangxing){
+        if (shineiyingleizishengdi > yangxing) {
             ToastUtils.showToast("<室内蝇类孳生地数填写>不合法");
             return false;
         }
 
-        if (yangxingfangshu>0&&chengyingzshu<1){
+        if (yangxingfangshu > 0 && chengyingzshu < 1) {
             ToastUtils.showToast("<室内成蝇总数填写>不合法");
             return false;
         }
 
-        if (buhegechangsuoshu>0&&shiwairumenkou+tongshiwaichuangkou+chufangmen+shushijian
-                +zhijierukoushipinchugui+liangcaijian+zhijierukoushipintandian+qita<1){
+        if (buhegechangsuoshu > 0 && shiwairumenkou + tongshiwaichuangkou + chufangmen + shushijian
+                + zhijierukoushipinchugui + liangcaijian + zhijierukoushipintandian + qita < 1) {
             ToastUtils.showToast("<防蝇设施不合格部位填写>不合法");
             return false;
         }
 
 
-        if (sanzaizishendi>0&&jianchalujing<1){
+        if (sanzaizishendi > 0 && jianchalujing < 1) {
             ToastUtils.showToast("<检查路径填写>不合法");
             return false;
         }

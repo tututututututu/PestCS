@@ -156,7 +156,13 @@ public class MouseFragment extends BaseFragment {
         cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
 
         shuBean.setUnitCode(cheakInsertBean.getUnitCode());
-        //shuBean.setUniType(cheakInsertBean.getUnitClassID());
+        shuBean.setUniType(cheakInsertBean.getUnitClassID());
+        shuBean.setAreaCode(cheakInsertBean.getAreaCode());
+        shuBean.setTaskCode(cheakInsertBean.getTaskCode());
+        shuBean.setUnitClassID(cheakInsertBean.getUnitClassID());
+        shuBean.setKeyUnit(cheakInsertBean.isKeyUnit());
+        shuBean.setExpertCode(cheakInsertBean.getExpertCode());
+
         et_yangxing.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -413,6 +419,12 @@ public class MouseFragment extends BaseFragment {
 
     //检查输入合法性
     private boolean verifyInput() {
+        if (shuBean.getCheckRoom()<1&&shuBean.getFangShuRoom()<1&&shuBean.getCheckDistance()<1){
+            ToastUtils.showToast("录入数据未达到保存条件");
+            return false;
+        }
+
+
         if (yangxing > jianchashu) {
             ToastUtils.showToast("<阳性房间数填写>不合法");
             return false;

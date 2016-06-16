@@ -587,51 +587,83 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            style="@style/describ_title"
-            android:text="大中型水体"/>
-
         <LinearLayout
+            android:id="@+id/ll_shuiti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/describ_title"
+                android:text="大中型水体"/>
 
             <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <TextView
-                    style="@style/describ_title2"
-                    android:text="采样共:"/>
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1">
 
-                <EditText
-                    android:id="@+id/et_caiyanggong"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
+                    <TextView
+                        style="@style/describ_title2"
+                        android:text="采样共:"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="勺"/>
+                    <EditText
+                        android:id="@+id/et_caiyanggong"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="勺"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/describ_title2"
+                        android:paddingLeft="4dp"
+                        android:text="阳性共:"/>
+
+                    <EditText
+                        android:id="@+id/et_yangxinggong"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="勺"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp">
 
                 <TextView
                     style="@style/describ_title2"
                     android:paddingLeft="4dp"
-                    android:text="阳性共:"/>
+                    android:text="蚊幼虫和蛹共:"/>
 
                 <EditText
-                    android:id="@+id/et_yangxinggong"
+                    android:id="@+id/et_wenyouchongheyonggong"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
                     android:hint="0"
@@ -642,101 +674,77 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="4dp"
                     android:gravity="center"
-                    android:text="勺"/>
+                    android:text="只"/>
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            android:paddingLeft="20dp">
 
             <TextView
-                style="@style/describ_title2"
-                android:paddingLeft="4dp"
-                android:text="蚊幼虫和蛹共:"/>
+                android:id="@+id/tv_shuitileixing"
+                style="@style/describ_title"
+                android:text="水体类型"/>
 
-            <EditText
-                android:id="@+id/et_wenyouchongheyonggong"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="50dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="只"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_shuitileixing"
-            style="@style/describ_title"
-            android:text="水体类型"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioGroup
-                android:id="@+id/rg_shuiTiType"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingTop="4dp">
+                android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:id="@+id/rb_hupo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="湖泊"/>
+                <RadioGroup
+                    android:id="@+id/rg_shuiTiType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="4dp">
 
-                <RadioButton
-                    android:id="@+id/rb_heliu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:text="河流"/>
+                    <RadioButton
+                        android:id="@+id/rb_hupo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="湖泊"/>
 
-                <RadioButton
-                    android:id="@+id/rb_rengonghu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:text="人工湖"/>
+                    <RadioButton
+                        android:id="@+id/rb_heliu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:text="河流"/>
 
-                <RadioButton
-                    android:id="@+id/rb_jingguanchi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:text="景观池"/>
+                    <RadioButton
+                        android:id="@+id/rb_rengonghu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:text="人工湖"/>
 
-                <RadioButton
-                    android:id="@+id/rb_chitang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:text="池塘"/>
+                    <RadioButton
+                        android:id="@+id/rb_jingguanchi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:text="景观池"/>
 
-                <RadioButton
-                    android:id="@+id/rb_gouqu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:text="沟渠"/>
+                    <RadioButton
+                        android:id="@+id/rb_chitang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:text="池塘"/>
 
-                <RadioButton
-                    android:id="@+id/rb_qita"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:text="其他"/>
-            </RadioGroup>
-        </HorizontalScrollView>
+                    <RadioButton
+                        android:id="@+id/rb_gouqu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:text="沟渠"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_qita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:text="其他"/>
+                </RadioGroup>
+            </HorizontalScrollView>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
