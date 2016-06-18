@@ -142,11 +142,13 @@ public class YingDao {
     }
 
 
-
     public static int getHadCheakedRoomInCount(String unityTyppe) {
         int count = 0;
         try {
             List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+            if (cheakInsertList == null || cheakInsertList.size() < 1) {
+                return 0;
+            }
 
             for (CheakInsertBean bean : cheakInsertList) {
                 YingBean shubena = DBHelper.getDBManager().selector(YingBean.class).where("UnitCode", "=", bean
@@ -165,6 +167,10 @@ public class YingDao {
     public static int getHadCheakedUnitInCount(String unitType) {
 
         List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        if (list == null || list.size() < 1) {
+            return 0;
+        }
+
         int count = 0;
         for (CheakInsertBean bean : list) {
             YingBean shu = YingDao.queryByUnitID(bean.getUnitCode());
@@ -182,6 +188,9 @@ public class YingDao {
         int count = 0;
         try {
             List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+            if (cheakInsertList == null || cheakInsertList.size() < 1) {
+                return 0;
+            }
 
             for (CheakInsertBean bean : cheakInsertList) {
                 YingBean shubena = DBHelper.getDBManager().selector(YingBean.class).where("UnitCode", "=", bean
@@ -200,10 +209,13 @@ public class YingDao {
     public static int getHadCheakedUnitInCountWai(String unitType) {
 
         List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        if (list == null || list.size() < 1) {
+            return 0;
+        }
         int count = 0;
         for (CheakInsertBean bean : list) {
             YingBean shu = YingDao.queryByUnitID(bean.getUnitCode());
-            if (shu != null&&shu.getCheckDistance()>0) {
+            if (shu != null && shu.getCheckDistance() > 0) {
                 count++;
             }
         }

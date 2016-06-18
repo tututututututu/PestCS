@@ -1,265 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<com.tutu.pestcs.widget.OverScrollView
+<com.tutu.pestcs.widget.TuLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/base_layout"
     android:layout_height="match_parent"
-    android:background="@color/main_bg">
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <com.tutu.pestcs.widget.OverScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/base_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/main_bg">
 
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="检查房间数:"/>
-
-            <EditText
-                android:id="@+id/et_jianchafangshu"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="成虫阳性房间数:"/>
-
-            <EditText
-                android:id="@+id/et_chengchongyangxingfangjianshu"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="其中:大镰共"/>
-
-            <EditText
-                android:id="@+id/et_dalian"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="其中:小镰共"/>
-
-            <EditText
-                android:id="@+id/et_xiaolian"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="卵鞘阳性房间数:"/>
-
-            <EditText
-                android:id="@+id/et_luanqiaoxiangxingfangjianshu"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="查获卵鞘共:"/>
-
-            <EditText
-                android:id="@+id/et_chahuoluanqiaoshu"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            >
-
-            <TextView
-                style="@style/describ_title2"
-                android:text="蟑迹阳性房间数:"/>
-
-            <EditText
-                android:id="@+id/et_zhangjiyangxingfangjianshu"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="60dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="间"/>
-        </LinearLayout>
-
-        <TextView
-            style="@style/describ_title"
-            android:text="蟑迹类型"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                >
 
                 <TextView
                     style="@style/describ_title2"
-                    android:text="虫尸:"/>
+                    android:text="检查房间数:"/>
 
                 <EditText
-                    android:id="@+id/et_chongshi"
+                    android:id="@+id/et_jianchafangshu"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
                     android:hint="0"
-                    android:minWidth="50dp"/>
+                    android:minWidth="60dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="4dp"
                     android:gravity="center"
-                    android:text="个"/>
+                    android:text="间"/>
             </LinearLayout>
 
             <LinearLayout
                 style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="成若虫阳性房间数:"/>
+
+                <EditText
+                    android:id="@+id/et_chengchongyangxingfangjianshu"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="间"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="其中:大蠊共"/>
+
+                <EditText
+                    android:id="@+id/et_dalian"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="只"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="其中:小蠊共"/>
+
+                <EditText
+                    android:id="@+id/et_xiaolian"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="只"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="卵鞘阳性房间数:"/>
+
+                <EditText
+                    android:id="@+id/et_luanqiaoxiangxingfangjianshu"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="间"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="查获卵鞘共:"/>
+
+                <EditText
+                    android:id="@+id/et_chahuoluanqiaoshu"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="只"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="match_parent"
+                >
+
+                <TextView
+                    style="@style/describ_title2"
+                    android:text="蟑迹阳性房间数:"/>
+
+                <EditText
+                    android:id="@+id/et_zhangjiyangxingfangjianshu"
+                    style="@style/et_style2"
+                    android:layout_width="wrap_content"
+                    android:hint="0"
+                    android:minWidth="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:text="间"/>
+            </LinearLayout>
+
+            <TextView
+                style="@style/describ_title"
+                android:text="蟑迹类型"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/describ_title2"
+                        android:text="虫尸:"/>
+
+                    <EditText
+                        android:id="@+id/et_chongshi"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="个"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/describ_title2"
+                        android:paddingLeft="4dp"
+                        android:text="残片:"/>
+
+                    <EditText
+                        android:id="@+id/et_canpian"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="个"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/describ_title2"
+                        android:text="空卵鞘壳:"/>
+
+                    <EditText
+                        android:id="@+id/et_kongluanqiaoke"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="个"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/describ_title2"
+                        android:paddingLeft="4dp"
+                        android:text="蟑螂粪便:"/>
+
+                    <EditText
+                        android:id="@+id/et_zhanglangfenbian"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="处"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/insert_mouse_fragment_ll_style"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="20dp">
 
                 <TextView
                     style="@style/describ_title2"
                     android:paddingLeft="4dp"
-                    android:text="残片:"/>
+                    android:text="蜕皮:"/>
 
                 <EditText
-                    android:id="@+id/et_canpian"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="个"/>
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:text="空卵鞘壳:"/>
-
-                <EditText
-                    android:id="@+id/et_kongluanqiaoke"
+                    android:id="@+id/et_tuipi"
                     style="@style/et_style2"
                     android:layout_width="wrap_content"
                     android:hint="0"
@@ -274,80 +331,29 @@
             </LinearLayout>
 
             <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp">
 
-                <TextView
-                    style="@style/describ_title2"
-                    android:paddingLeft="4dp"
-                    android:text="蟑螂粪便:"/>
+                <Button
+                    android:id="@+id/btn_save"
+                    style="@style/btn_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="保存"
+                    />
 
-                <EditText
-                    android:id="@+id/et_zhanglangfenbian"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="处"/>
+                <Button
+                    android:id="@+id/btn_exit"
+                    style="@style/btn_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="退出"
+                    />
             </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:paddingLeft="20dp"
-            style="@style/insert_mouse_fragment_ll_style"
-            android:layout_width="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/describ_title2"
-                android:paddingLeft="4dp"
-                android:text="蜕皮:"/>
-
-            <EditText
-                android:id="@+id/et_tuipi"
-                style="@style/et_style2"
-                android:layout_width="wrap_content"
-                android:hint="0"
-                android:minWidth="50dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                android:text="个"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp">
-
-            <Button
-                android:id="@+id/btn_save"
-                style="@style/btn_style"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="保存"
-                />
-
-            <Button
-                android:id="@+id/btn_exit"
-                style="@style/btn_style"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="退出"
-                />
-        </LinearLayout>
-
-    </LinearLayout>
-</com.tutu.pestcs.widget.OverScrollView>
+    </com.tutu.pestcs.widget.OverScrollView>
+</com.tutu.pestcs.widget.TuLinearLayout>

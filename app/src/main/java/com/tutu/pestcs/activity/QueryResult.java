@@ -1,6 +1,7 @@
 package com.tutu.pestcs.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -129,7 +130,7 @@ public class QueryResult extends BaseActivity {
         tlTable.setStretchAllColumns(true);
 
         for (int row = 0; row < data.size(); row++) {
-            TableRow tableRow = new TableRow(this);
+            final TableRow tableRow = new TableRow(this);
             for (int col = 0; col < 4; col++) {
                 TextView tv = createTV();
                 if (col == 0) {
@@ -144,7 +145,17 @@ public class QueryResult extends BaseActivity {
                 tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
                 tableRow.addView(tv);
             }
+            tableRow.setTag(data.get(row).getUnitCode());
             tlTable.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));
+
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(QueryResult.this,CheakRecoderDetail.class);
+                    intent.putExtra(ActivityJumpParams.UNITYCODE,(String) v.getTag());
+                    startActivity(intent);
+                }
+            });
         }
     }
 

@@ -146,7 +146,9 @@ public class WenDao {
         int count = 0;
         try {
             List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
-
+            if (cheakInsertList == null || cheakInsertList.size() < 1) {
+                return 0;
+            }
             for (CheakInsertBean bean : cheakInsertList) {
                 WenBean shubena = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=", bean
                         .getUnitCode())
@@ -163,6 +165,9 @@ public class WenDao {
 
     public static int getHadCheakedUnitInCount(String unitType) {
         List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        if (list == null || list.size() < 1) {
+            return 0;
+        }
         int count = 0;
         for (CheakInsertBean bean : list) {
             WenBean shu = WenDao.queryByUnitID(bean.getUnitCode());
@@ -179,7 +184,9 @@ public class WenDao {
         int count = 0;
         try {
             List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
-
+            if (cheakInsertList == null || cheakInsertList.size() < 1) {
+                return 0;
+            }
             for (CheakInsertBean bean : cheakInsertList) {
                 WenBean shubena = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=", bean
                         .getUnitCode())
@@ -197,6 +204,9 @@ public class WenDao {
     public static int getHadCheakedUnitInCountWai(String unitType) {
         List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
         int count = 0;
+        if (list == null || list.size() < 1) {
+            return 0;
+        }
         for (CheakInsertBean bean : list) {
             WenBean shu = WenDao.queryByUnitID(bean.getUnitCode());
             if (shu != null && shu.getCaiYangShaoNum() > 0) {

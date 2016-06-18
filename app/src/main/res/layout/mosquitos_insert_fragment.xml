@@ -1,602 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.tutu.pestcs.widget.OverScrollView
+<com.tutu.pestcs.widget.TuLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.tutu.pestcs.widget.OverScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/base_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/main_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:text="检查路径:"/>
-
-                <EditText
-                    android:id="@+id/et_jianchalujing"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="个"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:paddingLeft="4dp"
-                    android:text="查见灭蚊灯:"/>
-
-                <EditText
-                    android:id="@+id/et_chajianmiewendeng"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="个"/>
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <TextView
-            style="@style/describ_title"
-            android:text="小型积水类型"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:text="查见小型积水:"/>
-
-                <EditText
-                    android:id="@+id/et_chanjianxiaoxingjishui"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="个"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="0.7">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:paddingLeft="4dp"
-                    android:text="阳性:"/>
-
-                <EditText
-                    android:id="@+id/et_chajianxiaoxingjishuiyangxing"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:enabled="false"
-                    android:hint="自动计算"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="个"/>
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_xiaoxingjishui"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="容器积水:"/>
-
-                    <EditText
-                        android:id="@+id/et_rongqijishui"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_rongqijishuiyangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="坑洼积水:"/>
-
-                    <EditText
-                        android:id="@+id/et_kengwajishui"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_kengwajishuiyangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="景观池:"/>
-
-                    <EditText
-                        android:id="@+id/et_jingguanchi"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_jingguanchiyangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="排水井口积水:"/>
-
-                    <EditText
-                        android:id="@+id/et_paishuijinkoujishui"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_paishuijinkoujishuiyangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="地下室积水:"/>
-
-                    <EditText
-                        android:id="@+id/et_dixiashijishui"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_dixiashijishuiyangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="轮胎积水:"/>
-
-                    <EditText
-                        android:id="@+id/et_luntaijishui"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_luntaijishuiyangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="其他:"/>
-
-                    <EditText
-                        android:id="@+id/et_qita"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性:"/>
-
-                    <EditText
-                        android:id="@+id/et_qitayangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="个"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <TextView
-            style="@style/describ_title"
-            android:text="诱蚊人次"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:text="诱蚊人次:"/>
-
-                <EditText
-                    android:id="@+id/et_youwenrenci"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="人"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    style="@style/describ_title2"
-                    android:paddingLeft="4dp"
-                    android:text="蚊虫停落次数:"/>
-
-                <EditText
-                    android:id="@+id/et_wenchongtingluocishu"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="个"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_shuiti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/describ_title"
-                android:text="大中型水体"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -609,10 +30,10 @@
 
                     <TextView
                         style="@style/describ_title2"
-                        android:text="采样共:"/>
+                        android:text="检查路径:"/>
 
                     <EditText
-                        android:id="@+id/et_caiyanggong"
+                        android:id="@+id/et_jianchalujing"
                         style="@style/et_style2"
                         android:layout_width="wrap_content"
                         android:hint="0"
@@ -623,7 +44,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:gravity="center"
-                        android:text="勺"/>
+                        android:text="个"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -634,10 +55,10 @@
                     <TextView
                         style="@style/describ_title2"
                         android:paddingLeft="4dp"
-                        android:text="阳性共:"/>
+                        android:text="查见灭蚊灯:"/>
 
                     <EditText
-                        android:id="@+id/et_yangxinggong"
+                        android:id="@+id/et_chajianmiewendeng"
                         style="@style/et_style2"
                         android:layout_width="wrap_content"
                         android:hint="0"
@@ -648,128 +69,726 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:gravity="center"
-                        android:text="勺"/>
+                        android:text="个"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                style="@style/insert_mouse_fragment_ll_style"
+                android:id="@+id/ll_xiaoxingjishui_wai"
                 android:layout_width="match_parent"
-                android:paddingLeft="20dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    style="@style/describ_title2"
-                    android:paddingLeft="4dp"
-                    android:text="蚊幼虫和蛹共:"/>
+                    style="@style/describ_title"
+                    android:text="小型积水类型"/>
 
-                <EditText
-                    android:id="@+id/et_wenyouchongheyonggong"
-                    style="@style/et_style2"
-                    android:layout_width="wrap_content"
-                    android:hint="0"
-                    android:minWidth="50dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="只"/>
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="查见小型积水:"/>
+
+                        <EditText
+                            android:id="@+id/et_chanjianxiaoxingjishui"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.7">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_chajianxiaoxingjishuiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:enabled="false"
+                            android:hint="自动计算"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/tv_shuitileixing"
-                style="@style/describ_title"
-                android:text="水体类型"/>
-
-            <HorizontalScrollView
+            <LinearLayout
+                android:id="@+id/ll_xiaoxingjishui"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <RadioGroup
-                    android:id="@+id/rg_shuiTiType"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="4dp">
+                    android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/rb_hupo"
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="容器积水:"/>
+
+                        <EditText
+                            android:id="@+id/et_rongqijishui"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_rongqijishuiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="坑洼积水:"/>
+
+                        <EditText
+                            android:id="@+id/et_kengwajishui"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_kengwajishuiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="景观池:"/>
+
+                        <EditText
+                            android:id="@+id/et_jingguanchi"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_jingguanchiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="排水井口积水:"/>
+
+                        <EditText
+                            android:id="@+id/et_paishuijinkoujishui"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_paishuijinkoujishuiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="地下室积水:"/>
+
+                        <EditText
+                            android:id="@+id/et_dixiashijishui"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_dixiashijishuiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="轮胎积水:"/>
+
+                        <EditText
+                            android:id="@+id/et_luntaijishui"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_luntaijishuiyangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="其他:"/>
+
+                        <EditText
+                            android:id="@+id/et_qita"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性:"/>
+
+                        <EditText
+                            android:id="@+id/et_qitayangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_youwen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/describ_title"
+                    android:text="诱蚊人次"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="诱蚊人次:"/>
+
+                        <EditText
+                            android:id="@+id/et_youwenrenci"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="人"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="蚊虫停落次数:"/>
+
+                        <EditText
+                            android:id="@+id/et_wenchongtingluocishu"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="个"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_shuiti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/describ_title"
+                    android:text="大中型水体"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="采样共:"/>
+
+                        <EditText
+                            android:id="@+id/et_caiyanggong"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="勺"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性共:"/>
+
+                        <EditText
+                            android:id="@+id/et_yangxinggong"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="勺"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/insert_mouse_fragment_ll_style"
+                    android:layout_width="match_parent"
+                    android:paddingLeft="20dp">
+
+                    <TextView
+                        style="@style/describ_title2"
+                        android:paddingLeft="4dp"
+                        android:text="蚊幼虫和蛹共:"/>
+
+                    <EditText
+                        android:id="@+id/et_wenyouchongheyonggong"
+                        style="@style/et_style2"
+                        android:layout_width="wrap_content"
+                        android:hint="0"
+                        android:minWidth="50dp"/>
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="湖泊"/>
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center"
+                        android:text="只"/>
+                </LinearLayout>
 
-                    <RadioButton
-                        android:id="@+id/rb_heliu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:text="河流"/>
 
-                    <RadioButton
-                        android:id="@+id/rb_rengonghu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:text="人工湖"/>
+                <TextView
+                    android:id="@+id/tv_shuitileixing"
+                    style="@style/describ_title"
+                    android:text="水体类型"/>
 
-                    <RadioButton
-                        android:id="@+id/rb_jingguanchi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:text="景观池"/>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:id="@+id/rb_chitang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:text="池塘"/>
+                    <RadioGroup
+                        android:id="@+id/rg_shuiTiType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="4dp">
 
-                    <RadioButton
-                        android:id="@+id/rb_gouqu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:text="沟渠"/>
+                        <RadioButton
+                            android:id="@+id/rb_hupo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="湖泊"/>
 
-                    <RadioButton
-                        android:id="@+id/rb_qita"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:text="其他"/>
-                </RadioGroup>
-            </HorizontalScrollView>
+                        <RadioButton
+                            android:id="@+id/rb_heliu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:text="河流"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_rengonghu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:text="人工湖"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_jingguanchi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:text="景观池"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_chitang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:text="池塘"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_gouqu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:text="沟渠"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_qita"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:text="其他"/>
+                    </RadioGroup>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    style="@style/btn_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="保存"/>
+
+                <Button
+                    android:id="@+id/btn_exit"
+                    style="@style/btn_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="退出"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp">
 
-            <Button
-                android:id="@+id/btn_save"
-                style="@style/btn_style"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="保存"/>
-
-            <Button
-                android:id="@+id/btn_exit"
-                style="@style/btn_style"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="退出"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-</com.tutu.pestcs.widget.OverScrollView>
+    </com.tutu.pestcs.widget.OverScrollView>
+</com.tutu.pestcs.widget.TuLinearLayout>

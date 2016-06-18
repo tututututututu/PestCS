@@ -1,4 +1,4 @@
-package com.tutu.pestcs.fragment.insert;
+package com.tutu.pestcs.fragment.review;
 
 import android.os.Message;
 import android.text.TextUtils;
@@ -8,7 +8,6 @@ import android.widget.EditText;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
-import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ZhangDao;
@@ -62,7 +61,7 @@ public class CockFragment extends BaseFragment {
     private int zhanglangfenbian = 0;
 
 
-    private CheakInsertBean cheakInsertBean;
+    private String unitycode;
     private ZhangBean bean = new ZhangBean();
 
 
@@ -74,14 +73,9 @@ public class CockFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
-        bean.setUnitCode(cheakInsertBean.getUnitCode());
-        bean.setUniType(cheakInsertBean.getUnitClassID());
-        bean.setAreaCode(cheakInsertBean.getAreaCode());
-        bean.setTaskCode(cheakInsertBean.getTaskCode());
-        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
-        bean.setKeyUnit(cheakInsertBean.isKeyUnit());
-        bean.setExpertCode(cheakInsertBean.getExpertCode());
+        unitycode = getArguments().getParcelable(ActivityJumpParams.UNITYCODE);
+
+        // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
     }
 
     @Override

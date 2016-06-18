@@ -1,13 +1,10 @@
-package com.tutu.pestcs.fragment.insert;
+package com.tutu.pestcs.fragment.review;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,7 +15,6 @@ import android.widget.TextView;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
-import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.WenDao;
@@ -141,7 +137,7 @@ public class MosquitosFragment extends BaseFragment {
     LinearLayout llYouwen;
 
 
-    private CheakInsertBean cheakInsertBean;
+    private String unitycode;
     private WenBean bean = new WenBean();
 
 
@@ -153,10 +149,12 @@ public class MosquitosFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
+        unitycode = getArguments().getParcelable(ActivityJumpParams.UNITYCODE);
+        // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
+
 
         //大中型水体
-        if (cheakInsertBean.getUnitClassID().equals("17")) {
+        if (bean.getUnitClassID().equals("17")) {
             ll_shuiti.setVisibility(View.VISIBLE);
             tvShuitileixing.setVisibility(View.VISIBLE);
             llXiaoxingjishuiWai.setVisibility(View.GONE);
@@ -167,14 +165,6 @@ public class MosquitosFragment extends BaseFragment {
             llXiaoxingjishuiWai.setVisibility(View.VISIBLE);
             llYouwen.setVisibility(View.VISIBLE);
         }
-
-        bean.setUnitCode(cheakInsertBean.getUnitCode());
-        bean.setUniType(cheakInsertBean.getUnitClassID());
-        bean.setAreaCode(cheakInsertBean.getAreaCode());
-        bean.setTaskCode(cheakInsertBean.getTaskCode());
-        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
-        bean.setKeyUnit(cheakInsertBean.isKeyUnit());
-        bean.setExpertCode(cheakInsertBean.getExpertCode());
 
         etChanjianxiaoxingjishui.addTextChangedListener(new TextWatcher() {
             @Override
@@ -247,13 +237,6 @@ public class MosquitosFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
 
     private class MyTextWatcher implements TextWatcher {

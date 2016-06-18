@@ -122,11 +122,19 @@ public class FliesFragment extends BaseFragment {
                 if (col == 0) {
                     tv.setText(outDoorData.get(row).getUnitType());
                 } else if (col == 1) {
-                    tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row).getOriginalNumE());
+                    if (outDoorData.get(row).getOriginalNumS()==0) {
+                        tv.setText("/" + "-" + outDoorData.get(row).getOriginalNumE());
+                    }else{
+                        tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row).getOriginalNumE());
+                    }
                 } else if (col == 2) {
                     tv.setText(outDoorData.get(row).getCheakedNumS() + "-" + outDoorData.get(row).getCheakedNumE());
                 } else if (col == 3) {
-                    tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + outDoorData.get(row).getToCheakNumE());
+                    if (outDoorData.get(row).getToCheakNumS()==0) {
+                        tv.setText("/" + "-" + outDoorData.get(row).getToCheakNumE());
+                    }else{
+                        tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + outDoorData.get(row).getToCheakNumE());
+                    }
                 }
                 tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
                 tableRow.addView(tv);

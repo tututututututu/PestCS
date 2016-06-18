@@ -14,6 +14,8 @@ import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
 
+import org.xutils.ex.DbException;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -66,7 +68,12 @@ public class AddUser extends BaseActivity {
         int id = rg_type.getCheckedRadioButtonId();
         user.setUserGrade(id == R.id.rg_type ? "0" : "1");
         user.setUserName(et_username.getText().toString().trim());
-        UserDao.saveOrUpdate(user);
+        try {
+            UserDao.addUser(user);
+        } catch (DbException e) {
+            svProgressHUD.showErrorWithStatus("用户已存在");
+            return;
+        }
         RxBus.postEvent(new AddUserEvent(user), AddUserEvent.class);
         finish();
     }

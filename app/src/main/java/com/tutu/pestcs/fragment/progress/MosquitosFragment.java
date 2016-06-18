@@ -45,7 +45,7 @@ public class MosquitosFragment extends BaseFragment {
     private List<ProgressMouse> inDoorData = new ArrayList<>();
     private List<ProgressMouse> outDoorData = new ArrayList<>();
 
-    private int groupNum=1;
+    private int groupNum = 1;
 
     @Override
     public void handleMessage(Message msg) {
@@ -72,7 +72,7 @@ public class MosquitosFragment extends BaseFragment {
                     return;
                 }
                 groupNum = result.getGroups();
-                if (groupNum==0){
+                if (groupNum == 0) {
                     groupNum = 1;
                 }
                 fillData();
@@ -120,11 +120,20 @@ public class MosquitosFragment extends BaseFragment {
                 if (col == 0) {
                     tv.setText(outDoorData.get(row).getUnitType());
                 } else if (col == 1) {
-                    tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row).getOriginalNumE());
+                    if (outDoorData.get(row).getOriginalNumE() == 0) {
+                        tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + "/");
+                    } else {
+                        tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row)
+                                .getOriginalNumE());
+                    }
                 } else if (col == 2) {
                     tv.setText(outDoorData.get(row).getCheakedNumS() + "-" + outDoorData.get(row).getCheakedNumE());
                 } else if (col == 3) {
-                    tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + outDoorData.get(row).getToCheakNumE());
+                    if (outDoorData.get(row).getToCheakNumE() == 0) {
+                        tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + "/");
+                    } else {
+                        tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + outDoorData.get(row).getToCheakNumE());
+                    }
                 }
                 tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
                 tableRow.addView(tv);
@@ -191,7 +200,7 @@ public class MosquitosFragment extends BaseFragment {
         totleCheakedRoom += hadCCheakedRoomIn01;
         addRow("单位(有独立院落)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1)
                 .getValue
-                ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);
+                        ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);
 
         int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("09");
         int hadCCheakedRoomIn02 = WenDao.getHadCheakedRoomInCount("09");
@@ -206,7 +215,7 @@ public class MosquitosFragment extends BaseFragment {
         totleCheakedRoom += hadCCheakedRoomIn13;
         addRow("道路(雨水井口)", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3)
                 .getValue
-                ()), hadCCheakedUnitIn13, hadCCheakedRoomIn13);
+                        ()), hadCCheakedUnitIn13, hadCCheakedRoomIn13);
 
 
         for (KeyValueDataBean bean : toCheakedBean) {
@@ -215,8 +224,6 @@ public class MosquitosFragment extends BaseFragment {
         }
         addRow("合计", totelTocheakUnit, totelTocheakRoom, totleCheakedUnit, totleCheakedRoom);
     }
-
-
 
 
     private void initDataWai() {
@@ -236,19 +243,28 @@ public class MosquitosFragment extends BaseFragment {
         int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("22");
         int hadCCheakedRoomIn02 = WenDao.getHadCheakedRoomInCount("22");
 
-        addRowWai("大中型水体(个)", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0).getValue
-                ()), hadCCheakedUnitIn02, hadCCheakedRoomIn02);
+        addRowWai("大中型水体(个)", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0)
+                .getValue
+                        ()), hadCCheakedUnitIn02, hadCCheakedRoomIn02);
 
-        int hadCCheakedUnitIn01 = YingDao.getHadCheakedUnitInCountWai("01")+YingDao.getHadCheakedUnitInCountWai("02")+YingDao.getHadCheakedUnitInCountWai("03")+YingDao.getHadCheakedUnitInCountWai("04")
-                +YingDao.getHadCheakedUnitInCountWai("05")+YingDao.getHadCheakedUnitInCountWai("06")+YingDao.getHadCheakedUnitInCountWai("07")+YingDao.getHadCheakedUnitInCountWai("08")
-                +YingDao.getHadCheakedUnitInCountWai("09")+YingDao.getHadCheakedUnitInCountWai("10")+YingDao.getHadCheakedUnitInCountWai("11")+YingDao.getHadCheakedUnitInCountWai("12")
-                +YingDao.getHadCheakedUnitInCountWai("13")+YingDao.getHadCheakedUnitInCountWai("14")+YingDao.getHadCheakedUnitInCountWai("15")+YingDao.getHadCheakedUnitInCountWai("16")
-                +YingDao.getHadCheakedUnitInCountWai("17")+YingDao.getHadCheakedUnitInCountWai("18");
-        int hadCCheakedRoomIn01 = YingDao.getHadCheakedRoomInCountWai("01")+YingDao.getHadCheakedRoomInCountWai("02")+YingDao.getHadCheakedRoomInCountWai("03")+YingDao.getHadCheakedRoomInCountWai("04")
-                +YingDao.getHadCheakedRoomInCountWai("05")+YingDao.getHadCheakedRoomInCountWai("06")+YingDao.getHadCheakedRoomInCountWai("07")+YingDao.getHadCheakedRoomInCountWai("08")
-                +YingDao.getHadCheakedRoomInCountWai("09")+YingDao.getHadCheakedRoomInCountWai("10")+YingDao.getHadCheakedRoomInCountWai("11")+YingDao.getHadCheakedRoomInCountWai("12")
-                +YingDao.getHadCheakedRoomInCountWai("13")+YingDao.getHadCheakedRoomInCountWai("14")+YingDao.getHadCheakedRoomInCountWai("15")+YingDao.getHadCheakedRoomInCountWai("16")
-                +YingDao.getHadCheakedRoomInCountWai("17")+YingDao.getHadCheakedRoomInCountWai("18");
+        int hadCCheakedUnitIn01 = YingDao.getHadCheakedUnitInCountWai("01") + YingDao.getHadCheakedUnitInCountWai
+                ("02") + YingDao.getHadCheakedUnitInCountWai("03") + YingDao.getHadCheakedUnitInCountWai("04")
+                + YingDao.getHadCheakedUnitInCountWai("05") + YingDao.getHadCheakedUnitInCountWai("06") + YingDao
+                .getHadCheakedUnitInCountWai("07") + YingDao.getHadCheakedUnitInCountWai("08")
+                + YingDao.getHadCheakedUnitInCountWai("09") + YingDao.getHadCheakedUnitInCountWai("10") + YingDao
+                .getHadCheakedUnitInCountWai("11") + YingDao.getHadCheakedUnitInCountWai("12")
+                + YingDao.getHadCheakedUnitInCountWai("13") + YingDao.getHadCheakedUnitInCountWai("14") + YingDao
+                .getHadCheakedUnitInCountWai("15") + YingDao.getHadCheakedUnitInCountWai("16")
+                + YingDao.getHadCheakedUnitInCountWai("17") + YingDao.getHadCheakedUnitInCountWai("18");
+        int hadCCheakedRoomIn01 = YingDao.getHadCheakedRoomInCountWai("01") + YingDao.getHadCheakedRoomInCountWai
+                ("02") + YingDao.getHadCheakedRoomInCountWai("03") + YingDao.getHadCheakedRoomInCountWai("04")
+                + YingDao.getHadCheakedRoomInCountWai("05") + YingDao.getHadCheakedRoomInCountWai("06") + YingDao
+                .getHadCheakedRoomInCountWai("07") + YingDao.getHadCheakedRoomInCountWai("08")
+                + YingDao.getHadCheakedRoomInCountWai("09") + YingDao.getHadCheakedRoomInCountWai("10") + YingDao
+                .getHadCheakedRoomInCountWai("11") + YingDao.getHadCheakedRoomInCountWai("12")
+                + YingDao.getHadCheakedRoomInCountWai("13") + YingDao.getHadCheakedRoomInCountWai("14") + YingDao
+                .getHadCheakedRoomInCountWai("15") + YingDao.getHadCheakedRoomInCountWai("16")
+                + YingDao.getHadCheakedRoomInCountWai("17") + YingDao.getHadCheakedRoomInCountWai("18");
 
         addRowWai("特殊场所诱蚊(人次)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1)
                 .getValue
@@ -256,26 +272,25 @@ public class MosquitosFragment extends BaseFragment {
     }
 
 
-
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
-                toCheakUnit/groupNum,
-                toCheakRoom/groupNum,
+                toCheakUnit / groupNum,
+                toCheakRoom / groupNum,
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit/groupNum - hadCheakUnit,
-                toCheakRoom/groupNum - hadCheakRoom,
+                toCheakUnit / groupNum - hadCheakUnit,
+                toCheakRoom / groupNum - hadCheakRoom,
                 true));
     }
 
     private void addRowWai(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         outDoorData.add(new ProgressMouse(name,
-                toCheakUnit/groupNum,
-                toCheakRoom/groupNum,
+                toCheakUnit / groupNum,
+                toCheakRoom / groupNum,
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit/groupNum - hadCheakUnit,
-                toCheakRoom/groupNum - hadCheakRoom,
+                toCheakUnit / groupNum - hadCheakUnit,
+                toCheakRoom / groupNum - hadCheakRoom,
                 true));
     }
 }

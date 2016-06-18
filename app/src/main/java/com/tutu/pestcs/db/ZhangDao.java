@@ -145,7 +145,9 @@ public class ZhangDao {
         int count = 0;
         try {
             List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
-
+            if (cheakInsertList == null || cheakInsertList.size() < 1) {
+                return 0;
+            }
             for (CheakInsertBean bean : cheakInsertList) {
                 ZhangBean shubena = DBHelper.getDBManager().selector(ZhangBean.class).where("UnitCode", "=", bean
                         .getUnitCode())
@@ -163,6 +165,9 @@ public class ZhangDao {
     public static int getHadCheakedUnitInCount(String unitType) {
 
         List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        if (list == null || list.size() < 1) {
+            return 0;
+        }
         int count = 0;
         for (CheakInsertBean bean : list) {
             ZhangBean shu = ZhangDao.queryByUnitID(bean.getUnitCode());

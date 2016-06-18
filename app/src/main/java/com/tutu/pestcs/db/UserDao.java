@@ -10,6 +10,13 @@ import java.util.List;
  * Created by tutu on 16/4/21.
  */
 public class UserDao {
+
+    public static void addUser(User user) throws DbException {
+
+        DBHelper.getDBManager().save(user);
+
+    }
+
     public static void saveOrUpdate(User user) {
         try {
             DBHelper.getDBManager().saveOrUpdate(user);
