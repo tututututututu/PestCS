@@ -76,7 +76,7 @@ public class TaskDetail extends BaseActivity {
         tv_code.setText(task.getTaskCode());
         tv_city.setText(task.getCityName());
         tv_cheaker_name.setText(task.getExpertName());
-        tv_number.setText(task.getGroups() + "");
+        tv_number.setText(task.getExpertCode() + "");
         tv_population.setText(task.getPopulation() + "");
         tv_time.setText(task.getStartDate());
         StringBuilder builder = new StringBuilder();

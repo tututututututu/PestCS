@@ -329,6 +329,8 @@ public class MouseFragment extends BaseFragment {
                 et_sheshi_rooms.getText().toString().trim());
         sheshi_buhege = Integer.valueOf(TextUtils.isEmpty(et_sheshi_buhege.getText().toString().trim()) ? "0" :
                 et_sheshi_buhege.getText().toString().trim());
+        chushuikou = Integer.valueOf(TextUtils.isEmpty(et_chushuikou.getText().toString().trim()) ? "0" :
+                et_chushuikou.getText().toString().trim());
         paishuigou = Integer.valueOf(TextUtils.isEmpty(et_paishuigou.getText().toString().trim()) ? "0" :
                 et_paishuigou.getText().toString().trim());
         dilou = Integer.valueOf(TextUtils.isEmpty(et_dilou.getText().toString().trim()) ? "0" : et_dilou.getText()

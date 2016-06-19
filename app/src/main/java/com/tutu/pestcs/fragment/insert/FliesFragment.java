@@ -312,7 +312,7 @@ public class FliesFragment extends BaseFragment {
             return false;
         }
 
-        if (shineiyingleizishengdi > yangxing) {
+        if (shineiyingleizishengdi < yangxing) {
             ToastUtils.showToast("<室内蝇类孳生地数填写>不合法");
             return false;
         }

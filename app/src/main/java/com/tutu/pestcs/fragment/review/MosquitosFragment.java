@@ -1,31 +1,38 @@
 package com.tutu.pestcs.fragment.review;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.WenDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
-import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.event.ModifyModeEvent;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -120,10 +127,6 @@ public class MosquitosFragment extends BaseFragment {
     RadioButton rbGouqu;
     @Bind(R.id.rb_qita)
     RadioButton rbQita;
-    @Bind(R.id.btn_save)
-    Button btnSave;
-    @Bind(R.id.btn_exit)
-    Button btnExit;
     @Bind(R.id.base_layout)
     OverScrollView baseLayout;
 
@@ -135,10 +138,18 @@ public class MosquitosFragment extends BaseFragment {
     LinearLayout llXiaoxingjishuiWai;
     @Bind(R.id.ll_youwen)
     LinearLayout llYouwen;
+    @Bind(R.id.tbase)
+    TuLinearLayout tbase;
 
 
     private String unitycode;
     private WenBean bean = new WenBean();
+
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.review_mosquitos_fragment;
+    }
 
 
     @Override
@@ -149,10 +160,123 @@ public class MosquitosFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        unitycode = getArguments().getParcelable(ActivityJumpParams.UNITYCODE);
+        tbase.setChildEnable(tbase, false);
+        unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
+        if (unitycode == null) {
+            ToastUtils.showToast("非法记录查询");
+            return;
+        }
+
         // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
+        Tasks.executeInBackground(getActivity(), new BackgroundWork<WenBean>() {
+            @Override
+            public WenBean doInBackground() throws Exception {
+                return WenDao.queryByUnitID(unitycode);
+            }
+        }, new Completion<WenBean>() {
+            @Override
+            public void onSuccess(Context context, WenBean result) {
+                if (result == null) {
+                    return;
+                }
+                bean = result;
+                initReviewData();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
+
+        registModifyEvent();
+    }
 
 
+    private void registModifyEvent() {
+        subscriptions.add(RxBus.obtainEvent(ModifyModeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ModifyModeEvent>() {
+                    @Override
+                    public void call(ModifyModeEvent Event) {
+                        if (Event.isEditable()) {
+                            tbase.setChildEnable(tbase, true);
+                            registWather();
+                        } else {
+                            tbase.setChildEnable(tbase, false);
+                            onSave();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
+    }
+
+    private void initReviewData() {
+        etJianchalujing.setText(bean.getCheckDistance() + "");
+        etChajianmiewendeng.setText(bean.getMieWenDengNum() + "");
+        etChanjianxiaoxingjishui.setText(bean.getSmallWater() + "");
+        etChajianxiaoxingjishuiyangxing.setText(bean.getYangXinWater() + "");
+        etRongqijishui.setText(bean.getRongQi() + "");
+        etRongqijishuiyangxing.setText(bean.getRongQiYangXin() + "");
+        etKengwajishui.setText(bean.getKengWa() + "");
+        etKengwajishuiyangxing.setText(bean.getKengWaYangXin() + "");
+        etJingguanchi.setText(bean.getJingGuanChi() + "");
+        etJingguanchiyangxing.setText(bean.getJingGuanChiYangXin() + "");
+        etPaishuijinkoujishui.setText(bean.getJingKou() + "");
+        etPaishuijinkoujishuiyangxing.setText(bean.getJingKouYangXin() + "");
+        etDixiashijishui.setText(bean.getDiXiaShi() + "");
+        etDixiashijishuiyangxing.setText(bean.getDiXiaShiYangXin() + "");
+        etLuntaijishui.setText(bean.getLuntai() + "");
+        etLuntaijishuiyangxing.setText(bean.getLuntaiYangXin() + "");
+        etQita.setText(bean.getQiTa() + "");
+        etQitayangxing.setText(bean.getQiTaYangXin() + "");
+        etYouwenrenci.setText(bean.getYouWenRenCi() + "");
+        etWenchongtingluocishu.setText(bean.getWenStopNum() + "");
+        etCaiyanggong.setText(bean.getCaiYangShaoNum() + "");
+        etYangxinggong.setText(bean.getYangXinShaoNum() + "");
+        etWenyouchongheyonggong.setText(bean.getWenYouNum() + "");
+
+
+        /**
+         * 水体类型
+         * 1.湖泊
+         * 2.河流
+         * 3.人工湖
+         * 4.景观池
+         * 5.池塘
+         * 6.沟渠
+         * 7.其他
+         */
+        switch (bean.getShuiTiType()) {
+            case 1:
+                rgShuiTiType.check(R.id.rb_hupo);
+                break;
+            case 2:
+                rgShuiTiType.check(R.id.rb_heliu);
+                break;
+            case 3:
+                rgShuiTiType.check(R.id.rb_rengonghu);
+                break;
+            case 4:
+                rgShuiTiType.check(R.id.rb_jingguanchi);
+                break;
+            case 5:
+                rgShuiTiType.check(R.id.rb_chitang);
+                break;
+            case 6:
+                rgShuiTiType.check(R.id.rb_gouqu);
+                break;
+            case 7:
+                rgShuiTiType.check(R.id.rb_qita);
+                break;
+        }
+    }
+
+    private void registWather() {
         //大中型水体
         if (bean.getUnitClassID().equals("17")) {
             ll_shuiti.setVisibility(View.VISIBLE);
@@ -230,13 +354,19 @@ public class MosquitosFragment extends BaseFragment {
         etQitayangxing.addTextChangedListener(new MyTextWatcher());
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 
 
     private class MyTextWatcher implements TextWatcher {
@@ -266,44 +396,15 @@ public class MosquitosFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.mosquitos_insert_fragment;
-    }
 
+    private void onSave() {
 
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
-                    @Override
-                    public void OnConfrim() {
-                        getActivity().finish();
-                    }
-
-                    @Override
-                    public void OnCancel() {
-
-                    }
-                });
-
-                break;
-            case R.id.btn_save:
-
-                if (((InsertActivity) getActivity()).canSave()) {
-                    formatData();
-                    if (verifyInput()) {
-                        WenDao.saveOrUpdate(bean);
-                        ToastUtils.showToast("保存成功");
-                    }
-                } else {
-                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
-                }
-
-
-                break;
+        formatData();
+        if (verifyInput()) {
+            WenDao.saveOrUpdate(bean);
+            ToastUtils.showToast("保存成功");
         }
+
     }
 
     private void formatData() {

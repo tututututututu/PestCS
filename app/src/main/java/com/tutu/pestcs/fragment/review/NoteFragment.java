@@ -1,20 +1,32 @@
 package com.tutu.pestcs.fragment.review;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.NoteBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.NoteDao;
+import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/17.
@@ -22,10 +34,20 @@ import butterknife.OnClick;
 public class NoteFragment extends BaseFragment {
     @Bind(R.id.et_note)
     EditText et_note;
+    @Bind(R.id.base_layout)
+    OverScrollView baseLayout;
+    @Bind(R.id.tbase)
+    TuLinearLayout tbase;
 
 
     private String unitycode;
     private NoteBean bean = new NoteBean();
+
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.review_note_fragment;
+    }
 
     @Override
     public void handleMessage(Message msg) {
@@ -34,43 +56,94 @@ public class NoteFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        unitycode = getArguments().getParcelable(ActivityJumpParams.UNITYCODE);
-        // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
 
-    }
-
-    @Override
-    public int getLayoutID() {
-        return R.layout.note_fragment;
-    }
-
-
-    @OnClick({R.id.btn_exit, R.id.btn_save})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                getActivity().finish();
-                break;
-            case R.id.btn_save:
-                saveData();
-                break;
+        tbase.setChildEnable(tbase, false);
+        unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
+        if (unitycode == null) {
+            ToastUtils.showToast("非法记录查询");
+            return;
         }
+
+        // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
+        Tasks.executeInBackground(getActivity(), new BackgroundWork<NoteBean>() {
+            @Override
+            public NoteBean doInBackground() throws Exception {
+                return NoteDao.queryByUnitID(unitycode);
+            }
+        }, new Completion<NoteBean>() {
+            @Override
+            public void onSuccess(Context context, NoteBean result) {
+                if (result == null) {
+                    return;
+                }
+
+                bean = result;
+                initReviewData();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
+
+        registModifyEvent();
     }
 
-    private void saveData() {
+
+    private void registModifyEvent() {
+        subscriptions.add(RxBus.obtainEvent(ModifyModeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ModifyModeEvent>() {
+                    @Override
+                    public void call(ModifyModeEvent Event) {
+                        if (Event.isEditable()) {
+                            tbase.setChildEnable(tbase, true);
+                        } else {
+                            tbase.setChildEnable(tbase, false);
+                            onSave();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
+    }
+
+
+    private void initReviewData() {
+        et_note.setText(bean.getNote());
+    }
+
+
+    private void onSave() {
         String note = et_note.getText().toString().trim();
         if (TextUtils.isEmpty(note)) {
             svProgressHUD.showErrorWithStatus("请输入内容");
         } else {
             //保存
-            if (((InsertActivity) getActivity()).canSave()) {
-                bean.setNote(note);
-                NoteDao.saveOrUpdate(bean);
-                ToastUtils.showToast("保存成功");
-            } else {
-                ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
-            }
+
+            bean.setNote(note);
+            NoteDao.saveOrUpdate(bean);
+            ToastUtils.showToast("保存成功");
+
 
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

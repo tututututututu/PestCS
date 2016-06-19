@@ -62,7 +62,7 @@ public class CheakInsertDao {
 
     public static CheakInsertBean queryByUnitID(String unitID) {
         try {
-            CheakInsertBean bean = DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=",
+            CheakInsertBean bean = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitCode", "=",
                     unitID)
                     .findFirst();
             return bean;

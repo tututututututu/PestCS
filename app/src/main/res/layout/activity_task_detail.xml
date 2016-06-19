@@ -64,7 +64,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="考评代码"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -92,7 +91,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="赤壁"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -120,7 +118,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="50万人"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -148,7 +145,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="图图"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -176,7 +172,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="2309"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -204,7 +199,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="4组"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -232,7 +226,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="2014-3-9"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>
@@ -260,7 +253,6 @@
             android:layout_marginLeft="8dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="鼠,蚊,蝇,蟑螂"
             android:textSize="@dimen/sp16"/>
 
     </LinearLayout>

@@ -141,7 +141,7 @@
 
         <EditText
             android:hint="单位:万"
-            android:maxLength="3"
+            android:maxLength="4"
             android:inputType="number"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
@@ -229,7 +229,7 @@
 
         <EditText
             android:text="1"
-            android:maxLength="3"
+            android:maxLength="2"
             android:inputType="number"
             android:layout_width="100dp"
             android:paddingTop="0dp"

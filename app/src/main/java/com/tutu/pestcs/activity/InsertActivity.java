@@ -203,6 +203,8 @@ public class InsertActivity extends BaseActivity {
                     cheakInsertBean.setAreaCode(CurrentTaskBean.getAreaCode());
                     cheakInsertBean.setChkDateTime(System.currentTimeMillis());
                     cheakInsertBean.setUnitCode(DateHelper.getNowTimeSecond() + CurrentTaskBean.getExpertCode());
+                    cheakInsertBean.setCityName(CurrentTaskBean.getCityName());
+                    cheakInsertBean.setExpertName(CurrentTaskBean.getExpertName());
                     initUI();
                 }
             }

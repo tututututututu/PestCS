@@ -14,13 +14,14 @@ public class CheakInsertBean implements Parcelable {
     /**
      * 十八位数字,由当前时间2016 03 04 20 30 +检查人员code 2222
      */
-
     @Column(name = "UnitCode", isId = true)
     private String UnitCode;//unique 检查单位代码
     @Column(name = "TaskCode")
     private String TaskCode;//任务代码
     @Column(name = "AreaCode") //地区代码 0715
     private String AreaCode;
+    @Column(name = "cityName")
+    private String cityName;
     @Column(name = "UnitClassID")
     private String UnitClassID;//单位分类代码
     @Column(name = "NamePlace")
@@ -29,6 +30,8 @@ public class CheakInsertBean implements Parcelable {
     private boolean IsKeyUnit;//是否是重点单位
     @Column(name = "ExpertCode")
     private String ExpertCode; //检查人员代码
+    @Column(name = "ExpertName")
+    private String ExpertName; //检查人员代码
     @Column(name = "ChkDateTime")
     private long ChkDateTime; //检查时间
     @Column(name = "Note")
@@ -50,6 +53,22 @@ public class CheakInsertBean implements Parcelable {
 
 
     public CheakInsertBean() {
+    }
+
+    public String getExpertName() {
+        return ExpertName;
+    }
+
+    public void setExpertName(String expertName) {
+        ExpertName = expertName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public String getUnitCode() {
@@ -125,6 +144,23 @@ public class CheakInsertBean implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "CheakInsertBean{" +
+                "UnitCode='" + UnitCode + '\'' +
+                ", TaskCode='" + TaskCode + '\'' +
+                ", AreaCode='" + AreaCode + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", UnitClassID='" + UnitClassID + '\'' +
+                ", NamePlace='" + NamePlace + '\'' +
+                ", IsKeyUnit=" + IsKeyUnit +
+                ", ExpertCode='" + ExpertCode + '\'' +
+                ", ExpertName='" + ExpertName + '\'' +
+                ", ChkDateTime=" + ChkDateTime +
+                ", Note='" + Note + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -134,10 +170,12 @@ public class CheakInsertBean implements Parcelable {
         dest.writeString(this.UnitCode);
         dest.writeString(this.TaskCode);
         dest.writeString(this.AreaCode);
+        dest.writeString(this.cityName);
         dest.writeString(this.UnitClassID);
         dest.writeString(this.NamePlace);
-        dest.writeByte(IsKeyUnit ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.IsKeyUnit ? (byte) 1 : (byte) 0);
         dest.writeString(this.ExpertCode);
+        dest.writeString(this.ExpertName);
         dest.writeLong(this.ChkDateTime);
         dest.writeString(this.Note);
     }
@@ -146,10 +184,12 @@ public class CheakInsertBean implements Parcelable {
         this.UnitCode = in.readString();
         this.TaskCode = in.readString();
         this.AreaCode = in.readString();
+        this.cityName = in.readString();
         this.UnitClassID = in.readString();
         this.NamePlace = in.readString();
         this.IsKeyUnit = in.readByte() != 0;
         this.ExpertCode = in.readString();
+        this.ExpertName = in.readString();
         this.ChkDateTime = in.readLong();
         this.Note = in.readString();
     }
@@ -165,19 +205,4 @@ public class CheakInsertBean implements Parcelable {
             return new CheakInsertBean[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "CheakInsertBean{" +
-                ", UnitCode='" + UnitCode + '\'' +
-                ", TaskCode='" + TaskCode + '\'' +
-                ", AreaCode='" + AreaCode + '\'' +
-                ", UnitClassID='" + UnitClassID + '\'' +
-                ", NamePlace='" + NamePlace + '\'' +
-                ", IsKeyUnit=" + IsKeyUnit +
-                ", ExpertCode='" + ExpertCode + '\'' +
-                ", ChkDateTime=" + ChkDateTime +
-                ", Note='" + Note + '\'' +
-                '}';
-    }
 }

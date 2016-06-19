@@ -1,25 +1,34 @@
 package com.tutu.pestcs.fragment.review;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ShuDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
-import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.event.ModifyModeEvent;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -139,10 +148,17 @@ public class MouseFragment extends BaseFragment {
     LinearLayout ll_waihuanjingshuji;
     @Bind(R.id.ll_qizhong)
     LinearLayout ll_qizhong;
+    @Bind(R.id.tbase)
+    TuLinearLayout tbase;
 
 
     private String unitycode;
     private ShuBean shuBean = new ShuBean();
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.review_mouse_fragment;
+    }
 
 
     @Override
@@ -152,11 +168,101 @@ public class MouseFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        unitycode = getArguments().getParcelable(ActivityJumpParams.UNITYCODE);
+        tbase.setChildEnable(tbase, false);
+        unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
+        if (unitycode == null) {
+            ToastUtils.showToast("非法记录查询");
+            return;
+        }
         // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
 
+        Tasks.executeInBackground(getActivity(), new BackgroundWork<ShuBean>() {
+            @Override
+            public ShuBean doInBackground() throws Exception {
+                return ShuDao.queryByUnitID(unitycode);
+            }
+        }, new Completion<ShuBean>() {
+            @Override
+            public void onSuccess(Context context, ShuBean result) {
+                if (result == null) {
+                    return;
+                }
+                shuBean = result;
+                initReviewData();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
+
+        registModifyEvent();
+
+    }
+
+    private void registModifyEvent() {
+        subscriptions.add(RxBus.obtainEvent(ModifyModeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ModifyModeEvent>() {
+                    @Override
+                    public void call(ModifyModeEvent Event) {
+                        if (Event.isEditable()) {
+                            tbase.setChildEnable(tbase, true);
+                            registWather();
+                        } else {
+                            tbase.setChildEnable(tbase, false);
+                            onSave();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
+    }
 
 
+    private void initReviewData() {
+        et_jianchashu.setText(shuBean.getCheckRoom() + "");
+        et_yangxing.setText(shuBean.getShuRoom() + "");
+        et_shufen.setText(shuBean.getShuFen() + "");
+        et_shudong.setText(shuBean.getShuDong() + "");
+        et_shudao.setText(shuBean.getShuDao() + "");
+        et_yaoheng.setText(shuBean.getShuYaoHen() + "");
+        et_shuzhua.setText(shuBean.getZhuaYin() + "");
+        et_shushi.setText(shuBean.getShuShi() + "");
+        et_huoshu.setText(shuBean.getHuoShu() + "");
+        et_sheshi_rooms.setText(shuBean.getFangShuRoom() + "");
+        et_sheshi_buhege.setText(shuBean.getFangShuBadRoom() + "");
+        et_chushuikou.setText(shuBean.getChuShuiKou() + "");
+        et_paishuigou.setText(shuBean.getPaiShuiGou() + "");
+        et_dilou.setText(shuBean.getDiLou() + "");
+        et_menfeng.setText(shuBean.getMenFeng() + "");
+        et_mumen.setText(shuBean.getWoodDoor() + "");
+        et_dangshuban.setText(shuBean.getDangShuBan() + "");
+        et_kongdong.setText(shuBean.getKongDong() + "");
+        et_paifengshan.setText(shuBean.getPaiFengShan() + "");
+        et_tongfengkou.setText(shuBean.getTongFengKou() + "");
+        et_chuanghu.setText(shuBean.getWindow() + "");
+        et_jianchalujing.setText(shuBean.getCheckDistance() + "");
+        et_shujiyangxing.setText(shuBean.getShuJiNum() + "");
+        et_wai_shufen.setText(shuBean.getShuFen2() + "");
+        et_wai_shudong.setText(shuBean.getShuDong2() + "");
+        et_wai_shudao.setText(shuBean.getShuDao2() + "");
+        et_wai_yaoheng.setText(shuBean.getShuYaoHen2() + "");
+        et_wai_daotu.setText(shuBean.getDaoTu2() + "");
+        et_wai_shushi.setText(shuBean.getShuShi2() + "");
+        et_wai_huoshu.setText(shuBean.getHuoShu2() + "");
+        et_mieshuzhan.setText(shuBean.getBaitStation() + "");
+        et_wushuyao.setText(shuBean.getWuYaoStation() + "");
+        et_shuyaowuxiao.setText(shuBean.getWuXiaoYaoStation() + "");
+        et_fangzhibuzhengque.setText(shuBean.getPlaceBadStation() + "");
+        et_wujinshipai.setText(shuBean.getNoWarningStation() + "");
+    }
+
+    private void registWather() {
         et_yangxing.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -259,44 +365,17 @@ public class MouseFragment extends BaseFragment {
         });
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.insert_mouse_fragment;
-    }
 
+    private void onSave() {
 
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
-                    @Override
-                    public void OnConfrim() {
-                        getActivity().finish();
-                    }
-
-                    @Override
-                    public void OnCancel() {
-
-                    }
-                });
-
-                break;
-            case R.id.btn_save:
-
-                if (((InsertActivity) getActivity()).canSave()) {
-                    formatData();
-                    if (verifyInput()) {
-                        //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
-                        ShuDao.saveOrUpdate(shuBean);
-                        ToastUtils.showToast("保存成功");
-                    }
-                } else {
-                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
-                }
-
-                break;
+        formatData();
+        if (verifyInput()) {
+            //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
+            ShuDao.saveOrUpdate(shuBean);
+            ToastUtils.showToast("保存成功");
         }
+
+
     }
 
 
@@ -413,7 +492,7 @@ public class MouseFragment extends BaseFragment {
 
     //检查输入合法性
     private boolean verifyInput() {
-        if (shuBean.getCheckRoom()<1&&shuBean.getFangShuRoom()<1&&shuBean.getCheckDistance()<1){
+        if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
             ToastUtils.showToast("录入数据未达到保存条件");
             return false;
         }
@@ -439,26 +518,38 @@ public class MouseFragment extends BaseFragment {
             return false;
         }
 
-        if (yangxing>0&&shufen+shudong+shudao+yaoheng+shuzhua+shushi+huoshu<1){
+        if (yangxing > 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu < 1) {
             ToastUtils.showToast("鼠迹类型至少有一项大于0");
             return false;
         }
 
-        if (sheshi_buhege>0&&dilou+chuanghu+menfeng+kongdong+mumen+chushuikou+paishuigou+paifengshan+
-                tongfengkou+dangshuban<1){
+        if (sheshi_buhege > 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou + paifengshan +
+                tongfengkou + dangshuban < 1) {
             ToastUtils.showToast("防鼠设施不合格至少有一项大于0");
             return false;
         }
 
-        if (shujiyangxing>0&&wai_shufen+wai_shudong+wai_shudao+wai_yaoheng+wai_daotu+wai_shushi
-                +wai_huoshu<1){
+        if (shujiyangxing > 0 && wai_shufen + wai_shudong + wai_shudao + wai_yaoheng + wai_daotu + wai_shushi
+                + wai_huoshu < 1) {
             ToastUtils.showToast("外环境鼠迹至少有一项大于0");
             return false;
         }
 
 
-
-
         return true;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

@@ -1,22 +1,27 @@
 package com.tutu.pestcs.fragment.review;
 
+import android.content.Context;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
-import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ZhangDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
-import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -25,6 +30,10 @@ import butterknife.OnClick;
 public class CockFragment extends BaseFragment {
     @Bind(R.id.et_jianchafangshu)
     EditText et_jianchafangshu;
+    @Bind(R.id.base_layout)
+    OverScrollView baseLayout;
+    @Bind(R.id.tbase)
+    TuLinearLayout tbase;
     private int jianchafangshu = 0;
     @Bind(R.id.et_chengchongyangxingfangjianshu)
     EditText et_chengchongyangxingfangjianshu;
@@ -66,6 +75,12 @@ public class CockFragment extends BaseFragment {
 
 
     @Override
+    public int getLayoutID() {
+        return R.layout.review_cock_fragment;
+    }
+
+
+    @Override
     public void handleMessage(Message msg) {
 
     }
@@ -73,47 +88,85 @@ public class CockFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        unitycode = getArguments().getParcelable(ActivityJumpParams.UNITYCODE);
+        tbase.setChildEnable(tbase, false);
+
+        unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
+        if (unitycode == null) {
+            ToastUtils.showToast("非法记录查询");
+            return;
+        }
 
         // TODO: 2016/6/18 查询蟑螂详情 根据unitycode
-    }
+        Tasks.executeInBackground(getActivity(), new BackgroundWork<ZhangBean>() {
+            @Override
+            public ZhangBean doInBackground() throws Exception {
+                return ZhangDao.queryByUnitID(unitycode);
+            }
+        }, new Completion<ZhangBean>() {
+            @Override
+            public void onSuccess(Context context, ZhangBean result) {
+                if (result == null) {
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.cock_insert_fragment;
-    }
-
-
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
-                    @Override
-                    public void OnConfrim() {
-                        getActivity().finish();
-                    }
-
-                    @Override
-                    public void OnCancel() {
-
-                    }
-                });
-
-                break;
-            case R.id.btn_save:
-                if (((InsertActivity) getActivity()).canSave()) {
-                    formatData();
-                    if (verifyInput()) {
-                        ZhangDao.saveOrUpdate(bean);
-                        ToastUtils.showToast("保存成功");
-                    }
-                } else {
-                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
+                    return;
                 }
+                bean = result;
+                initReviewData();
+            }
 
-                break;
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
+
+        registModifyEvent();
+    }
+
+    private void registModifyEvent() {
+        subscriptions.add(RxBus.obtainEvent(ModifyModeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ModifyModeEvent>() {
+                    @Override
+                    public void call(ModifyModeEvent Event) {
+                        if (Event.isEditable()) {
+                            tbase.setChildEnable(tbase, true);
+                        } else {
+                            tbase.setChildEnable(tbase, false);
+                            onSave();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
+    }
+
+    private void initReviewData() {
+        et_jianchafangshu.setText(bean.getCheckRoom() + "");
+        et_chengchongyangxingfangjianshu.setText(bean.getChengCongRoom() + "");
+        et_dalian.setText(bean.getDaLianNum() + "");
+        et_xiaolian.setText(bean.getXiaoLianNuml() + "");
+        et_luanqiaoxiangxingfangjianshu.setText(bean.getLuanQiaoRoom() + "");
+        et_chahuoluanqiaoshu.setText(bean.getLuanQiaoNum() + "");
+        et_zhangjiyangxingfangjianshu.setText(bean.getZhangJiRoom() + "");
+        et_chongshi.setText(bean.getChongShi() + "");
+        et_canpian.setText(bean.getCanPian() + "");
+        et_kongluanqiaoke.setText(bean.getKongKe() + "");
+        et_zhanglangfenbian.setText(bean.getFenBian() + "");
+        et_tuipi.setText(bean.getTuiPi() + "");
+    }
+
+
+    private void onSave() {
+
+        formatData();
+        if (verifyInput()) {
+            ZhangDao.saveOrUpdate(bean);
+            ToastUtils.showToast("保存成功");
         }
+
     }
 
     private void formatData() {
