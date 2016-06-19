@@ -106,6 +106,12 @@ public class QueryFragment extends BaseFragment {
     private int condition3 = 1;
 
     @Override
+    public int getLayoutID() {
+        return R.layout.query_fragment;
+    }
+
+
+    @Override
     public void handleMessage(Message msg) {
 
     }
@@ -226,10 +232,6 @@ public class QueryFragment extends BaseFragment {
         });
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.query_fragment;
-    }
 
     @OnClick({R.id.et_danweileixing, R.id.btn_query})
     public void OnClick(View view) {

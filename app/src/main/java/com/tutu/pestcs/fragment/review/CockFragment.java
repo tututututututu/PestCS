@@ -208,7 +208,6 @@ public class CockFragment extends BaseFragment {
     private boolean verifyInput() {
 
         if (bean.getCheckRoom() < 1) {
-            ToastUtils.showToast("录入数据未达到保存条件");
             return false;
         }
 

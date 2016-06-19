@@ -29,12 +29,15 @@ import com.tutu.pestcs.adapter.InsertFragmentAdapter;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
+import com.tutu.pestcs.bean.PhotoBean;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ExtendUnitDao;
+import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.utils.DateHelper;
+import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
 import java.io.File;
@@ -48,6 +51,8 @@ import rx.functions.Action1;
  * Created by tutu on 16/4/7.
  */
 public class InsertActivity extends BaseActivity {
+    private static final int TAKE_PHOTO = 100;
+
     @Bind(R.id.tabs)
     PagerSlidingTabStrip tabs;
     @Bind(R.id.pager)
@@ -70,6 +75,9 @@ public class InsertActivity extends BaseActivity {
 
     //任务的单位类型
     private String mUnitType;
+
+    //照片名字
+    private String imgName;
 
     @Override
     public void handleMessage(Message msg) {
@@ -235,20 +243,20 @@ public class InsertActivity extends BaseActivity {
                 File destDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
                         + "tutu/imgs");
                 if (!destDir.exists()) {
-                    if (!destDir.mkdirs()){
+                    if (!destDir.mkdirs()) {
                         svProgressHUD.showErrorWithStatus("请给程序读取SD卡权限");
                     }
-
                 }
 
+                imgName = cheakInsertBean.getUnitCode() + DateHelper.getNowTimeSecond() + ".jpg";
                 String sFileFullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
-                        "tutu/imgs" + File.separator +
-                        cheakInsertBean.getTaskCode() + DateHelper.getNowTimeSecond() + ".jpg";
+                        "tutu/imgs" + File.separator + imgName;
+
+
                 File file = new File(sFileFullPath);
                 intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                startActivityForResult(intent, 1);
-
+                startActivityForResult(intent, TAKE_PHOTO);
                 break;
             case R.id.tv_set_current_task:
                 intent = new Intent(this, TaskActivity.class);
@@ -279,7 +287,7 @@ public class InsertActivity extends BaseActivity {
             public void onCancle() {
 
             }
-        },false).show();
+        }, false).show();
     }
 
 
@@ -314,6 +322,37 @@ public class InsertActivity extends BaseActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == TAKE_PHOTO) {
+                final PhotoBean photoBean = new PhotoBean();
+                photoBean.setTaskCode(cheakInsertBean.getTaskCode());
+                photoBean.setPictureName(imgName);
+                photoBean.setUnitCode(cheakInsertBean.getUnitCode());
+                Tasks.executeInBackground(this, new BackgroundWork<String>() {
+                    @Override
+                    public String doInBackground() throws Exception {
+                        PhotoDao.saveBindID(photoBean);
+                        return "";
+                    }
+                }, new Completion<String>() {
+                    @Override
+                    public void onSuccess(Context context, String result) {
+                        ToastUtils.showToast("照片保存成功");
+                    }
+
+                    @Override
+                    public void onError(Context context, Exception e) {
+
+                    }
+                });
+            }
+        }
+
     }
 }
 

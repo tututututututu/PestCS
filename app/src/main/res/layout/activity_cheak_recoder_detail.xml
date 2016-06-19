@@ -118,20 +118,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="黄石市"/>
+                        android:minWidth="140dp"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="28dp"
-                        android:text="检查人员"/>
+                        android:text="检查人员:"/>
 
                     <TextView
                         android:id="@+id/tv_cheaker_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="图图"/>
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -153,7 +154,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="黄石市"/>
+                        android:minWidth="140dp"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -166,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="图图"/>
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="黄石理工学院"/>
+                        />
 
                 </LinearLayout>
             </LinearLayout>
@@ -200,16 +202,55 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="48dip"
+            android:layout_marginTop="4dp"
             android:background="@color/main_bg2"/>
 
         <android.support.v4.view.ViewPager
+            android:layout_weight="1"
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/colors"
-            android:layout_below="@+id/tabs"
+            android:layout_height="match_parent"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:text="修改"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/btn_exit"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:text="退出"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/btn_photos"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:text="查看照片"
+                android:textColor="@color/white"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -245,37 +286,6 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
 
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="修改"/>
-
-        <Button
-            android:id="@+id/btn_exit"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="退出"/>
-
-        <Button
-            android:id="@+id/btn_photos"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="查看照片"/>
-
-
-    </LinearLayout>
 
 </FrameLayout>

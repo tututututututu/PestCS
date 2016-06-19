@@ -1,12 +1,8 @@
 package com.tutu.pestcs.fragment.review;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.nanotasks.BackgroundWork;
@@ -24,7 +20,6 @@ import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -121,29 +116,14 @@ public class NoteFragment extends BaseFragment {
     private void onSave() {
         String note = et_note.getText().toString().trim();
         if (TextUtils.isEmpty(note)) {
-            svProgressHUD.showErrorWithStatus("请输入内容");
+            return;
         } else {
             //保存
-
             bean.setNote(note);
             NoteDao.saveOrUpdate(bean);
             ToastUtils.showToast("保存成功");
-
-
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }
