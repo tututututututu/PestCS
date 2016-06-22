@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.tutu.pestcs.R;
@@ -13,6 +16,7 @@ import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
+import com.tutu.pestcs.sp.SPUtils;
 
 import org.xutils.ex.DbException;
 
@@ -24,6 +28,16 @@ public class AddUser extends BaseActivity {
     EditText et_username;
     @Bind(R.id.rg_type)
     RadioGroup rg_type;
+    @Bind(R.id.rb_manager)
+    RadioButton rbManager;
+    @Bind(R.id.rb_normal)
+    RadioButton rbNormal;
+    @Bind(R.id.btn_save)
+    Button btnSave;
+    @Bind(R.id.btn_cancel)
+    Button btnCancel;
+    @Bind(R.id.base_layout)
+    LinearLayout baseLayout;
     private User user;
 
     @Override
@@ -33,7 +47,13 @@ public class AddUser extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        String permison = SPUtils.getStringSP(SPUtils.PERMISSON);
+        if ("-1".equals(permison)) {
+            //超级管理员
+            rbManager.setVisibility(View.VISIBLE);
+        } else {
+            rbManager.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -77,4 +97,5 @@ public class AddUser extends BaseActivity {
         RxBus.postEvent(new AddUserEvent(user), AddUserEvent.class);
         finish();
     }
+
 }

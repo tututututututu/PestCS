@@ -12,6 +12,7 @@ import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.utils.ColorPhrase;
+import com.tutu.pestcs.utils.FloatFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -214,16 +215,16 @@ public class StatisticZhangFragment extends BaseFragment {
         builder.append("检查房间数{" + jianchafangjianshu + "}间").append("\n\n");
 
         builder.append("成若虫侵害率{" + chengruochongqianhaidengji + "}级").append("\n");
-        builder.append("成若虫阳性房间数{" + chengruochongyangxingfangjianshu + "}间,").append("侵害率{" + chengruochongqinghailv + "}%").append("\n");
-        builder.append("其中大蠊共{" + qizhongdalian + "}只,").append("平均每阳性间{" + dalianpingjunyangxingjian + "}只").append("\n");
-        builder.append("    小蠊共{" + xiaoliangong + "}只,").append("平均每阳性间{" + xiaolianpingjunyangxingjian + "}只").append("\n\n");
+        builder.append("成若虫阳性房间数{" + chengruochongyangxingfangjianshu + "}间,").append("侵害率{" + FloatFormat.format(chengruochongqinghailv) + "}%").append("\n");
+        builder.append("其中大蠊共{" + qizhongdalian + "}只,").append("平均每阳性间{" +  FloatFormat.format(dalianpingjunyangxingjian) + "}只").append("\n");
+        builder.append("    小蠊共{" + xiaoliangong + "}只,").append("平均每阳性间{" +  FloatFormat.format(xiaolianpingjunyangxingjian) + "}只").append("\n\n");
 
         builder.append("乱鞘查获率{" + luanqiaochahuolvdengji + "}级").append("\n");
-        builder.append("卵鞘阳性房间数{" + luanqiaoyangxingfangjianshu + "}间,").append("查获率{" + luanqiaoyangxingfangjianshuchahuolv + "}%").append("\n");
-        builder.append("查获卵鞘共{" + chahuoluanqiaogong + "}只,").append("平均每阳性间{" + chahuoluanqiaopingjunyangxingjian + "}只").append("\n\n");
+        builder.append("卵鞘阳性房间数{" + luanqiaoyangxingfangjianshu + "}间,").append("查获率{" + FloatFormat.format(luanqiaoyangxingfangjianshuchahuolv) + "}%").append("\n");
+        builder.append("查获卵鞘共{" + chahuoluanqiaogong + "}只,").append("平均每阳性间{" +  FloatFormat.format(chahuoluanqiaopingjunyangxingjian) + "}只").append("\n\n");
 
         builder.append("蟑迹查获率{" + zhangjichahuolv + "}级").append("\n");
-        builder.append("蟑迹阳性房间数{" + zhangjiyangxingfangjianshu + "}间,").append("查获率{" + zhangjiyangxingfangjianchahuolv + "}%").append("\n");
+        builder.append("蟑迹阳性房间数{" + zhangjiyangxingfangjianshu + "}间,").append("查获率{" + FloatFormat.format(zhangjiyangxingfangjianchahuolv) + "}%").append("\n");
         builder.append("蟑迹类型").append("\n");
         builder.append("虫尸{" + chongshi + "}个," + "残片{" + canpian + "}个," + "空卵鞘壳{" + kongluanqiaoke + "}个").append
                 ("\n");

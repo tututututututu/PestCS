@@ -53,12 +53,11 @@ public class PhotoDao {
     }
 
 
-    public static PhotoBean queryByUnitID(String unitID) {
+    public static List<PhotoBean> queryByUnitID(String unitID) {
         try {
-            PhotoBean bean = DBHelper.getDBManager().selector(PhotoBean.class).where("UnitCode", "=",
+            return DBHelper.getDBManager().selector(PhotoBean.class).where("UnitCode", "=",
                     unitID)
-                    .findFirst();
-            return bean;
+                    .findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }

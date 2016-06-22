@@ -96,6 +96,10 @@
             android:name=".activity.CheakRecoderDetail"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
         </activity>
+        <activity
+            android:name=".activity.ImagePagerActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
     </application>
 
 </manifest>

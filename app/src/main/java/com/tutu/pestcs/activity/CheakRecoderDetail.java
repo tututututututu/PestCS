@@ -22,10 +22,15 @@ import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.adapter.ReviewFragmentAdapter;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.PhotoBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
+import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
 import com.tutu.pestcs.widget.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -80,6 +85,8 @@ public class CheakRecoderDetail extends BaseActivity {
 
     private boolean editeable = false;
 
+    private List<PhotoBean> photosNameList = new ArrayList<>();
+
 
     @Override
     public int getLayoutID() {
@@ -106,6 +113,7 @@ public class CheakRecoderDetail extends BaseActivity {
         Tasks.executeInBackground(this, new BackgroundWork<CheakInsertBean>() {
             @Override
             public CheakInsertBean doInBackground() throws Exception {
+                photosNameList = PhotoDao.queryByUnitID(unitycode);
                 return CheakInsertDao.queryByUnitID(unitycode);
             }
         }, new Completion<CheakInsertBean>() {
@@ -225,7 +233,7 @@ public class CheakRecoderDetail extends BaseActivity {
                 break;
             case R.id.btn_save:
                 editeable = !editeable;
-                RxBus.postEvent(new ModifyModeEvent(unitycode,editeable), ModifyModeEvent.class);
+                RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
                 if (editeable) {
                     btnSave.setText("保存");
                 } else {
@@ -238,8 +246,18 @@ public class CheakRecoderDetail extends BaseActivity {
                 break;
             case R.id.btn_photos:
                 // TODO: 2016/6/19  照片浏览
+                toPhotoActivity();
                 break;
         }
+    }
+
+    private void toPhotoActivity() {
+        if (photosNameList == null || photosNameList.size() == 0) {
+            ToastUtils.showToast("可能没有照片");
+            return;
+        }
+        ImagePagerActivity.startImagePagerActivity(this, photosNameList,
+                0);
     }
 
 

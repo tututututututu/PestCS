@@ -67,10 +67,10 @@ public class StatisticsActivity extends BaseActivity {
     }
 
     private void InitUI() {
-        tvTaskCode.setText("考评任务编号:"+taskBean.getTaskCode());
+        tvTaskCode.setText("任务编号:"+taskBean.getTaskCode());
         tvCheakerName.setText("检查人员:"+taskBean.getExpertName());
         tvCity.setText("考评城市:"+taskBean.getCityName());
-        tvTime.setText("考评开始时间:"+taskBean.getStartDate());
+        tvTime.setText("开始时间:"+taskBean.getStartDate());
     }
 
     @Override

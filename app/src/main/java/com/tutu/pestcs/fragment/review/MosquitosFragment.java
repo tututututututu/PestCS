@@ -274,7 +274,7 @@ public class MosquitosFragment extends BaseFragment {
 
     private void registWather() {
         //大中型水体
-        if (bean.getUnitClassID().equals("17")) {
+        if (bean.getUniType().equals("17")) {
             ll_shuiti.setVisibility(View.VISIBLE);
             tvShuitileixing.setVisibility(View.VISIBLE);
             llXiaoxingjishuiWai.setVisibility(View.GONE);

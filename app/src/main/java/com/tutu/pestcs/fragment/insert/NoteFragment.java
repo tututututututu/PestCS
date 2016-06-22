@@ -40,7 +40,6 @@ public class NoteFragment extends BaseFragment {
         bean.setUniType(cheakInsertBean.getUnitClassID());
         bean.setAreaCode(cheakInsertBean.getAreaCode());
         bean.setTaskCode(cheakInsertBean.getTaskCode());
-        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
         bean.setKeyUnit(cheakInsertBean.isKeyUnit());
         bean.setExpertCode(cheakInsertBean.getExpertCode());
     }

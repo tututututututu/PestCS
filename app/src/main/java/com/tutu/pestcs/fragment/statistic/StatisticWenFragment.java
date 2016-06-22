@@ -12,6 +12,7 @@ import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.utils.ColorPhrase;
+import com.tutu.pestcs.utils.FloatFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +121,7 @@ public class StatisticWenFragment extends BaseFragment {
 
 
                 unity.add(bean.getUnitCode());
-                if (caiyanggong != 0) {
+                if (bean.getCaiYangShaoNum() > 0) {
                     gongchashuitishu++;
                 }
 
@@ -186,7 +187,7 @@ public class StatisticWenFragment extends BaseFragment {
         if (faxianxiaoxingjishui == 0) {
             lujingzhishu = 0;
         } else {
-            lujingzhishu = (float) xiaoxingjishuiyangxing / (faxianxiaoxingjishui / 1000);
+            lujingzhishu = (float) (xiaoxingjishuiyangxing) / ((float) jianchalujing / 1000);
         }
 
         String xiaoxingjishuidengji = "A";
@@ -201,19 +202,17 @@ public class StatisticWenFragment extends BaseFragment {
         }
 
         float dazhongxingcaiyangshaozhishu;
-        if (caiyanggong==0){
+        if (caiyanggong == 0) {
             dazhongxingcaiyangshaozhishu = 0;
-        }else{
+        } else {
             dazhongxingcaiyangshaozhishu = (float) yangxinggong / caiyanggong * 100;
         }
 
 
-
-
         float pingjunmeiyangxinshaozhishu;
-        if (yangxinggong==0){
+        if (yangxinggong == 0) {
             pingjunmeiyangxinshaozhishu = 0;
-        }else{
+        } else {
             pingjunmeiyangxinshaozhishu = (float) wenyouchongheyonggong / yangxinggong;
         }
 
@@ -236,7 +235,7 @@ public class StatisticWenFragment extends BaseFragment {
         if (youwenrenci == 0) {
             tingluozhishu = 0;
         } else {
-            tingluozhishu = wenchongtingluozhishu / youwenrenci;
+            tingluozhishu = (float) wenchongtingluozhishu / (float) youwenrenci;
         }
 
         if (tingluozhishu <= 0.5) {
@@ -271,7 +270,8 @@ public class StatisticWenFragment extends BaseFragment {
 
         builder.append("小型积水蚊虫密度{" + xiaoxingjishuidengji + "}级").append("\n");
         builder.append("发现小型积水{" + faxianxiaoxingjishui + "}处").append("\n");
-        builder.append("其中阳性积水{" + xiaoxingjishuiyangxing + "}处," + "路径指数{" + lujingzhishu + "}(处/千米)").append("\n");
+        builder.append("其中阳性积水{" + xiaoxingjishuiyangxing + "}处," + "路径指数{" + FloatFormat.format(lujingzhishu) + "}" +
+                "(处/千米)").append("\n");
         builder.append("小型积水类型:").append("\n");
         builder.append("容器积水{" + rongqijishui + "}处,").append("阳性{" + rongqijishuiyangxing + "}处").append("\n");
         builder.append("坑洼积水{" + kengwajishui + "}处,").append("阳性{" + kengwajishuiyangxing + "}处").append("\n");
@@ -285,8 +285,9 @@ public class StatisticWenFragment extends BaseFragment {
         builder.append("大中型水体蚊虫密度{" + dazhongxingshuitiwenchongmidudengji + "}级").append("\n");
         builder.append("共查{" + gongchashuitishu + "}个水体").append("\n");
         builder.append("采样共{" + caiyanggong + "}勺,").append("阳性共{" + yangxinggong + "}勺,").append("采样指数{" +
-                dazhongxingcaiyangshaozhishu + "}%").append("\n");
-        builder.append("蚊幼虫和蛹共{" + wenyouchongheyonggong + "}只,{" + pingjunmeiyangxinshaozhishu + "}只").append("\n\n");
+                FloatFormat.format(dazhongxingcaiyangshaozhishu) + "}%").append("\n");
+        builder.append("蚊幼虫和蛹共{" + wenyouchongheyonggong + "}只,平均每阳性勺{" + FloatFormat.format
+                (pingjunmeiyangxinshaozhishu) + "}只").append("\n\n");
         builder.append("水体类型").append("\n");
         builder.append("湖泊{" + hupo + "}处,");
         builder.append("人工湖{" + rengonghu + "}处,");
@@ -296,9 +297,10 @@ public class StatisticWenFragment extends BaseFragment {
         builder.append("其他{" + qita1 + "}处").append("\n");
 
 
+
         builder.append("外环境蚊虫密度{" + wenchongmidudengji + "}级").append("\n");
-        builder.append("诱蚊人次{" + youwenrenci + "}人").append("蚊虫停落只数{" + wenchongtingluozhishu + "}").append("\n");
-        builder.append("停落指数{" + wenchongtingluozhishu + "}");
+        builder.append("诱蚊人次{" + youwenrenci + "}人,").append("蚊虫停落只数{" + wenchongtingluozhishu + "}").append("\n");
+        builder.append("停落指数{" + FloatFormat.format(tingluozhishu) + "}");
 
 
         CharSequence formatted = ColorPhrase.from(builder.toString())

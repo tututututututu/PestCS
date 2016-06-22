@@ -40,9 +40,11 @@
             style="@style/et_style"
             android:layout_marginLeft="4dp"
             android:hint="不限"
-            android:layout_width="80dp"
+            android:minWidth="80dp"
+            android:layout_width="wrap_content"
             android:paddingBottom="2dp"
             android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:paddingTop="2dp"/>
 
     </LinearLayout>

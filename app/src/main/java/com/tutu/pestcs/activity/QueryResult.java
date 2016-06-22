@@ -329,7 +329,7 @@ public class QueryResult extends BaseActivity {
             queryResultBean.setCol1Start(shuBean.getShuRoom());
             queryResultBean.setCol1End(shuBean.getCheckRoom());
             queryResultBean.setCol2Start(shuBean.getFangShuBadRoom());
-            queryResultBean.setCol2End(shuBean.getCheckRoom());
+            queryResultBean.setCol2End(shuBean.getFangShuRoom());
             queryResultBean.setCol3Start(shuBean.getShuJiNum());
             queryResultBean.setCol3End(shuBean.getCheckDistance());
             data.add(queryResultBean);

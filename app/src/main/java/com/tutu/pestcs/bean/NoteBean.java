@@ -22,8 +22,6 @@ public class NoteBean implements Parcelable {
     private String TaskCode;
     @Column(name = "AreaCode")
     private String AreaCode;
-    @Column(name = "UnitClassID")
-    private String UnitClassID;
     @Column(name = "IsKeyUnit")
     private boolean IsKeyUnit;
     @Column(name = "ExpertCode")
@@ -54,14 +52,6 @@ public class NoteBean implements Parcelable {
 
     public void setAreaCode(String areaCode) {
         AreaCode = areaCode;
-    }
-
-    public String getUnitClassID() {
-        return UnitClassID;
-    }
-
-    public void setUnitClassID(String unitClassID) {
-        UnitClassID = unitClassID;
     }
 
     public boolean isKeyUnit() {
@@ -104,7 +94,6 @@ public class NoteBean implements Parcelable {
                 ", uniType='" + uniType + '\'' +
                 ", TaskCode='" + TaskCode + '\'' +
                 ", AreaCode='" + AreaCode + '\'' +
-                ", UnitClassID='" + UnitClassID + '\'' +
                 ", IsKeyUnit=" + IsKeyUnit +
                 ", ExpertCode='" + ExpertCode + '\'' +
                 '}';
@@ -122,7 +111,6 @@ public class NoteBean implements Parcelable {
         dest.writeString(this.uniType);
         dest.writeString(this.TaskCode);
         dest.writeString(this.AreaCode);
-        dest.writeString(this.UnitClassID);
         dest.writeByte(this.IsKeyUnit ? (byte) 1 : (byte) 0);
         dest.writeString(this.ExpertCode);
     }
@@ -133,7 +121,6 @@ public class NoteBean implements Parcelable {
         this.uniType = in.readString();
         this.TaskCode = in.readString();
         this.AreaCode = in.readString();
-        this.UnitClassID = in.readString();
         this.IsKeyUnit = in.readByte() != 0;
         this.ExpertCode = in.readString();
     }

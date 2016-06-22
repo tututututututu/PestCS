@@ -1,9 +1,12 @@
 package com.tutu.pestcs.fragment.insert;
 
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.activity.InsertActivity;
@@ -60,6 +63,8 @@ public class CockFragment extends BaseFragment {
     @Bind(R.id.et_zhanglangfenbian)
     EditText et_zhanglangfenbian;
     private int zhanglangfenbian = 0;
+    @Bind(R.id.ll_zhangjileixing)
+    private LinearLayout ll_zhangjileixing;
 
 
     private CheakInsertBean cheakInsertBean;
@@ -79,9 +84,29 @@ public class CockFragment extends BaseFragment {
         bean.setUniType(cheakInsertBean.getUnitClassID());
         bean.setAreaCode(cheakInsertBean.getAreaCode());
         bean.setTaskCode(cheakInsertBean.getTaskCode());
-        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
         bean.setKeyUnit(cheakInsertBean.isKeyUnit());
         bean.setExpertCode(cheakInsertBean.getExpertCode());
+
+        et_zhangjiyangxingfangjianshu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (Integer.parseInt(s.toString().trim())>0){
+                    ll_zhangjileixing.setVisibility(View.VISIBLE);
+                }else {
+                    ll_zhangjileixing.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
@@ -171,7 +196,13 @@ public class CockFragment extends BaseFragment {
             return false;
         }
 
-        if (zhangjiyangxingfangjianshu < 1 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) > 0) {
+        if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) != 0) {
+            ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
+            return false;
+        }
+
+        if (zhangjiyangxingfangjianshu>0&&(chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <=zhangjiyangxingfangjianshu)
+        {
             ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
             return false;
         }

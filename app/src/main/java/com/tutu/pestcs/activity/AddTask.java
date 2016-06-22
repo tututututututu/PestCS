@@ -58,6 +58,12 @@ public class AddTask extends BaseActivity {
     private int mComeFrom = 0;
 
     @Override
+    public int getLayoutID() {
+        return R.layout.activity_add_task;
+    }
+
+
+    @Override
     public void handleMessage(Message msg) {
 
     }
@@ -140,7 +146,7 @@ public class AddTask extends BaseActivity {
             return;
         }
 
-        if (taskCode.length()<18){
+        if (taskCode.length()!=14){
             svProgressHUD.showErrorWithStatus("任务代码填写不正确");
             return;
         }
@@ -194,10 +200,6 @@ public class AddTask extends BaseActivity {
         finish();
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.activity_add_task;
-    }
 
 
 }

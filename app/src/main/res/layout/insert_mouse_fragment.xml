@@ -690,10 +690,6 @@
 
                 <TextView
                     style="@style/describ_title"
-                    android:text="外环境鼠迹类型"/>
-
-                <TextView
-                    style="@style/describ_title"
                     android:text="鼠迹类型"/>
 
                 <LinearLayout
@@ -970,7 +966,7 @@
 
                     <TextView
                         style="@style/describ_title2"
-                        android:text="防置不正确站数:"/>
+                        android:text="防置不规范站数:"/>
 
                     <EditText
                         android:id="@+id/et_fangzhibuzhengque"

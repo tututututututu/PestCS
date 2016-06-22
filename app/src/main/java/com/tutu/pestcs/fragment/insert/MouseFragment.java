@@ -145,6 +145,11 @@ public class MouseFragment extends BaseFragment {
     private CheakInsertBean cheakInsertBean;
     private ShuBean shuBean = new ShuBean();
 
+    @Override
+    public int getLayoutID() {
+        return R.layout.insert_mouse_fragment;
+    }
+
 
     @Override
     public void handleMessage(Message msg) {
@@ -159,7 +164,6 @@ public class MouseFragment extends BaseFragment {
         shuBean.setUniType(cheakInsertBean.getUnitClassID());
         shuBean.setAreaCode(cheakInsertBean.getAreaCode());
         shuBean.setTaskCode(cheakInsertBean.getTaskCode());
-        shuBean.setUnitClassID(cheakInsertBean.getUnitClassID());
         shuBean.setKeyUnit(cheakInsertBean.isKeyUnit());
         shuBean.setExpertCode(cheakInsertBean.getExpertCode());
 
@@ -263,11 +267,6 @@ public class MouseFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    @Override
-    public int getLayoutID() {
-        return R.layout.insert_mouse_fragment;
     }
 
 
@@ -421,8 +420,13 @@ public class MouseFragment extends BaseFragment {
 
     //检查输入合法性
     private boolean verifyInput() {
-        if (shuBean.getCheckRoom()<1&&shuBean.getFangShuRoom()<1&&shuBean.getCheckDistance()<1){
+        if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
             ToastUtils.showToast("录入数据未达到保存条件");
+            return false;
+        }
+
+        if (yangxing > 0 && (shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu) < yangxing) {
+            ToastUtils.showToast("<阳性房间数填写>不合法");
             return false;
         }
 
@@ -442,29 +446,61 @@ public class MouseFragment extends BaseFragment {
             return false;
         }
 
-        if ((wushuyao + shuyaowuxiao + fangzhibuzhengque + wujinshipai) > mieshuzhan) {
-            ToastUtils.showToast("<灭鼠毒饵站子类填写>不合法");
-            return false;
-        }
-
-        if (yangxing>0&&shufen+shudong+shudao+yaoheng+shuzhua+shushi+huoshu<1){
+        if (yangxing > 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu < 1) {
             ToastUtils.showToast("鼠迹类型至少有一项大于0");
             return false;
         }
 
-        if (sheshi_buhege>0&&dilou+chuanghu+menfeng+kongdong+mumen+chushuikou+paishuigou+paifengshan+
-                tongfengkou+dangshuban<1){
+        if (sheshi_buhege > 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou + paifengshan +
+                tongfengkou + dangshuban < 1) {
             ToastUtils.showToast("防鼠设施不合格至少有一项大于0");
             return false;
         }
 
-        if (shujiyangxing>0&&wai_shufen+wai_shudong+wai_shudao+wai_yaoheng+wai_daotu+wai_shushi
-                +wai_huoshu<1){
+        if (shujiyangxing > 0 && wai_shufen + wai_shudong + wai_shudao + wai_yaoheng + wai_daotu + wai_shushi
+                + wai_huoshu < 1) {
             ToastUtils.showToast("外环境鼠迹至少有一项大于0");
             return false;
         }
 
+        if (sheshi_buhege > 0 && (chushuikou + paishuigou + dilou + paifengshan
+                + chuanghu + menfeng + tongfengkou + kongdong + mumen + dangshuban) < sheshi_buhege) {
+            ToastUtils.showToast("防鼠设施不合格房间数填写不正确");
+            return false;
+        }
 
+        if (shujiyangxing > 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
+                + wai_daotu + wai_shushi + wai_huoshu) < shujiyangxing) {
+            ToastUtils.showToast("外鼠迹阳性数不正确");
+            return false;
+        }
+
+        if (mieshuzhan > 0 && wujinshipai > mieshuzhan) {
+            ToastUtils.showToast("无警示牌数不正确");
+            return false;
+        }
+
+        if (mieshuzhan > 0 && fangzhibuzhengque > mieshuzhan) {
+            ToastUtils.showToast("放置不规范数不正确");
+            return false;
+        }
+
+
+        if (mieshuzhan > 0 && wushuyao > mieshuzhan) {
+            ToastUtils.showToast("无鼠药数不正确");
+            return false;
+        }
+
+        if (mieshuzhan > 0 && shuyaowuxiao > mieshuzhan) {
+            ToastUtils.showToast("鼠药无效数不正确");
+            return false;
+        }
+
+
+        if ((wushuyao + shuyaowuxiao) > mieshuzhan) {
+            ToastUtils.showToast("无鼠药+鼠药无效数填写不正确");
+            return false;
+        }
 
 
         return true;

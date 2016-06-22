@@ -1,13 +1,10 @@
 package com.tutu.pestcs.fragment.insert;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -131,8 +128,6 @@ public class MosquitosFragment extends BaseFragment {
     @Bind(R.id.base_layout)
     OverScrollView baseLayout;
 
-    @Bind(R.id.ll_xiaoxingjishui)
-    LinearLayout llXiaoxingjishui;
     @Bind(R.id.tv_shuitileixing)
     TextView tvShuitileixing;
     @Bind(R.id.ll_xiaoxingjishui_wai)
@@ -143,6 +138,11 @@ public class MosquitosFragment extends BaseFragment {
 
     private CheakInsertBean cheakInsertBean;
     private WenBean bean = new WenBean();
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.mosquitos_insert_fragment;
+    }
 
 
     @Override
@@ -172,34 +172,9 @@ public class MosquitosFragment extends BaseFragment {
         bean.setUniType(cheakInsertBean.getUnitClassID());
         bean.setAreaCode(cheakInsertBean.getAreaCode());
         bean.setTaskCode(cheakInsertBean.getTaskCode());
-        bean.setUnitClassID(cheakInsertBean.getUnitClassID());
         bean.setKeyUnit(cheakInsertBean.isKeyUnit());
         bean.setExpertCode(cheakInsertBean.getExpertCode());
 
-        etChanjianxiaoxingjishui.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString().trim())) {
-                    if (Integer.valueOf(s.toString().trim()) > 0) {
-                        llXiaoxingjishui.setVisibility(View.VISIBLE);
-                    } else {
-                        llXiaoxingjishui.setVisibility(View.GONE);
-                    }
-                } else {
-                    llXiaoxingjishui.setVisibility(View.GONE);
-                }
-            }
-        });
 
         rgShuiTiType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -238,6 +213,15 @@ public class MosquitosFragment extends BaseFragment {
         etDixiashijishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etLuntaijishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etQitayangxing.addTextChangedListener(new MyTextWatcher());
+
+
+        etRongqijishui.addTextChangedListener(new XXJSTextWatcher());
+        etKengwajishui.addTextChangedListener(new XXJSTextWatcher());
+        etJingguanchi.addTextChangedListener(new XXJSTextWatcher());
+        etPaishuijinkoujishui.addTextChangedListener(new XXJSTextWatcher());
+        etDixiashijishui.addTextChangedListener(new XXJSTextWatcher());
+        etLuntaijishui.addTextChangedListener(new XXJSTextWatcher());
+        etQita.addTextChangedListener(new XXJSTextWatcher());
     }
 
 
@@ -247,13 +231,6 @@ public class MosquitosFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
 
     private class MyTextWatcher implements TextWatcher {
@@ -283,9 +260,33 @@ public class MosquitosFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.mosquitos_insert_fragment;
+
+
+    private class XXJSTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            int count = Integer.parseInt(0 + etRongqijishui.getText().toString()) +
+                    Integer.parseInt(0 + etKengwajishui.getText().toString()) +
+                    Integer.parseInt(0 + etJingguanchi.getText().toString()) +
+                    Integer.parseInt(0 + etPaishuijinkoujishui.getText().toString()) +
+                    Integer.parseInt(0 + etDixiashijishui.getText().toString()) +
+                    Integer.parseInt(0 + etLuntaijishui.getText().toString()) +
+                    Integer.parseInt(0 + etQita.getText().toString());
+
+            etChanjianxiaoxingjishui.setText(count + "");
+        }
     }
 
 
@@ -439,6 +440,12 @@ public class MosquitosFragment extends BaseFragment {
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
                 Chanjianxiaoxingjishui) {
             ToastUtils.showToast("<查见小型积水填写>不合法");
+            return false;
+        }
+
+
+        if (Yangxinggong>0&&Wenyouchongheyonggong<Yangxinggong){
+            ToastUtils.showToast("<文幼虫和蛹填写>不合法");
             return false;
         }
 

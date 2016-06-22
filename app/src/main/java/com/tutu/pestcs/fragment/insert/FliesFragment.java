@@ -131,7 +131,6 @@ public class FliesFragment extends BaseFragment {
         yingBean.setUniType(cheakInsertBean.getUnitClassID());
         yingBean.setAreaCode(cheakInsertBean.getAreaCode());
         yingBean.setTaskCode(cheakInsertBean.getTaskCode());
-        yingBean.setUnitClassID(cheakInsertBean.getUnitClassID());
         yingBean.setKeyUnit(cheakInsertBean.isKeyUnit());
         yingBean.setExpertCode(cheakInsertBean.getExpertCode());
 
@@ -331,6 +330,19 @@ public class FliesFragment extends BaseFragment {
 
         if (sanzaizishendi > 0 && jianchalujing < 1) {
             ToastUtils.showToast("<检查路径填写>不合法");
+            return false;
+        }
+
+
+        if (yangxingfangshu > 0 && chengyingzshu < yangxingfangshu) {
+            ToastUtils.showToast("成蝇总数填写不合法");
+            return false;
+        }
+
+        if (buhegechangsuoshu > 0 && (shiwairumenkou + tongshiwaichuangkou
+                + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
+                + zhijierukoushipintandian + qita) < buhegechangsuoshu) {
+            ToastUtils.showToast("不合格部位总数应等于或大于不合格场所数");
             return false;
         }
 

@@ -12,6 +12,7 @@ import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.utils.ColorPhrase;
+import com.tutu.pestcs.utils.FloatFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +144,7 @@ public class StatisticYingFragment extends BaseFragment {
                 lajizhongzhuanzhan += bean.getLaJiStation();
                 lajizhongzhuanzhanyangxing += bean.getStation_Ying();
                 jianchalujing += bean.getCheckDistance();
+                saizaizishendi+=bean.getSanZaiLaJiNum();
                 sanzaizishengdiyangxing += bean.getSanZaiYangXinNum();
             }
         }
@@ -248,13 +250,13 @@ public class StatisticYingFragment extends BaseFragment {
 
         builder.append("室内成蝇密度{" + shineichengyinmidu + "}级").append("\n");
         builder.append("检查房间数{" + shineijianchafangjianshu + "}间,").append("阳性房间数{" + shineiyangxingfangjianshu + "}间")
-                .append("阳性率{" + youyingfangjianyangxinglv + "}%").append("\n");
+                .append("阳性率{" + FloatFormat.format(youyingfangjianyangxinglv) + "}%").append("\n");
         builder.append("成蝇只数{" + shineichengyingzhishu + "}只,").append("阳性间蝇密度{" + yangxingjianyingmidu + "}只/间")
                 .append("\n\n");
 
         builder.append("防蝇设施{" + fangyingsheshidengji + "}级").append("\n");
         builder.append("检查场所数{" + fangjianchachangsuoshu + "}个,").append("不合格场所数{" + fangbuhegechangsuoshu + "}个,")
-                .append("合格率{" + fangyingsheshihegelv + "}%").append("\n");
+                .append("合格率{" + FloatFormat.format(fangyingsheshihegelv) + "}%").append("\n");
 
         builder.append("防蝇设施不合格部位:").append("\n");
         builder.append("室外入口门{" + fangshiwairukoumen + "}处,").append("通室外窗户{" + fangtongshiwaichuanghu + "}处,")
@@ -265,7 +267,7 @@ public class StatisticYingFragment extends BaseFragment {
         builder.append("直接入口摊点{" + fangzhijierukoushipingtangdian + "}处,").append("其他{" + fangqita + "}处").append
                 ("\n\n");
 
-        builder.append("室内蝇类滋生地{" + shineiyingleizishendi + "}个,").append("阳性{" + shineiyingleizishendiyangxing +
+        builder.append("室内蝇类孳生地{" + shineiyingleizishendi + "}个,").append("阳性{" + shineiyingleizishendiyangxing +
                 "}个").append("\n");
         builder.append("生产销售直接入口食品场所{" + shenchanxiaoshouzhijierukoushipingchansuo + "}个,").append("有蝇场所{" +
                 youyingchangsuo + "}个")
@@ -273,19 +275,19 @@ public class StatisticYingFragment extends BaseFragment {
         builder.append("查见室内灭蝇灯{" + chajianshineimieyingdeng + "}只,").append("放置方法不正确数{" + fangzhifangfabuzhengqueshu
                 + "}个").append("\n\n");
 
-        builder.append("室外蝇类滋生地{" + waizishendiyangxingdengji + "}级").append("\n");
-        builder.append("共查蝇类滋生地{" + (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan +
+        builder.append("室外蝇类孳生地{" + waizishendiyangxingdengji + "}级").append("\n");
+        builder.append("共查蝇类孳生地{" + (waijianchashiwailajirongqi + gonggongcesuo + lajizhongzhuanzhan +
                 saizaizishendi) + "}个,").append("阳性{" + (wailajirongqiyangxing + gonggongcesuoyangxing +
                 lajizhongzhuanzhanyangxing + sanzaizishengdiyangxing) + "}个,")
-                .append("阳性率{" + waizishendiyangxinglv + "}%").append("\n");
+                .append("阳性率{" + FloatFormat.format(waizishendiyangxinglv) + "}%").append("\n");
         builder.append("其中:").append("\n");
         builder.append("检查室外垃圾容器{" + waijianchashiwailajirongqi + "}个,").append("阳性{" + wailajirongqiyangxing + "}个,")
-                .append("阳性率{" + lajirongqiyangxinglv + "}").append("\n");
+                .append("阳性率{" + FloatFormat.format(lajirongqiyangxinglv) + "}%").append("\n");
 
         builder.append("公共厕所{" + gonggongcesuo + "}个,").append("阳性{" + gonggongcesuoyangxing + "}个").append("\n");
         builder.append("垃圾中转站{" + lajizhongzhuanzhan + "}个,").append("阳性{" + lajizhongzhuanzhanyangxing + "}个")
                 .append("\n");
-        builder.append("检查路径{" + jianchalujing + "}米,").append("散在滋生地{" + saizaizishendi + "}个,")
+        builder.append("检查路径{" + jianchalujing + "}米,").append("散在孳生地{" + saizaizishendi + "}个,")
                 .append("阳性{" + sanzaizishengdiyangxing + "}个");
 
 

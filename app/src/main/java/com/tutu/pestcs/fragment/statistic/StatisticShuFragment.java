@@ -12,6 +12,7 @@ import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.utils.ColorPhrase;
+import com.tutu.pestcs.utils.FloatFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,9 +163,9 @@ public class StatisticShuFragment extends BaseFragment {
         String yangxingdengji = "A";
         if (cheakRooms > 0) {
 
-            if (cheakRooms==0){
+            if (cheakRooms == 0) {
                 yangxinglv = 0;
-            }else{
+            } else {
                 yangxinglv = (float) yangxingRooms / (float) cheakRooms * 100;
             }
 
@@ -183,13 +184,11 @@ public class StatisticShuFragment extends BaseFragment {
         String fangshusheshidengji = "A";
         if (fangcheakroom > 0) {
 
-            if (fangcheakroom==0){
+            if (fangcheakroom == 0) {
                 fangshusheshihegelv = 0;
-            }else{
+            } else {
                 fangshusheshihegelv = ((float) fangcheakroom - (float) fangbuhege) / (float) fangcheakroom * 100;
             }
-
-
 
 
             if (fangshusheshihegelv >= 97) {
@@ -207,12 +206,11 @@ public class StatisticShuFragment extends BaseFragment {
         String lujinzhishudengji = "A";
         if (waijianchalujing > 0) {
 
-            if (waijianchalujing==0) {
+            if (waijianchalujing == 0) {
                 lujinzhishu = 0;
-            }else{
+            } else {
                 lujinzhishu = (float) waishuji / ((float) waijianchalujing / 1000);
             }
-
 
 
             if (lujinzhishu <= 1) {
@@ -244,7 +242,7 @@ public class StatisticShuFragment extends BaseFragment {
 
         builder.append("室内鼠密度{" + yangxingdengji + "}级").append("\n");
         builder.append("检查房间数{" + cheakRooms + "}间,").append("阳性房间数{" + yangxingRooms + "}间,").append("阳性率{" +
-                yangxinglv + "}%").append("\n");
+                FloatFormat.format(yangxinglv) + "}%").append("\n");
         builder.append("鼠粪{" + shufen + "}处,").append("鼠洞{" + shudong + "}个,").append("鼠道{" + shudao + "}处,").append
                 ("鼠咬痕{" + shuyaoheng + "}处").append("\n");
         builder.append("爪印{" + zhuaying + "}处," + "鼠尸{" + shushi + "}只,").append("活鼠{" + huoshu + "}只").append("\n\n");
@@ -252,7 +250,7 @@ public class StatisticShuFragment extends BaseFragment {
 
         builder.append("防鼠设施{" + fangshusheshidengji + "}级").append("\n");
         builder.append("检查房间数{" + fangcheakroom + "}间,").append("不合格房间数{" + fangbuhege + "}间," + "合格率{" +
-                fangshusheshihegelv + "}%").append("\n");
+                FloatFormat.format(fangshusheshihegelv) + "}%").append("\n");
         builder.append("防鼠设施不合格部位").append("\n");
         builder.append("出水口{" + fangchushuikou + "}处,").append("排水沟{" + fangpaishuigou + "}处,").append("地漏{" +
                 fangdilou + "}处,")
@@ -264,7 +262,7 @@ public class StatisticShuFragment extends BaseFragment {
 
         builder.append("外环境鼠密度{" + lujinzhishudengji + "}级").append("\n");
         builder.append("检查路径{" + waijianchalujing + "}米,").append("鼠迹阳性{" + waishuji + "}处,").append("路径指数{" +
-                lujinzhishu + "}处/千米").append("\n");
+                FloatFormat.format(lujinzhishu) + "}处/千米").append("\n");
         builder.append("鼠迹类型").append("\n");
 
         builder.append("鼠粪{" + waishufen + "}处,").append("鼠洞{" + waishudong + "}个,").append("鼠道{" + waishudao + "}处," +

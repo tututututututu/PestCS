@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PestCS</string>
+    <string name="app_name">四害检查助手</string>
     <string name="tab_progress">进度</string>
     <string name="tab_insert">录入</string>
     <string name="tab_index">首页</string>

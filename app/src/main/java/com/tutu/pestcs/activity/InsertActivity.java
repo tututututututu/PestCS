@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
@@ -37,6 +36,7 @@ import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.utils.DateHelper;
+import com.tutu.pestcs.utils.PhotosStore;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
@@ -151,7 +151,25 @@ public class InsertActivity extends BaseActivity {
         cheakInsertBean.setKeyUnit(cbZhongdian.isChecked());
         cheakInsertBean.setNamePlace(etName.getText().toString().trim());
         //生成一条记录到数据库
-        CheakInsertDao.saveOrUpdate(cheakInsertBean);
+        Tasks.executeInBackground(this, new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                CheakInsertDao.saveOrUpdate(cheakInsertBean);
+                return "";
+            }
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+                initUI();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                ToastUtils.showToast("系统错误");
+            }
+        });
+
+
     }
 
 
@@ -188,9 +206,6 @@ public class InsertActivity extends BaseActivity {
         tabs.setViewPager(pager);
         //tabs.setTabBackground(); //设置点击时的颜色变化
         tabs.setUnderlineHeight(2);
-
-        insertCheakRecode();
-
     }
 
     private void queryCurrentTask() {
@@ -213,7 +228,8 @@ public class InsertActivity extends BaseActivity {
                     cheakInsertBean.setUnitCode(DateHelper.getNowTimeSecond() + CurrentTaskBean.getExpertCode());
                     cheakInsertBean.setCityName(CurrentTaskBean.getCityName());
                     cheakInsertBean.setExpertName(CurrentTaskBean.getExpertName());
-                    initUI();
+                    insertCheakRecode();
+
                 }
             }
 
@@ -239,9 +255,7 @@ public class InsertActivity extends BaseActivity {
                 showUnitTypeDialog();
                 break;
             case R.id.ll_camara:
-                //String sdcardPath = Environment.getExternalStorageDirectory().getPath()+"/tutu/db.db";
-                File destDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
-                        + "tutu/imgs");
+                File destDir = new File(PhotosStore.getPhotosDir());
                 if (!destDir.exists()) {
                     if (!destDir.mkdirs()) {
                         svProgressHUD.showErrorWithStatus("请给程序读取SD卡权限");
@@ -249,8 +263,7 @@ public class InsertActivity extends BaseActivity {
                 }
 
                 imgName = cheakInsertBean.getUnitCode() + DateHelper.getNowTimeSecond() + ".jpg";
-                String sFileFullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
-                        "tutu/imgs" + File.separator + imgName;
+                String sFileFullPath = PhotosStore.getPhotosDir() + File.separator + imgName;
 
 
                 File file = new File(sFileFullPath);
