@@ -16,9 +16,13 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.TaskEvent;
-import com.tutu.pestcs.widget.DateTimePickDialogUtil;
+import com.tutu.pestcs.widget.timepicker.SlideDateTimeListener;
+import com.tutu.pestcs.widget.timepicker.SlideDateTimePicker;
 
 import org.xutils.common.util.LogUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -56,6 +60,8 @@ public class AddTask extends BaseActivity {
 
     //1.来自添加 2来自修改
     private int mComeFrom = 0;
+
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public int getLayoutID() {
@@ -120,11 +126,37 @@ public class AddTask extends BaseActivity {
         }
     }
 
-    private void showTimePick() {
-        DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-                AddTask.this, null);
-        dateTimePicKDialog.dateTimePicKDialog(etTime);
+    private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
+        @Override
+        public void onDateTimeSet(Date date)
+        {
+            etTime.setText(mFormatter.format(date));
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel()
+        {
+
+        }
+    };
+
+    private void showTimePick() {
+//        DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+//                AddTask.this, null);
+//        dateTimePicKDialog.dateTimePicKDialog(etTime);
+
+        new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                .setListener(listener)
+                .setInitialDate(new Date())
+                //.setMinDate(minDate)
+                //.setMaxDate(maxDate)
+                .setIs24HourTime(true)
+                //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                //.setIndicatorColor(Color.parseColor("#990000"))
+                .build()
+                .show();
     }
 
     //修改或新增数据库表

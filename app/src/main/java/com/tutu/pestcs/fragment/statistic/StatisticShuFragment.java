@@ -47,7 +47,7 @@ public class StatisticShuFragment extends BaseFragment {
             @Override
             public String doInBackground() throws Exception {
 
-                shudata = ShuDao.queryAll();
+                shudata = ShuDao.queryCurrentTask();
 
                 return null;
             }

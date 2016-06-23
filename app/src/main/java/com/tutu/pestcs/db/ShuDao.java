@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ShuBean;
+import com.tutu.pestcs.bean.TaskBean;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -44,6 +45,28 @@ public class ShuDao {
     public static List<ShuBean> queryAll() {
         try {
             return DBHelper.getDBManager().findAll(ShuBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<ShuBean> queryCurrentTask() {
+        try {
+            TaskBean taskBean = TaskDao.queryCurrent();
+            if (taskBean == null) {
+                return null;
+            }
+            return DBHelper.getDBManager().selector(ShuBean.class).where("TaskCode", "=", taskBean.getTaskCode()).findAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<ShuBean> queryByTask(String taskID) {
+        try {
+            return DBHelper.getDBManager().selector(ShuBean.class).where("TaskCode","=",taskID).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }

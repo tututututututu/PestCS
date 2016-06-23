@@ -21,12 +21,14 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.QueryBean;
 import com.tutu.pestcs.bean.QueryResultBean;
 import com.tutu.pestcs.bean.ShuBean;
+import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.db.ZhangDao;
@@ -184,7 +186,12 @@ public class QueryResult extends BaseActivity {
         Tasks.executeInBackground(this, new BackgroundWork<List<CheakInsertBean>>() {
             @Override
             public List<CheakInsertBean> doInBackground() throws Exception {
-                return CheakInsertDao.queryByUnitTypeAndIsKeyClass(queryBean.getUnitType(), queryBean.getIsKeyUnit());
+                TaskBean taskBean = TaskDao.queryCurrent();
+                if (taskBean==null){
+                    return null;
+                }
+
+                return CheakInsertDao.queryByUnitTypeAndIsKeyClass(queryBean.getUnitType(), queryBean.getIsKeyUnit(),taskBean.getTaskCode());
             }
         }, new Completion<List<CheakInsertBean>>() {
             @Override

@@ -47,7 +47,7 @@ public class StatisticYingFragment extends BaseFragment {
             @Override
             public String doInBackground() throws Exception {
 
-                yingdata = YingDao.queryAll();
+                yingdata = YingDao.queryCurrentTask();
 
                 return null;
             }

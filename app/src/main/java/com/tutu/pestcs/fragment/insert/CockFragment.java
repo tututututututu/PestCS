@@ -64,7 +64,7 @@ public class CockFragment extends BaseFragment {
     EditText et_zhanglangfenbian;
     private int zhanglangfenbian = 0;
     @Bind(R.id.ll_zhangjileixing)
-    private LinearLayout ll_zhangjileixing;
+    LinearLayout ll_zhangjileixing;
 
 
     private CheakInsertBean cheakInsertBean;

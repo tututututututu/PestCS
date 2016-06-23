@@ -73,26 +73,29 @@ public class CheakInsertDao {
     }
 
     //0.不限 1.是 2.不是
-    public static List<CheakInsertBean> queryByUnitTypeAndIsKeyClass(String UnitClassID, int isKeyClass) {
+    public static List<CheakInsertBean> queryByUnitTypeAndIsKeyClass(String UnitClassID, int isKeyClass, String
+            taskCode) {
         try {
             List<CheakInsertBean> beans;
             if (TextUtils.isEmpty(UnitClassID)) {
                 if (isKeyClass == 1 || isKeyClass == 2) {
                     beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("IsKeyUnit", "=",
-                            isKeyClass == 1 ? true : false).findAll();
+                            isKeyClass == 1 ? true : false).and("TaskCode", "=", taskCode).findAll();
                 } else {
-                    beans = DBHelper.getDBManager().selector(CheakInsertBean.class).findAll();
+                    beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=", taskCode)
+                            .findAll();
 
                 }
             } else {
                 if (isKeyClass == 1 || isKeyClass == 2) {
                     beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitClassID", "=",
 
-                            UnitClassID).and("IsKeyUnit", "=", isKeyClass == 1 ? true : false).findAll();
+                            UnitClassID).and("IsKeyUnit", "=", isKeyClass == 1 ? true : false).and("TaskCode", "=",
+                            taskCode).findAll();
                 } else {
                     beans = DBHelper.getDBManager().selector(CheakInsertBean.class).where("UnitClassID", "=",
 
-                            UnitClassID).findAll();
+                            UnitClassID).and("TaskCode", "=", taskCode).findAll();
 
                 }
             }
@@ -114,7 +117,7 @@ public class CheakInsertDao {
         try {
             TaskBean task = TaskDao.queryCurrent();
             return DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=",
-                    task.getTaskCode()).and("UnitClassID","=",unityTyppe).findAll();
+                    task.getTaskCode()).and("UnitClassID", "=", unityTyppe).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }

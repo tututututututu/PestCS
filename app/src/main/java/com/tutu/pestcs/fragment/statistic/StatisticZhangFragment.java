@@ -47,7 +47,7 @@ public class StatisticZhangFragment extends BaseFragment {
             @Override
             public String doInBackground() throws Exception {
 
-                zhangdata = ZhangDao.queryAll();
+                zhangdata = ZhangDao.queryCurrentTask();
 
                 return null;
             }

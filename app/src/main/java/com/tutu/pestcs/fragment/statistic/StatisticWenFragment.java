@@ -47,7 +47,7 @@ public class StatisticWenFragment extends BaseFragment {
             @Override
             public String doInBackground() throws Exception {
 
-                wendata = WenDao.queryAll();
+                wendata = WenDao.queryCurrentTask();
 
                 return null;
             }

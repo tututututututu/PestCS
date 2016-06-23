@@ -3,6 +3,7 @@ package com.tutu.pestcs.db;
 import android.text.TextUtils;
 
 import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.bean.YingBean;
 
 import org.xutils.common.util.LogUtil;
@@ -43,6 +44,19 @@ public class YingDao {
     public static List<YingBean> queryAll() {
         try {
             return DBHelper.getDBManager().findAll(YingBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<YingBean> queryCurrentTask() {
+        try {
+            TaskBean taskBean = TaskDao.queryCurrent();
+            if (taskBean == null) {
+                return null;
+            }
+            return DBHelper.getDBManager().selector(YingBean.class).where("TaskCode", "=", taskBean.getTaskCode()).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }
