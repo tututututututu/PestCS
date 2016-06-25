@@ -22,6 +22,8 @@ import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
+import com.tutu.pestcs.sp.SPUtils;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.List;
 
@@ -118,6 +120,11 @@ public class SetCurrenTask extends BaseActivity {
         lvTask.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                if ("1".equals(SPUtils.getStringSP(SPUtils.PERMISSON))) {
+                    ToastUtils.showToast("您不是管理员,没有权限");
+                    return false;
+                }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SetCurrenTask.this);
                 builder.setMessage("确定设置为当前任务?");

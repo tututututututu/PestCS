@@ -21,6 +21,7 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.TaskEvent;
+import com.tutu.pestcs.sp.SPUtils;
 
 import org.xutils.common.util.LogUtil;
 
@@ -54,6 +55,11 @@ public class TaskActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        if ("1".equals(SPUtils.getStringSP(SPUtils.PERMISSON))) {
+            llAdd.setVisibility(View.GONE);
+        } else {
+            llAdd.setVisibility(View.VISIBLE);
+        }
         readData();
         RegistAddTaskEvent();
     }

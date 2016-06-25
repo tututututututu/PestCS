@@ -11,12 +11,12 @@ import android.widget.TextView;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseActivity;
-import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.TaskEvent;
+import com.tutu.pestcs.sp.SPUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -57,6 +57,13 @@ public class TaskDetail extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        if ("1".equals(SPUtils.getStringSP(SPUtils.PERMISSON))) {
+            btnDel.setVisibility(View.GONE);
+            btnModify.setVisibility(View.GONE);
+        } else {
+            btnDel.setVisibility(View.VISIBLE);
+            btnModify.setVisibility(View.VISIBLE);
+        }
         task = getIntent().getParcelableExtra(ActivityJumpParams.TASK_BEAN);
     }
 
@@ -93,7 +100,7 @@ public class TaskDetail extends BaseActivity {
             builder.append("蟑螂 ");
         }
         tv_items.setText(builder.toString());
-        tvGroupNumber.setText(task.getGroups()+"");
+        tvGroupNumber.setText(task.getGroups() + "");
 
     }
 
@@ -123,8 +130,8 @@ public class TaskDetail extends BaseActivity {
 
     //删除考评任务
     private void deleteTask() {
-        CheakInsertBean bean = CheakInsertDao.queryByUnitID(task.getTaskCode());
-        if (bean != null) {
+        long bean = CheakInsertDao.queryTaskExist(task.getTaskCode());
+        if (bean != 0) {
             svProgressHUD.showErrorWithStatus("该任务已有数据,不能删除");
             return;
         }

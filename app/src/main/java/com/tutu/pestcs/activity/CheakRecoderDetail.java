@@ -27,6 +27,7 @@ import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.event.PhotoChangeEvent;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class CheakRecoderDetail extends BaseActivity {
     @Bind(R.id.ll_modify)
@@ -110,6 +113,26 @@ public class CheakRecoderDetail extends BaseActivity {
         }
         initUI();
 
+        queryPhotos();
+
+        subscriptions.add(RxBus.obtainEvent(PhotoChangeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<PhotoChangeEvent>() {
+                    @Override
+                    public void call(PhotoChangeEvent taskEvent) {
+
+                        queryPhotos();
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
+    }
+
+    private void queryPhotos() {
         Tasks.executeInBackground(this, new BackgroundWork<CheakInsertBean>() {
             @Override
             public CheakInsertBean doInBackground() throws Exception {

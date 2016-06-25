@@ -59,6 +59,17 @@ public class CheakInsertDao {
         }
     }
 
+    public static long queryTaskExist(String TaskCode) {
+        try {
+            return DBHelper.getDBManager().selector(CheakInsertBean.class).where("TaskCode", "=",
+                    TaskCode).count();
+
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     public static CheakInsertBean queryByUnitID(String unitID) {
         try {

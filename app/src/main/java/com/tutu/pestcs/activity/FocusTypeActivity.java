@@ -16,7 +16,9 @@ import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
 import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.event.ChangeFocusTypeEvent;
+import com.tutu.pestcs.sp.SPUtils;
 import com.tutu.pestcs.widget.NoScrollGridView;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,8 +143,13 @@ public class FocusTypeActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_change:
-                Intent intent = new Intent(this, ChangeFocusType.class);
-                startActivity(intent);
+                if ("1".equals(SPUtils.getStringSP(SPUtils.PERMISSON))) {
+                    ToastUtils.showToast("您不是管理员,没有权限");
+                } else {
+                    Intent intent = new Intent(this, ChangeFocusType.class);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.ll_back:
                 finish();

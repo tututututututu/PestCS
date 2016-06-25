@@ -449,6 +449,17 @@ public class MosquitosFragment extends BaseFragment {
             return false;
         }
 
+
+        if (Wenchongtingluocishu>0&&Youwenrenci==0){
+            ToastUtils.showToast("<诱蚊人次填写>不合法");
+            return false;
+        }
+
+        if (Jianchalujing==0&&Chanjianxiaoxingjishui>0){
+            ToastUtils.showToast("<检查路径填写>不合法");
+            return false;
+        }
+
         return true;
     }
 

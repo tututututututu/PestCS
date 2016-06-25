@@ -139,8 +139,28 @@ public class InsertActivity extends BaseActivity {
                 if (TextUtils.isEmpty(s.toString().trim())) {
                     //do nothing
                 } else {
-                    insertCheakRecode();
+                    updateCheakRecode();
                 }
+            }
+        });
+    }
+
+    private void updateCheakRecode() {
+        cheakInsertBean.setNamePlace(etName.getText().toString().trim());
+        Tasks.executeInBackground(this, new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                CheakInsertDao.saveOrUpdate(cheakInsertBean);
+                return "";
+            }
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                ToastUtils.showToast("系统错误");
             }
         });
     }
@@ -149,6 +169,7 @@ public class InsertActivity extends BaseActivity {
     private void insertCheakRecode() {
         cheakInsertBean.setUnitClassID(extendSortUnitBean.getUnitID());
         cheakInsertBean.setKeyUnit(cbZhongdian.isChecked());
+
         cheakInsertBean.setNamePlace(etName.getText().toString().trim());
         //生成一条记录到数据库
         Tasks.executeInBackground(this, new BackgroundWork<String>() {
@@ -294,6 +315,7 @@ public class InsertActivity extends BaseActivity {
                 addTextWather();
                 //etName.setText("");
                 //cbZhongdian.setChecked(false);
+
             }
 
             @Override

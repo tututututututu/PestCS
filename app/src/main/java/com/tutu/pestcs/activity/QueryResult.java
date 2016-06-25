@@ -147,6 +147,8 @@ public class QueryResult extends BaseActivity {
                 tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
                 tableRow.addView(tv);
             }
+
+            tableRow.setBackground(getResources().getDrawable(R.drawable.selector_query_result_item));
             tableRow.setTag(data.get(row).getUnitCode());
             tlTable.addView(tableRow, new ViewGroup.LayoutParams(WC, MP));
 

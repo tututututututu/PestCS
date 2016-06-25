@@ -100,6 +100,9 @@ public class CockFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString().trim())){
+                    return;
+                }
                 if (Integer.parseInt(s.toString().trim())>0){
                     ll_zhangjileixing.setVisibility(View.VISIBLE);
                 }else {

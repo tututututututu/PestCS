@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -15,6 +18,7 @@ import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.UserEidteEvent;
+import com.tutu.pestcs.sp.SPUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import org.xutils.common.util.LogUtil;
@@ -27,6 +31,20 @@ public class EditUser extends BaseActivity {
     TextView tv_name;
     @Bind(R.id.rg_type)
     RadioGroup rg_type;
+    @Bind(R.id.ll_back)
+    LinearLayout llBack;
+    @Bind(R.id.ll_confrim)
+    LinearLayout llConfrim;
+    @Bind(R.id.rb_manager)
+    RadioButton rbManager;
+    @Bind(R.id.rb_normal)
+    RadioButton rbNormal;
+    @Bind(R.id.btn_reset_psw)
+    Button btnResetPsw;
+    @Bind(R.id.btn_delete)
+    Button btnDelete;
+    @Bind(R.id.base_layout)
+    LinearLayout baseLayout;
 
 
     private User user;
@@ -38,6 +56,15 @@ public class EditUser extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+
+        String permison = SPUtils.getStringSP(SPUtils.PERMISSON);
+        if ("-1".equals(permison)) {
+            //超级管理员
+            rbManager.setEnabled(true);
+        } else {
+            rbManager.setEnabled(false);
+        }
+
         user = getIntent().getParcelableExtra(ActivityJumpParams.USER_BEAN);
         LogUtil.e("EditUser user=" + user.toString());
         if (user == null) {
@@ -96,7 +123,7 @@ public class EditUser extends BaseActivity {
                 dialog.dismiss();
                 UserDao.delete(user);
                 ToastUtils.showToast("删除成功");
-                RxBus.postEvent(new UserEidteEvent(user),UserEidteEvent.class);
+                RxBus.postEvent(new UserEidteEvent(user), UserEidteEvent.class);
                 finish();
             }
         });
@@ -128,4 +155,5 @@ public class EditUser extends BaseActivity {
         ToastUtils.showToast("修改成功");
         finish();
     }
+
 }
