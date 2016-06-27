@@ -1,10 +1,13 @@
 package com.tutu.pestcs.fragment.insert;
 
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,20 +16,25 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.InsertActivity;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.WenDao;
+import com.tutu.pestcs.event.UnityTypeChangeEvent;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -134,6 +142,12 @@ public class MosquitosFragment extends BaseFragment {
     LinearLayout llXiaoxingjishuiWai;
     @Bind(R.id.ll_youwen)
     LinearLayout llYouwen;
+    @Bind(R.id.ll_xiaoxingjishui)
+    LinearLayout llXiaoxingjishui;
+    @Bind(R.id.tbase)
+    TuLinearLayout tbase;
+    @Bind(R.id.ll_xiaoxingjishuitou)
+    LinearLayout llXiaoxingjishuitou;
 
 
     private CheakInsertBean cheakInsertBean;
@@ -155,18 +169,6 @@ public class MosquitosFragment extends BaseFragment {
     public void initView() {
         cheakInsertBean = getArguments().getParcelable(ActivityJumpParams.CHEAK_INSERT_BEAN);
 
-        //大中型水体
-        if (cheakInsertBean.getUnitClassID().equals("17")) {
-            ll_shuiti.setVisibility(View.VISIBLE);
-            tvShuitileixing.setVisibility(View.VISIBLE);
-            llXiaoxingjishuiWai.setVisibility(View.GONE);
-            llYouwen.setVisibility(View.GONE);
-        } else {
-            ll_shuiti.setVisibility(View.GONE);
-            tvShuitileixing.setVisibility(View.GONE);
-            llXiaoxingjishuiWai.setVisibility(View.VISIBLE);
-            llYouwen.setVisibility(View.VISIBLE);
-        }
 
         bean.setUnitCode(cheakInsertBean.getUnitCode());
         bean.setUniType(cheakInsertBean.getUnitClassID());
@@ -205,7 +207,10 @@ public class MosquitosFragment extends BaseFragment {
             }
         });
 
-        rbHupo.setChecked(true);
+
+        updateVisiableView(cheakInsertBean.getUnitClassID());
+
+
         etRongqijishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etKengwajishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etJingguanchiyangxing.addTextChangedListener(new MyTextWatcher());
@@ -222,6 +227,48 @@ public class MosquitosFragment extends BaseFragment {
         etDixiashijishui.addTextChangedListener(new XXJSTextWatcher());
         etLuntaijishui.addTextChangedListener(new XXJSTextWatcher());
         etQita.addTextChangedListener(new XXJSTextWatcher());
+
+
+        registUnityTypeChangeEvent();
+    }
+
+
+    private void updateVisiableView(String type) {
+        //大中型水体
+        if (type.equals("17")) {
+            ll_shuiti.setVisibility(View.VISIBLE);
+            tvShuitileixing.setVisibility(View.VISIBLE);
+            llXiaoxingjishuiWai.setVisibility(View.GONE);
+            llYouwen.setVisibility(View.GONE);
+            rbHupo.setChecked(true);
+            llXiaoxingjishui.setVisibility(View.GONE);
+            llXiaoxingjishuitou.setVisibility(View.GONE);
+        } else {
+            ll_shuiti.setVisibility(View.GONE);
+            tvShuitileixing.setVisibility(View.GONE);
+            llXiaoxingjishuiWai.setVisibility(View.VISIBLE);
+            llYouwen.setVisibility(View.VISIBLE);
+            llXiaoxingjishui.setVisibility(View.VISIBLE);
+            llXiaoxingjishuitou.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void registUnityTypeChangeEvent() {
+        subscriptions.add(RxBus.obtainEvent(UnityTypeChangeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<UnityTypeChangeEvent>() {
+                    @Override
+                    public void call(UnityTypeChangeEvent changeAvatarEvent) {
+
+                        updateVisiableView(changeAvatarEvent.getType());
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
     }
 
 
@@ -231,6 +278,13 @@ public class MosquitosFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
 
     private class MyTextWatcher implements TextWatcher {
@@ -259,7 +313,6 @@ public class MosquitosFragment extends BaseFragment {
             etChajianxiaoxingjishuiyangxing.setText(count + "");
         }
     }
-
 
 
     private class XXJSTextWatcher implements TextWatcher {
@@ -444,21 +497,22 @@ public class MosquitosFragment extends BaseFragment {
         }
 
 
-        if (Yangxinggong>0&&Wenyouchongheyonggong<Yangxinggong){
+        if (Yangxinggong > 0 && Wenyouchongheyonggong < Yangxinggong) {
             ToastUtils.showToast("<文幼虫和蛹填写>不合法");
             return false;
         }
 
 
-        if (Wenchongtingluocishu>0&&Youwenrenci==0){
+        if (Wenchongtingluocishu > 0 && Youwenrenci == 0) {
             ToastUtils.showToast("<诱蚊人次填写>不合法");
             return false;
         }
 
-        if (Jianchalujing==0&&Chanjianxiaoxingjishui>0){
+        if (Jianchalujing == 0 && Chanjianxiaoxingjishui > 0) {
             ToastUtils.showToast("<检查路径填写>不合法");
             return false;
         }
+
 
         return true;
     }

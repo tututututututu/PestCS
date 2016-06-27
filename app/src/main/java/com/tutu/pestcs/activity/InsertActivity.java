@@ -35,6 +35,7 @@ import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
+import com.tutu.pestcs.event.UnityTypeChangeEvent;
 import com.tutu.pestcs.utils.DateHelper;
 import com.tutu.pestcs.utils.PhotosStore;
 import com.tutu.pestcs.widget.ToastUtils;
@@ -216,6 +217,8 @@ public class InsertActivity extends BaseActivity {
         } else {
             cheakItems[3] = false;
         }
+
+
         adapter = new InsertFragmentAdapter(getSupportFragmentManager(), cheakItems, cheakInsertBean);
         pager.setAdapter(adapter);
         tabs.setShouldExpand(true);
@@ -313,9 +316,8 @@ public class InsertActivity extends BaseActivity {
                 queryCurrentTask();
                 addSetCurrentTaskLister();
                 addTextWather();
-                //etName.setText("");
-                //cbZhongdian.setChecked(false);
-
+                cheakInsertBean.setUnitClassID(cheakIndex);
+                RxBus.postEvent(new UnityTypeChangeEvent(cheakIndex), UnityTypeChangeEvent.class);
             }
 
             @Override

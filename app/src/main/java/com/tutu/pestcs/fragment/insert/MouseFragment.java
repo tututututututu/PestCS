@@ -1,5 +1,6 @@
 package com.tutu.pestcs.fragment.insert;
 
+import android.content.DialogInterface;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -413,13 +415,29 @@ public class MouseFragment extends BaseFragment {
         shuBean.setKongDong(kongdong);
         shuBean.setPaiFengShan(paifengshan);
         shuBean.setHuoShu2(wai_huoshu);
-
-
-        verifyInput();
     }
 
     //检查输入合法性
     private boolean verifyInput() {
+
+        if (cheakInsertBean.getUnitClassID().equals("17")) {
+            AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存鼠的相关数据", new DialogInterface
+                    .OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            return false;
+        }
+
+
         if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
             ToastUtils.showToast("录入数据未达到保存条件");
             return false;
@@ -501,6 +519,27 @@ public class MouseFragment extends BaseFragment {
             ToastUtils.showToast("无鼠药+鼠药无效数填写不正确");
             return false;
         }
+
+        if (yangxing == 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu > 0) {
+            ToastUtils.showToast("阳性房间数填写不正确");
+            return false;
+        }
+
+
+        if (sheshi_buhege == 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou +
+                paifengshan +
+                tongfengkou + dangshuban > 0) {
+            ToastUtils.showToast("防鼠设施不合格间数填写不正确");
+            return false;
+        }
+
+
+        if (shujiyangxing == 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
+                + wai_daotu + wai_shushi + wai_huoshu) > 0) {
+            ToastUtils.showToast("外鼠迹阳性数不正确");
+            return false;
+        }
+
 
 
         return true;

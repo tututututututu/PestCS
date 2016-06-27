@@ -1,5 +1,6 @@
 package com.tutu.pestcs.fragment.insert;
 
+import android.content.DialogInterface;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -263,6 +265,25 @@ public class FliesFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+
+        if (cheakInsertBean.getUnitClassID().equals("17")) {
+            AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存蝇的相关数据", new DialogInterface
+                    .OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            return false;
+        }
+
+
+
         if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
                 && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
                 && yingBean.getLaJiStation() < 1 && yingBean.getCheckDistance() < 1) {
@@ -345,6 +366,21 @@ public class FliesFragment extends BaseFragment {
             ToastUtils.showToast("不合格部位总数应等于或大于不合格场所数");
             return false;
         }
+
+        if (buhegechangsuoshu == 0 && (shiwairumenkou + tongshiwaichuangkou
+                + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
+                + zhijierukoushipintandian + qita) > 0) {
+            ToastUtils.showToast("不合格场所数填写不正确");
+            return false;
+        }
+
+        if (yangxingfangshu==0&&chengyingzshu>0){
+            ToastUtils.showToast("成蝇总数填写不正确");
+            return false;
+        }
+
+
+
 
         return true;
     }

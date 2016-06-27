@@ -1,5 +1,6 @@
 package com.tutu.pestcs.fragment.insert;
 
+import android.content.DialogInterface;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -188,6 +190,23 @@ public class CockFragment extends BaseFragment {
 
     private boolean verifyInput() {
 
+        if (cheakInsertBean.getUnitClassID().equals("17")) {
+            AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存蟑螂的相关数据", new DialogInterface
+                    .OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            return false;
+        }
+
         if (bean.getCheckRoom() < 1) {
             ToastUtils.showToast("录入数据未达到保存条件");
             return false;
@@ -250,6 +269,9 @@ public class CockFragment extends BaseFragment {
             ToastUtils.showToast("<蟑螂阳性房间数填写>不合法");
             return false;
         }
+
+
+
 
         return true;
     }
