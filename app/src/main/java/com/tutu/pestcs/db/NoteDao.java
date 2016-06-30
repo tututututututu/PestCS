@@ -65,5 +65,15 @@ public class NoteDao {
         return null;
     }
 
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(NoteBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 
 }

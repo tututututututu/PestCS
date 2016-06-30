@@ -16,7 +16,7 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ShuDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ToastUtils;
@@ -276,34 +276,44 @@ public class MouseFragment extends BaseFragment {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_exit:
-                AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
+                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
-                    public void OnConfrim() {
+                    public void OnConfrim(DialogInterface dialog) {
+                        if (saveData()){
+                            dialog.cancel();
+                            getActivity().finish();
+                        }else {
+                            dialog.cancel();
+                        }
+                    }
+
+                    @Override
+                    public void OnCancel(DialogInterface dialog) {
                         getActivity().finish();
                     }
-
-                    @Override
-                    public void OnCancel() {
-
-                    }
                 });
-
                 break;
             case R.id.btn_save:
 
-                if (((InsertActivity) getActivity()).canSave()) {
-                    formatData();
-                    if (verifyInput()) {
-                        //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
-                        ShuDao.saveOrUpdate(shuBean);
-                        ToastUtils.showToast("保存成功");
-                    }
-                } else {
-                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
-                }
+                saveData();
 
                 break;
         }
+    }
+
+    private boolean saveData() {
+        if (((InsertActivity) getActivity()).canSave()) {
+            formatData();
+            if (verifyInput()) {
+                //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
+                ShuDao.saveOrUpdate(shuBean);
+                ToastUtils.showToast("保存成功");
+                return true;
+            }
+        } else {
+            ToastUtils.showToast("请填写检查单位名称或地点");
+        }
+        return false;
     }
 
 

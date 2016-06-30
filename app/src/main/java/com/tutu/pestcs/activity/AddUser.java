@@ -2,7 +2,9 @@ package com.tutu.pestcs.activity;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,8 +19,13 @@ import com.tutu.pestcs.bean.User;
 import com.tutu.pestcs.db.UserDao;
 import com.tutu.pestcs.event.AddUserEvent;
 import com.tutu.pestcs.sp.SPUtils;
+import com.tutu.pestcs.widget.ToastUtils;
 
 import org.xutils.ex.DbException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -54,6 +61,29 @@ public class AddUser extends BaseActivity {
         } else {
             rbManager.setVisibility(View.GONE);
         }
+
+        et_username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String editable = et_username.getText().toString();
+                String str = stringFilter(editable.toString());
+                if(!editable.equals(str)){
+                    et_username.setText(str);
+                    //设置新的光标所在位置
+                    et_username.setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -97,5 +127,26 @@ public class AddUser extends BaseActivity {
         RxBus.postEvent(new AddUserEvent(user), AddUserEvent.class);
         finish();
     }
+
+    //要判断是否包含特殊字符的目标字符串
+    private void compileExChar(String str){
+        String limitEx="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+        Pattern pattern = Pattern.compile(limitEx);
+        Matcher m = pattern.matcher(str);
+        if( m.find()){
+            ToastUtils.showToast("不允许输入特殊符号!");
+            et_username.setText(et_username.getText().toString().substring(0,et_username.getText().toString().length()-1));
+        }
+    }
+
+    public static String stringFilter(String str)throws PatternSyntaxException {
+        // 只允许字母、数字和汉字
+        String   regEx  =  "[^a-zA-Z0-9\u4E00-\u9FA5]";
+        Pattern   p   =   Pattern.compile(regEx);
+        Matcher   m   =   p.matcher(str);
+        return   m.replaceAll("").trim();
+    }
+
+
 
 }

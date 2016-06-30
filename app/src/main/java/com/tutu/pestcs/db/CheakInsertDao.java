@@ -135,5 +135,13 @@ public class CheakInsertDao {
         return null;
     }
 
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(CheakInsertBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
+        return 0;
+    }
 }

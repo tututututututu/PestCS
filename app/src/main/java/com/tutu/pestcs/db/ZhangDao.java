@@ -195,4 +195,13 @@ public class ZhangDao {
 
     }
 
+
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(ZhangBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

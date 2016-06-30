@@ -16,7 +16,7 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ZhangDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ToastUtils;
@@ -74,6 +74,13 @@ public class CockFragment extends BaseFragment {
 
 
     @Override
+    public int getLayoutID() {
+        return R.layout.cock_insert_fragment;
+    }
+
+
+
+    @Override
     public void handleMessage(Message msg) {
 
     }
@@ -114,42 +121,46 @@ public class CockFragment extends BaseFragment {
         });
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.cock_insert_fragment;
-    }
-
-
     @OnClick({R.id.btn_save, R.id.btn_exit})
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_exit:
-                AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
+                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
-                    public void OnConfrim() {
-                        getActivity().finish();
+                    public void OnConfrim(DialogInterface dialog) {
+                        if (saveDada()){
+                            dialog.cancel();
+                            getActivity().finish();
+                        }else {
+                            dialog.cancel();
+                        }
                     }
 
                     @Override
-                    public void OnCancel() {
-
+                    public void OnCancel(DialogInterface dialog) {
+                        getActivity().finish();
                     }
                 });
 
                 break;
             case R.id.btn_save:
-                if (((InsertActivity) getActivity()).canSave()) {
-                    formatData();
-                    if (verifyInput()) {
-                        ZhangDao.saveOrUpdate(bean);
-                        ToastUtils.showToast("保存成功");
-                    }
-                } else {
-                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
-                }
-
+                saveDada();
                 break;
         }
+    }
+
+    private boolean saveDada() {
+        if (((InsertActivity) getActivity()).canSave()) {
+            formatData();
+            if (verifyInput()) {
+                ZhangDao.saveOrUpdate(bean);
+                ToastUtils.showToast("保存成功");
+                return true;
+            }
+        } else {
+            ToastUtils.showToast("请填写检查单位名称或地点");
+        }
+        return false;
     }
 
     private void formatData() {
@@ -223,7 +234,7 @@ public class CockFragment extends BaseFragment {
             return false;
         }
 
-        if (zhangjiyangxingfangjianshu>0&&(chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <=zhangjiyangxingfangjianshu)
+        if (zhangjiyangxingfangjianshu>0&&(chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <zhangjiyangxingfangjianshu)
         {
             ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
             return false;

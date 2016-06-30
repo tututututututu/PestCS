@@ -263,4 +263,15 @@ public class ShuDao {
 
         return 0;
     }
+
+
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(ShuBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 }

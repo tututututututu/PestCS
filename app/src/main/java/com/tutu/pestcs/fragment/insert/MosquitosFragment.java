@@ -1,13 +1,11 @@
 package com.tutu.pestcs.fragment.insert;
 
-import android.os.Bundle;
+import android.content.DialogInterface;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,14 +22,13 @@ import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.event.UnityTypeChangeEvent;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancel;
+import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -272,21 +269,6 @@ public class MosquitosFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-
     private class MyTextWatcher implements TextWatcher {
 
         @Override
@@ -347,34 +329,45 @@ public class MosquitosFragment extends BaseFragment {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_exit:
-                AlertDialogUtil.showDialog(mActivityContext, new IOnConfirmOrCancel() {
+                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
-                    public void OnConfrim() {
-                        getActivity().finish();
+                    public void OnConfrim(DialogInterface dialog) {
+                        if (saveData()){
+                            dialog.cancel();
+                            getActivity().finish();
+                        }else {
+                            dialog.cancel();
+                        }
                     }
 
                     @Override
-                    public void OnCancel() {
-
+                    public void OnCancel(DialogInterface dialog) {
+                        getActivity().finish();
                     }
                 });
 
                 break;
             case R.id.btn_save:
 
-                if (((InsertActivity) getActivity()).canSave()) {
-                    formatData();
-                    if (verifyInput()) {
-                        WenDao.saveOrUpdate(bean);
-                        ToastUtils.showToast("保存成功");
-                    }
-                } else {
-                    ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
-                }
+                saveData();
 
 
                 break;
         }
+    }
+
+    private boolean saveData() {
+        if (((InsertActivity) getActivity()).canSave()) {
+            formatData();
+            if (verifyInput()) {
+                WenDao.saveOrUpdate(bean);
+                ToastUtils.showToast("保存成功");
+                return true;
+            }
+        } else {
+            ToastUtils.showToast("请填写检查单位名称或地点");
+        }
+        return false;
     }
 
     private void formatData() {

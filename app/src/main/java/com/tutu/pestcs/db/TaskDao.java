@@ -92,5 +92,13 @@ public class TaskDao {
         return null;
     }
 
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(TaskBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
+        return 0;
+    }
 }

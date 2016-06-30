@@ -188,10 +188,6 @@
                     android:text="间"/>
             </LinearLayout>
 
-            <TextView
-                style="@style/describ_title"
-                android:text="蟑迹类型"/>
-
 
             <LinearLayout
                 android:id="@+id/ll_zhangjileixing"
@@ -199,6 +195,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
+                <TextView
+                    style="@style/describ_title"
+                    android:text="蟑迹类型"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

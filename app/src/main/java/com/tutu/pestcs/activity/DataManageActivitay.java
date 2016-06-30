@@ -1,11 +1,13 @@
 package com.tutu.pestcs.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -15,6 +17,7 @@ import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseActivity;
+import com.tutu.pestcs.db.DBHelper;
 import com.tutu.pestcs.utils.StorageUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -35,7 +38,7 @@ public class DataManageActivitay extends BaseActivity {
     @Bind(R.id.rl_tosd)
     RelativeLayout rlTosd;
 
-    private boolean isSend =false;
+    private boolean isSend = false;
 
     @Override
     public int getLayoutID() {
@@ -57,7 +60,7 @@ public class DataManageActivitay extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_tosd, R.id.ll_back, R.id.rl_send})
+    @OnClick({R.id.rl_tosd, R.id.ll_back, R.id.rl_send, R.id.rl_clear})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_back:
@@ -71,7 +74,76 @@ public class DataManageActivitay extends BaseActivity {
                 isSend = true;
                 CopyFile();
                 break;
+            case R.id.rl_clear:
+                clearData1("清空数据前请将全部数据导出到你的电脑。\n" +
+                        "确定清空全部现场检查数据吗？");
+                break;
         }
+    }
+
+    private void clearData1(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("警告!");
+        builder.setMessage(msg);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                clearData2("数据清空后不可恢复！\n" +
+                        "是否清空全部现场检查数据");
+            }
+        });
+        builder.create().show();
+    }
+
+    private void clearData2(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("警告!");
+        builder.setMessage(msg);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                clearAllData();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void clearAllData() {
+        svProgressHUD.showWithStatus("删除中");
+        Tasks.executeInBackground(this, new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                DBHelper.dropDB();
+                return null;
+            }
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+                svProgressHUD.dismissImmediately();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                svProgressHUD.dismissImmediately();
+            }
+        });
+
+
     }
 
     private void CopyFile() {

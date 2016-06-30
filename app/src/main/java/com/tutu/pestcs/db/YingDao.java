@@ -238,4 +238,14 @@ public class YingDao {
 
     }
 
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(YingBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 }

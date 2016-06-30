@@ -101,9 +101,6 @@ public class EditUser extends BaseActivity {
             case R.id.ll_back:
                 finish();
                 break;
-            case R.id.ll_confrim:
-                saveChange();
-                break;
             case R.id.btn_reset_psw:
                 resetPsw();
                 break;
@@ -137,8 +134,24 @@ public class EditUser extends BaseActivity {
     }
 
     private void resetPsw() {
-        user.setPassWord("123456");
-        ToastUtils.showToast("密码已修改,点击确认提交");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("确定重置密码为\"123456\"吗?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        user.setPassWord("123456");
+                        saveChange();
+                    }
+                });
+        builder.create().show();
     }
 
     private void saveChange() {

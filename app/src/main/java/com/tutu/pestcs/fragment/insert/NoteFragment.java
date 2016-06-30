@@ -1,5 +1,6 @@
 package com.tutu.pestcs.fragment.insert;
 
+import android.content.DialogInterface;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.NoteBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.NoteDao;
+import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
+import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
@@ -54,7 +57,22 @@ public class NoteFragment extends BaseFragment {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_exit:
-                getActivity().finish();
+                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
+                    @Override
+                    public void OnConfrim(DialogInterface dialog) {
+                        if (saveData()){
+                            dialog.cancel();
+                            getActivity().finish();
+                        }else {
+                            dialog.cancel();
+                        }
+                    }
+
+                    @Override
+                    public void OnCancel(DialogInterface dialog) {
+                        getActivity().finish();
+                    }
+                });
                 break;
             case R.id.btn_save:
                 saveData();
@@ -62,7 +80,7 @@ public class NoteFragment extends BaseFragment {
         }
     }
 
-    private void saveData() {
+    private boolean saveData() {
         String note = et_note.getText().toString().trim();
         if (TextUtils.isEmpty(note)) {
             svProgressHUD.showErrorWithStatus("请输入内容");
@@ -72,10 +90,12 @@ public class NoteFragment extends BaseFragment {
                 bean.setNote(note);
                 NoteDao.saveOrUpdate(bean);
                 ToastUtils.showToast("保存成功");
+                return true;
             } else {
-                ToastUtils.showToast("请填写单位类型和地址,是否重点单位");
+                ToastUtils.showToast("请填写检查单位名称或地点");
             }
 
         }
+        return false;
     }
 }

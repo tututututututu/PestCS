@@ -31,4 +31,15 @@ public class DBHelper {
 
         return manager;
     }
+
+    public static void dropDB() {
+        CheakInsertDao.dropTable();
+        NoteDao.dropTable();
+        PhotoDao.dropTable();
+        ShuDao.dropTable();
+        TaskDao.dropTable();
+        WenDao.dropTable();
+        YingDao.dropTable();
+        ZhangDao.dropTable();
+    }
 }

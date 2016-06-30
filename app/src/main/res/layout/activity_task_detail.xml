@@ -81,7 +81,7 @@
             android:minWidth="120dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="考评城市:"
+            android:text="考评城市名称:"
             android:textSize="@dimen/sp16"/>
 
         <TextView

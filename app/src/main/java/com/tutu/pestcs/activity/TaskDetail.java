@@ -51,6 +51,12 @@ public class TaskDetail extends BaseActivity {
     private TaskBean task;
 
     @Override
+    public int getLayoutID() {
+        return R.layout.activity_task_detail;
+    }
+
+
+    @Override
     public void handleMessage(Message msg) {
 
     }
@@ -84,7 +90,7 @@ public class TaskDetail extends BaseActivity {
         tv_city.setText(task.getCityName());
         tv_cheaker_name.setText(task.getExpertName());
         tv_number.setText(task.getExpertCode() + "");
-        tv_population.setText(task.getPopulation() + "");
+        tv_population.setText(task.getPopulation() + "万人");
         tv_time.setText(task.getStartDate());
         StringBuilder builder = new StringBuilder();
         if (task.isShu()) {
@@ -104,19 +110,21 @@ public class TaskDetail extends BaseActivity {
 
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.activity_task_detail;
-    }
 
     @OnClick({R.id.btn_modify, R.id.btn_del, R.id.ll_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_modify:
-                Intent intent = new Intent(this, AddTask.class);
-                intent.putExtra(ActivityJumpParams.TASK_BEAN, task);
-                startActivity(intent);
-                finish();
+                long bean = CheakInsertDao.queryTaskExist(task.getTaskCode());
+                if (bean != 0) {
+                    svProgressHUD.showErrorWithStatus("该任务已有数据,不能修改");
+                } else {
+                    Intent intent = new Intent(this, AddTask.class);
+                    intent.putExtra(ActivityJumpParams.TASK_BEAN, task);
+                    startActivity(intent);
+                    finish();
+                }
+
                 break;
             case R.id.btn_del:
                 deleteTask();

@@ -49,7 +49,6 @@
                 style="@style/et_style"
                 android:layout_height="40dp"
                 android:layout_marginLeft="12dp"
-                android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890"
                 android:hint="最长8个字符"
                 android:inputType="text"
                 android:maxLength="8"

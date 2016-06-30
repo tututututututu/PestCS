@@ -64,5 +64,15 @@ public class PhotoDao {
         return null;
     }
 
+    public static int dropTable() {
+        try {
+            DBHelper.getDBManager().dropTable(PhotoBean.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 
 }
