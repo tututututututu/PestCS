@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.tutu.pestcs.widget.TuLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    android:id="@+id/base_layout"
     android:orientation="vertical">
 
     <com.tutu.pestcs.widget.OverScrollView
@@ -17,64 +17,72 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/describ_title"
-                android:text="室内鼠迹"/>
-
-
             <LinearLayout
+                android:id="@+id/ll_shineishuji"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/describ_title"
+                    android:text="室内鼠迹"/>
+
 
                 <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="检查房间数:"/>
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
 
-                    <EditText
-                        android:id="@+id/et_jianchashu"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="检查房间数:"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="间"/>
+                        <EditText
+                            android:id="@+id/et_jianchashu"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="间"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="阳性房间数:"/>
+
+                        <EditText
+                            android:id="@+id/et_yangxing"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="60dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="间"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="阳性房间数:"/>
-
-                    <EditText
-                        android:id="@+id/et_yangxing"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="60dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="间"/>
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -277,63 +285,70 @@
 
             </LinearLayout>
 
-            <TextView
-                style="@style/describ_title"
-                android:text="室内防鼠设施"/>
-
-
             <LinearLayout
+                android:id="@+id/ll_shineifangshusheshi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/describ_title"
+                    android:text="室内防鼠设施"/>
+
 
                 <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/describ_title2"
-                        android:text="检查房间数:"/>
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
 
-                    <EditText
-                        android:id="@+id/et_sheshi_rooms"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="50dp"/>
+                        <TextView
+                            style="@style/describ_title2"
+                            android:text="检查房间数:"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="间"/>
-                </LinearLayout>
+                        <EditText
+                            android:id="@+id/et_sheshi_rooms"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="50dp"/>
 
-                <LinearLayout
-                    style="@style/insert_mouse_fragment_ll_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="间"/>
+                    </LinearLayout>
 
-                    <TextView
-                        style="@style/describ_title2"
-                        android:paddingLeft="4dp"
-                        android:text="不合格间数:"/>
+                    <LinearLayout
+                        style="@style/insert_mouse_fragment_ll_style"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
 
-                    <EditText
-                        android:id="@+id/et_sheshi_buhege"
-                        style="@style/et_style2"
-                        android:layout_width="wrap_content"
-                        android:hint="0"
-                        android:minWidth="60dp"/>
+                        <TextView
+                            style="@style/describ_title2"
+                            android:paddingLeft="4dp"
+                            android:text="不合格间数:"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:text="间"/>
+                        <EditText
+                            android:id="@+id/et_sheshi_buhege"
+                            style="@style/et_style2"
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:minWidth="60dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:text="间"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1011,8 +1026,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:paddingBottom="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="16dp">
 
                 <Button
                     android:id="@+id/btn_save"

@@ -2,6 +2,7 @@ package com.tutu.pestcs.db;
 
 import com.tutu.pestcs.bean.PhotoBean;
 
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
 import java.util.List;
@@ -72,6 +73,14 @@ public class PhotoDao {
         }
 
         return 0;
+    }
+
+    public static void deleteByUnicode(String unicode){
+        try {
+            DBHelper.getDBManager().delete(PhotoBean.class, WhereBuilder.b("UnitCode","=",unicode));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
 

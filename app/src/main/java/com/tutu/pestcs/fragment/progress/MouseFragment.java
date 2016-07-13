@@ -308,12 +308,12 @@ public class MouseFragment extends BaseFragment {
 
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
-                toCheakUnit,
-                toCheakRoom,
+                toCheakUnit/groupNum,
+                toCheakRoom/groupNum,
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit - hadCheakUnit,
-                toCheakRoom - hadCheakRoom,
+                toCheakUnit/groupNum - hadCheakUnit,
+                toCheakRoom/groupNum - hadCheakRoom,
                 true));
     }
 

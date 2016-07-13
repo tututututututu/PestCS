@@ -96,6 +96,8 @@ public class StatisticWenFragment extends BaseFragment {
         int dixiashijishuiyangxing = 0;
         int luntaijishui = 0;
         int luntaijishuiyangxing = 0;
+        int gouqujishui = 0;
+        int gouqujishuiyangxing = 0;
         int qita = 0;
         int qitayangxing = 0;
 
@@ -104,6 +106,7 @@ public class StatisticWenFragment extends BaseFragment {
         int wenyouchongheyonggong = 0;
 
         int hupo = 0;
+        int heliu = 0;
         int rengonghu = 0;
         int chitang = 0;
         int jinguanchi1 = 0;
@@ -119,8 +122,11 @@ public class StatisticWenFragment extends BaseFragment {
         for (WenBean bean : wendata) {
             if (!unity.contains(bean.getUnitCode())) {
 
+                if (bean.getCheckDistance() > 0) {
+                    unity.add(bean.getUnitCode());
+                }
 
-                unity.add(bean.getUnitCode());
+
                 if (bean.getCaiYangShaoNum() > 0) {
                     gongchashuitishu++;
                 }
@@ -141,6 +147,8 @@ public class StatisticWenFragment extends BaseFragment {
                 dixiashijishuiyangxing += bean.getDiXiaShiYangXin();
                 luntaijishui += bean.getLuntai();
                 luntaijishuiyangxing += bean.getLuntaiYangXin();
+                gouqujishui+=bean.getGouQu();
+                gouqujishuiyangxing+=bean.getGouQuYangXin();
                 qita += bean.getQiTa();
                 qitayangxing += bean.getQiTaYangXin();
                 caiyanggong += bean.getCaiYangShaoNum();
@@ -159,7 +167,7 @@ public class StatisticWenFragment extends BaseFragment {
                         hupo++;
                         break;
                     case 2:
-                        qita1++;
+                        heliu++;
                         break;
                     case 3:
                         rengonghu++;
@@ -280,6 +288,7 @@ public class StatisticWenFragment extends BaseFragment {
         builder.append("景观池{" + jinguganchi + "}处,").append("阳性{" + jingguanchiyangxiang + "}处").append("\n");
         builder.append("地下室积水{" + dixiashijishui + "}处,").append("阳性{" + dixiashijishuiyangxing + "}处").append("\n");
         builder.append("轮胎积水{" + luntaijishui + "}处,").append("阳性{" + luntaijishuiyangxing + "}处").append("\n");
+        builder.append("沟渠积水{" + gouqujishui + "}处,").append("阳性{" + gouqujishuiyangxing + "}处").append("\n");
         builder.append("其他{" + qita + "}处,").append("阳性{" + qitayangxing + "}处").append("\n\n");
 
         builder.append("大中型水体蚊虫密度{" + dazhongxingshuitiwenchongmidudengji + "}级").append("\n");
@@ -290,12 +299,12 @@ public class StatisticWenFragment extends BaseFragment {
                 (pingjunmeiyangxinshaozhishu) + "}只").append("\n\n");
         builder.append("水体类型").append("\n");
         builder.append("湖泊{" + hupo + "}处,");
+        builder.append("河流{" + heliu + "}处,");
         builder.append("人工湖{" + rengonghu + "}处,");
         builder.append("池塘{" + chitang + "}处,");
         builder.append("景观池{" + jinguanchi1 + "}处,");
         builder.append("沟渠{" + gouqu + "}处,");
         builder.append("其他{" + qita1 + "}处").append("\n");
-
 
 
         builder.append("外环境蚊虫密度{" + wenchongmidudengji + "}级").append("\n");

@@ -235,7 +235,14 @@ public class YingDao {
         }
 
         return count;
+    }
 
+    public static void deleteByUnicode(String unicode){
+        try {
+            DBHelper.getDBManager().delete(YingBean.class,WhereBuilder.b("UnitCode","=",unicode));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int dropTable() {

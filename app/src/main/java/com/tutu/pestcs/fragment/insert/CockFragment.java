@@ -19,6 +19,7 @@ import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
@@ -110,6 +111,7 @@ public class CockFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (TextUtils.isEmpty(s.toString().trim())){
+                    ll_zhangjileixing.setVisibility(View.GONE);
                     return;
                 }
                 if (Integer.parseInt(s.toString().trim())>0){
@@ -215,6 +217,12 @@ public class CockFragment extends BaseFragment {
                 }
             });
 
+            return false;
+        }
+
+
+        if (TextUtils.isEmpty(bean.getUnitCode())){
+            ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(bean.getUnitCode()) is empty");
             return false;
         }
 

@@ -26,6 +26,11 @@ public class WenBean implements Parcelable {
     @Column(name = "ExpertCode")
     private String ExpertCode;
 
+    @Column(name = "GouQu")
+    private int GouQu;
+    @Column(name = "GouQuYangXin")
+    private int GouQuYangXin;
+
     @Column(name = "CheckDistance")
     private int CheckDistance;
     @Column(name = "SmallWater")
@@ -90,6 +95,22 @@ public class WenBean implements Parcelable {
 
 
     public WenBean() {
+    }
+
+    public int getGouQu() {
+        return GouQu;
+    }
+
+    public void setGouQu(int gouQu) {
+        GouQu = gouQu;
+    }
+
+    public int getGouQuYangXin() {
+        return GouQuYangXin;
+    }
+
+    public void setGouQuYangXin(int gouQuYangXin) {
+        GouQuYangXin = gouQuYangXin;
     }
 
     public String getUniType() {
@@ -339,8 +360,10 @@ public class WenBean implements Parcelable {
                 ", uniType='" + uniType + '\'' +
                 ", TaskCode='" + TaskCode + '\'' +
                 ", AreaCode='" + AreaCode + '\'' +
-                ", IsKeyUnit='" + IsKeyUnit + '\'' +
+                ", IsKeyUnit=" + IsKeyUnit +
                 ", ExpertCode='" + ExpertCode + '\'' +
+                ", GouQu=" + GouQu +
+                ", GouQuYangXin=" + GouQuYangXin +
                 ", CheckDistance=" + CheckDistance +
                 ", SmallWater=" + SmallWater +
                 ", YangXinWater=" + YangXinWater +
@@ -381,6 +404,8 @@ public class WenBean implements Parcelable {
         dest.writeString(this.AreaCode);
         dest.writeByte(this.IsKeyUnit ? (byte) 1 : (byte) 0);
         dest.writeString(this.ExpertCode);
+        dest.writeInt(this.GouQu);
+        dest.writeInt(this.GouQuYangXin);
         dest.writeInt(this.CheckDistance);
         dest.writeInt(this.SmallWater);
         dest.writeInt(this.YangXinWater);
@@ -414,6 +439,8 @@ public class WenBean implements Parcelable {
         this.AreaCode = in.readString();
         this.IsKeyUnit = in.readByte() != 0;
         this.ExpertCode = in.readString();
+        this.GouQu = in.readInt();
+        this.GouQuYangXin = in.readInt();
         this.CheckDistance = in.readInt();
         this.SmallWater = in.readInt();
         this.YangXinWater = in.readInt();

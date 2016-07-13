@@ -59,6 +59,32 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_open"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/layout_selector">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="打开路径"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="16dp"
+            android:src="@mipmap/ic_launcher"/>
+
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/rl_send"
@@ -112,12 +138,21 @@
     </RelativeLayout>
 
     <TextView
-        android:textColor="#ff0000"
-        android:textSize="18sp"
-        android:text="提示:如果保存发送失败请给程序赋予存储权限"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="16dp"
+        android:text="提示:如果保存发送失败请给程序赋予存储权限"
+        android:textColor="#ff0000"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="16dp"
+        android:text="提示:其中数据导出到SD卡功能,如果有SD卡,使用文件管理器到SD卡下找到tutu下的img文件夹,如果没有SD卡,则在手机内部存储下的tutu下的img文件夹下."
+        android:textColor="#ff0000"
+        android:textSize="18sp"/>
 
 </LinearLayout>

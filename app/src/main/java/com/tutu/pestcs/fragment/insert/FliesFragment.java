@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -19,7 +20,10 @@ import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.widget.ContactDialog;
+import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -115,9 +119,29 @@ public class FliesFragment extends BaseFragment {
     int sanzaizishendiyangxing = 0;
     @Bind(R.id.ll_fangyingsheshibuhegebuwei)
     LinearLayout ll_fangyingsheshibuhegebuwei;
+    @Bind(R.id.ll_shineichengying)
+    LinearLayout llShineichengying;
+    @Bind(R.id.btn_save)
+    Button btnSave;
+    @Bind(R.id.btn_exit)
+    Button btnExit;
+    @Bind(R.id.base_layout)
+    OverScrollView baseLayout;
+    @Bind(R.id.tbase)
+    TuLinearLayout tbase;
+    @Bind(R.id.ll_gonggongcesuo)
+    LinearLayout llGonggongcesuo;
+    @Bind(R.id.ll_lajizhongzhuanzhan)
+    LinearLayout llLajizhongzhuanzhan;
 
     private CheakInsertBean cheakInsertBean;
     private YingBean yingBean = new YingBean();
+
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.flies_insert_fragment;
+    }
 
 
     @Override
@@ -160,11 +184,24 @@ public class FliesFragment extends BaseFragment {
                 }
             }
         });
-    }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.flies_insert_fragment;
+        if ("13".equals(cheakInsertBean.getUnitClassID()) || "14".equals(cheakInsertBean.getUnitClassID())) {
+            llShineichengying.setVisibility(View.GONE);
+        } else {
+            llShineichengying.setVisibility(View.VISIBLE);
+        }
+
+        if ("15".equals(cheakInsertBean.getUnitClassID())){
+            llLajizhongzhuanzhan.setVisibility(View.VISIBLE);
+        }else{
+            llLajizhongzhuanzhan.setVisibility(View.GONE);
+        }
+
+        if ("16".equals(cheakInsertBean.getUnitClassID())){
+            llGonggongcesuo.setVisibility(View.VISIBLE);
+        }else{
+            llGonggongcesuo.setVisibility(View.GONE);
+        }
     }
 
 
@@ -178,10 +215,10 @@ public class FliesFragment extends BaseFragment {
                 AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
                     public void OnConfrim(DialogInterface dialog) {
-                        if (saveDada()){
+                        if (saveDada()) {
                             dialog.cancel();
                             getActivity().finish();
-                        }else {
+                        } else {
                             dialog.cancel();
                         }
                     }
@@ -294,6 +331,11 @@ public class FliesFragment extends BaseFragment {
         }
 
 
+        if (TextUtils.isEmpty(yingBean.getUnitCode())){
+            ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(yingBean.getUnitCode()) is empty");
+            return false;
+        }
+
 
         if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
                 && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
@@ -385,12 +427,10 @@ public class FliesFragment extends BaseFragment {
             return false;
         }
 
-        if (yangxingfangshu==0&&chengyingzshu>0){
+        if (yangxingfangshu == 0 && chengyingzshu > 0) {
             ToastUtils.showToast("成蝇总数填写不正确");
             return false;
         }
-
-
 
 
         return true;

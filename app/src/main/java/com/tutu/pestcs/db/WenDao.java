@@ -193,7 +193,13 @@ public class WenDao {
         return count;
     }
 
-
+    public static void deleteByUnicode(String unicode){
+        try {
+            DBHelper.getDBManager().delete(WenBean.class,WhereBuilder.b("UnitCode","=",unicode));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static int dropTable() {

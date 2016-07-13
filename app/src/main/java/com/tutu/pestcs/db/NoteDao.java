@@ -2,6 +2,7 @@ package com.tutu.pestcs.db;
 
 import com.tutu.pestcs.bean.NoteBean;
 
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
 import java.util.List;
@@ -63,6 +64,14 @@ public class NoteDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void deleteByUnicode(String unicode){
+        try {
+            DBHelper.getDBManager().delete(NoteBean.class, WhereBuilder.b("UnitCode","=",unicode));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int dropTable() {

@@ -1,11 +1,14 @@
 package com.tutu.pestcs.fragment.insert;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,11 +27,13 @@ import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.event.UnityTypeChangeEvent;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -65,6 +70,14 @@ public class MosquitosFragment extends BaseFragment {
     @Bind(R.id.et_jingguanchi)
     EditText etJingguanchi;
     int Jingguanchi = 0;
+
+    @Bind(R.id.et_gouqujishui)
+    EditText etGouqujishui;
+    int Gouqujishui = 0;
+    @Bind(R.id.et_gouqujishuiyangxing)
+    EditText etGouqujishuiyangxing;
+    int Gouqujishuiyangxing = 0;
+
     @Bind(R.id.et_jingguanchiyangxing)
     EditText etJingguanchiyangxing;
     int Jingguanchiyangxing = 0;
@@ -147,6 +160,7 @@ public class MosquitosFragment extends BaseFragment {
     LinearLayout llXiaoxingjishuitou;
 
 
+
     private CheakInsertBean cheakInsertBean;
     private WenBean bean = new WenBean();
 
@@ -213,6 +227,7 @@ public class MosquitosFragment extends BaseFragment {
         etJingguanchiyangxing.addTextChangedListener(new MyTextWatcher());
         etPaishuijinkoujishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etDixiashijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etGouqujishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etLuntaijishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etQitayangxing.addTextChangedListener(new MyTextWatcher());
 
@@ -222,6 +237,7 @@ public class MosquitosFragment extends BaseFragment {
         etJingguanchi.addTextChangedListener(new XXJSTextWatcher());
         etPaishuijinkoujishui.addTextChangedListener(new XXJSTextWatcher());
         etDixiashijishui.addTextChangedListener(new XXJSTextWatcher());
+        etGouqujishui.addTextChangedListener(new XXJSTextWatcher());
         etLuntaijishui.addTextChangedListener(new XXJSTextWatcher());
         etQita.addTextChangedListener(new XXJSTextWatcher());
 
@@ -268,6 +284,20 @@ public class MosquitosFragment extends BaseFragment {
                 }));
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
 
     private class MyTextWatcher implements TextWatcher {
 
@@ -289,6 +319,7 @@ public class MosquitosFragment extends BaseFragment {
                     Integer.parseInt(0 + etJingguanchiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etPaishuijinkoujishuiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etDixiashijishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etGouqujishuiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etLuntaijishuiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etQitayangxing.getText().toString());
 
@@ -317,6 +348,7 @@ public class MosquitosFragment extends BaseFragment {
                     Integer.parseInt(0 + etJingguanchi.getText().toString()) +
                     Integer.parseInt(0 + etPaishuijinkoujishui.getText().toString()) +
                     Integer.parseInt(0 + etDixiashijishui.getText().toString()) +
+                    Integer.parseInt(0 + etGouqujishui.getText().toString()) +
                     Integer.parseInt(0 + etLuntaijishui.getText().toString()) +
                     Integer.parseInt(0 + etQita.getText().toString());
 
@@ -332,10 +364,10 @@ public class MosquitosFragment extends BaseFragment {
                 AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
                     public void OnConfrim(DialogInterface dialog) {
-                        if (saveData()){
+                        if (saveData()) {
                             dialog.cancel();
                             getActivity().finish();
-                        }else {
+                        } else {
                             dialog.cancel();
                         }
                     }
@@ -385,6 +417,8 @@ public class MosquitosFragment extends BaseFragment {
         Paishuijinkoujishuiyangxing = dealData(etPaishuijinkoujishuiyangxing);
         Dixiashijishui = dealData(etDixiashijishui);
         Dixiashijishuiyangxing = dealData(etDixiashijishuiyangxing);
+        Gouqujishui = dealData(etGouqujishui);
+        Gouqujishuiyangxing = dealData(etGouqujishuiyangxing);
         Luntaijishui = dealData(etLuntaijishui);
         Luntaijishuiyangxing = dealData(etLuntaijishuiyangxing);
         Qita = dealData(etQita);
@@ -408,6 +442,8 @@ public class MosquitosFragment extends BaseFragment {
         bean.setJingGuanChiYangXin(Jingguanchiyangxing);
         bean.setDiXiaShi(Dixiashijishui);
         bean.setDiXiaShiYangXin(Dixiashijishuiyangxing);
+        bean.setGouQu(Gouqujishui);
+        bean.setGouQuYangXin(Gouqujishuiyangxing);
         bean.setLuntai(Luntaijishui);
         bean.setLuntaiYangXin(Luntaijishuiyangxing);
         bean.setQiTa(Qita);
@@ -426,6 +462,14 @@ public class MosquitosFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+
+        if (TextUtils.isEmpty(bean.getUnitCode())) {
+            ContactDialog.show(getActivity(), getClass().getSimpleName() + "\n" + "verifyInput()" + "TextUtils" +
+                    ".isEmpty(bean.getUnitCode()) is empty");
+            return false;
+        }
+
+
         if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
                 ) {
             ToastUtils.showToast("录入数据未达到保存条件");
@@ -463,6 +507,10 @@ public class MosquitosFragment extends BaseFragment {
             return false;
         }
 
+        if (Gouqujishuiyangxing>Gouqujishui){
+            ToastUtils.showToast("沟渠积水数填写 不合法");
+        }
+
         if (Luntaijishuiyangxing > Luntaijishui) {
             ToastUtils.showToast("<轮胎积水数填写>不合法");
             return false;
@@ -484,7 +532,7 @@ public class MosquitosFragment extends BaseFragment {
         }
 
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
-                Chanjianxiaoxingjishui) {
+                Chanjianxiaoxingjishui+Gouqujishui) {
             ToastUtils.showToast("<查见小型积水填写>不合法");
             return false;
         }

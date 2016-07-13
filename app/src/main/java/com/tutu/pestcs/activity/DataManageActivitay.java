@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.nanotasks.BackgroundWork;
@@ -18,6 +19,7 @@ import com.tutu.pestcs.R;
 import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.db.DBHelper;
+import com.tutu.pestcs.utils.PhotosStore;
 import com.tutu.pestcs.utils.StorageUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -37,6 +39,14 @@ public class DataManageActivitay extends BaseActivity {
 
     @Bind(R.id.rl_tosd)
     RelativeLayout rlTosd;
+    @Bind(R.id.ll_back)
+    LinearLayout llBack;
+    @Bind(R.id.rl_open)
+    RelativeLayout rlOpen;
+    @Bind(R.id.rl_send)
+    RelativeLayout rlSend;
+    @Bind(R.id.rl_clear)
+    RelativeLayout rlClear;
 
     private boolean isSend = false;
 
@@ -60,7 +70,7 @@ public class DataManageActivitay extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_tosd, R.id.ll_back, R.id.rl_send, R.id.rl_clear})
+    @OnClick({R.id.rl_tosd, R.id.ll_back, R.id.rl_send, R.id.rl_clear,R.id.rl_open})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_back:
@@ -78,6 +88,14 @@ public class DataManageActivitay extends BaseActivity {
                 clearData1("清空数据前请将全部数据导出到你的电脑。\n" +
                         "确定清空全部现场检查数据吗？");
                 break;
+            case R.id.rl_open:
+                Intent intent = new Intent("android.intent.action.VIEW");
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = Uri.fromFile(new File(PhotosStore.getPhotosDir()));
+                intent.setDataAndType(uri, "image/*");
+                startActivity(intent);
+            break;
         }
     }
 
@@ -281,4 +299,5 @@ public class DataManageActivitay extends BaseActivity {
         }
         return false;
     }
+
 }

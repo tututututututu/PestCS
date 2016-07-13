@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="请选择检查单位类型"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp18"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,13 +23,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp18"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="请选择检查单位类型"/>
 
             <RadioGroup
                 android:id="@+id/rg_type"

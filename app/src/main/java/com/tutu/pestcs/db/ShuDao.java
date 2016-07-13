@@ -82,6 +82,14 @@ public class ShuDao {
         }
     }
 
+    public static void deleteByUnicode(String unicode){
+        try {
+            DBHelper.getDBManager().delete(ShuBean.class,WhereBuilder.b("UnitCode","=",unicode));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static ShuBean queryByUnitID(String unitID) {
         try {

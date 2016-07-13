@@ -196,6 +196,14 @@ public class ZhangDao {
     }
 
 
+    public static void deleteByUnicode(String unicode){
+        try {
+            DBHelper.getDBManager().delete(ZhangBean.class,WhereBuilder.b("UnitCode","=",unicode));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static int dropTable() {
         try {
             DBHelper.getDBManager().dropTable(ZhangBean.class);

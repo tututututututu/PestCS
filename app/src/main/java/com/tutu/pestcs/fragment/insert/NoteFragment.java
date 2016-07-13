@@ -15,6 +15,7 @@ import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.NoteDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
@@ -60,10 +61,10 @@ public class NoteFragment extends BaseFragment {
                 AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
                     public void OnConfrim(DialogInterface dialog) {
-                        if (saveData()){
+                        if (saveData()) {
                             dialog.cancel();
                             getActivity().finish();
-                        }else {
+                        } else {
                             dialog.cancel();
                         }
                     }
@@ -81,6 +82,13 @@ public class NoteFragment extends BaseFragment {
     }
 
     private boolean saveData() {
+        if (TextUtils.isEmpty(bean.getUnitCode())) {
+            ContactDialog.show(getActivity(), getClass().getSimpleName() + "\n" + "saveData()" + "TextUtils.isEmpty" +
+                    "(bean.getUnitCode()) is empty");
+            return false;
+        }
+
+
         String note = et_note.getText().toString().trim();
         if (TextUtils.isEmpty(note)) {
             svProgressHUD.showErrorWithStatus("请输入内容");

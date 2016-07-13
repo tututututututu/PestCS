@@ -389,7 +389,12 @@ public class InsertActivity extends BaseActivity {
                 });
             }
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        ToastUtils.showToast("请点击退出来关闭页面");
+        return;
     }
 }
 

@@ -16,6 +16,7 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.QueryBean;
@@ -32,6 +33,7 @@ import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.db.ZhangDao;
+import com.tutu.pestcs.event.RecodeDeleteEvent;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import org.xutils.common.util.LogUtil;
@@ -41,6 +43,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class QueryResult extends BaseActivity {
     public static final int TYPE_SHU = 1;
@@ -122,6 +126,26 @@ public class QueryResult extends BaseActivity {
         }
 
         query();
+        registDeleteEvent();
+    }
+
+
+    private void registDeleteEvent() {
+        subscriptions.add(RxBus.obtainEvent(RecodeDeleteEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<RecodeDeleteEvent>() {
+                    @Override
+                    public void call(RecodeDeleteEvent taskEvent) {
+
+                        finish();
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                }));
     }
 
 
@@ -155,8 +179,8 @@ public class QueryResult extends BaseActivity {
             tableRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(QueryResult.this,CheakRecoderDetail.class);
-                    intent.putExtra(ActivityJumpParams.UNITYCODE,(String) v.getTag());
+                    Intent intent = new Intent(QueryResult.this, CheakRecoderDetail.class);
+                    intent.putExtra(ActivityJumpParams.UNITYCODE, (String) v.getTag());
                     startActivity(intent);
                 }
             });
@@ -189,19 +213,20 @@ public class QueryResult extends BaseActivity {
             @Override
             public List<CheakInsertBean> doInBackground() throws Exception {
                 TaskBean taskBean = TaskDao.queryCurrent();
-                if (taskBean==null){
+                if (taskBean == null) {
                     return null;
                 }
 
-                return CheakInsertDao.queryByUnitTypeAndIsKeyClass(queryBean.getUnitType(), queryBean.getIsKeyUnit(),taskBean.getTaskCode());
+                return CheakInsertDao.queryByUnitTypeAndIsKeyClass(queryBean.getUnitType(), queryBean.getIsKeyUnit(),
+                        taskBean.getTaskCode());
             }
         }, new Completion<List<CheakInsertBean>>() {
             @Override
             public void onSuccess(Context context, List<CheakInsertBean> result) {
-                if (result==null||result.size()==0){
+                if (result == null || result.size() == 0) {
                     ToastUtils.showToast("没有结果哦~");
                     return;
-                }else{
+                } else {
                     queryDetail(result);
                 }
 
@@ -259,7 +284,7 @@ public class QueryResult extends BaseActivity {
     private void queryWenDetail(List<CheakInsertBean> result) {
         for (CheakInsertBean bean : result) {
             WenBean bean1 = WenDao.queryByUnitIDWithConditon(bean.getUnitCode(), queryBean.getCondition1(), queryBean
-					.getCondition2(), queryBean.getCondition3());
+                    .getCondition2(), queryBean.getCondition3());
             if (bean1 == null) {
                 LogUtil.e("没有符合要求的结果" + bean.toString());
                 continue;
@@ -282,7 +307,7 @@ public class QueryResult extends BaseActivity {
     private void queryZhangDetail(List<CheakInsertBean> result) {
         for (CheakInsertBean bean : result) {
             ZhangBean bean1 = ZhangDao.queryByUnitIDWithConditon(bean.getUnitCode(), queryBean.getCondition1(),
-					queryBean.getCondition2(), queryBean.getCondition3());
+                    queryBean.getCondition2(), queryBean.getCondition3());
             if (bean1 == null) {
                 LogUtil.e("没有符合要求的结果" + bean.toString());
                 continue;
@@ -304,7 +329,8 @@ public class QueryResult extends BaseActivity {
 
     private void queryYingDetail(List<CheakInsertBean> result) {
         for (CheakInsertBean bean : result) {
-            YingBean bean1 = YingDao.queryByUnitIDWithConditon(bean.getUnitCode(), queryBean.getCondition1(), queryBean.getCondition2(), queryBean.getCondition3());
+            YingBean bean1 = YingDao.queryByUnitIDWithConditon(bean.getUnitCode(), queryBean.getCondition1(),
+                    queryBean.getCondition2(), queryBean.getCondition3());
             if (bean1 == null) {
                 LogUtil.e("没有符合要求的结果" + bean.toString());
                 continue;
@@ -326,7 +352,8 @@ public class QueryResult extends BaseActivity {
 
     private void queryShuDetail(List<CheakInsertBean> result) {
         for (CheakInsertBean bean : result) {
-            ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(), queryBean.getCondition1(), queryBean.getCondition2(), queryBean.getCondition3());
+            ShuBean shuBean = ShuDao.queryByUnitIDWithConditon(bean.getUnitCode(), queryBean.getCondition1(),
+                    queryBean.getCondition2(), queryBean.getCondition3());
             if (shuBean == null) {
                 LogUtil.e("没有符合要求的结果" + bean.toString());
                 continue;

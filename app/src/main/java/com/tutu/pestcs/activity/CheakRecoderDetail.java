@@ -1,9 +1,11 @@
 package com.tutu.pestcs.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -25,15 +27,22 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.PhotoBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
+import com.tutu.pestcs.db.NoteDao;
 import com.tutu.pestcs.db.PhotoDao;
+import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.db.WenDao;
+import com.tutu.pestcs.db.YingDao;
+import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
 import com.tutu.pestcs.event.PhotoChangeEvent;
+import com.tutu.pestcs.event.RecodeDeleteEvent;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -77,6 +86,8 @@ public class CheakRecoderDetail extends BaseActivity {
     CheckBox cbZhongdian;
     @Bind(R.id.et_name)
     EditText etName;
+    @Bind(R.id.ll_back)
+    LinearLayout llBack;
 
     private ReviewFragmentAdapter adapter;
     private String unitycode;
@@ -249,7 +260,7 @@ public class CheakRecoderDetail extends BaseActivity {
     }
 
 
-    @OnClick({R.id.et_unit_type, R.id.btn_save, R.id.btn_exit, R.id.btn_photos})
+    @OnClick({R.id.et_unit_type, R.id.btn_save, R.id.btn_exit, R.id.btn_photos, R.id.ll_back})
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.et_unit_type:
@@ -265,13 +276,65 @@ public class CheakRecoderDetail extends BaseActivity {
 
                 break;
             case R.id.btn_exit:
-                finish();
+                deleteRecodeDialog();
                 break;
             case R.id.btn_photos:
                 // TODO: 2016/6/19  照片浏览
                 toPhotoActivity();
                 break;
+            case R.id.ll_back:
+                finish();
+                break;
         }
+    }
+
+    private void deleteRecodeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("警告")
+                .setMessage("删除后不能恢复，是否删除该单位检查数据？")
+                .setCancelable(false)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteRecode();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void deleteRecode() {
+        // TODO: 2016/7/13  删除整条记录
+        svProgressHUD.showWithStatus("删除中...");
+        Tasks.executeInBackground(this, new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                CheakInsertDao.delete(cheakInsertBean);
+                ShuDao.deleteByUnicode(unitycode);
+                YingDao.deleteByUnicode(unitycode);
+                WenDao.deleteByUnicode(unitycode);
+                ZhangDao.deleteByUnicode(unitycode);
+                NoteDao.deleteByUnicode(unitycode);
+                return null;
+            }
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+                svProgressHUD.dismissImmediately();
+                ToastUtils.showToast("删除成功");
+                RxBus.postEvent(new RecodeDeleteEvent(), RecodeDeleteEvent.class);
+                finish();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
     }
 
     private void toPhotoActivity() {
@@ -296,4 +359,10 @@ public class CheakRecoderDetail extends BaseActivity {
         return false;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

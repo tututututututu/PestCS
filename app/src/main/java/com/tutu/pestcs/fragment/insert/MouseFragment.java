@@ -1,11 +1,15 @@
 package com.tutu.pestcs.fragment.insert;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -19,9 +23,12 @@ import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
 import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.AlertDialogUtil;
+import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -142,6 +149,16 @@ public class MouseFragment extends BaseFragment {
     LinearLayout ll_waihuanjingshuji;
     @Bind(R.id.ll_qizhong)
     LinearLayout ll_qizhong;
+    @Bind(R.id.ll_shineishuji)
+    LinearLayout llShineishuji;
+    @Bind(R.id.ll_shineifangshusheshi)
+    LinearLayout llShineifangshusheshi;
+    @Bind(R.id.btn_save)
+    Button btnSave;
+    @Bind(R.id.btn_exit)
+    Button btnExit;
+    @Bind(R.id.base_layout)
+    TuLinearLayout baseLayout;
 
 
     private CheakInsertBean cheakInsertBean;
@@ -269,6 +286,14 @@ public class MouseFragment extends BaseFragment {
                 }
             }
         });
+
+        if ("13".equals(cheakInsertBean.getUnitClassID())||"14".equals(cheakInsertBean.getUnitClassID())){
+            llShineishuji.setVisibility(View.GONE);
+            llShineifangshusheshi.setVisibility(View.GONE);
+        }else {
+            llShineishuji.setVisibility(View.VISIBLE);
+            llShineifangshusheshi.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -279,10 +304,10 @@ public class MouseFragment extends BaseFragment {
                 AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
                     @Override
                     public void OnConfrim(DialogInterface dialog) {
-                        if (saveData()){
+                        if (saveData()) {
                             dialog.cancel();
                             getActivity().finish();
-                        }else {
+                        } else {
                             dialog.cancel();
                         }
                     }
@@ -430,6 +455,11 @@ public class MouseFragment extends BaseFragment {
     //检查输入合法性
     private boolean verifyInput() {
 
+        if (TextUtils.isEmpty(shuBean.getUnitCode())){
+            ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(shuBean.getUnitCode()) is empty");
+            return false;
+        }
+
         if (cheakInsertBean.getUnitClassID().equals("17")) {
             AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存鼠的相关数据", new DialogInterface
                     .OnClickListener() {
@@ -551,7 +581,20 @@ public class MouseFragment extends BaseFragment {
         }
 
 
-
         return true;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

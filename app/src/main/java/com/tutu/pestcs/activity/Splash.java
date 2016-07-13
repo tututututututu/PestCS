@@ -179,7 +179,7 @@ public class Splash extends AbsActivity {
         ExtendUnitDao.saveBindID(bean);
         bean = new ExtendSortUnitBean("13", "道路", false);
         ExtendUnitDao.saveBindID(bean);
-        bean = new ExtendSortUnitBean("14", "公园公告绿地", false);
+        bean = new ExtendSortUnitBean("14", "公园公共绿地", false);
         ExtendUnitDao.saveBindID(bean);
         bean = new ExtendSortUnitBean("15", "垃圾中转站", false);
         ExtendUnitDao.saveBindID(bean);
