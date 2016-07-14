@@ -330,6 +330,11 @@ public class FliesFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+        if (TextUtils.isEmpty(yingBean.getUnitCode())){
+            return false;
+        }
+
+
         if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
                 && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
                 && yingBean.getLaJiStation() < 1 && yingBean.getCheckDistance() < 1) {
@@ -377,7 +382,7 @@ public class FliesFragment extends BaseFragment {
             return false;
         }
 
-        if (shineiyingleizishengdi > yangxing) {
+        if (shineiyingleizishengdi < yangxing) {
             ToastUtils.showToast("<室内蝇类孳生地数填写>不合法");
             return false;
         }
@@ -396,6 +401,31 @@ public class FliesFragment extends BaseFragment {
 
         if (sanzaizishendi > 0 && jianchalujing < 1) {
             ToastUtils.showToast("<检查路径填写>不合法");
+            return false;
+        }
+
+
+        if (yangxingfangshu > 0 && chengyingzshu < yangxingfangshu) {
+            ToastUtils.showToast("成蝇总数填写不合法");
+            return false;
+        }
+
+        if (buhegechangsuoshu > 0 && (shiwairumenkou + tongshiwaichuangkou
+                + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
+                + zhijierukoushipintandian + qita) < buhegechangsuoshu) {
+            ToastUtils.showToast("不合格部位总数应等于或大于不合格场所数");
+            return false;
+        }
+
+        if (buhegechangsuoshu == 0 && (shiwairumenkou + tongshiwaichuangkou
+                + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
+                + zhijierukoushipintandian + qita) > 0) {
+            ToastUtils.showToast("不合格场所数填写不正确");
+            return false;
+        }
+
+        if (yangxingfangshu == 0 && chengyingzshu > 0) {
+            ToastUtils.showToast("成蝇总数填写不正确");
             return false;
         }
 

@@ -211,13 +211,27 @@ public class CockFragment extends BaseFragment {
             return false;
         }
 
+        if (TextUtils.isEmpty(bean.getUnitCode())){
+            return false;
+        }
+
+        if (bean.getCheckRoom() < 1) {
+            return false;
+        }
+
 
         if (chengchongyangxingfangjianshu > jianchafangshu) {
             ToastUtils.showToast("<检查房间数填写>不合法");
             return false;
         }
 
-        if (zhangjiyangxingfangjianshu < 1 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) > 0) {
+        if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) != 0) {
+            ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
+            return false;
+        }
+
+        if (zhangjiyangxingfangjianshu>0&&(chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <zhangjiyangxingfangjianshu)
+        {
             ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
             return false;
         }

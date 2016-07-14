@@ -43,40 +43,24 @@
                 <TableRow android:layout_margin="0.5dp">
 
                     <TextView
-                        android:background="@color/colorTableTile"
-                        android:gravity="center"
-                        android:paddingBottom="2dp"
-                        android:paddingTop="2dp"
+                        style="@style/table_title_style"
                         android:text="单位类型"
-                        android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        />
 
                     <TextView
-                        android:background="@color/colorTableTile"
-                        android:gravity="center"
-                        android:paddingBottom="2dp"
-                        android:paddingTop="2dp"
+                        style="@style/table_title_style"
                         android:text="应查数"
-                        android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        />
 
                     <TextView
-                        android:background="@color/colorTableTile"
-                        android:gravity="center"
-                        android:paddingBottom="2dp"
-                        android:paddingTop="2dp"
+                        style="@style/table_title_style"
                         android:text="已查数"
-                        android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        />
 
                     <TextView
-                        android:background="@color/colorTableTile"
-                        android:gravity="center"
-                        android:paddingBottom="2dp"
-                        android:paddingTop="2dp"
+                        style="@style/table_title_style"
                         android:text="待查数"
-                        android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        />
                 </TableRow>
             </TableLayout>
         </LinearLayout>

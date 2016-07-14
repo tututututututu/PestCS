@@ -71,6 +71,14 @@ public class MosquitosFragment extends BaseFragment {
     @Bind(R.id.et_paishuijinkoujishuiyangxing)
     EditText etPaishuijinkoujishuiyangxing;
     int Paishuijinkoujishuiyangxing = 0;
+
+    @Bind(R.id.et_gouqujishui)
+    EditText etGouqujishui;
+    int Gouqujishui = 0;
+    @Bind(R.id.et_gouqujishuiyangxing)
+    EditText etGouqujishuiyangxing;
+    int Gouqujishuiyangxing = 0;
+
     @Bind(R.id.et_dixiashijishui)
     EditText etDixiashijishui;
     int Dixiashijishui = 0;
@@ -226,6 +234,8 @@ public class MosquitosFragment extends BaseFragment {
         etPaishuijinkoujishuiyangxing.setText(bean.getJingKouYangXin() + "");
         etDixiashijishui.setText(bean.getDiXiaShi() + "");
         etDixiashijishuiyangxing.setText(bean.getDiXiaShiYangXin() + "");
+        etGouqujishui.setText(bean.getGouQu()+"");
+        etGouqujishuiyangxing.setText(bean.getGouQuYangXin()+"");
         etLuntaijishui.setText(bean.getLuntai() + "");
         etLuntaijishuiyangxing.setText(bean.getLuntaiYangXin() + "");
         etQita.setText(bean.getQiTa() + "");
@@ -346,6 +356,7 @@ public class MosquitosFragment extends BaseFragment {
         etJingguanchiyangxing.addTextChangedListener(new MyTextWatcher());
         etPaishuijinkoujishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etDixiashijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etGouqujishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etLuntaijishuiyangxing.addTextChangedListener(new MyTextWatcher());
         etQitayangxing.addTextChangedListener(new MyTextWatcher());
     }
@@ -371,6 +382,7 @@ public class MosquitosFragment extends BaseFragment {
                     Integer.parseInt(0 + etJingguanchiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etPaishuijinkoujishuiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etDixiashijishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etGouqujishuiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etLuntaijishuiyangxing.getText().toString()) +
                     Integer.parseInt(0 + etQitayangxing.getText().toString());
 
@@ -404,6 +416,8 @@ public class MosquitosFragment extends BaseFragment {
         Paishuijinkoujishuiyangxing = dealData(etPaishuijinkoujishuiyangxing);
         Dixiashijishui = dealData(etDixiashijishui);
         Dixiashijishuiyangxing = dealData(etDixiashijishuiyangxing);
+        Gouqujishui = dealData(etGouqujishui);
+        Gouqujishuiyangxing = dealData(etGouqujishuiyangxing);
         Luntaijishui = dealData(etLuntaijishui);
         Luntaijishuiyangxing = dealData(etLuntaijishuiyangxing);
         Qita = dealData(etQita);
@@ -427,6 +441,8 @@ public class MosquitosFragment extends BaseFragment {
         bean.setJingGuanChiYangXin(Jingguanchiyangxing);
         bean.setDiXiaShi(Dixiashijishui);
         bean.setDiXiaShiYangXin(Dixiashijishuiyangxing);
+        bean.setGouQu(Gouqujishui);
+        bean.setGouQuYangXin(Gouqujishuiyangxing);
         bean.setLuntai(Luntaijishui);
         bean.setLuntaiYangXin(Luntaijishuiyangxing);
         bean.setQiTa(Qita);
@@ -445,6 +461,11 @@ public class MosquitosFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
+        if (TextUtils.isEmpty(bean.getUnitCode())) {
+            return false;
+        }
+
+
         if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
                 ) {
             return false;
@@ -481,6 +502,10 @@ public class MosquitosFragment extends BaseFragment {
             return false;
         }
 
+        if (Gouqujishuiyangxing>Gouqujishui){
+            ToastUtils.showToast("沟渠积水数填写 不合法");
+        }
+
         if (Luntaijishuiyangxing > Luntaijishui) {
             ToastUtils.showToast("<轮胎积水数填写>不合法");
             return false;
@@ -502,8 +527,25 @@ public class MosquitosFragment extends BaseFragment {
         }
 
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
-                Chanjianxiaoxingjishui) {
+                Chanjianxiaoxingjishui+Gouqujishui) {
             ToastUtils.showToast("<查见小型积水填写>不合法");
+            return false;
+        }
+
+
+        if (Yangxinggong > 0 && Wenyouchongheyonggong < Yangxinggong) {
+            ToastUtils.showToast("<文幼虫和蛹填写>不合法");
+            return false;
+        }
+
+
+        if (Wenchongtingluocishu > 0 && Youwenrenci == 0) {
+            ToastUtils.showToast("<诱蚊人次填写>不合法");
+            return false;
+        }
+
+        if (Jianchalujing == 0 && Chanjianxiaoxingjishui > 0) {
+            ToastUtils.showToast("<检查路径填写>不合法");
             return false;
         }
 

@@ -42,53 +42,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class CheakRecoderDetail extends BaseActivity {
+
+
+    @Bind(R.id.ll_back)
+    LinearLayout llBack;
+    @Bind(R.id.et_unit_type)
+    TextView etUnitType;
+    @Bind(R.id.cb_zhongdian)
+    CheckBox cbZhongdian;
+    @Bind(R.id.et_address)
+    EditText etAddress;
     @Bind(R.id.ll_modify)
     LinearLayout llModify;
-    @Bind(R.id.tv_city)
-    TextView tvCity;
-    @Bind(R.id.tv_cheaker_name)
-    TextView tvCheakerName;
-    @Bind(R.id.tv_unity_type)
-    TextView tvUnityType;
-    @Bind(R.id.tv_zhongdian)
-    TextView tvZhongdian;
-    @Bind(R.id.tv_address)
-    TextView tvAddress;
-    @Bind(R.id.ll_review)
-    LinearLayout llReview;
-    @Bind(R.id.tv_set_current_task)
-    TextView tvSetCurrentTask;
-    @Bind(R.id.ll_no_current_task)
-    LinearLayout llNoCurrentTask;
+    @Bind(R.id.tabs)
+    PagerSlidingTabStrip tabs;
+    @Bind(R.id.pager)
+    ViewPager pager;
     @Bind(R.id.btn_save)
     Button btnSave;
     @Bind(R.id.btn_exit)
     Button btnExit;
     @Bind(R.id.btn_photos)
     Button btnPhotos;
+    @Bind(R.id.tv_set_current_task)
+    TextView tvSetCurrentTask;
+    @Bind(R.id.ll_no_current_task)
+    LinearLayout llNoCurrentTask;
     @Bind(R.id.base_layout)
     FrameLayout baseLayout;
-
-
-    @Bind(R.id.tabs)
-    PagerSlidingTabStrip tabs;
-    @Bind(R.id.pager)
-    ViewPager pager;
-    @Bind(R.id.et_unit_type)
-    TextView etUnitType;
-    @Bind(R.id.cb_zhongdian)
-    CheckBox cbZhongdian;
-    @Bind(R.id.et_name)
-    EditText etName;
-    @Bind(R.id.ll_back)
-    LinearLayout llBack;
-
     private ReviewFragmentAdapter adapter;
     private String unitycode;
 
@@ -169,74 +155,72 @@ public class CheakRecoderDetail extends BaseActivity {
     }
 
     private void initHeadView() {
-        tvCity.setText(cheakInsertBean.getCityName());
-        tvCheakerName.setText(cheakInsertBean.getExpertName());
 
         switch (cheakInsertBean.getUnitClassID()) {
             case "01":
-                tvUnityType.setText("餐饮店");
+                etUnitType.setText("餐饮店");
                 break;
             case "02":
-                tvUnityType.setText("商场超市");
+                etUnitType.setText("商场超市");
                 break;
             case "03":
-                tvUnityType.setText("机关");
+                etUnitType.setText("机关");
                 break;
             case "04":
-                tvUnityType.setText("饭店宾馆");
+                etUnitType.setText("饭店宾馆");
                 break;
             case "05":
-                tvUnityType.setText("农贸市场");
+                etUnitType.setText("农贸市场");
                 break;
             case "06":
-                tvUnityType.setText("机场车站");
+                etUnitType.setText("机场车站");
                 break;
             case "07":
-                tvUnityType.setText("医院");
+                etUnitType.setText("医院");
                 break;
             case "08":
-                tvUnityType.setText("学校");
+                etUnitType.setText("学校");
                 break;
             case "09":
-                tvUnityType.setText("建筑拆迁工地");
+                etUnitType.setText("建筑拆迁工地");
                 break;
             case "10":
-                tvUnityType.setText("居(家)委会");
+                etUnitType.setText("居(家)委会");
                 break;
             case "11":
-                tvUnityType.setText("食品加工企业");
+                etUnitType.setText("食品加工企业");
                 break;
             case "12":
-                tvUnityType.setText("其他企业");
+                etUnitType.setText("其他企业");
                 break;
             case "13":
-                tvUnityType.setText("道路");
+                etUnitType.setText("道路");
                 break;
             case "14":
-                tvUnityType.setText("公园公告绿地");
+                etUnitType.setText("公园公告绿地");
                 break;
             case "15":
-                tvUnityType.setText("垃圾中转站");
+                etUnitType.setText("垃圾中转站");
                 break;
             case "16":
-                tvUnityType.setText("公共厕所");
+                etUnitType.setText("公共厕所");
                 break;
             case "17":
-                tvUnityType.setText("大中型水体");
+                etUnitType.setText("大中型水体");
                 break;
             case "18":
-                tvUnityType.setText("特殊场所");
+                etUnitType.setText("特殊场所");
                 break;
         }
 
 
         if (cheakInsertBean.isKeyUnit()) {
-            tvZhongdian.setText("是");
+            cbZhongdian.setChecked(true);
         } else {
-            tvZhongdian.setText("否");
+            cbZhongdian.setChecked(false);
         }
 
-        tvAddress.setText(cheakInsertBean.getNamePlace());
+        etAddress.setText(cheakInsertBean.getNamePlace());
     }
 
     @Override
@@ -267,11 +251,16 @@ public class CheakRecoderDetail extends BaseActivity {
                 break;
             case R.id.btn_save:
                 editeable = !editeable;
-                RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
                 if (editeable) {
                     btnSave.setText("保存");
+                    etAddress.setEnabled(true);
+                    cbZhongdian.setEnabled(true);
+                    RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
                 } else {
                     btnSave.setText("修改");
+                    etAddress.setEnabled(false);
+                    cbZhongdian.setEnabled(false);
+                    saveHeadData();//保存头部一些数据
                 }
 
                 break;
@@ -286,6 +275,36 @@ public class CheakRecoderDetail extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    private void saveHeadData() {
+        String address = etAddress.getText().toString().trim();
+        if (TextUtils.isEmpty(address)){
+            ToastUtils.showToast("单位或地址不能为空");
+            return;
+        }
+        cheakInsertBean.setNamePlace(address);
+        cheakInsertBean.setKeyUnit(cbZhongdian.isChecked());
+
+        RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
+        Tasks.executeInBackground(this, new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                CheakInsertDao.saveOrUpdate(cheakInsertBean);
+                return null;
+            }
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+
+            }
+        });
+
     }
 
     private void deleteRecodeDialog() {
@@ -348,21 +367,14 @@ public class CheakRecoderDetail extends BaseActivity {
 
 
     public String getUnitName() {
-        return etName.getText().toString().trim();
+        return etAddress.getText().toString().trim();
     }
 
     public boolean canSave() {
-        if (!TextUtils.isEmpty(etName.getText().toString().trim()) && !TextUtils.isEmpty(etUnitType.getText()
+        if (!TextUtils.isEmpty(etAddress.getText().toString().trim()) && !TextUtils.isEmpty(etUnitType.getText()
                 .toString().trim())) {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

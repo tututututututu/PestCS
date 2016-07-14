@@ -19,6 +19,7 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.db.TaskDao;
+import com.tutu.pestcs.utils.ComputeUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
@@ -46,6 +47,11 @@ public class MouseFragment extends BaseFragment {
     private List<ProgressMouse> outDoorData = new ArrayList<>();
 
     private int groupNum=1;
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.mouse_fragment;
+    }
 
 
     @Override
@@ -101,11 +107,38 @@ public class MouseFragment extends BaseFragment {
                 if (col == 0) {
                     tv.setText(inDoorData.get(row).getUnitType());
                 } else if (col == 1) {
-                    tv.setText(inDoorData.get(row).getOriginalNumS() + "-" + inDoorData.get(row).getOriginalNumE());
+                    if (inDoorData.get(row).getOriginalNumS()==0){
+                        tv.setText("/"+ "-" + inDoorData.get(row).getOriginalNumE());
+                    }else{
+                        tv.setText(inDoorData.get(row).getOriginalNumS() + "-" + inDoorData.get(row).getOriginalNumE());
+                    }
                 } else if (col == 2) {
                     tv.setText(inDoorData.get(row).getCheakedNumS() + "-" + inDoorData.get(row).getCheakedNumE());
                 } else if (col == 3) {
-                    tv.setText(inDoorData.get(row).getToCheakNumS() + "-" + inDoorData.get(row).getToCheakNumE());
+
+                    int s = inDoorData.get(row).getToCheakNumS();
+                    int e = inDoorData.get(row).getToCheakNumE();
+                    StringBuilder builder = new StringBuilder();
+
+                    if (s == 0) {
+                        builder.append("/");
+                    } else if (s <= 0) {
+                        builder.append("0");
+                    } else {
+                        builder.append(s);
+                    }
+
+                    builder.append("-");
+
+                    if (e == 0) {
+                        builder.append("/");
+                    } else if (e <= 0) {
+                        builder.append("0");
+                    } else {
+                        builder.append(e);
+                    }
+
+                    tv.setText(builder.toString());
                 }
 
 
@@ -123,11 +156,39 @@ public class MouseFragment extends BaseFragment {
                 if (col == 0) {
                     tv.setText(outDoorData.get(row).getUnitType());
                 } else if (col == 1) {
-                    tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row).getOriginalNumE());
+                    if (outDoorData.get(row).getOriginalNumS()==0){
+                        tv.setText("/" + "-" + outDoorData.get(row).getOriginalNumE());
+
+                    }else {
+                        tv.setText(outDoorData.get(row).getOriginalNumS() + "-" + outDoorData.get(row).getOriginalNumE());
+
+                    }
                 } else if (col == 2) {
                     tv.setText(outDoorData.get(row).getCheakedNumS() + "-" + outDoorData.get(row).getCheakedNumE());
                 } else if (col == 3) {
-                    tv.setText(outDoorData.get(row).getToCheakNumS() + "-" + outDoorData.get(row).getToCheakNumE());
+                    int s = outDoorData.get(row).getToCheakNumS();
+                    int e = outDoorData.get(row).getToCheakNumE();
+                    StringBuilder builder = new StringBuilder();
+
+                    if (s == 0) {
+                        builder.append("/");
+                    } else if (s <= 0) {
+                        builder.append("0");
+                    } else {
+                        builder.append(s);
+                    }
+
+                    builder.append("-");
+
+                    if (e == 0) {
+                        builder.append("/");
+                    } else if (e <= 0) {
+                        builder.append("0");
+                    } else {
+                        builder.append(e);
+                    }
+
+                    tv.setText(builder.toString());
                 }
 
 
@@ -139,10 +200,6 @@ public class MouseFragment extends BaseFragment {
     }
 
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.mouse_fragment;
-    }
 
     private TextView createTV() {
         return (TextView) LayoutInflater.from(mActivityContext).inflate(R.layout.table_tv, null);
@@ -188,7 +245,7 @@ public class MouseFragment extends BaseFragment {
                 ShuDao.getHadCheakedRoomInCount("12");
         totleCheakedUnit += hadCCheakedUnitIn03;
         totleCheakedRoom += hadCCheakedRoomIn03;
-        addRow("机关,事业单位", Integer.parseInt(toCheakedBean.get(2).getKey()), Integer.parseInt(toCheakedBean.get(2)
+        addRow("机关,企业单位", Integer.parseInt(toCheakedBean.get(2).getKey()), Integer.parseInt(toCheakedBean.get(2)
                 .getValue
                 ()), hadCCheakedUnitIn03, hadCCheakedRoomIn03);
 
@@ -196,7 +253,7 @@ public class MouseFragment extends BaseFragment {
         int hadCCheakedRoomIn04 = ShuDao.getHadCheakedRoomInCount("04");
         totleCheakedUnit += hadCCheakedUnitIn04;
         totleCheakedRoom += hadCCheakedRoomIn04;
-        addRow("宾馆,饭店", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3).getValue
+        addRow("宾馆饭店", Integer.parseInt(toCheakedBean.get(3).getKey()), Integer.parseInt(toCheakedBean.get(3).getValue
                 ()), hadCCheakedUnitIn04, hadCCheakedRoomIn04);
 
         int hadCCheakedUnitIn05 = ShuDao.getHadCheakedUnitInCount("05");
@@ -206,12 +263,12 @@ public class MouseFragment extends BaseFragment {
         addRow("农贸市场", Integer.parseInt(toCheakedBean.get(4).getKey()), Integer.parseInt(toCheakedBean.get(4).getValue
                 ()), hadCCheakedUnitIn05, hadCCheakedRoomIn05);
 
-        int hadCCheakedUnitIn06 = ShuDao.getHadCheakedUnitInCount("08");
-        int hadCCheakedRoomIn06 = ShuDao.getHadCheakedRoomInCount("08");
-        totleCheakedUnit += hadCCheakedUnitIn06;
-        totleCheakedRoom += hadCCheakedRoomIn06;
-        addRow("学校", Integer.parseInt(toCheakedBean.get(5).getKey()), Integer.parseInt(toCheakedBean.get(5).getValue
-                ()), hadCCheakedUnitIn06, hadCCheakedRoomIn06);
+        int hadCCheakedUnitIn10 = ShuDao.getHadCheakedUnitInCount("06");
+        int hadCCheakedRoomIn10 = ShuDao.getHadCheakedRoomInCount("06");
+        totleCheakedUnit += hadCCheakedUnitIn10;
+        totleCheakedRoom += hadCCheakedRoomIn10;
+        addRow("机场或车站", Integer.parseInt(toCheakedBean.get(9).getKey()), Integer.parseInt(toCheakedBean.get(9).getValue
+                ()), hadCCheakedUnitIn10, hadCCheakedRoomIn10);
 
         int hadCCheakedUnitIn07 = ShuDao.getHadCheakedUnitInCount("07");
         int hadCCheakedRoomIn07 = ShuDao.getHadCheakedRoomInCount("07");
@@ -219,6 +276,15 @@ public class MouseFragment extends BaseFragment {
         totleCheakedRoom += hadCCheakedRoomIn07;
         addRow("医院", Integer.parseInt(toCheakedBean.get(6).getKey()), Integer.parseInt(toCheakedBean.get(6).getValue
                 ()), hadCCheakedUnitIn07, hadCCheakedRoomIn07);
+
+        int hadCCheakedUnitIn06 = ShuDao.getHadCheakedUnitInCount("08");
+        int hadCCheakedRoomIn06 = ShuDao.getHadCheakedRoomInCount("08");
+        totleCheakedUnit += hadCCheakedUnitIn06;
+        totleCheakedRoom += hadCCheakedRoomIn06;
+        addRow("学校", Integer.parseInt(toCheakedBean.get(5).getKey()), Integer.parseInt(toCheakedBean.get(5).getValue
+                ()), hadCCheakedUnitIn06, hadCCheakedRoomIn06);
+
+
 
         int hadCCheakedUnitIn08 = ShuDao.getHadCheakedUnitInCount("09");
         int hadCCheakedRoomIn08 = ShuDao.getHadCheakedRoomInCount("09");
@@ -231,15 +297,10 @@ public class MouseFragment extends BaseFragment {
         int hadCCheakedRoomIn09 = ShuDao.getHadCheakedRoomInCount("10");
         totleCheakedUnit += hadCCheakedUnitIn09;
         totleCheakedRoom += hadCCheakedRoomIn09;
-        addRow("居(家)委会", Integer.parseInt(toCheakedBean.get(8).getKey()), Integer.parseInt(toCheakedBean.get(8).getValue
+        addRow("居委会", Integer.parseInt(toCheakedBean.get(8).getKey()), Integer.parseInt(toCheakedBean.get(8).getValue
                 ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
 
-        int hadCCheakedUnitIn10 = ShuDao.getHadCheakedUnitInCount("06");
-        int hadCCheakedRoomIn10 = ShuDao.getHadCheakedRoomInCount("06");
-        totleCheakedUnit += hadCCheakedUnitIn10;
-        totleCheakedRoom += hadCCheakedRoomIn10;
-        addRow("汽车或车站", Integer.parseInt(toCheakedBean.get(9).getKey()), Integer.parseInt(toCheakedBean.get(9).getValue
-                ()), hadCCheakedUnitIn10, hadCCheakedRoomIn10);
+
 
 
         for (KeyValueDataBean bean : toCheakedBean) {
@@ -308,23 +369,23 @@ public class MouseFragment extends BaseFragment {
 
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
-                toCheakUnit/groupNum,
-                toCheakRoom/groupNum,
+                ComputeUtils.floatUp(toCheakUnit,groupNum),
+                ComputeUtils.floatUp(toCheakRoom,groupNum),
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit/groupNum - hadCheakUnit,
-                toCheakRoom/groupNum - hadCheakRoom,
+                ComputeUtils.floatUp(toCheakUnit,groupNum) - hadCheakUnit,
+                ComputeUtils.floatUp(toCheakRoom,groupNum) - hadCheakRoom,
                 true));
     }
 
     private void addRowOut(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         outDoorData.add(new ProgressMouse(name,
-                toCheakUnit/groupNum,
-                toCheakRoom/groupNum,
+                ComputeUtils.floatUp(toCheakUnit,groupNum),
+                ComputeUtils.floatUp(toCheakRoom,groupNum),
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit/groupNum - hadCheakUnit,
-                toCheakRoom/groupNum - hadCheakRoom,
+                ComputeUtils.floatUp(toCheakUnit,groupNum) - hadCheakUnit,
+                ComputeUtils.floatUp(toCheakRoom,groupNum) - hadCheakRoom,
                 true));
     }
 }

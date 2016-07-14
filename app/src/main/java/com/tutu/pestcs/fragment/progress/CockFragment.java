@@ -19,6 +19,7 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.ZhangDao;
+import com.tutu.pestcs.utils.ComputeUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class CockFragment extends BaseFragment {
 
     @Bind(R.id.tl_table)
     TableLayout tl_table;
-    private int groupNum=1;
+    private int groupNum = 1;
 
 
     private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -43,6 +44,11 @@ public class CockFragment extends BaseFragment {
 
     private List<ProgressMouse> inDoorData = new ArrayList<>();
 //    private List<ProgressMouse> outDoorData = new ArrayList<>();
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.cock_fragment;
+    }
 
 
     @Override
@@ -68,11 +74,38 @@ public class CockFragment extends BaseFragment {
                 if (col == 0) {
                     tv.setText(inDoorData.get(row).getUnitType());
                 } else if (col == 1) {
-                    tv.setText(inDoorData.get(row).getOriginalNumS() + "-" + inDoorData.get(row).getOriginalNumE());
+                    if (inDoorData.get(row).getOriginalNumS() == 0) {
+                        tv.setText("/" + "-" + inDoorData.get(row).getOriginalNumE());
+                    } else {
+                        tv.setText(inDoorData.get(row).getOriginalNumS() + "-" + inDoorData.get(row).getOriginalNumE());
+                    }
                 } else if (col == 2) {
                     tv.setText(inDoorData.get(row).getCheakedNumS() + "-" + inDoorData.get(row).getCheakedNumE());
                 } else if (col == 3) {
-                    tv.setText(inDoorData.get(row).getToCheakNumS() + "-" + inDoorData.get(row).getToCheakNumE());
+                    int s = inDoorData.get(row).getToCheakNumS();
+                    int e = inDoorData.get(row).getToCheakNumE();
+                    StringBuilder builder = new StringBuilder();
+
+                    if (s == 0) {
+                        builder.append("/");
+                    } else if (s <= 0) {
+                        builder.append("0");
+                    } else {
+                        builder.append(s);
+                    }
+
+                    builder.append("-");
+
+                    if (e == 0) {
+                        builder.append("/");
+                    } else if (e <= 0) {
+                        builder.append("0");
+                    } else {
+                        builder.append(e);
+                    }
+
+                    tv.setText(builder.toString());
+
                 }
                 tv.setBackground(getResources().getDrawable(R.drawable.tv_empty_rectangle));
                 tableRow.addView(tv);
@@ -95,7 +128,7 @@ public class CockFragment extends BaseFragment {
                     return;
                 }
                 groupNum = result.getGroups();
-                if (groupNum==0){
+                if (groupNum == 0) {
                     groupNum = 1;
                 }
                 fillData();
@@ -108,10 +141,6 @@ public class CockFragment extends BaseFragment {
         });
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.cock_fragment;
-    }
 
     private TextView createTV() {
         return (TextView) LayoutInflater.from(mActivityContext).inflate(R.layout.table_tv, null);
@@ -158,7 +187,7 @@ public class CockFragment extends BaseFragment {
                 ZhangDao.getHadCheakedUnitInCount("11") + ZhangDao.getHadCheakedRoomInCount("12");
         totleCheakedUnit += hadCCheakedUnitIn03;
         totleCheakedRoom += hadCCheakedRoomIn03;
-        addRow("机关,事业单位", Integer.parseInt(toCheakedBean.get(2).getKey()), Integer.parseInt(toCheakedBean.get(2)
+        addRow("机关,企业单位", Integer.parseInt(toCheakedBean.get(2).getKey()), Integer.parseInt(toCheakedBean.get(2)
                 .getValue
                         ()), hadCCheakedUnitIn03, hadCCheakedRoomIn03);
 
@@ -202,7 +231,7 @@ public class CockFragment extends BaseFragment {
         int hadCCheakedRoomIn09 = ZhangDao.getHadCheakedRoomInCount("10");
         totleCheakedUnit += hadCCheakedUnitIn09;
         totleCheakedRoom += hadCCheakedRoomIn09;
-        addRow("居(家)委会", Integer.parseInt(toCheakedBean.get(8).getKey()), Integer.parseInt(toCheakedBean.get(8).getValue
+        addRow("居委会", Integer.parseInt(toCheakedBean.get(8).getKey()), Integer.parseInt(toCheakedBean.get(8).getValue
                 ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
 
 
@@ -215,12 +244,12 @@ public class CockFragment extends BaseFragment {
 
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
-                toCheakUnit/groupNum,
-                toCheakRoom/groupNum,
+                ComputeUtils.floatUp(toCheakUnit,groupNum),
+                ComputeUtils.floatUp(toCheakRoom,groupNum),
                 hadCheakUnit,
                 hadCheakRoom,
-                toCheakUnit/groupNum - hadCheakUnit,
-                toCheakRoom/groupNum - hadCheakRoom,
+                ComputeUtils.floatUp(toCheakUnit,groupNum) - hadCheakUnit,
+                ComputeUtils.floatUp(toCheakRoom,groupNum) - hadCheakRoom,
                 true));
     }
 }

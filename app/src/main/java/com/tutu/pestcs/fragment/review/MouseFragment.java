@@ -492,6 +492,11 @@ public class MouseFragment extends BaseFragment {
             return false;
         }
 
+        if (yangxing > 0 && (shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu) < yangxing) {
+            ToastUtils.showToast("<阳性房间数填写>不合法");
+            return false;
+        }
+
 
         if (yangxing > jianchashu) {
             ToastUtils.showToast("<阳性房间数填写>不合法");
@@ -505,11 +510,6 @@ public class MouseFragment extends BaseFragment {
 
         if (shujiyangxing > jianchalujing) {
             ToastUtils.showToast("<鼠迹阳性填写>不合法");
-            return false;
-        }
-
-        if ((wushuyao + shuyaowuxiao + fangzhibuzhengque + wujinshipai) > mieshuzhan) {
-            ToastUtils.showToast("<灭鼠毒饵站子类填写>不合法");
             return false;
         }
 
@@ -527,6 +527,65 @@ public class MouseFragment extends BaseFragment {
         if (shujiyangxing > 0 && wai_shufen + wai_shudong + wai_shudao + wai_yaoheng + wai_daotu + wai_shushi
                 + wai_huoshu < 1) {
             ToastUtils.showToast("外环境鼠迹至少有一项大于0");
+            return false;
+        }
+
+        if (sheshi_buhege > 0 && (chushuikou + paishuigou + dilou + paifengshan
+                + chuanghu + menfeng + tongfengkou + kongdong + mumen + dangshuban) < sheshi_buhege) {
+            ToastUtils.showToast("防鼠设施不合格房间数填写不正确");
+            return false;
+        }
+
+        if (shujiyangxing > 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
+                + wai_daotu + wai_shushi + wai_huoshu) < shujiyangxing) {
+            ToastUtils.showToast("外鼠迹阳性数不正确");
+            return false;
+        }
+
+        if (mieshuzhan > 0 && wujinshipai > mieshuzhan) {
+            ToastUtils.showToast("无警示牌数不正确");
+            return false;
+        }
+
+        if (mieshuzhan > 0 && fangzhibuzhengque > mieshuzhan) {
+            ToastUtils.showToast("放置不规范数不正确");
+            return false;
+        }
+
+
+        if (mieshuzhan > 0 && wushuyao > mieshuzhan) {
+            ToastUtils.showToast("无鼠药数不正确");
+            return false;
+        }
+
+        if (mieshuzhan > 0 && shuyaowuxiao > mieshuzhan) {
+            ToastUtils.showToast("鼠药无效数不正确");
+            return false;
+        }
+
+
+        if ((wushuyao + shuyaowuxiao) > mieshuzhan) {
+            ToastUtils.showToast("无鼠药+鼠药无效数填写不正确");
+            return false;
+        }
+
+        if (yangxing == 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu > 0) {
+            ToastUtils.showToast("阳性房间数填写不正确");
+            return false;
+        }
+
+
+        if (sheshi_buhege == 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou +
+                paifengshan +
+                tongfengkou + dangshuban > 0) {
+            ToastUtils.showToast("防鼠设施不合格间数填写不正确");
+            return false;
+        }
+
+
+        if (shujiyangxing == 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
+                + wai_daotu + wai_shushi + wai_huoshu) > 0) {
+            ToastUtils.showToast("外鼠迹阳性数不正确");
             return false;
         }
 
