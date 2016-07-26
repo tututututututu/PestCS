@@ -184,6 +184,7 @@ public class MouseFragment extends BaseFragment {
                     return;
                 }
                 shuBean = result;
+                addTextWatcher();
                 initReviewData();
             }
 
@@ -205,7 +206,6 @@ public class MouseFragment extends BaseFragment {
                     public void call(ModifyModeEvent Event) {
                         if (Event.isEditable()) {
                             tbase.setChildEnable(tbase, true);
-                            registWather();
                         } else {
                             tbase.setChildEnable(tbase, false);
                             onSave();
@@ -258,117 +258,13 @@ public class MouseFragment extends BaseFragment {
         et_wujinshipai.setText(shuBean.getNoWarningStation() + "");
     }
 
-    private void registWather() {
-        et_yangxing.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(et_yangxing.getText().toString().trim())) {
-                    yangxing = Integer.valueOf(s.toString().trim());
-                    if (yangxing > 0) {
-                        ll_shuji.setVisibility(View.VISIBLE);
-                    } else {
-                        ll_shuji.setVisibility(View.GONE);
-                    }
-                } else {
-                    ll_shuji.setVisibility(View.GONE);
-                }
-
-
-            }
-        });
-
-        et_sheshi_buhege.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(et_sheshi_buhege.getText().toString().trim())) {
-                    if (Integer.valueOf(et_sheshi_buhege.getText().toString().trim()) > 0) {
-                        ll_sheshi_buhege.setVisibility(View.VISIBLE);
-                    } else {
-                        ll_sheshi_buhege.setVisibility(View.GONE);
-                    }
-                } else {
-                    ll_sheshi_buhege.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        et_shujiyangxing.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(et_shujiyangxing.getText().toString().trim())) {
-                    if (Integer.valueOf(et_shujiyangxing.getText().toString().trim()) > 0) {
-                        ll_waihuanjingshuji.setVisibility(View.VISIBLE);
-                    } else {
-                        ll_waihuanjingshuji.setVisibility(View.GONE);
-                    }
-                } else {
-                    ll_waihuanjingshuji.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        et_mieshuzhan.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(et_mieshuzhan.getText().toString().trim())) {
-                    if (Integer.valueOf(et_mieshuzhan.getText().toString().trim()) > 0) {
-                        ll_qizhong.setVisibility(View.VISIBLE);
-                    } else {
-                        ll_qizhong.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
-    }
-
-
     private void onSave() {
 
         formatData();
         if (verifyInput()) {
             //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
             ShuDao.saveOrUpdate(shuBean);
-            ToastUtils.showToast("保存成功");
+            ToastUtils.showToast("鼠数据保存成功");
         }
 
 
@@ -482,8 +378,117 @@ public class MouseFragment extends BaseFragment {
         shuBean.setPaiFengShan(paifengshan);
         shuBean.setHuoShu2(wai_huoshu);
 
+    }
 
-        verifyInput();
+    private void addTextWatcher() {
+        et_yangxing.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(et_yangxing.getText().toString().trim())) {
+                    yangxing = Integer.valueOf(s.toString().trim());
+                    if (yangxing > 0) {
+                        ll_shuji.setVisibility(View.VISIBLE);
+                    } else {
+                        ll_shuji.setVisibility(View.GONE);
+                    }
+                } else {
+                    ll_shuji.setVisibility(View.GONE);
+                }
+
+
+            }
+        });
+
+        et_sheshi_buhege.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(et_sheshi_buhege.getText().toString().trim())) {
+                    if (Integer.valueOf(et_sheshi_buhege.getText().toString().trim()) > 0) {
+                        ll_sheshi_buhege.setVisibility(View.VISIBLE);
+                    } else {
+                        ll_sheshi_buhege.setVisibility(View.GONE);
+                    }
+                } else {
+                    ll_sheshi_buhege.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        et_shujiyangxing.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(et_shujiyangxing.getText().toString().trim())) {
+                    if (Integer.valueOf(et_shujiyangxing.getText().toString().trim()) > 0) {
+                        ll_waihuanjingshuji.setVisibility(View.VISIBLE);
+                    } else {
+                        ll_waihuanjingshuji.setVisibility(View.GONE);
+                    }
+                } else {
+                    ll_waihuanjingshuji.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        et_mieshuzhan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(et_mieshuzhan.getText().toString().trim())) {
+                    if (Integer.valueOf(et_mieshuzhan.getText().toString().trim()) > 0) {
+                        ll_qizhong.setVisibility(View.VISIBLE);
+                    } else {
+                        ll_qizhong.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        if ("13".equals(shuBean.getUniType()) || "14".equals(shuBean.getUniType())) {
+            ll_shuji.setVisibility(View.GONE);
+            ll_shuji.setVisibility(View.GONE);
+        } else {
+            ll_shuji.setVisibility(View.VISIBLE);
+            ll_shuji.setVisibility(View.VISIBLE);
+        }
     }
 
     //检查输入合法性

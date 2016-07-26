@@ -2,8 +2,12 @@ package com.tutu.pestcs.fragment.review;
 
 import android.content.Context;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
@@ -68,6 +72,8 @@ public class CockFragment extends BaseFragment {
     @Bind(R.id.et_zhanglangfenbian)
     EditText et_zhanglangfenbian;
     private int zhanglangfenbian = 0;
+    @Bind(R.id.ll_zhangjileixing)
+    LinearLayout ll_zhangjileixing;
 
 
     private String unitycode;
@@ -110,6 +116,7 @@ public class CockFragment extends BaseFragment {
                     return;
                 }
                 bean = result;
+                addTextChangelistener();
                 initReviewData();
             }
 
@@ -120,6 +127,33 @@ public class CockFragment extends BaseFragment {
         });
 
         registModifyEvent();
+    }
+
+    private void addTextChangelistener() {
+        et_zhangjiyangxingfangjianshu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString().trim())){
+                    ll_zhangjileixing.setVisibility(View.GONE);
+                    return;
+                }
+                if (Integer.parseInt(s.toString().trim())>0){
+                    ll_zhangjileixing.setVisibility(View.VISIBLE);
+                }else {
+                    ll_zhangjileixing.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void registModifyEvent() {
@@ -164,7 +198,7 @@ public class CockFragment extends BaseFragment {
         formatData();
         if (verifyInput()) {
             ZhangDao.saveOrUpdate(bean);
-            ToastUtils.showToast("保存成功");
+            ToastUtils.showToast("蟑螂数据保存成功");
         }
 
     }

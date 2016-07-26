@@ -122,6 +122,12 @@ public class FliesFragment extends BaseFragment {
     OverScrollView baseLayout;
     @Bind(R.id.tbase)
     TuLinearLayout tbase;
+    @Bind(R.id.ll_shineichengying)
+    LinearLayout llShineichengying;
+    @Bind(R.id.ll_gonggongcesuo)
+    LinearLayout llGonggongcesuo;
+    @Bind(R.id.ll_lajizhongzhuanzhan)
+    LinearLayout llLajizhongzhuanzhan;
 
     private String unitycode;
     private YingBean yingBean = new YingBean();
@@ -159,6 +165,7 @@ public class FliesFragment extends BaseFragment {
                     return;
                 }
                 yingBean = result;
+                addTextChangeListener();
                 initReviewData();
             }
 
@@ -169,6 +176,51 @@ public class FliesFragment extends BaseFragment {
         });
 
         registModifyEvent();
+    }
+
+    private void addTextChangeListener() {
+        et_buhegechangsuoshu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString().trim())) {
+                    if (Integer.valueOf(s.toString().trim()) > 0) {
+                        ll_fangyingsheshibuhegebuwei.setVisibility(View.VISIBLE);
+                    } else {
+                        ll_fangyingsheshibuhegebuwei.setVisibility(View.GONE);
+                    }
+                } else {
+                    ll_fangyingsheshibuhegebuwei.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        if ("13".equals(yingBean.getUniType()) || "14".equals(yingBean.getUniType())) {
+            llShineichengying.setVisibility(View.GONE);
+        } else {
+            llShineichengying.setVisibility(View.VISIBLE);
+        }
+
+        if ("15".equals(yingBean.getUniType())){
+            llLajizhongzhuanzhan.setVisibility(View.VISIBLE);
+        }else{
+            llLajizhongzhuanzhan.setVisibility(View.GONE);
+        }
+
+        if ("16".equals(yingBean.getUniType())){
+            llGonggongcesuo.setVisibility(View.VISIBLE);
+        }else{
+            llGonggongcesuo.setVisibility(View.GONE);
+        }
     }
 
 
@@ -258,7 +310,7 @@ public class FliesFragment extends BaseFragment {
         formatData();
         if (verifyInput()) {
             YingDao.saveOrUpdate(yingBean);
-            ToastUtils.showToast("保存成功");
+            ToastUtils.showToast("蝇数据保存成功");
         }
 
     }

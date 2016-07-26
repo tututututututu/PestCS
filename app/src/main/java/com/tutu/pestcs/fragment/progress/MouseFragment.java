@@ -267,7 +267,7 @@ public class MouseFragment extends BaseFragment {
         int hadCCheakedRoomIn10 = ShuDao.getHadCheakedRoomInCount("06");
         totleCheakedUnit += hadCCheakedUnitIn10;
         totleCheakedRoom += hadCCheakedRoomIn10;
-        addRow("机场或车站", Integer.parseInt(toCheakedBean.get(9).getKey()), Integer.parseInt(toCheakedBean.get(9).getValue
+        addRow("机场或车站", Integer.parseInt(toCheakedBean.get(5).getKey()), Integer.parseInt(toCheakedBean.get(5).getValue
                 ()), hadCCheakedUnitIn10, hadCCheakedRoomIn10);
 
         int hadCCheakedUnitIn07 = ShuDao.getHadCheakedUnitInCount("07");
@@ -281,7 +281,7 @@ public class MouseFragment extends BaseFragment {
         int hadCCheakedRoomIn06 = ShuDao.getHadCheakedRoomInCount("08");
         totleCheakedUnit += hadCCheakedUnitIn06;
         totleCheakedRoom += hadCCheakedRoomIn06;
-        addRow("学校", Integer.parseInt(toCheakedBean.get(5).getKey()), Integer.parseInt(toCheakedBean.get(5).getValue
+        addRow("学校", Integer.parseInt(toCheakedBean.get(7).getKey()), Integer.parseInt(toCheakedBean.get(7).getValue
                 ()), hadCCheakedUnitIn06, hadCCheakedRoomIn06);
 
 
@@ -290,14 +290,14 @@ public class MouseFragment extends BaseFragment {
         int hadCCheakedRoomIn08 = ShuDao.getHadCheakedRoomInCount("09");
         totleCheakedUnit += hadCCheakedUnitIn08;
         totleCheakedRoom += hadCCheakedRoomIn08;
-        addRow("建筑拆迁工地", Integer.parseInt(toCheakedBean.get(7).getKey()), Integer.parseInt(toCheakedBean.get(7).getValue
+        addRow("建筑拆迁工地", Integer.parseInt(toCheakedBean.get(8).getKey()), Integer.parseInt(toCheakedBean.get(8).getValue
                 ()), hadCCheakedUnitIn08, hadCCheakedRoomIn08);
 
         int hadCCheakedUnitIn09 = ShuDao.getHadCheakedUnitInCount("10");
         int hadCCheakedRoomIn09 = ShuDao.getHadCheakedRoomInCount("10");
         totleCheakedUnit += hadCCheakedUnitIn09;
         totleCheakedRoom += hadCCheakedRoomIn09;
-        addRow("居委会", Integer.parseInt(toCheakedBean.get(8).getKey()), Integer.parseInt(toCheakedBean.get(8).getValue
+        addRow("居委会", Integer.parseInt(toCheakedBean.get(9).getKey()), Integer.parseInt(toCheakedBean.get(9).getValue
                 ()), hadCCheakedUnitIn09, hadCCheakedRoomIn09);
 
 

@@ -144,6 +144,8 @@ public class MosquitosFragment extends BaseFragment {
     LinearLayout llYouwen;
     @Bind(R.id.tbase)
     TuLinearLayout tbase;
+    @Bind(R.id.ll_xiaoxingjishuitou)
+    LinearLayout llXiaoxingjishuitou;
 
 
     private String unitycode;
@@ -184,6 +186,8 @@ public class MosquitosFragment extends BaseFragment {
                     return;
                 }
                 bean = result;
+                updateVisiableView(bean.getUniType());
+                addTextChangeListener();
                 initReviewData();
             }
 
@@ -194,6 +198,106 @@ public class MosquitosFragment extends BaseFragment {
         });
 
         registModifyEvent();
+    }
+
+    private void addTextChangeListener() {
+        etRongqijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etKengwajishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etJingguanchiyangxing.addTextChangedListener(new MyTextWatcher());
+        etPaishuijinkoujishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etDixiashijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etGouqujishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etLuntaijishuiyangxing.addTextChangedListener(new MyTextWatcher());
+        etQitayangxing.addTextChangedListener(new MyTextWatcher());
+
+
+        etRongqijishui.addTextChangedListener(new XXJSTextWatcher());
+        etKengwajishui.addTextChangedListener(new XXJSTextWatcher());
+        etJingguanchi.addTextChangedListener(new XXJSTextWatcher());
+        etPaishuijinkoujishui.addTextChangedListener(new XXJSTextWatcher());
+        etDixiashijishui.addTextChangedListener(new XXJSTextWatcher());
+        etGouqujishui.addTextChangedListener(new XXJSTextWatcher());
+        etLuntaijishui.addTextChangedListener(new XXJSTextWatcher());
+        etQita.addTextChangedListener(new XXJSTextWatcher());
+    }
+
+
+    private void updateVisiableView(String type) {
+        //大中型水体
+        if (type.equals("17")) {
+            ll_shuiti.setVisibility(View.VISIBLE);
+            tvShuitileixing.setVisibility(View.VISIBLE);
+            llXiaoxingjishuiWai.setVisibility(View.GONE);
+            llYouwen.setVisibility(View.GONE);
+            rbHupo.setChecked(true);
+            llXiaoxingjishui.setVisibility(View.GONE);
+            llXiaoxingjishuitou.setVisibility(View.GONE);
+        } else {
+            ll_shuiti.setVisibility(View.GONE);
+            tvShuitileixing.setVisibility(View.GONE);
+            llXiaoxingjishuiWai.setVisibility(View.VISIBLE);
+            llYouwen.setVisibility(View.VISIBLE);
+            llXiaoxingjishui.setVisibility(View.VISIBLE);
+            llXiaoxingjishuitou.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    private class MyTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            int count = Integer.parseInt(0 + etRongqijishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etKengwajishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etJingguanchiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etPaishuijinkoujishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etDixiashijishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etGouqujishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etLuntaijishuiyangxing.getText().toString()) +
+                    Integer.parseInt(0 + etQitayangxing.getText().toString());
+
+            etChajianxiaoxingjishuiyangxing.setText(count + "");
+        }
+    }
+
+
+    private class XXJSTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            int count = Integer.parseInt(0 + etRongqijishui.getText().toString()) +
+                    Integer.parseInt(0 + etKengwajishui.getText().toString()) +
+                    Integer.parseInt(0 + etJingguanchi.getText().toString()) +
+                    Integer.parseInt(0 + etPaishuijinkoujishui.getText().toString()) +
+                    Integer.parseInt(0 + etDixiashijishui.getText().toString()) +
+                    Integer.parseInt(0 + etGouqujishui.getText().toString()) +
+                    Integer.parseInt(0 + etLuntaijishui.getText().toString()) +
+                    Integer.parseInt(0 + etQita.getText().toString());
+
+            etChanjianxiaoxingjishui.setText(count + "");
+        }
     }
 
 
@@ -362,41 +466,12 @@ public class MosquitosFragment extends BaseFragment {
     }
 
 
-    private class MyTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            int count = Integer.parseInt(0 + etRongqijishuiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etKengwajishuiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etJingguanchiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etPaishuijinkoujishuiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etDixiashijishuiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etGouqujishuiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etLuntaijishuiyangxing.getText().toString()) +
-                    Integer.parseInt(0 + etQitayangxing.getText().toString());
-
-            etChajianxiaoxingjishuiyangxing.setText(count + "");
-        }
-    }
-
-
     private void onSave() {
 
         formatData();
         if (verifyInput()) {
             WenDao.saveOrUpdate(bean);
-            ToastUtils.showToast("保存成功");
+            ToastUtils.showToast("蚊数据保存成功");
         }
 
     }

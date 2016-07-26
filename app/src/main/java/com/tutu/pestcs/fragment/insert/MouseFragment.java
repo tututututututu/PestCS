@@ -186,6 +186,10 @@ public class MouseFragment extends BaseFragment {
         shuBean.setKeyUnit(cheakInsertBean.isKeyUnit());
         shuBean.setExpertCode(cheakInsertBean.getExpertCode());
 
+        addTextWatcher();
+    }
+
+    private void addTextWatcher() {
         et_yangxing.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
