@@ -51,8 +51,9 @@ public class NoteFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
         tbase.setChildEnable(tbase, false);
+
+
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
         if (unitycode == null) {
             ToastUtils.showToast("非法记录查询");
@@ -121,7 +122,7 @@ public class NoteFragment extends BaseFragment {
             //保存
             bean.setNote(note);
             NoteDao.saveOrUpdate(bean);
-            ToastUtils.showToast("保存成功");
+            ToastUtils.showNorToast("备注保存成功");
         }
     }
 

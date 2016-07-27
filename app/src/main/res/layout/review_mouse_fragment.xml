@@ -692,10 +692,6 @@
                     style="@style/describ_title"
                     android:text="外环境鼠迹类型"/>
 
-                <TextView
-                    style="@style/describ_title"
-                    android:text="鼠迹类型"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

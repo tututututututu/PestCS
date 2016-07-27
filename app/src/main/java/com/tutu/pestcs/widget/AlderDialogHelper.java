@@ -17,4 +17,19 @@ public class AlderDialogHelper {
                 .setNegativeButton("取消", cancleLister)
                 .setPositiveButton("确定", okLister).setCancelable(false).create().show();
     }
+
+    public static void showTipsAlertDialot(Context contex, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(contex);
+        builder.setTitle("警告")
+                .setCancelable(false)
+                .setMessage(msg)
+                .setPositiveButton("去修正", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create().show();
+
+    }
 }

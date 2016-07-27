@@ -19,6 +19,7 @@ import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
@@ -146,6 +147,8 @@ public class FliesFragment extends BaseFragment {
     @Override
     public void initView() {
         tbase.setChildEnable(tbase, false);
+
+
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
         if (unitycode == null) {
             ToastUtils.showToast("非法记录查询");
@@ -310,7 +313,9 @@ public class FliesFragment extends BaseFragment {
         formatData();
         if (verifyInput()) {
             YingDao.saveOrUpdate(yingBean);
-            ToastUtils.showToast("蝇数据保存成功");
+            ToastUtils.showNorToast("蝇数据保存成功");
+        } else {
+            AlderDialogHelper.showTipsAlertDialot(getActivity(),"蝇界面有数据输入错误,请点击修改按钮修改数据重新保存!!");
         }
 
     }
@@ -395,89 +400,89 @@ public class FliesFragment extends BaseFragment {
 
 
         if (yangxingfangshu > jianchafangshu) {
-            ToastUtils.showToast("<阳性房间数填写>不合法");
+            ToastUtils.showNorToast("<阳性房间数填写>不合法");
             return false;
         }
 
         if (buhegechangsuoshu > jianchachangsuoshu) {
-            ToastUtils.showToast("<不合格场所数填写>不合法");
+            ToastUtils.showNorToast("<不合格场所数填写>不合法");
             return false;
         }
 
         if (qizhongyouyingchangsuo > scxszjrkspdcs) {
-            ToastUtils.showToast("<其中:有蝇场所数填写>不合法");
+            ToastUtils.showNorToast("<其中:有蝇场所数填写>不合法");
             return false;
         }
 
         if (fangzhibuzhengqueshu > shineimieyingdeng) {
-            ToastUtils.showToast("<灭蝇灯放置不正确数填写>不合法");
+            ToastUtils.showNorToast("<灭蝇灯放置不正确数填写>不合法");
             return false;
         }
 
         if (shiwailajiyangxing > shiwailajirongqi) {
-            ToastUtils.showToast("<室外垃圾容器数填写>不合法");
+            ToastUtils.showNorToast("<室外垃圾容器数填写>不合法");
             return false;
         }
 
         if (gonggongcesuoyangxing > gonggongcesuo) {
-            ToastUtils.showToast("<公共厕所数填写>不合法");
+            ToastUtils.showNorToast("<公共厕所数填写>不合法");
             return false;
         }
 
         if (lajizhongzhuanzhanyangxing > lajizhongzhuanzhan) {
-            ToastUtils.showToast("<垃圾中转站数填写>不合法");
+            ToastUtils.showNorToast("<垃圾中转站数填写>不合法");
             return false;
         }
 
         if (sanzaizishendiyangxing > sanzaizishendi) {
-            ToastUtils.showToast("<散在孳生地数填写>不合法");
+            ToastUtils.showNorToast("<散在孳生地数填写>不合法");
             return false;
         }
 
         if (shineiyingleizishengdi < yangxing) {
-            ToastUtils.showToast("<室内蝇类孳生地数填写>不合法");
+            ToastUtils.showNorToast("<室内蝇类孳生地数填写>不合法");
             return false;
         }
 
         if (yangxingfangshu > 0 && chengyingzshu < 1) {
-            ToastUtils.showToast("<室内成蝇总数填写>不合法");
+            ToastUtils.showNorToast("<室内成蝇总数填写>不合法");
             return false;
         }
 
         if (buhegechangsuoshu > 0 && shiwairumenkou + tongshiwaichuangkou + chufangmen + shushijian
                 + zhijierukoushipinchugui + liangcaijian + zhijierukoushipintandian + qita < 1) {
-            ToastUtils.showToast("<防蝇设施不合格部位填写>不合法");
+            ToastUtils.showNorToast("<防蝇设施不合格部位填写>不合法");
             return false;
         }
 
 
         if (sanzaizishendi > 0 && jianchalujing < 1) {
-            ToastUtils.showToast("<检查路径填写>不合法");
+            ToastUtils.showNorToast("<检查路径填写>不合法");
             return false;
         }
 
 
         if (yangxingfangshu > 0 && chengyingzshu < yangxingfangshu) {
-            ToastUtils.showToast("成蝇总数填写不合法");
+            ToastUtils.showNorToast("成蝇总数填写不合法");
             return false;
         }
 
         if (buhegechangsuoshu > 0 && (shiwairumenkou + tongshiwaichuangkou
                 + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
                 + zhijierukoushipintandian + qita) < buhegechangsuoshu) {
-            ToastUtils.showToast("不合格部位总数应等于或大于不合格场所数");
+            ToastUtils.showNorToast("不合格部位总数应等于或大于不合格场所数");
             return false;
         }
 
         if (buhegechangsuoshu == 0 && (shiwairumenkou + tongshiwaichuangkou
                 + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
                 + zhijierukoushipintandian + qita) > 0) {
-            ToastUtils.showToast("不合格场所数填写不正确");
+            ToastUtils.showNorToast("不合格场所数填写不正确");
             return false;
         }
 
         if (yangxingfangshu == 0 && chengyingzshu > 0) {
-            ToastUtils.showToast("成蝇总数填写不正确");
+            ToastUtils.showNorToast("成蝇总数填写不正确");
             return false;
         }
 

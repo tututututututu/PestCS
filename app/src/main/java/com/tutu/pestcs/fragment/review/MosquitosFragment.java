@@ -22,6 +22,7 @@ import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
@@ -167,6 +168,8 @@ public class MosquitosFragment extends BaseFragment {
     @Override
     public void initView() {
         tbase.setChildEnable(tbase, false);
+
+
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
         if (unitycode == null) {
             ToastUtils.showToast("非法记录查询");
@@ -471,7 +474,9 @@ public class MosquitosFragment extends BaseFragment {
         formatData();
         if (verifyInput()) {
             WenDao.saveOrUpdate(bean);
-            ToastUtils.showToast("蚊数据保存成功");
+            ToastUtils.showNorToast("蚊数据保存成功");
+        } else {
+            AlderDialogHelper.showTipsAlertDialot(getActivity(),"蚊界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
         }
 
     }
@@ -548,79 +553,79 @@ public class MosquitosFragment extends BaseFragment {
 
 
         if (Chajianxiaoxingjishuiyangxing > Chanjianxiaoxingjishui) {
-            ToastUtils.showToast("<查见小型积水数填写>不合法");
+            ToastUtils.showNorToast("<查见小型积水数填写>不合法");
             return false;
         }
 
         if (Rongqijishuiyangxing > rongqijishui) {
-            ToastUtils.showToast("<容器积水数填写>不合法");
+            ToastUtils.showNorToast("<容器积水数填写>不合法");
             return false;
         }
 
         if (Kengwajishuiyangxing > kengwajishui) {
-            ToastUtils.showToast("<坑洼积水数填写>不合法");
+            ToastUtils.showNorToast("<坑洼积水数填写>不合法");
             return false;
         }
 
         if (Jingguanchiyangxing > Jingguanchi) {
-            ToastUtils.showToast("<景观池数填写>不合法");
+            ToastUtils.showNorToast("<景观池数填写>不合法");
             return false;
         }
 
         if (Paishuijinkoujishuiyangxing > Paishuijinkoujishui) {
-            ToastUtils.showToast("<排水井口积水数填写>不合法");
+            ToastUtils.showNorToast("<排水井口积水数填写>不合法");
             return false;
         }
 
         if (Dixiashijishuiyangxing > Dixiashijishui) {
-            ToastUtils.showToast("<地下室积水数填写>不合法");
+            ToastUtils.showNorToast("<地下室积水数填写>不合法");
             return false;
         }
 
         if (Gouqujishuiyangxing>Gouqujishui){
-            ToastUtils.showToast("沟渠积水数填写 不合法");
+            ToastUtils.showNorToast("沟渠积水数填写 不合法");
         }
 
         if (Luntaijishuiyangxing > Luntaijishui) {
-            ToastUtils.showToast("<轮胎积水数填写>不合法");
+            ToastUtils.showNorToast("<轮胎积水数填写>不合法");
             return false;
         }
 
         if (Qitayangxing > Qita) {
-            ToastUtils.showToast("<其他填写>不合法");
+            ToastUtils.showNorToast("<其他填写>不合法");
             return false;
         }
 
         if (Yangxinggong > Caiyanggong) {
-            ToastUtils.showToast("<大中型水体采样数填写>不合法");
+            ToastUtils.showNorToast("<大中型水体采样数填写>不合法");
             return false;
         }
 
         if (Jianchalujing < 1 && chajianmiewendeng > 0) {
-            ToastUtils.showToast("<检查路径填写>不合法");
+            ToastUtils.showNorToast("<检查路径填写>不合法");
             return false;
         }
 
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
                 Chanjianxiaoxingjishui+Gouqujishui) {
-            ToastUtils.showToast("<查见小型积水填写>不合法");
+            ToastUtils.showNorToast("<查见小型积水填写>不合法");
             return false;
         }
 
 
         if (Yangxinggong > 0 && Wenyouchongheyonggong < Yangxinggong) {
-            ToastUtils.showToast("<文幼虫和蛹填写>不合法");
+            ToastUtils.showNorToast("<文幼虫和蛹填写>不合法");
             return false;
         }
 
 
         if (Wenchongtingluocishu > 0 && Youwenrenci == 0) {
-            ToastUtils.showToast("<诱蚊人次填写>不合法");
+            ToastUtils.showNorToast("<诱蚊人次填写>不合法");
             return false;
         }
 
         if (Jianchalujing == 0 && Chanjianxiaoxingjishui > 0) {
-            ToastUtils.showToast("<检查路径填写>不合法");
+            ToastUtils.showNorToast("<检查路径填写>不合法");
             return false;
         }
 
