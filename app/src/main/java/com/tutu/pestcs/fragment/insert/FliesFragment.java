@@ -233,6 +233,7 @@ public class FliesFragment extends BaseFragment {
     }
 
     private boolean saveDada() {
+
         if (((InsertActivity) getActivity()).canSave()) {
             formatData();
             if (verifyInput()) {

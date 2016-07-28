@@ -19,7 +19,6 @@ import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
-import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
@@ -95,7 +94,7 @@ public class CockFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        tbase.setChildEnable(tbase, false);
+        //tbase.setChildEnable(tbase, false);
 
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
         if (unitycode == null) {
@@ -163,12 +162,13 @@ public class CockFragment extends BaseFragment {
                 subscribe(new Action1<ModifyModeEvent>() {
                     @Override
                     public void call(ModifyModeEvent Event) {
-                        if (Event.isEditable()) {
-                            tbase.setChildEnable(tbase, true);
-                        } else {
-                            tbase.setChildEnable(tbase, false);
-                            onSave();
-                        }
+//                        if (Event.isEditable()) {
+//                            tbase.setChildEnable(tbase, true);
+//                        } else {
+//                            tbase.setChildEnable(tbase, false);
+//                            onSave();
+//                        }
+                        onSave();
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -195,13 +195,16 @@ public class CockFragment extends BaseFragment {
 
 
     private void onSave() {
-
         formatData();
+        if (bean.getCheckRoom() < 1){
+            return;
+        }
+
         if (verifyInput()) {
             ZhangDao.saveOrUpdate(bean);
-            ToastUtils.showNorToast("蟑螂数据保存成功");
+            ToastUtils.showToast("蟑螂数据保存成功");
         } else {
-            AlderDialogHelper.showTipsAlertDialot(getActivity(),"蟑螂界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
+            //AlderDialogHelper.showTipsAlertDialot(getActivity(),"蟑螂界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
         }
 
     }

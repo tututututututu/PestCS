@@ -69,12 +69,13 @@
                     android:text="单位类型:"/>
 
                 <TextView
-                    android:enabled="false"
                     android:id="@+id/et_unit_type"
                     style="@style/et_style"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical"
                     android:hint="请填写"
+                    android:enabled="true"
+                    android:editable="false"
                     android:minWidth="100dp"
                     />
 
@@ -86,7 +87,7 @@
                     android:text="是否是重点单位"/>
 
                 <CheckBox
-                    android:enabled="false"
+                    android:enabled="true"
                     android:id="@+id/cb_zhongdian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,7 +109,7 @@
                     android:text="单位名称/检查地点"/>
 
                 <EditText
-                    android:enabled="false"
+                    android:enabled="true"
                     android:id="@+id/et_address"
                     style="@style/et_style"
                     android:hint="请填写"
@@ -145,7 +146,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_selector"
-                android:text="修改"
+                android:text="保存"
                 android:textColor="@color/white"/>
 
             <Button

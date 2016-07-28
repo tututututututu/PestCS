@@ -19,7 +19,6 @@ import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ShuDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
-import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
@@ -165,7 +164,7 @@ public class MouseFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        tbase.setChildEnable(tbase, false);
+        //tbase.setChildEnable(tbase, false);
 
 
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
@@ -207,12 +206,13 @@ public class MouseFragment extends BaseFragment {
                 subscribe(new Action1<ModifyModeEvent>() {
                     @Override
                     public void call(ModifyModeEvent Event) {
-                        if (Event.isEditable()) {
-                            tbase.setChildEnable(tbase, true);
-                        } else {
-                            tbase.setChildEnable(tbase, false);
-                            onSave();
-                        }
+//                        if (Event.isEditable()) {
+//                            tbase.setChildEnable(tbase, true);
+//                        } else {
+//                            tbase.setChildEnable(tbase, false);
+//                            onSave();
+//                        }
+                        onSave();
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -262,14 +262,18 @@ public class MouseFragment extends BaseFragment {
     }
 
     private void onSave() {
-
         formatData();
+        if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
+            return ;
+        }
+
+
         if (verifyInput()) {
             //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
             ShuDao.saveOrUpdate(shuBean);
-            ToastUtils.showNorToast("鼠数据保存成功");
+            ToastUtils.showToast("鼠数据保存成功");
         } else {
-            AlderDialogHelper.showTipsAlertDialot(getActivity(),"鼠界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
+            //AlderDialogHelper.showTipsAlertDialot(getActivity(),"鼠界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
         }
 
 

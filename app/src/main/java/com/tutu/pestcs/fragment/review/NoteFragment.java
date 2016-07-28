@@ -51,7 +51,7 @@ public class NoteFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        tbase.setChildEnable(tbase, false);
+        //tbase.setChildEnable(tbase, false);
 
 
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
@@ -93,12 +93,13 @@ public class NoteFragment extends BaseFragment {
                 subscribe(new Action1<ModifyModeEvent>() {
                     @Override
                     public void call(ModifyModeEvent Event) {
-                        if (Event.isEditable()) {
-                            tbase.setChildEnable(tbase, true);
-                        } else {
-                            tbase.setChildEnable(tbase, false);
-                            onSave();
-                        }
+//                        if (Event.isEditable()) {
+//                            tbase.setChildEnable(tbase, true);
+//                        } else {
+//                            tbase.setChildEnable(tbase, false);
+//                            onSave();
+//                        }
+                        onSave();
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -122,7 +123,7 @@ public class NoteFragment extends BaseFragment {
             //保存
             bean.setNote(note);
             NoteDao.saveOrUpdate(bean);
-            ToastUtils.showNorToast("备注保存成功");
+            ToastUtils.showToast("备注保存成功");
         }
     }
 

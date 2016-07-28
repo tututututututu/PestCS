@@ -95,7 +95,7 @@ public class AddTask extends BaseActivity {
         etNumber.setText(task.getExpertCode());
         etGroupNumber.setText(task.getGroups() + "");
         etCheakerName.setText(task.getExpertName());
-        etPopulation.setText(task.getPopulation());
+        etPopulation.setText(task.getPopulation()+"");
         etCity.setText(task.getCityName());
         etCityCode.setText(task.getAreaCode());
         cbShu.setChecked(task.isShu());

@@ -19,7 +19,6 @@ import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
-import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
@@ -146,7 +145,7 @@ public class FliesFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        tbase.setChildEnable(tbase, false);
+        //tbase.setChildEnable(tbase, false);
 
 
         unitycode = getArguments().getString(ActivityJumpParams.UNITYCODE);
@@ -233,13 +232,14 @@ public class FliesFragment extends BaseFragment {
                 subscribe(new Action1<ModifyModeEvent>() {
                     @Override
                     public void call(ModifyModeEvent Event) {
-                        if (Event.isEditable()) {
-                            tbase.setChildEnable(tbase, true);
-                            registWacher();
-                        } else {
-                            tbase.setChildEnable(tbase, false);
-                            onSave();
-                        }
+//                        if (Event.isEditable()) {
+//                            tbase.setChildEnable(tbase, true);
+//                            registWacher();
+//                        } else {
+//                            tbase.setChildEnable(tbase, false);
+//                            onSave();
+//                        }
+                        onSave();
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -309,13 +309,19 @@ public class FliesFragment extends BaseFragment {
 
 
     private void onSave() {
-
         formatData();
+        if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
+                && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
+                && yingBean.getLaJiStation() < 1 && yingBean.getCheckDistance() < 1) {
+            return;
+        }
+
+
         if (verifyInput()) {
             YingDao.saveOrUpdate(yingBean);
-            ToastUtils.showNorToast("蝇数据保存成功");
+            ToastUtils.showToast("蝇数据保存成功");
         } else {
-            AlderDialogHelper.showTipsAlertDialot(getActivity(),"蝇界面有数据输入错误,请点击修改按钮修改数据重新保存!!");
+           // AlderDialogHelper.showTipsAlertDialot(getActivity(),"蝇界面有数据输入错误,请点击修改按钮修改数据重新保存!!");
         }
 
     }

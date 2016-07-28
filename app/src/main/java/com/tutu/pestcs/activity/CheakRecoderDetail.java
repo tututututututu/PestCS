@@ -24,9 +24,11 @@ import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.adapter.ReviewFragmentAdapter;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.CheakInsertBean;
+import com.tutu.pestcs.bean.ExtendSortUnitBean;
 import com.tutu.pestcs.bean.PhotoBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
+import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.db.NoteDao;
 import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.db.ShuDao;
@@ -37,6 +39,7 @@ import com.tutu.pestcs.event.ModifyModeEvent;
 import com.tutu.pestcs.event.PhotoChangeEvent;
 import com.tutu.pestcs.event.RecodeDeleteEvent;
 import com.tutu.pestcs.widget.ToastUtils;
+import com.tutu.pestcs.widget.UnitTypeDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +89,8 @@ public class CheakRecoderDetail extends BaseActivity {
     private boolean editeable = false;
 
     private List<PhotoBean> photosNameList = new ArrayList<>();
+
+    private ExtendSortUnitBean extendSortUnitBean = new ExtendSortUnitBean();
 
 
     @Override
@@ -248,20 +253,26 @@ public class CheakRecoderDetail extends BaseActivity {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.et_unit_type:
+                showUnitTypeDialog();
                 break;
             case R.id.btn_save:
-                editeable = !editeable;
-                if (editeable) {
-                    btnSave.setText("保存");
-                    etAddress.setEnabled(true);
-                    cbZhongdian.setEnabled(true);
-                    RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
-                } else {
-                    btnSave.setText("修改");
-                    etAddress.setEnabled(false);
-                    cbZhongdian.setEnabled(false);
-                    saveHeadData();//保存头部一些数据
-                }
+//                editeable = !editeable;
+//                if (editeable) {
+//                    btnSave.setText("保存");
+//                    etUnitType.setEnabled(true);
+//                    etAddress.setEnabled(true);
+//                    cbZhongdian.setEnabled(true);
+//                    RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
+//                } else {
+//                    etUnitType.setEnabled(false);
+//                    btnSave.setText("修改");
+//                    etAddress.setEnabled(false);
+//                    cbZhongdian.setEnabled(false);
+//                    saveHeadData();//保存头部一些数据
+//                }
+
+                RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
+                saveHeadData();
 
                 break;
             case R.id.btn_exit:
@@ -277,9 +288,28 @@ public class CheakRecoderDetail extends BaseActivity {
         }
     }
 
+
+    private void showUnitTypeDialog() {
+        UnitTypeDialog.getInstace(this, new UnitTypeDialog.onDialogClick() {
+            @Override
+            public void onCofirm(String cheakIndex, String cheakString) {
+                etUnitType.setText(cheakString);
+                extendSortUnitBean = ExtendUnitDao.queryByUnitID(cheakIndex);
+                cbZhongdian.setChecked(extendSortUnitBean.iskeyClass());
+                cheakInsertBean.setUnitClassID(cheakIndex);
+            }
+
+            @Override
+            public void onCancle() {
+
+            }
+        }, false).show();
+    }
+
+
     private void saveHeadData() {
         String address = etAddress.getText().toString().trim();
-        if (TextUtils.isEmpty(address)){
+        if (TextUtils.isEmpty(address)) {
             ToastUtils.showToast("单位或地址不能为空");
             return;
         }
