@@ -17,7 +17,9 @@ import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
+import com.tutu.pestcs.activity.CheakRecoderDetail;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.WenDao;
@@ -184,12 +186,12 @@ public class MosquitosFragment extends BaseFragment {
         }, new Completion<WenBean>() {
             @Override
             public void onSuccess(Context context, WenBean result) {
+                addTextChangeListener();
                 if (result == null) {
                     return;
                 }
                 bean = result;
                 updateVisiableView(bean.getUniType());
-                addTextChangeListener();
                 initReviewData();
             }
 
@@ -479,7 +481,7 @@ public class MosquitosFragment extends BaseFragment {
 
         if (verifyInput()) {
             WenDao.saveOrUpdate(bean);
-            ToastUtils.showToast("蚊数据保存成功");
+            ToastUtils.showOKToast("蚊数据保存成功");
         } else {
             //AlderDialogHelper.showTipsAlertDialot(getActivity(),"蚊界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
         }
@@ -546,91 +548,96 @@ public class MosquitosFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
-        if (TextUtils.isEmpty(bean.getUnitCode())) {
-            return false;
-        }
-
-
         if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
                 ) {
             return false;
         }
 
+        if (TextUtils.isEmpty(bean.getUnitCode())) {
+            CheakInsertBean cheakInsertBean = ((CheakRecoderDetail) getActivity()).getCheakInsertBean();
+            bean.setUnitCode(cheakInsertBean.getUnitCode());
+            bean.setUniType(cheakInsertBean.getUnitClassID());
+            bean.setTaskCode(cheakInsertBean.getTaskCode());
+            bean.setAreaCode(cheakInsertBean.getAreaCode());
+            bean.setKeyUnit(cheakInsertBean.isKeyUnit());
+            bean.setExpertCode(cheakInsertBean.getExpertCode());
+        }
+
 
         if (Chajianxiaoxingjishuiyangxing > Chanjianxiaoxingjishui) {
-            ToastUtils.showNorToast("<查见小型积水数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <查见小型积水数填写>不合法");
             return false;
         }
 
         if (Rongqijishuiyangxing > rongqijishui) {
-            ToastUtils.showNorToast("<容器积水数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <容器积水数填写>不合法");
             return false;
         }
 
         if (Kengwajishuiyangxing > kengwajishui) {
-            ToastUtils.showNorToast("<坑洼积水数填写>不合法");
+            ToastUtils.showErrorToast("<坑洼积水数填写>不合法");
             return false;
         }
 
         if (Jingguanchiyangxing > Jingguanchi) {
-            ToastUtils.showNorToast("<景观池数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <景观池数填写>不合法");
             return false;
         }
 
         if (Paishuijinkoujishuiyangxing > Paishuijinkoujishui) {
-            ToastUtils.showNorToast("<排水井口积水数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <排水井口积水数填写>不合法");
             return false;
         }
 
         if (Dixiashijishuiyangxing > Dixiashijishui) {
-            ToastUtils.showNorToast("<地下室积水数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <地下室积水数填写>不合法");
             return false;
         }
 
         if (Gouqujishuiyangxing>Gouqujishui){
-            ToastUtils.showNorToast("沟渠积水数填写 不合法");
+            ToastUtils.showErrorToast("蚊 沟渠积水数填写 不合法");
         }
 
         if (Luntaijishuiyangxing > Luntaijishui) {
-            ToastUtils.showNorToast("<轮胎积水数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <轮胎积水数填写>不合法");
             return false;
         }
 
         if (Qitayangxing > Qita) {
-            ToastUtils.showNorToast("<其他填写>不合法");
+            ToastUtils.showErrorToast("蚊 <其他填写>不合法");
             return false;
         }
 
         if (Yangxinggong > Caiyanggong) {
-            ToastUtils.showNorToast("<大中型水体采样数填写>不合法");
+            ToastUtils.showErrorToast("蚊 <大中型水体采样数填写>不合法");
             return false;
         }
 
         if (Jianchalujing < 1 && chajianmiewendeng > 0) {
-            ToastUtils.showNorToast("<检查路径填写>不合法");
+            ToastUtils.showErrorToast("蚊 <检查路径填写>不合法");
             return false;
         }
 
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
                 Chanjianxiaoxingjishui+Gouqujishui) {
-            ToastUtils.showNorToast("<查见小型积水填写>不合法");
+            ToastUtils.showErrorToast("蚊 <查见小型积水填写>不合法");
             return false;
         }
 
 
         if (Yangxinggong > 0 && Wenyouchongheyonggong < Yangxinggong) {
-            ToastUtils.showNorToast("<文幼虫和蛹填写>不合法");
+            ToastUtils.showErrorToast("蚊 <文幼虫和蛹填写>不合法");
             return false;
         }
 
 
         if (Wenchongtingluocishu > 0 && Youwenrenci == 0) {
-            ToastUtils.showNorToast("<诱蚊人次填写>不合法");
+            ToastUtils.showErrorToast("蚊 <诱蚊人次填写>不合法");
             return false;
         }
 
         if (Jianchalujing == 0 && Chanjianxiaoxingjishui > 0) {
-            ToastUtils.showNorToast("<检查路径填写>不合法");
+            ToastUtils.showErrorToast("蚊 <检查路径填写>不合法");
             return false;
         }
 

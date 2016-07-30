@@ -253,6 +253,10 @@ public class CheakRecoderDetail extends BaseActivity {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.et_unit_type:
+                if ("17".equals(cheakInsertBean.getUnitClassID())) {
+                    ToastUtils.showToast("大中型水体单位类型不能修改");
+                    return;
+                }
                 showUnitTypeDialog();
                 break;
             case R.id.btn_save:
@@ -283,7 +287,7 @@ public class CheakRecoderDetail extends BaseActivity {
                 toPhotoActivity();
                 break;
             case R.id.ll_back:
-                finish();
+                showCancel();
                 break;
         }
     }
@@ -293,6 +297,11 @@ public class CheakRecoderDetail extends BaseActivity {
         UnitTypeDialog.getInstace(this, new UnitTypeDialog.onDialogClick() {
             @Override
             public void onCofirm(String cheakIndex, String cheakString) {
+                if (cheakIndex.equals("17")){
+                    ToastUtils.showErrorToast("大中型水体类型不能切换为其它类型");
+                    return;
+                }
+
                 etUnitType.setText(cheakString);
                 extendSortUnitBean = ExtendUnitDao.queryByUnitID(cheakIndex);
                 cbZhongdian.setChecked(extendSortUnitBean.iskeyClass());
@@ -386,6 +395,32 @@ public class CheakRecoderDetail extends BaseActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        showCancel();
+    }
+
+    private void showCancel() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示")
+                .setMessage("是否保存修改?")
+                .setNegativeButton("不保存", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                }).setPositiveButton("保存", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
+                saveHeadData();
+                finish();
+            }
+        });
+        builder.create().show();
+    }
+
     private void toPhotoActivity() {
         if (photosNameList == null || photosNameList.size() == 0) {
             ToastUtils.showToast("可能没有照片");
@@ -406,5 +441,9 @@ public class CheakRecoderDetail extends BaseActivity {
             return true;
         }
         return false;
+    }
+
+    public CheakInsertBean getCheakInsertBean() {
+        return cheakInsertBean;
     }
 }

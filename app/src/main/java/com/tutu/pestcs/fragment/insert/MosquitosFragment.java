@@ -375,11 +375,11 @@ public class MosquitosFragment extends BaseFragment {
             formatData();
             if (verifyInput()) {
                 WenDao.saveOrUpdate(bean);
-                ToastUtils.showToast("保存成功");
+                ToastUtils.showOKToast("保存成功");
                 return true;
             }
         } else {
-            ToastUtils.showToast("请填写检查单位名称或地点");
+            ToastUtils.showErrorToast("请填写检查单位名称或地点");
         }
         return false;
     }
@@ -454,85 +454,85 @@ public class MosquitosFragment extends BaseFragment {
 
         if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
                 ) {
-            ToastUtils.showToast("录入数据未达到保存条件");
+            ToastUtils.showWarningToast("录入数据未达到保存条件");
             return false;
         }
 
 
         if (Chajianxiaoxingjishuiyangxing > Chanjianxiaoxingjishui) {
-            ToastUtils.showToast("<查见小型积水数填写>不合法");
+            ToastUtils.showWarningToast("<查见小型积水数填写>不合法");
             return false;
         }
 
         if (Rongqijishuiyangxing > rongqijishui) {
-            ToastUtils.showToast("<容器积水数填写>不合法");
+            ToastUtils.showWarningToast("<容器积水数填写>不合法");
             return false;
         }
 
         if (Kengwajishuiyangxing > kengwajishui) {
-            ToastUtils.showToast("<坑洼积水数填写>不合法");
+            ToastUtils.showWarningToast("<坑洼积水数填写>不合法");
             return false;
         }
 
         if (Jingguanchiyangxing > Jingguanchi) {
-            ToastUtils.showToast("<景观池数填写>不合法");
+            ToastUtils.showWarningToast("<景观池数填写>不合法");
             return false;
         }
 
         if (Paishuijinkoujishuiyangxing > Paishuijinkoujishui) {
-            ToastUtils.showToast("<排水井口积水数填写>不合法");
+            ToastUtils.showWarningToast("<排水井口积水数填写>不合法");
             return false;
         }
 
         if (Dixiashijishuiyangxing > Dixiashijishui) {
-            ToastUtils.showToast("<地下室积水数填写>不合法");
+            ToastUtils.showWarningToast("<地下室积水数填写>不合法");
             return false;
         }
 
         if (Gouqujishuiyangxing>Gouqujishui){
-            ToastUtils.showToast("沟渠积水数填写 不合法");
+            ToastUtils.showWarningToast("沟渠积水数填写 不合法");
         }
 
         if (Luntaijishuiyangxing > Luntaijishui) {
-            ToastUtils.showToast("<轮胎积水数填写>不合法");
+            ToastUtils.showWarningToast("<轮胎积水数填写>不合法");
             return false;
         }
 
         if (Qitayangxing > Qita) {
-            ToastUtils.showToast("<其他填写>不合法");
+            ToastUtils.showWarningToast("<其他填写>不合法");
             return false;
         }
 
         if (Yangxinggong > Caiyanggong) {
-            ToastUtils.showToast("<大中型水体采样数填写>不合法");
+            ToastUtils.showWarningToast("<大中型水体采样数填写>不合法");
             return false;
         }
 
         if (Jianchalujing < 1 && chajianmiewendeng > 0) {
-            ToastUtils.showToast("<检查路径填写>不合法");
+            ToastUtils.showWarningToast("<检查路径填写>不合法");
             return false;
         }
 
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
                 Chanjianxiaoxingjishui+Gouqujishui) {
-            ToastUtils.showToast("<查见小型积水填写>不合法");
+            ToastUtils.showWarningToast("<查见小型积水填写>不合法");
             return false;
         }
 
 
         if (Yangxinggong > 0 && Wenyouchongheyonggong < Yangxinggong) {
-            ToastUtils.showToast("<文幼虫和蛹填写>不合法");
+            ToastUtils.showWarningToast("<文幼虫和蛹填写>不合法");
             return false;
         }
 
 
         if (Wenchongtingluocishu > 0 && Youwenrenci == 0) {
-            ToastUtils.showToast("<诱蚊人次填写>不合法");
+            ToastUtils.showWarningToast("<诱蚊人次填写>不合法");
             return false;
         }
 
         if (Jianchalujing == 0 && Chanjianxiaoxingjishui > 0) {
-            ToastUtils.showToast("<检查路径填写>不合法");
+            ToastUtils.showWarningToast("<检查路径填写>不合法");
             return false;
         }
 

@@ -156,11 +156,11 @@ public class CockFragment extends BaseFragment {
             formatData();
             if (verifyInput()) {
                 ZhangDao.saveOrUpdate(bean);
-                ToastUtils.showToast("保存成功");
+                ToastUtils.showOKToast("保存成功");
                 return true;
             }
         } else {
-            ToastUtils.showToast("请填写检查单位名称或地点");
+            ToastUtils.showErrorToast("请填写检查单位名称或地点");
         }
         return false;
     }
@@ -227,65 +227,65 @@ public class CockFragment extends BaseFragment {
         }
 
         if (bean.getCheckRoom() < 1) {
-            ToastUtils.showToast("录入数据未达到保存条件");
+            ToastUtils.showWarningToast("录入数据未达到保存条件");
             return false;
         }
 
 
         if (chengchongyangxingfangjianshu > jianchafangshu) {
-            ToastUtils.showToast("<检查房间数填写>不合法");
+            ToastUtils.showWarningToast("<检查房间数填写>不合法");
             return false;
         }
 
         if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) != 0) {
-            ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
+            ToastUtils.showWarningToast("<蟑迹阳性房间数填写>不合法");
             return false;
         }
 
         if (zhangjiyangxingfangjianshu>0&&(chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <zhangjiyangxingfangjianshu)
         {
-            ToastUtils.showToast("<蟑迹阳性房间数填写>不合法");
+            ToastUtils.showWarningToast("<蟑迹阳性房间数填写>不合法");
             return false;
         }
 
         if (chengchongyangxingfangjianshu > 0 && dalian + xiaolian < 1) {
-            ToastUtils.showToast("<成若虫阳性间数填写>不合法");
+            ToastUtils.showWarningToast("<成若虫阳性间数填写>不合法");
             return false;
         }
 
         if (chengchongyangxingfangjianshu == 0 && (dalian + xiaolian) > 0) {
-            ToastUtils.showToast("<成若虫阳性间数填写>不合法");
+            ToastUtils.showWarningToast("<成若虫阳性间数填写>不合法");
             return false;
         }
 
         if (chengchongyangxingfangjianshu > 0 && ((dalian + xiaolian) < chengchongyangxingfangjianshu)) {
-            ToastUtils.showToast("<成若虫阳性间数填写>不合法");
+            ToastUtils.showWarningToast("<成若虫阳性间数填写>不合法");
             return false;
         }
 
         if (luanqiaoxiangxingfangjianshu > jianchafangshu) {
-            ToastUtils.showToast("<检查房间数填写>不合法");
+            ToastUtils.showWarningToast("<检查房间数填写>不合法");
             return false;
         }
 
         if (zhangjiyangxingfangjianshu > jianchafangshu) {
-            ToastUtils.showToast("<检查房间数填写>不合法");
+            ToastUtils.showWarningToast("<检查房间数填写>不合法");
             return false;
         }
 
 
         if (luanqiaoxiangxingfangjianshu == 0 && chahuoluanqiaoshu > 0) {
-            ToastUtils.showToast("<查获卵鞘数填写>不合法");
+            ToastUtils.showWarningToast("<查获卵鞘数填写>不合法");
             return false;
         }
 
         if (luanqiaoxiangxingfangjianshu > 0 && chahuoluanqiaoshu < luanqiaoxiangxingfangjianshu) {
-            ToastUtils.showToast("<查获卵鞘数填写>不合法");
+            ToastUtils.showWarningToast("<查获卵鞘数填写>不合法");
             return false;
         }
 
         if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + kongluanqiaoke + zhanglangfenbian + tuipi) > 0) {
-            ToastUtils.showToast("<蟑螂阳性房间数填写>不合法");
+            ToastUtils.showWarningToast("<蟑螂阳性房间数填写>不合法");
             return false;
         }
 

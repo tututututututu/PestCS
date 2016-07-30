@@ -3,6 +3,7 @@ package com.tutu.pestcs.widget;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.github.pierry.simpletoast.SimpleToast;
 import com.tutu.pestcs.app.TApplication;
 
 /**
@@ -33,20 +34,23 @@ public class ToastUtils {
         }
     }
 
-    public static void showNorToast(String msg){
-        //Toast.makeText(TApplication.getInstance(),msg,Toast.LENGTH_SHORT).show();
-//        SuperActivityToast.create(activity, new Style(), Style.TYPE_PROGRESS_BAR)
-//                //.setButtonText("UNDO")
-//                //.setButtonIconResource(R.drawable.ic_undo)
-//                //.setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-//                //.setProgressBarColor(Color.WHITE)
-//                .setText(msg)
-//                .setDuration(Style.DURATION_LONG)
-//                .setFrame(Style.FRAME_LOLLIPOP)
-//                .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_PURPLE))
-//                .setAnimations(Style.ANIMATIONS_FLY).show();
-        SuperCustomToast stoast = SuperCustomToast.getInstance(TApplication.getInstance());
-        //stoast.setDefaultBackgroundResource(TApplication.getInstance().getResources().getColor(R.color.colorPrimary));
-        stoast.showSameMsg(msg, 5000);
+    public static void showOKToast(String msg){
+        SimpleToast.ok(TApplication.getInstance(), msg);
     }
+
+    public static void showErrorToast(String msg){
+        SimpleToast.error(TApplication.getInstance(), msg);
+    }
+    public static void showInfoToast(String msg){
+        SimpleToast.info(TApplication.getInstance(), msg);
+    }
+
+    public static void showWarningToast(String msg){
+        SimpleToast.warning(TApplication.getInstance(), msg);
+    }
+
+    public static void showMutedToast(String msg){
+        SimpleToast.muted(TApplication.getInstance(), msg);
+    }
+
 }

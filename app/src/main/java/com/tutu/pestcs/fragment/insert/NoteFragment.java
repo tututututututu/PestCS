@@ -97,10 +97,10 @@ public class NoteFragment extends BaseFragment {
             if (((InsertActivity) getActivity()).canSave()) {
                 bean.setNote(note);
                 NoteDao.saveOrUpdate(bean);
-                ToastUtils.showToast("保存成功");
+                ToastUtils.showOKToast("保存成功");
                 return true;
             } else {
-                ToastUtils.showToast("请填写检查单位名称或地点");
+                ToastUtils.showErrorToast("请填写检查单位名称或地点");
             }
 
         }

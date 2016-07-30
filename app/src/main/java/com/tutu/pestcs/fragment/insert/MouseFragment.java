@@ -336,11 +336,11 @@ public class MouseFragment extends BaseFragment {
             if (verifyInput()) {
                 //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
                 ShuDao.saveOrUpdate(shuBean);
-                ToastUtils.showToast("保存成功");
+                ToastUtils.showOKToast("保存成功");
                 return true;
             }
         } else {
-            ToastUtils.showToast("请填写检查单位名称或地点");
+            ToastUtils.showErrorToast("请填写检查单位名称或地点");
         }
         return false;
     }
@@ -483,89 +483,89 @@ public class MouseFragment extends BaseFragment {
 
 
         if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
-            ToastUtils.showToast("录入数据未达到保存条件");
+            ToastUtils.showWarningToast("录入数据未达到保存条件");
             return false;
         }
 
         if (yangxing > 0 && (shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu) < yangxing) {
-            ToastUtils.showToast("<阳性房间数填写>不合法");
+            ToastUtils.showWarningToast("<阳性房间数填写>不合法");
             return false;
         }
 
 
         if (yangxing > jianchashu) {
-            ToastUtils.showToast("<阳性房间数填写>不合法");
+            ToastUtils.showWarningToast("<阳性房间数填写>不合法");
             return false;
         }
         if (sheshi_buhege > sheshi_rooms) {
-            ToastUtils.showToast("<不合格房间数填写>不合法");
+            ToastUtils.showWarningToast("<不合格房间数填写>不合法");
             return false;
         }
 
 
         if (shujiyangxing > jianchalujing) {
-            ToastUtils.showToast("<鼠迹阳性填写>不合法");
+            ToastUtils.showWarningToast("<鼠迹阳性填写>不合法");
             return false;
         }
 
         if (yangxing > 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu < 1) {
-            ToastUtils.showToast("鼠迹类型至少有一项大于0");
+            ToastUtils.showWarningToast("鼠迹类型至少有一项大于0");
             return false;
         }
 
         if (sheshi_buhege > 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou + paifengshan +
                 tongfengkou + dangshuban < 1) {
-            ToastUtils.showToast("防鼠设施不合格至少有一项大于0");
+            ToastUtils.showWarningToast("防鼠设施不合格至少有一项大于0");
             return false;
         }
 
         if (shujiyangxing > 0 && wai_shufen + wai_shudong + wai_shudao + wai_yaoheng + wai_daotu + wai_shushi
                 + wai_huoshu < 1) {
-            ToastUtils.showToast("外环境鼠迹至少有一项大于0");
+            ToastUtils.showWarningToast("外环境鼠迹至少有一项大于0");
             return false;
         }
 
         if (sheshi_buhege > 0 && (chushuikou + paishuigou + dilou + paifengshan
                 + chuanghu + menfeng + tongfengkou + kongdong + mumen + dangshuban) < sheshi_buhege) {
-            ToastUtils.showToast("防鼠设施不合格房间数填写不正确");
+            ToastUtils.showWarningToast("防鼠设施不合格房间数填写不正确");
             return false;
         }
 
         if (shujiyangxing > 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
                 + wai_daotu + wai_shushi + wai_huoshu) < shujiyangxing) {
-            ToastUtils.showToast("外鼠迹阳性数不正确");
+            ToastUtils.showWarningToast("外鼠迹阳性数不正确");
             return false;
         }
 
         if (mieshuzhan > 0 && wujinshipai > mieshuzhan) {
-            ToastUtils.showToast("无警示牌数不正确");
+            ToastUtils.showWarningToast("无警示牌数不正确");
             return false;
         }
 
         if (mieshuzhan > 0 && fangzhibuzhengque > mieshuzhan) {
-            ToastUtils.showToast("放置不规范数不正确");
+            ToastUtils.showWarningToast("放置不规范数不正确");
             return false;
         }
 
 
         if (mieshuzhan > 0 && wushuyao > mieshuzhan) {
-            ToastUtils.showToast("无鼠药数不正确");
+            ToastUtils.showWarningToast("无鼠药数不正确");
             return false;
         }
 
         if (mieshuzhan > 0 && shuyaowuxiao > mieshuzhan) {
-            ToastUtils.showToast("鼠药无效数不正确");
+            ToastUtils.showWarningToast("鼠药无效数不正确");
             return false;
         }
 
 
         if ((wushuyao + shuyaowuxiao) > mieshuzhan) {
-            ToastUtils.showToast("无鼠药+鼠药无效数填写不正确");
+            ToastUtils.showWarningToast("无鼠药+鼠药无效数填写不正确");
             return false;
         }
 
         if (yangxing == 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu > 0) {
-            ToastUtils.showToast("阳性房间数填写不正确");
+            ToastUtils.showWarningToast("阳性房间数填写不正确");
             return false;
         }
 
@@ -573,14 +573,14 @@ public class MouseFragment extends BaseFragment {
         if (sheshi_buhege == 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou +
                 paifengshan +
                 tongfengkou + dangshuban > 0) {
-            ToastUtils.showToast("防鼠设施不合格间数填写不正确");
+            ToastUtils.showWarningToast("防鼠设施不合格间数填写不正确");
             return false;
         }
 
 
         if (shujiyangxing == 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
                 + wai_daotu + wai_shushi + wai_huoshu) > 0) {
-            ToastUtils.showToast("外鼠迹阳性数不正确");
+            ToastUtils.showWarningToast("外鼠迹阳性数不正确");
             return false;
         }
 

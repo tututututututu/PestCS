@@ -14,7 +14,9 @@ import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
+import com.tutu.pestcs.activity.CheakRecoderDetail;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.YingDao;
@@ -163,11 +165,11 @@ public class FliesFragment extends BaseFragment {
         }, new Completion<YingBean>() {
             @Override
             public void onSuccess(Context context, YingBean result) {
+                addTextChangeListener();
                 if (result == null) {
                     return;
                 }
                 yingBean = result;
-                addTextChangeListener();
                 initReviewData();
             }
 
@@ -319,7 +321,7 @@ public class FliesFragment extends BaseFragment {
 
         if (verifyInput()) {
             YingDao.saveOrUpdate(yingBean);
-            ToastUtils.showToast("蝇数据保存成功");
+            ToastUtils.showOKToast("蝇数据保存成功");
         } else {
            // AlderDialogHelper.showTipsAlertDialot(getActivity(),"蝇界面有数据输入错误,请点击修改按钮修改数据重新保存!!");
         }
@@ -393,102 +395,107 @@ public class FliesFragment extends BaseFragment {
     }
 
     private boolean verifyInput() {
-        if (TextUtils.isEmpty(yingBean.getUnitCode())){
-            return false;
-        }
-
-
         if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
                 && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
                 && yingBean.getLaJiStation() < 1 && yingBean.getCheckDistance() < 1) {
             return false;
         }
 
+        if (TextUtils.isEmpty(yingBean.getUnitCode())){
+            CheakInsertBean cheakInsertBean = ((CheakRecoderDetail)getActivity()).getCheakInsertBean();
+            yingBean.setUnitCode(cheakInsertBean.getUnitCode());
+            yingBean.setUniType(cheakInsertBean.getUnitClassID());
+            yingBean.setTaskCode(cheakInsertBean.getTaskCode());
+            yingBean.setAreaCode(cheakInsertBean.getAreaCode());
+            yingBean.setKeyUnit(cheakInsertBean.isKeyUnit());
+            yingBean.setExpertCode(cheakInsertBean.getExpertCode());
+        }
+
 
         if (yangxingfangshu > jianchafangshu) {
-            ToastUtils.showNorToast("<阳性房间数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <阳性房间数填写>不合法");
             return false;
         }
 
         if (buhegechangsuoshu > jianchachangsuoshu) {
-            ToastUtils.showNorToast("<不合格场所数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <不合格场所数填写>不合法");
             return false;
         }
 
         if (qizhongyouyingchangsuo > scxszjrkspdcs) {
-            ToastUtils.showNorToast("<其中:有蝇场所数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <其中:有蝇场所数填写>不合法");
             return false;
         }
 
         if (fangzhibuzhengqueshu > shineimieyingdeng) {
-            ToastUtils.showNorToast("<灭蝇灯放置不正确数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <灭蝇灯放置不正确数填写>不合法");
             return false;
         }
 
         if (shiwailajiyangxing > shiwailajirongqi) {
-            ToastUtils.showNorToast("<室外垃圾容器数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <室外垃圾容器数填写>不合法");
             return false;
         }
 
         if (gonggongcesuoyangxing > gonggongcesuo) {
-            ToastUtils.showNorToast("<公共厕所数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <公共厕所数填写>不合法");
             return false;
         }
 
         if (lajizhongzhuanzhanyangxing > lajizhongzhuanzhan) {
-            ToastUtils.showNorToast("<垃圾中转站数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <垃圾中转站数填写>不合法");
             return false;
         }
 
         if (sanzaizishendiyangxing > sanzaizishendi) {
-            ToastUtils.showNorToast("<散在孳生地数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <散在孳生地数填写>不合法");
             return false;
         }
 
         if (shineiyingleizishengdi < yangxing) {
-            ToastUtils.showNorToast("<室内蝇类孳生地数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <室内蝇类孳生地数填写>不合法");
             return false;
         }
 
         if (yangxingfangshu > 0 && chengyingzshu < 1) {
-            ToastUtils.showNorToast("<室内成蝇总数填写>不合法");
+            ToastUtils.showErrorToast("蝇 <室内成蝇总数填写>不合法");
             return false;
         }
 
         if (buhegechangsuoshu > 0 && shiwairumenkou + tongshiwaichuangkou + chufangmen + shushijian
                 + zhijierukoushipinchugui + liangcaijian + zhijierukoushipintandian + qita < 1) {
-            ToastUtils.showNorToast("<防蝇设施不合格部位填写>不合法");
+            ToastUtils.showErrorToast("蝇 <防蝇设施不合格部位填写>不合法");
             return false;
         }
 
 
         if (sanzaizishendi > 0 && jianchalujing < 1) {
-            ToastUtils.showNorToast("<检查路径填写>不合法");
+            ToastUtils.showErrorToast("蝇 <检查路径填写>不合法");
             return false;
         }
 
 
         if (yangxingfangshu > 0 && chengyingzshu < yangxingfangshu) {
-            ToastUtils.showNorToast("成蝇总数填写不合法");
+            ToastUtils.showErrorToast("蝇 成蝇总数填写不合法");
             return false;
         }
 
         if (buhegechangsuoshu > 0 && (shiwairumenkou + tongshiwaichuangkou
                 + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
                 + zhijierukoushipintandian + qita) < buhegechangsuoshu) {
-            ToastUtils.showNorToast("不合格部位总数应等于或大于不合格场所数");
+            ToastUtils.showErrorToast("蝇 不合格部位总数应等于或大于不合格场所数");
             return false;
         }
 
         if (buhegechangsuoshu == 0 && (shiwairumenkou + tongshiwaichuangkou
                 + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
                 + zhijierukoushipintandian + qita) > 0) {
-            ToastUtils.showNorToast("不合格场所数填写不正确");
+            ToastUtils.showErrorToast("蝇 不合格场所数填写不正确");
             return false;
         }
 
         if (yangxingfangshu == 0 && chengyingzshu > 0) {
-            ToastUtils.showNorToast("成蝇总数填写不正确");
+            ToastUtils.showErrorToast("蝇 成蝇总数填写不正确");
             return false;
         }
 

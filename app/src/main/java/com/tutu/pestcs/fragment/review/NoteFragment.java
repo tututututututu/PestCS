@@ -10,7 +10,9 @@ import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
+import com.tutu.pestcs.activity.CheakRecoderDetail;
 import com.tutu.pestcs.base.BaseFragment;
+import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.NoteBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.NoteDao;
@@ -72,7 +74,6 @@ public class NoteFragment extends BaseFragment {
                 if (result == null) {
                     return;
                 }
-
                 bean = result;
                 initReviewData();
             }
@@ -121,9 +122,19 @@ public class NoteFragment extends BaseFragment {
             return;
         } else {
             //保存
+            if (TextUtils.isEmpty(bean.getUnitCode())) {
+                CheakInsertBean cheakInsertBean = ((CheakRecoderDetail) getActivity()).getCheakInsertBean();
+                bean.setUnitCode(cheakInsertBean.getUnitCode());
+                bean.setUniType(cheakInsertBean.getUnitClassID());
+                bean.setTaskCode(cheakInsertBean.getTaskCode());
+                bean.setAreaCode(cheakInsertBean.getAreaCode());
+                bean.setKeyUnit(cheakInsertBean.isKeyUnit());
+                bean.setExpertCode(cheakInsertBean.getExpertCode());
+            }
+
             bean.setNote(note);
             NoteDao.saveOrUpdate(bean);
-            ToastUtils.showToast("备注保存成功");
+            ToastUtils.showOKToast("备注保存成功");
         }
     }
 
