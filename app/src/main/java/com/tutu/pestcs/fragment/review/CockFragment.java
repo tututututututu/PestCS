@@ -15,6 +15,8 @@ import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.CheakRecoderDetail;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ZhangBean;
@@ -197,15 +199,18 @@ public class CockFragment extends BaseFragment {
 
     private void onSave() {
         formatData();
-        if (bean.getCheckRoom() < 1) {
-            return;
-        }
 
-        if (verifyInput()) {
-            ZhangDao.saveOrUpdate(bean);
-            ToastUtils.showOKToast("蟑螂数据保存成功");
+        if (verifyInput() == 2) {
+            TApplication.zhang = true;
+            TApplication.zhangBean = bean;
+            ReviewDataCall.saveReviewData(getActivity());
+        } else if (verifyInput() == 1) {
+            TApplication.zhang = true;
+            TApplication.zhangBean = null;
+            ReviewDataCall.saveReviewData(getActivity());
         } else {
-            //AlderDialogHelper.showTipsAlertDialot(getActivity(),"蟑螂界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
+            TApplication.zhang = false;
+            TApplication.zhangBean = null;
         }
 
     }
@@ -246,10 +251,10 @@ public class CockFragment extends BaseFragment {
                 et.getText().toString().trim());
     }
 
-    private boolean verifyInput() {
+    private int verifyInput() {
 
         if (bean.getCheckRoom() < 1) {
-            return false;
+            return 1;
         }
 
         if (TextUtils.isEmpty(bean.getUnitCode())) {
@@ -263,68 +268,63 @@ public class CockFragment extends BaseFragment {
         }
 
 
-        if (bean.getCheckRoom() < 1) {
-            return false;
-        }
-
-
         if (chengchongyangxingfangjianshu > jianchafangshu) {
             ToastUtils.showErrorToast("蟑螂 <检查房间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) != 0) {
             ToastUtils.showErrorToast("蟑螂 <蟑迹阳性房间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu > 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <
                 zhangjiyangxingfangjianshu) {
             ToastUtils.showErrorToast("蟑螂 <蟑迹阳性房间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (chengchongyangxingfangjianshu > 0 && dalian + xiaolian < 1) {
             ToastUtils.showErrorToast("蟑螂 <成若虫阳性间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (chengchongyangxingfangjianshu == 0 && (dalian + xiaolian) > 0) {
             ToastUtils.showErrorToast("蟑螂 <成若虫阳性间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (chengchongyangxingfangjianshu > 0 && ((dalian + xiaolian) < chengchongyangxingfangjianshu)) {
             ToastUtils.showErrorToast("蟑螂 <成若虫阳性间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (luanqiaoxiangxingfangjianshu > jianchafangshu) {
             ToastUtils.showErrorToast("蟑螂 <检查房间数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu > jianchafangshu) {
             ToastUtils.showErrorToast("蟑螂 <检查房间数填写>不合法");
-            return false;
+            return 0;
         }
 
 
         if (luanqiaoxiangxingfangjianshu == 0 && chahuoluanqiaoshu > 0) {
             ToastUtils.showErrorToast("蟑螂 <查获卵鞘数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (luanqiaoxiangxingfangjianshu > 0 && chahuoluanqiaoshu < luanqiaoxiangxingfangjianshu) {
             ToastUtils.showErrorToast("蟑螂 <查获卵鞘数填写>不合法");
-            return false;
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + kongluanqiaoke + zhanglangfenbian + tuipi) > 0) {
             ToastUtils.showErrorToast("蟑螂 <蟑螂阳性房间数填写>不合法");
-            return false;
+            return 0;
         }
 
-        return true;
+        return 2;
     }
 }

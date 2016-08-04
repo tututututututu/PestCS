@@ -1,12 +1,10 @@
 package com.tutu.pestcs.fragment.insert;
 
-import android.content.DialogInterface;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -16,21 +14,20 @@ import android.widget.TextView;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.WenBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.WenDao;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.event.UnityTypeChangeEvent;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
-import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -135,10 +132,6 @@ public class MosquitosFragment extends BaseFragment {
     RadioButton rbGouqu;
     @Bind(R.id.rb_qita)
     RadioButton rbQita;
-    @Bind(R.id.btn_save)
-    Button btnSave;
-    @Bind(R.id.btn_exit)
-    Button btnExit;
     @Bind(R.id.base_layout)
     OverScrollView baseLayout;
 
@@ -239,6 +232,26 @@ public class MosquitosFragment extends BaseFragment {
 
 
         registUnityTypeChangeEvent();
+        initSaveEvent();
+    }
+
+
+    private void initSaveEvent() {
+        subscriptions.add(RxBus.obtainEvent(SaveInsertEvent.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SaveInsertEvent>() {
+                    @Override
+                    public void call(SaveInsertEvent saveInsertEvent) {
+                        saveData();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                })
+
+        );
     }
 
 
@@ -339,44 +352,20 @@ public class MosquitosFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
-                    @Override
-                    public void OnConfrim(DialogInterface dialog) {
-                        if (saveData()) {
-                            dialog.cancel();
-                            getActivity().finish();
-                        } else {
-                            dialog.cancel();
-                        }
-                    }
-
-                    @Override
-                    public void OnCancel(DialogInterface dialog) {
-                        getActivity().finish();
-                    }
-                });
-
-                break;
-            case R.id.btn_save:
-
-                saveData();
-
-
-                break;
-        }
-    }
-
     private boolean saveData() {
         if (((InsertActivity) getActivity()).canSave()) {
             formatData();
-            if (verifyInput()) {
-                WenDao.saveOrUpdate(bean);
-                ToastUtils.showOKToast("保存成功");
-                return true;
+            if (verifyInput() == 2) {
+                TApplication.wenI = true;
+                TApplication.wenBeanI = bean;
+                ReviewDataCall.saveInserData(getActivity());
+            } else if (verifyInput() == 1) {
+                TApplication.wenI = true;
+                TApplication.wenBeanI = null;
+                ReviewDataCall.saveInserData(getActivity());
+            } else {
+                TApplication.wenI = false;
+                TApplication.wenBeanI = null;
             }
         } else {
             ToastUtils.showErrorToast("请填写检查单位名称或地点");
@@ -443,101 +432,100 @@ public class MosquitosFragment extends BaseFragment {
                 et.getText().toString().trim());
     }
 
-    private boolean verifyInput() {
+    private int verifyInput() {
 
         if (TextUtils.isEmpty(bean.getUnitCode())) {
             ContactDialog.show(getActivity(), getClass().getSimpleName() + "\n" + "verifyInput()" + "TextUtils" +
                     ".isEmpty(bean.getUnitCode()) is empty");
-            return false;
+            return 0;
         }
 
 
         if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
                 ) {
-            ToastUtils.showWarningToast("录入数据未达到保存条件");
-            return false;
+            return 1;
         }
 
 
         if (Chajianxiaoxingjishuiyangxing > Chanjianxiaoxingjishui) {
-            ToastUtils.showWarningToast("<查见小型积水数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <查见小型积水数填写>不合法");
+            return 0;
         }
 
         if (Rongqijishuiyangxing > rongqijishui) {
-            ToastUtils.showWarningToast("<容器积水数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <容器积水数填写>不合法");
+            return 0;
         }
 
         if (Kengwajishuiyangxing > kengwajishui) {
-            ToastUtils.showWarningToast("<坑洼积水数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <坑洼积水数填写>不合法");
+            return 0;
         }
 
         if (Jingguanchiyangxing > Jingguanchi) {
-            ToastUtils.showWarningToast("<景观池数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <景观池数填写>不合法");
+            return 0;
         }
 
         if (Paishuijinkoujishuiyangxing > Paishuijinkoujishui) {
-            ToastUtils.showWarningToast("<排水井口积水数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <排水井口积水数填写>不合法");
+            return 0;
         }
 
         if (Dixiashijishuiyangxing > Dixiashijishui) {
-            ToastUtils.showWarningToast("<地下室积水数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <地下室积水数填写>不合法");
+            return 0;
         }
 
         if (Gouqujishuiyangxing>Gouqujishui){
-            ToastUtils.showWarningToast("沟渠积水数填写 不合法");
+            ToastUtils.showWarningToast("蚊 沟渠积水数填写 不合法");
         }
 
         if (Luntaijishuiyangxing > Luntaijishui) {
-            ToastUtils.showWarningToast("<轮胎积水数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <轮胎积水数填写>不合法");
+            return 0;
         }
 
         if (Qitayangxing > Qita) {
-            ToastUtils.showWarningToast("<其他填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <其他填写>不合法");
+            return 0;
         }
 
         if (Yangxinggong > Caiyanggong) {
-            ToastUtils.showWarningToast("<大中型水体采样数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <大中型水体采样数填写>不合法");
+            return 0;
         }
 
         if (Jianchalujing < 1 && chajianmiewendeng > 0) {
-            ToastUtils.showWarningToast("<检查路径填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <检查路径填写>不合法");
+            return 0;
         }
 
         if (rongqijishui + kengwajishui + Jingguanchi + Paishuijinkoujishui + Dixiashijishui + Luntaijishui + Qita >
                 Chanjianxiaoxingjishui+Gouqujishui) {
-            ToastUtils.showWarningToast("<查见小型积水填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <查见小型积水填写>不合法");
+            return 0;
         }
 
 
         if (Yangxinggong > 0 && Wenyouchongheyonggong < Yangxinggong) {
-            ToastUtils.showWarningToast("<文幼虫和蛹填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <文幼虫和蛹填写>不合法");
+            return 0;
         }
 
 
         if (Wenchongtingluocishu > 0 && Youwenrenci == 0) {
-            ToastUtils.showWarningToast("<诱蚊人次填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <诱蚊人次填写>不合法");
+            return 0;
         }
 
         if (Jianchalujing == 0 && Chanjianxiaoxingjishui > 0) {
-            ToastUtils.showWarningToast("<检查路径填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <检查路径填写>不合法");
+            return 0;
         }
 
 
-        return true;
+        return 2;
     }
 
 }

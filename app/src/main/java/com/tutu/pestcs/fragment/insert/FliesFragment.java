@@ -6,27 +6,28 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.YingDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.AlderDialogHelper;
-import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -121,10 +122,6 @@ public class FliesFragment extends BaseFragment {
     LinearLayout ll_fangyingsheshibuhegebuwei;
     @Bind(R.id.ll_shineichengying)
     LinearLayout llShineichengying;
-    @Bind(R.id.btn_save)
-    Button btnSave;
-    @Bind(R.id.btn_exit)
-    Button btnExit;
     @Bind(R.id.base_layout)
     OverScrollView baseLayout;
     @Bind(R.id.tbase)
@@ -202,44 +199,46 @@ public class FliesFragment extends BaseFragment {
         }else{
             llGonggongcesuo.setVisibility(View.GONE);
         }
+
+        initSaveEvent();
+    }
+
+    private void initSaveEvent() {
+        subscriptions.add(RxBus.obtainEvent(SaveInsertEvent.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SaveInsertEvent>() {
+                    @Override
+                    public void call(SaveInsertEvent saveInsertEvent) {
+                        saveDada();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                })
+
+        );
     }
 
 
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_save:
-                saveDada();
-                break;
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
-                    @Override
-                    public void OnConfrim(DialogInterface dialog) {
-                        if (saveDada()) {
-                            dialog.cancel();
-                            getActivity().finish();
-                        } else {
-                            dialog.cancel();
-                        }
-                    }
 
-                    @Override
-                    public void OnCancel(DialogInterface dialog) {
-                        getActivity().finish();
-                    }
-                });
-                break;
-        }
-    }
 
     private boolean saveDada() {
 
         if (((InsertActivity) getActivity()).canSave()) {
             formatData();
-            if (verifyInput()) {
-                YingDao.saveOrUpdate(yingBean);
-                ToastUtils.showOKToast("保存成功");
-                return true;
+            if (verifyInput() == 2) {
+                TApplication.yingI = true;
+                TApplication.yingBeanI = yingBean;
+                ReviewDataCall.saveInserData(getActivity());
+            } else if (verifyInput() == 1) {
+                TApplication.yingI = true;
+                TApplication.yingBeanI = null;
+                ReviewDataCall.saveInserData(getActivity());
+            } else {
+                TApplication.yingI = false;
+                TApplication.yingBeanI = null;
             }
         } else {
             ToastUtils.showErrorToast("请填写检查单位名称或地点");
@@ -313,7 +312,7 @@ public class FliesFragment extends BaseFragment {
                 et.getText().toString().trim());
     }
 
-    private boolean verifyInput() {
+    private int verifyInput() {
 
         if (cheakInsertBean.getUnitClassID().equals("17")) {
             AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存蝇的相关数据", new DialogInterface
@@ -328,112 +327,111 @@ public class FliesFragment extends BaseFragment {
                     dialog.cancel();
                 }
             });
-            return false;
+            return 0;
         }
 
 
         if (TextUtils.isEmpty(yingBean.getUnitCode())){
             ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(yingBean.getUnitCode()) is empty");
-            return false;
+            return 0;
         }
 
 
         if (yingBean.getCheckRoom() < 1 && yingBean.getFangYingPlace() < 1 && yingBean.getFoodPlaceNum() < 1
                 && yingBean.getLaJiRongQiNum() < 1 && yingBean.getToiletNum() < 1
                 && yingBean.getLaJiStation() < 1 && yingBean.getCheckDistance() < 1) {
-            ToastUtils.showWarningToast("录入数据未达到保存条件");
-            return false;
+            return 1;
         }
 
 
         if (yangxingfangshu > jianchafangshu) {
-            ToastUtils.showWarningToast("<阳性房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <阳性房间数填写>不合法");
+            return 0;
         }
 
         if (buhegechangsuoshu > jianchachangsuoshu) {
-            ToastUtils.showWarningToast("<不合格场所数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <不合格场所数填写>不合法");
+            return 0;
         }
 
         if (qizhongyouyingchangsuo > scxszjrkspdcs) {
-            ToastUtils.showWarningToast("<其中:有蝇场所数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <其中:有蝇场所数填写>不合法");
+            return 0;
         }
 
         if (fangzhibuzhengqueshu > shineimieyingdeng) {
-            ToastUtils.showWarningToast("<灭蝇灯放置不正确数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <灭蝇灯放置不正确数填写>不合法");
+            return 0;
         }
 
         if (shiwailajiyangxing > shiwailajirongqi) {
-            ToastUtils.showWarningToast("<室外垃圾容器数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <室外垃圾容器数填写>不合法");
+            return 0;
         }
 
         if (gonggongcesuoyangxing > gonggongcesuo) {
-            ToastUtils.showWarningToast("<公共厕所数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <公共厕所数填写>不合法");
+            return 0;
         }
 
         if (lajizhongzhuanzhanyangxing > lajizhongzhuanzhan) {
-            ToastUtils.showWarningToast("<垃圾中转站数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <垃圾中转站数填写>不合法");
+            return 0;
         }
 
         if (sanzaizishendiyangxing > sanzaizishendi) {
-            ToastUtils.showWarningToast("<散在孳生地数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <散在孳生地数填写>不合法");
+            return 0;
         }
 
         if (shineiyingleizishengdi < yangxing) {
-            ToastUtils.showWarningToast("<室内蝇类孳生地数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <室内蝇类孳生地数填写>不合法");
+            return 0;
         }
 
         if (yangxingfangshu > 0 && chengyingzshu < 1) {
-            ToastUtils.showWarningToast("<室内成蝇总数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <室内成蝇总数填写>不合法");
+            return 0;
         }
 
         if (buhegechangsuoshu > 0 && shiwairumenkou + tongshiwaichuangkou + chufangmen + shushijian
                 + zhijierukoushipinchugui + liangcaijian + zhijierukoushipintandian + qita < 1) {
-            ToastUtils.showWarningToast("<防蝇设施不合格部位填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <防蝇设施不合格部位填写>不合法");
+            return 0;
         }
 
 
         if (sanzaizishendi > 0 && jianchalujing < 1) {
-            ToastUtils.showWarningToast("<检查路径填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 <检查路径填写>不合法");
+            return 0;
         }
 
 
         if (yangxingfangshu > 0 && chengyingzshu < yangxingfangshu) {
-            ToastUtils.showWarningToast("成蝇总数填写不合法");
-            return false;
+            ToastUtils.showWarningToast("蝇 成蝇总数填写不合法");
+            return 0;
         }
 
         if (buhegechangsuoshu > 0 && (shiwairumenkou + tongshiwaichuangkou
                 + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
                 + zhijierukoushipintandian + qita) < buhegechangsuoshu) {
-            ToastUtils.showWarningToast("不合格部位总数应等于或大于不合格场所数");
-            return false;
+            ToastUtils.showWarningToast("蝇 不合格部位总数应等于或大于不合格场所数");
+            return 0;
         }
 
         if (buhegechangsuoshu == 0 && (shiwairumenkou + tongshiwaichuangkou
                 + chufangmen + shushijian + zhijierukoushipinchugui + liangcaijian
                 + zhijierukoushipintandian + qita) > 0) {
-            ToastUtils.showWarningToast("不合格场所数填写不正确");
-            return false;
+            ToastUtils.showWarningToast("蝇 不合格场所数填写不正确");
+            return 0;
         }
 
         if (yangxingfangshu == 0 && chengyingzshu > 0) {
-            ToastUtils.showWarningToast("成蝇总数填写不正确");
-            return false;
+            ToastUtils.showWarningToast("蝇 成蝇总数填写不正确");
+            return 0;
         }
 
 
-        return true;
+        return 2;
     }
 }

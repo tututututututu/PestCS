@@ -10,20 +10,22 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.ZhangDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.AlderDialogHelper;
-import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -80,7 +82,6 @@ public class CockFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void handleMessage(Message msg) {
 
@@ -110,55 +111,57 @@ public class CockFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s.toString().trim())){
+                if (TextUtils.isEmpty(s.toString().trim())) {
                     ll_zhangjileixing.setVisibility(View.GONE);
                     return;
                 }
-                if (Integer.parseInt(s.toString().trim())>0){
+                if (Integer.parseInt(s.toString().trim()) > 0) {
                     ll_zhangjileixing.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ll_zhangjileixing.setVisibility(View.GONE);
                 }
             }
         });
+
+        initSaveEvent();
     }
 
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
+    private void initSaveEvent() {
+        subscriptions.add(RxBus.obtainEvent(SaveInsertEvent.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SaveInsertEvent>() {
                     @Override
-                    public void OnConfrim(DialogInterface dialog) {
-                        if (saveDada()){
-                            dialog.cancel();
-                            getActivity().finish();
-                        }else {
-                            dialog.cancel();
-                        }
+                    public void call(SaveInsertEvent saveInsertEvent) {
+                        saveDada();
                     }
-
+                }, new Action1<Throwable>() {
                     @Override
-                    public void OnCancel(DialogInterface dialog) {
-                        getActivity().finish();
-                    }
-                });
+                    public void call(Throwable throwable) {
 
-                break;
-            case R.id.btn_save:
-                saveDada();
-                break;
-        }
+                    }
+                })
+
+        );
     }
 
     private boolean saveDada() {
         if (((InsertActivity) getActivity()).canSave()) {
             formatData();
-            if (verifyInput()) {
-                ZhangDao.saveOrUpdate(bean);
-                ToastUtils.showOKToast("保存成功");
-                return true;
+
+            if (verifyInput() == 2) {
+                TApplication.zhangI = true;
+                TApplication.zhangBeanI = bean;
+                ReviewDataCall.saveInserData(getActivity());
+            } else if (verifyInput() == 1) {
+                TApplication.zhangI = true;
+                TApplication.zhangBeanI = null;
+                ReviewDataCall.saveInserData(getActivity());
+            } else {
+                TApplication.zhangI = false;
+                TApplication.zhangBeanI = null;
             }
+
+
         } else {
             ToastUtils.showErrorToast("请填写检查单位名称或地点");
         }
@@ -201,7 +204,7 @@ public class CockFragment extends BaseFragment {
                 et.getText().toString().trim());
     }
 
-    private boolean verifyInput() {
+    private int verifyInput() {
 
         if (cheakInsertBean.getUnitClassID().equals("17")) {
             AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存蟑螂的相关数据", new DialogInterface
@@ -217,81 +220,79 @@ public class CockFragment extends BaseFragment {
                 }
             });
 
-            return false;
+            return 0;
         }
 
 
-        if (TextUtils.isEmpty(bean.getUnitCode())){
-            ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(bean.getUnitCode()) is empty");
-            return false;
+        if (TextUtils.isEmpty(bean.getUnitCode())) {
+            ContactDialog.show(getActivity(), getClass().getSimpleName() + "\n" + "verifyInput()" + "TextUtils" +
+                    ".isEmpty(bean.getUnitCode()) is empty");
+            return 0;
         }
 
         if (bean.getCheckRoom() < 1) {
-            ToastUtils.showWarningToast("录入数据未达到保存条件");
-            return false;
+            return 1;
         }
 
 
         if (chengchongyangxingfangjianshu > jianchafangshu) {
-            ToastUtils.showWarningToast("<检查房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <检查房间数填写>不合法");
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) != 0) {
-            ToastUtils.showWarningToast("<蟑迹阳性房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <蟑迹阳性房间数填写>不合法");
+            return 0;
         }
 
-        if (zhangjiyangxingfangjianshu>0&&(chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <zhangjiyangxingfangjianshu)
-        {
-            ToastUtils.showWarningToast("<蟑迹阳性房间数填写>不合法");
-            return false;
+        if (zhangjiyangxingfangjianshu > 0 && (chongshi + canpian + tuipi + kongluanqiaoke + zhanglangfenbian) <
+                zhangjiyangxingfangjianshu) {
+            ToastUtils.showWarningToast("蟑螂 <蟑迹阳性房间数填写>不合法");
+            return 0;
         }
 
         if (chengchongyangxingfangjianshu > 0 && dalian + xiaolian < 1) {
-            ToastUtils.showWarningToast("<成若虫阳性间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <成若虫阳性间数填写>不合法");
+            return 0;
         }
 
         if (chengchongyangxingfangjianshu == 0 && (dalian + xiaolian) > 0) {
-            ToastUtils.showWarningToast("<成若虫阳性间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <成若虫阳性间数填写>不合法");
+            return 0;
         }
 
         if (chengchongyangxingfangjianshu > 0 && ((dalian + xiaolian) < chengchongyangxingfangjianshu)) {
-            ToastUtils.showWarningToast("<成若虫阳性间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <成若虫阳性间数填写>不合法");
+            return 0;
         }
 
         if (luanqiaoxiangxingfangjianshu > jianchafangshu) {
-            ToastUtils.showWarningToast("<检查房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <检查房间数填写>不合法");
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu > jianchafangshu) {
-            ToastUtils.showWarningToast("<检查房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <检查房间数填写>不合法");
+            return 0;
         }
 
 
         if (luanqiaoxiangxingfangjianshu == 0 && chahuoluanqiaoshu > 0) {
-            ToastUtils.showWarningToast("<查获卵鞘数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <查获卵鞘数填写>不合法");
+            return 0;
         }
 
         if (luanqiaoxiangxingfangjianshu > 0 && chahuoluanqiaoshu < luanqiaoxiangxingfangjianshu) {
-            ToastUtils.showWarningToast("<查获卵鞘数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <查获卵鞘数填写>不合法");
+            return 0;
         }
 
         if (zhangjiyangxingfangjianshu == 0 && (chongshi + canpian + kongluanqiaoke + zhanglangfenbian + tuipi) > 0) {
-            ToastUtils.showWarningToast("<蟑螂阳性房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蟑螂 <蟑螂阳性房间数填写>不合法");
+            return 0;
         }
 
 
-
-
-        return true;
+        return 2;
     }
 }

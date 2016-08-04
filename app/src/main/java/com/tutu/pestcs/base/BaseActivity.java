@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.tutu.pestcs.R;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +85,19 @@ public abstract class BaseActivity extends com.tutu.pestcs.base.AbsActivity {
         overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
     }
 
     @Override

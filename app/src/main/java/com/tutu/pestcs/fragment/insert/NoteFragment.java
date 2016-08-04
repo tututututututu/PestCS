@@ -1,25 +1,24 @@
 package com.tutu.pestcs.fragment.insert;
 
-import android.content.DialogInterface;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.NoteBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.NoteDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
-import com.tutu.pestcs.widget.AlertDialogUtil;
-import com.tutu.pestcs.widget.ContactDialog;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/17.
@@ -46,6 +45,26 @@ public class NoteFragment extends BaseFragment {
         bean.setTaskCode(cheakInsertBean.getTaskCode());
         bean.setKeyUnit(cheakInsertBean.isKeyUnit());
         bean.setExpertCode(cheakInsertBean.getExpertCode());
+        initSaveEvent();
+    }
+
+
+    private void initSaveEvent() {
+        subscriptions.add(RxBus.obtainEvent(SaveInsertEvent.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SaveInsertEvent>() {
+                    @Override
+                    public void call(SaveInsertEvent saveInsertEvent) {
+                        saveEventData();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                })
+
+        );
     }
 
     @Override
@@ -54,56 +73,30 @@ public class NoteFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.btn_exit, R.id.btn_save})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
-                    @Override
-                    public void OnConfrim(DialogInterface dialog) {
-                        if (saveData()) {
-                            dialog.cancel();
-                            getActivity().finish();
-                        } else {
-                            dialog.cancel();
-                        }
-                    }
+    private void saveEventData(){
+        if (((InsertActivity) getActivity()).canSave()) {
 
-                    @Override
-                    public void OnCancel(DialogInterface dialog) {
-                        getActivity().finish();
-                    }
-                });
-                break;
-            case R.id.btn_save:
-                saveData();
-                break;
+        }else {
+            ToastUtils.showErrorToast("请填写检查单位名称或地点");
+            return;
         }
+
+        if (veryfyInput()) {
+            TApplication.noteBeanI = bean;
+        } else {
+            TApplication.noteBeanI = null;
+        }
+        TApplication.note = true;
+        ReviewDataCall.saveInserData(getActivity());
     }
 
-    private boolean saveData() {
-        if (TextUtils.isEmpty(bean.getUnitCode())) {
-            ContactDialog.show(getActivity(), getClass().getSimpleName() + "\n" + "saveData()" + "TextUtils.isEmpty" +
-                    "(bean.getUnitCode()) is empty");
-            return false;
-        }
-
-
+    private boolean veryfyInput() {
         String note = et_note.getText().toString().trim();
         if (TextUtils.isEmpty(note)) {
-            svProgressHUD.showErrorWithStatus("请输入内容");
-        } else {
-            //保存
-            if (((InsertActivity) getActivity()).canSave()) {
-                bean.setNote(note);
-                NoteDao.saveOrUpdate(bean);
-                ToastUtils.showOKToast("保存成功");
-                return true;
-            } else {
-                ToastUtils.showErrorToast("请填写检查单位名称或地点");
-            }
-
+           return false;
+        }else {
+            bean.setNote(note);
+            return true;
         }
-        return false;
     }
 }

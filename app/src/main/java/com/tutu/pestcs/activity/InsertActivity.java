@@ -25,6 +25,7 @@ import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.adapter.InsertFragmentAdapter;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
@@ -34,6 +35,7 @@ import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.db.TaskDao;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.event.UnityTypeChangeEvent;
 import com.tutu.pestcs.utils.DateHelper;
@@ -42,6 +44,7 @@ import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.UnitTypeDialog;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -79,6 +82,12 @@ public class InsertActivity extends BaseActivity {
 
     //照片名字
     private String imgName;
+
+    @Override
+    public int getLayoutID() {
+        return R.layout.insert_fragment;
+    }
+
 
     @Override
     public void handleMessage(Message msg) {
@@ -199,23 +208,31 @@ public class InsertActivity extends BaseActivity {
 
         if (CurrentTaskBean.isShu()) {
             cheakItems[0] = true;
+            TApplication.shuI = false;
         } else {
             cheakItems[0] = false;
+            TApplication.shuI = true;
         }
         if (CurrentTaskBean.isYing()) {
             cheakItems[1] = true;
+            TApplication.yingI = false;
         } else {
             cheakItems[1] = false;
+            TApplication.yingI = true;
         }
         if (CurrentTaskBean.isWen()) {
             cheakItems[2] = true;
+            TApplication.wenI = false;
         } else {
             cheakItems[2] = false;
+            TApplication.wenI = true;
         }
         if (CurrentTaskBean.isZhang()) {
             cheakItems[3] = true;
+            TApplication.zhangI = false;
         } else {
             cheakItems[3] = false;
+            TApplication.zhangI = true;
         }
 
 
@@ -265,13 +282,7 @@ public class InsertActivity extends BaseActivity {
 
     }
 
-    @Override
-    public int getLayoutID() {
-        return R.layout.insert_fragment;
-    }
-
-
-    @OnClick({R.id.et_unit_type, R.id.ll_camara, R.id.tv_set_current_task})
+    @OnClick({R.id.et_unit_type, R.id.ll_camara, R.id.tv_set_current_task,R.id.tv_back})
     public void OnClick(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -300,7 +311,31 @@ public class InsertActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.tv_back:
+                showBackConfirm();
+                break;
         }
+    }
+
+
+    private void showBackConfirm(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示")
+                .setMessage("保存全部数据吗?")
+                .setNegativeButton("不保存", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                }).setPositiveButton("保存", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
     }
 
     private void showUnitTypeDialog() {
@@ -374,12 +409,27 @@ public class InsertActivity extends BaseActivity {
                     @Override
                     public String doInBackground() throws Exception {
                         PhotoDao.saveBindID(photoBean);
-                        return "";
+                        return photoBean.getPictureName();
                     }
                 }, new Completion<String>() {
                     @Override
                     public void onSuccess(Context context, String result) {
                         ToastUtils.showToast("照片保存成功");
+
+                        try {
+                            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                                    PhotosStore.getPhotosDir() + File.separator + imgName, imgName, null);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        // 最后通知图库更新
+                        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" +  PhotosStore.getPhotosDir() + File.separator + imgName)));
+
+
+//                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                        Uri uri = Uri.fromFile(new File(PhotosStore.getPhotosDir() + File.separator + imgName));
+//                        intent.setData(uri);
+//                        context.sendBroadcast(intent);
                     }
 
                     @Override
@@ -393,8 +443,7 @@ public class InsertActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        ToastUtils.showToast("请点击退出来关闭页面");
-        return;
+        showBackConfirm();
     }
 }
 

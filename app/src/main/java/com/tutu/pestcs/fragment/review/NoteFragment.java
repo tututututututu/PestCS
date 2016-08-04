@@ -11,6 +11,8 @@ import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.CheakRecoderDetail;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.NoteBean;
@@ -117,25 +119,37 @@ public class NoteFragment extends BaseFragment {
 
 
     private void onSave() {
-        String note = et_note.getText().toString().trim();
-        if (TextUtils.isEmpty(note)) {
-            return;
-        } else {
-            //保存
-            if (TextUtils.isEmpty(bean.getUnitCode())) {
-                CheakInsertBean cheakInsertBean = ((CheakRecoderDetail) getActivity()).getCheakInsertBean();
-                bean.setUnitCode(cheakInsertBean.getUnitCode());
-                bean.setUniType(cheakInsertBean.getUnitClassID());
-                bean.setTaskCode(cheakInsertBean.getTaskCode());
-                bean.setAreaCode(cheakInsertBean.getAreaCode());
-                bean.setKeyUnit(cheakInsertBean.isKeyUnit());
-                bean.setExpertCode(cheakInsertBean.getExpertCode());
-            }
 
-            bean.setNote(note);
-            NoteDao.saveOrUpdate(bean);
-            ToastUtils.showOKToast("备注保存成功");
+        if (veryfyInput()) {
+            TApplication.noteBean = bean;
+        } else {
+            TApplication.noteBean = null;
         }
+        TApplication.note = true;
+        ReviewDataCall.saveReviewData(getActivity());
+    }
+
+
+    private boolean veryfyInput() {
+        String note = et_note.getText().toString().trim();
+
+        if (TextUtils.isEmpty(note)) {
+            return false;
+        }
+
+        if (TextUtils.isEmpty(bean.getUnitCode())) {
+            CheakInsertBean cheakInsertBean = ((CheakRecoderDetail) getActivity()).getCheakInsertBean();
+            bean.setUnitCode(cheakInsertBean.getUnitCode());
+            bean.setUniType(cheakInsertBean.getUnitClassID());
+            bean.setTaskCode(cheakInsertBean.getTaskCode());
+            bean.setAreaCode(cheakInsertBean.getAreaCode());
+            bean.setKeyUnit(cheakInsertBean.isKeyUnit());
+            bean.setExpertCode(cheakInsertBean.getExpertCode());
+        }
+
+        bean.setNote(note);
+
+        return true;
     }
 
 

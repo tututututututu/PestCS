@@ -9,27 +9,28 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.InsertActivity;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ShuBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
-import com.tutu.pestcs.db.ShuDao;
-import com.tutu.pestcs.interfaces.IOnConfirmOrCancelWithDialog;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.AlderDialogHelper;
-import com.tutu.pestcs.widget.AlertDialogUtil;
 import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -153,10 +154,6 @@ public class MouseFragment extends BaseFragment {
     LinearLayout llShineishuji;
     @Bind(R.id.ll_shineifangshusheshi)
     LinearLayout llShineifangshusheshi;
-    @Bind(R.id.btn_save)
-    Button btnSave;
-    @Bind(R.id.btn_exit)
-    Button btnExit;
     @Bind(R.id.base_layout)
     TuLinearLayout baseLayout;
 
@@ -187,6 +184,26 @@ public class MouseFragment extends BaseFragment {
         shuBean.setExpertCode(cheakInsertBean.getExpertCode());
 
         addTextWatcher();
+        initSaveEvent();
+    }
+
+
+    private void initSaveEvent() {
+        subscriptions.add(RxBus.obtainEvent(SaveInsertEvent.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SaveInsertEvent>() {
+                    @Override
+                    public void call(SaveInsertEvent saveInsertEvent) {
+                        saveData();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                })
+
+        );
     }
 
     private void addTextWatcher() {
@@ -301,43 +318,20 @@ public class MouseFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.btn_save, R.id.btn_exit})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_exit:
-                AlertDialogUtil.showDialog1(mActivityContext, new IOnConfirmOrCancelWithDialog() {
-                    @Override
-                    public void OnConfrim(DialogInterface dialog) {
-                        if (saveData()) {
-                            dialog.cancel();
-                            getActivity().finish();
-                        } else {
-                            dialog.cancel();
-                        }
-                    }
-
-                    @Override
-                    public void OnCancel(DialogInterface dialog) {
-                        getActivity().finish();
-                    }
-                });
-                break;
-            case R.id.btn_save:
-
-                saveData();
-
-                break;
-        }
-    }
-
     private boolean saveData() {
         if (((InsertActivity) getActivity()).canSave()) {
             formatData();
-            if (verifyInput()) {
-                //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
-                ShuDao.saveOrUpdate(shuBean);
-                ToastUtils.showOKToast("保存成功");
-                return true;
+            if (verifyInput() == 2) {
+                TApplication.shuI = true;
+                TApplication.shuBeanI = shuBean;
+                ReviewDataCall.saveInserData(getActivity());
+            } else if (verifyInput() == 1) {
+                TApplication.shuI = true;
+                TApplication.shuBeanI = null;
+                ReviewDataCall.saveInserData(getActivity());
+            } else {
+                TApplication.shuI = false;
+                TApplication.shuBeanI = null;
             }
         } else {
             ToastUtils.showErrorToast("请填写检查单位名称或地点");
@@ -457,11 +451,11 @@ public class MouseFragment extends BaseFragment {
     }
 
     //检查输入合法性
-    private boolean verifyInput() {
+    private int verifyInput() {
 
         if (TextUtils.isEmpty(shuBean.getUnitCode())){
             ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(shuBean.getUnitCode()) is empty");
-            return false;
+            return 0;
         }
 
         if (cheakInsertBean.getUnitClassID().equals("17")) {
@@ -478,114 +472,113 @@ public class MouseFragment extends BaseFragment {
                 }
             });
 
-            return false;
+            return 0;
         }
 
 
         if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
-            ToastUtils.showWarningToast("录入数据未达到保存条件");
-            return false;
+            return 1;
         }
 
         if (yangxing > 0 && (shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu) < yangxing) {
-            ToastUtils.showWarningToast("<阳性房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <阳性房间数填写>不合法");
+            return 0;
         }
 
 
         if (yangxing > jianchashu) {
-            ToastUtils.showWarningToast("<阳性房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <阳性房间数填写>不合法");
+            return 0;
         }
         if (sheshi_buhege > sheshi_rooms) {
-            ToastUtils.showWarningToast("<不合格房间数填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <不合格房间数填写>不合法");
+            return 0;
         }
 
 
         if (shujiyangxing > jianchalujing) {
-            ToastUtils.showWarningToast("<鼠迹阳性填写>不合法");
-            return false;
+            ToastUtils.showWarningToast("蚊 <鼠迹阳性填写>不合法");
+            return 0;
         }
 
         if (yangxing > 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu < 1) {
-            ToastUtils.showWarningToast("鼠迹类型至少有一项大于0");
-            return false;
+            ToastUtils.showWarningToast("蚊 鼠迹类型至少有一项大于0");
+            return 0;
         }
 
         if (sheshi_buhege > 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou + paifengshan +
                 tongfengkou + dangshuban < 1) {
-            ToastUtils.showWarningToast("防鼠设施不合格至少有一项大于0");
-            return false;
+            ToastUtils.showWarningToast("蚊 防鼠设施不合格至少有一项大于0");
+            return 0;
         }
 
         if (shujiyangxing > 0 && wai_shufen + wai_shudong + wai_shudao + wai_yaoheng + wai_daotu + wai_shushi
                 + wai_huoshu < 1) {
-            ToastUtils.showWarningToast("外环境鼠迹至少有一项大于0");
-            return false;
+            ToastUtils.showWarningToast("蚊 外环境鼠迹至少有一项大于0");
+            return 0;
         }
 
         if (sheshi_buhege > 0 && (chushuikou + paishuigou + dilou + paifengshan
                 + chuanghu + menfeng + tongfengkou + kongdong + mumen + dangshuban) < sheshi_buhege) {
-            ToastUtils.showWarningToast("防鼠设施不合格房间数填写不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 防鼠设施不合格房间数填写不正确");
+            return 0;
         }
 
         if (shujiyangxing > 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
                 + wai_daotu + wai_shushi + wai_huoshu) < shujiyangxing) {
-            ToastUtils.showWarningToast("外鼠迹阳性数不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 外鼠迹阳性数不正确");
+            return 0;
         }
 
         if (mieshuzhan > 0 && wujinshipai > mieshuzhan) {
-            ToastUtils.showWarningToast("无警示牌数不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 无警示牌数不正确");
+            return 0;
         }
 
         if (mieshuzhan > 0 && fangzhibuzhengque > mieshuzhan) {
-            ToastUtils.showWarningToast("放置不规范数不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 放置不规范数不正确");
+            return 0;
         }
 
 
         if (mieshuzhan > 0 && wushuyao > mieshuzhan) {
-            ToastUtils.showWarningToast("无鼠药数不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 无鼠药数不正确");
+            return 0;
         }
 
         if (mieshuzhan > 0 && shuyaowuxiao > mieshuzhan) {
-            ToastUtils.showWarningToast("鼠药无效数不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 鼠药无效数不正确");
+            return 0;
         }
 
 
         if ((wushuyao + shuyaowuxiao) > mieshuzhan) {
-            ToastUtils.showWarningToast("无鼠药+鼠药无效数填写不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 无鼠药+鼠药无效数填写不正确");
+            return 0;
         }
 
         if (yangxing == 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu > 0) {
-            ToastUtils.showWarningToast("阳性房间数填写不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 阳性房间数填写不正确");
+            return 0;
         }
 
 
         if (sheshi_buhege == 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou +
                 paifengshan +
                 tongfengkou + dangshuban > 0) {
-            ToastUtils.showWarningToast("防鼠设施不合格间数填写不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 防鼠设施不合格间数填写不正确");
+            return 0;
         }
 
 
         if (shujiyangxing == 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
                 + wai_daotu + wai_shushi + wai_huoshu) > 0) {
-            ToastUtils.showWarningToast("外鼠迹阳性数不正确");
-            return false;
+            ToastUtils.showWarningToast("蚊 外鼠迹阳性数不正确");
+            return 0;
         }
 
 
-        return true;
+        return 2;
     }
 
     @Override

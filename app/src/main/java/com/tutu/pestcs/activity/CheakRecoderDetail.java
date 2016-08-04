@@ -22,16 +22,19 @@ import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.adapter.ReviewFragmentAdapter;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ExtendSortUnitBean;
 import com.tutu.pestcs.bean.PhotoBean;
+import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.CheakInsertDao;
 import com.tutu.pestcs.db.ExtendUnitDao;
 import com.tutu.pestcs.db.NoteDao;
 import com.tutu.pestcs.db.PhotoDao;
 import com.tutu.pestcs.db.ShuDao;
+import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.db.ZhangDao;
@@ -85,6 +88,7 @@ public class CheakRecoderDetail extends BaseActivity {
     private boolean[] cheakItems = {true, true, true, true};
 
     private CheakInsertBean cheakInsertBean;
+    private TaskBean taskBean;
 
     private boolean editeable = false;
 
@@ -113,7 +117,7 @@ public class CheakRecoderDetail extends BaseActivity {
             svProgressHUD.showErrorWithStatus("系统错误");
             return;
         }
-        initUI();
+
 
         queryPhotos();
 
@@ -139,7 +143,9 @@ public class CheakRecoderDetail extends BaseActivity {
             @Override
             public CheakInsertBean doInBackground() throws Exception {
                 photosNameList = PhotoDao.queryByUnitID(unitycode);
-                return CheakInsertDao.queryByUnitID(unitycode);
+                CheakInsertBean result = CheakInsertDao.queryByUnitID(unitycode);
+                taskBean = TaskDao.queryByTaskCode(result.getTaskCode());
+                return result;
             }
         }, new Completion<CheakInsertBean>() {
             @Override
@@ -150,6 +156,7 @@ public class CheakRecoderDetail extends BaseActivity {
                 }
                 cheakInsertBean = result;
                 initHeadView();
+                initUI();
             }
 
             @Override
@@ -234,6 +241,37 @@ public class CheakRecoderDetail extends BaseActivity {
     }
 
     private void initUI() {
+
+        cheakItems[0] = taskBean.isShu();
+        cheakItems[1] = taskBean.isYing();
+        cheakItems[2] = taskBean.isWen();
+        cheakItems[3] = taskBean.isZhang();
+
+        if (taskBean.isShu()) {
+            TApplication.shu = false;
+        } else {
+            TApplication.shu = true;
+        }
+
+        if (taskBean.isYing()) {
+            TApplication.ying = false;
+        } else {
+            TApplication.ying = true;
+        }
+
+        if (taskBean.isWen()) {
+            TApplication.wen = false;
+        } else {
+            TApplication.wen = true;
+        }
+
+        if (taskBean.isZhang()) {
+            TApplication.zhang = false;
+        } else {
+            TApplication.zhang = true;
+        }
+
+
         adapter = new ReviewFragmentAdapter(getSupportFragmentManager(), cheakItems, unitycode);
         pager.setAdapter(adapter);
         tabs.setShouldExpand(true);
@@ -274,8 +312,6 @@ public class CheakRecoderDetail extends BaseActivity {
 //                    cbZhongdian.setEnabled(false);
 //                    saveHeadData();//保存头部一些数据
 //                }
-
-                RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
                 saveHeadData();
 
                 break;
@@ -287,7 +323,7 @@ public class CheakRecoderDetail extends BaseActivity {
                 toPhotoActivity();
                 break;
             case R.id.ll_back:
-                showCancel();
+                finish();
                 break;
         }
     }
@@ -297,7 +333,7 @@ public class CheakRecoderDetail extends BaseActivity {
         UnitTypeDialog.getInstace(this, new UnitTypeDialog.onDialogClick() {
             @Override
             public void onCofirm(String cheakIndex, String cheakString) {
-                if (cheakIndex.equals("17")){
+                if (cheakIndex.equals("17")) {
                     ToastUtils.showErrorToast("大中型水体类型不能切换为其它类型");
                     return;
                 }
@@ -319,13 +355,12 @@ public class CheakRecoderDetail extends BaseActivity {
     private void saveHeadData() {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
-            ToastUtils.showToast("单位或地址不能为空");
+            ToastUtils.showErrorToast("单位或地址不能为空");
             return;
         }
         cheakInsertBean.setNamePlace(address);
         cheakInsertBean.setKeyUnit(cbZhongdian.isChecked());
 
-        RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
         Tasks.executeInBackground(this, new BackgroundWork<String>() {
             @Override
             public String doInBackground() throws Exception {
@@ -335,7 +370,7 @@ public class CheakRecoderDetail extends BaseActivity {
         }, new Completion<String>() {
             @Override
             public void onSuccess(Context context, String result) {
-
+                RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
             }
 
             @Override

@@ -15,6 +15,8 @@ import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
 import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.activity.CheakRecoderDetail;
+import com.tutu.pestcs.app.ReviewDataCall;
+import com.tutu.pestcs.app.TApplication;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.ShuBean;
@@ -266,17 +268,18 @@ public class MouseFragment extends BaseFragment {
 
     private void onSave() {
         formatData();
-        if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
-            return;
-        }
 
-
-        if (verifyInput()) {
-            //shuBean.setUniType(((InsertActivity) getActivity()).getUnitType());
-            ShuDao.saveOrUpdate(shuBean);
-            ToastUtils.showOKToast("鼠数据保存成功");
+        if (verifyInput() == 2) {
+            TApplication.shu = true;
+            TApplication.shuBean = shuBean;
+            ReviewDataCall.saveReviewData(getActivity());
+        } else if (verifyInput() == 1) {
+            TApplication.shu = true;
+            TApplication.shuBean = null;
+            ReviewDataCall.saveReviewData(getActivity());
         } else {
-            //AlderDialogHelper.showTipsAlertDialot(getActivity(),"鼠界面有数据输入错误,请点击修改按钮修改数据后重新保存!!");
+            TApplication.shu = false;
+            TApplication.shuBean = null;
         }
 
 
@@ -504,9 +507,9 @@ public class MouseFragment extends BaseFragment {
     }
 
     //检查输入合法性
-    private boolean verifyInput() {
+    private int verifyInput() {
         if (shuBean.getCheckRoom() < 1 && shuBean.getFangShuRoom() < 1 && shuBean.getCheckDistance() < 1) {
-            return false;
+            return 1;
         }
 
 
@@ -523,84 +526,84 @@ public class MouseFragment extends BaseFragment {
 
         if (yangxing > 0 && (shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu) < yangxing) {
             ToastUtils.showErrorToast("鼠 <阳性房间数填写>不合法");
-            return false;
+            return 0;
         }
 
 
         if (yangxing > jianchashu) {
             ToastUtils.showErrorToast("鼠 <阳性房间数填写>不合法");
-            return false;
+            return 0;
         }
         if (sheshi_buhege > sheshi_rooms) {
             ToastUtils.showErrorToast("鼠 <不合格房间数填写>不合法");
-            return false;
+            return 0;
         }
 
 
         if (shujiyangxing > jianchalujing) {
             ToastUtils.showErrorToast("鼠 <鼠迹阳性填写>不合法");
-            return false;
+            return 0;
         }
 
         if (yangxing > 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu < 1) {
             ToastUtils.showErrorToast("鼠 鼠迹类型至少有一项大于0");
-            return false;
+            return 0;
         }
 
         if (sheshi_buhege > 0 && dilou + chuanghu + menfeng + kongdong + mumen + chushuikou + paishuigou + paifengshan +
                 tongfengkou + dangshuban < 1) {
             ToastUtils.showErrorToast("鼠 防鼠设施不合格至少有一项大于0");
-            return false;
+            return 0;
         }
 
         if (shujiyangxing > 0 && wai_shufen + wai_shudong + wai_shudao + wai_yaoheng + wai_daotu + wai_shushi
                 + wai_huoshu < 1) {
             ToastUtils.showErrorToast("鼠 外环境鼠迹至少有一项大于0");
-            return false;
+            return 0;
         }
 
         if (sheshi_buhege > 0 && (chushuikou + paishuigou + dilou + paifengshan
                 + chuanghu + menfeng + tongfengkou + kongdong + mumen + dangshuban) < sheshi_buhege) {
             ToastUtils.showErrorToast("鼠 防鼠设施不合格房间数填写不正确");
-            return false;
+            return 0;
         }
 
         if (shujiyangxing > 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
                 + wai_daotu + wai_shushi + wai_huoshu) < shujiyangxing) {
             ToastUtils.showErrorToast("鼠 外鼠迹阳性数不正确");
-            return false;
+            return 0;
         }
 
         if (mieshuzhan > 0 && wujinshipai > mieshuzhan) {
             ToastUtils.showErrorToast("鼠 无警示牌数不正确");
-            return false;
+            return 0;
         }
 
         if (mieshuzhan > 0 && fangzhibuzhengque > mieshuzhan) {
             ToastUtils.showErrorToast("鼠 放置不规范数不正确");
-            return false;
+            return 0;
         }
 
 
         if (mieshuzhan > 0 && wushuyao > mieshuzhan) {
             ToastUtils.showErrorToast("鼠 无鼠药数不正确");
-            return false;
+            return 0;
         }
 
         if (mieshuzhan > 0 && shuyaowuxiao > mieshuzhan) {
             ToastUtils.showErrorToast("鼠 鼠药无效数不正确");
-            return false;
+            return 0;
         }
 
 
         if ((wushuyao + shuyaowuxiao) > mieshuzhan) {
             ToastUtils.showErrorToast("鼠 无鼠药+鼠药无效数填写不正确");
-            return false;
+            return 0;
         }
 
         if (yangxing == 0 && shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu > 0) {
             ToastUtils.showErrorToast("鼠 阳性房间数填写不正确");
-            return false;
+            return 0;
         }
 
 
@@ -608,17 +611,17 @@ public class MouseFragment extends BaseFragment {
                 paifengshan +
                 tongfengkou + dangshuban > 0) {
             ToastUtils.showErrorToast("鼠 防鼠设施不合格间数填写不正确");
-            return false;
+            return 0;
         }
 
 
         if (shujiyangxing == 0 && (wai_shufen + wai_shudong + wai_shudao + wai_yaoheng
                 + wai_daotu + wai_shushi + wai_huoshu) > 0) {
             ToastUtils.showErrorToast("鼠 外鼠迹阳性数不正确");
-            return false;
+            return 0;
         }
 
 
-        return true;
+        return 2;
     }
 }

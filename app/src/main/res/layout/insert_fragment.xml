@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_height">
 
+
             <TextView
                 style="@style/title_style"
                 android:layout_centerInParent="true"
@@ -35,6 +36,15 @@
                     android:layout_marginRight="16dp"
                     android:src="@mipmap/ic_launcher"/>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="保存退出"
+                android:textColor="@color/white"/>
 
         </RelativeLayout>
 
@@ -92,10 +102,10 @@
                 android:text="单位名称/检查地点"/>
 
             <EditText
-                android:maxLength="15"
                 android:id="@+id/et_name"
                 style="@style/et_style"
-                android:hint="请填写"/>
+                android:hint="请填写"
+                android:maxLength="15"/>
         </LinearLayout>
 
 
