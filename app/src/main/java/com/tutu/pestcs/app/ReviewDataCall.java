@@ -18,7 +18,7 @@ import com.tutu.pestcs.widget.ToastUtils;
  * Created by 47066 on 2016/7/31.
  */
 public class ReviewDataCall {
-    public static void saveReviewData(Context activity) {
+    public static synchronized void saveReviewData(Context activity) {
         if (TApplication.shu && TApplication.ying && TApplication.zhang && TApplication.wen && TApplication.note) {
             Tasks.executeInBackground(activity, new BackgroundWork<String>() {
                 @Override
@@ -78,7 +78,7 @@ public class ReviewDataCall {
     }
 
 
-    public static void saveInserData(final Context activity) {
+    public static synchronized void saveInserData(final Context activity) {
         if (TApplication.shuI && TApplication.yingI && TApplication.zhangI && TApplication.wenI && TApplication.noteI) {
             Tasks.executeInBackground(activity, new BackgroundWork<String>() {
                 @Override
@@ -91,7 +91,6 @@ public class ReviewDataCall {
 
                     if (TApplication.shuBeanI != null) {
                         ShuDao.saveOrUpdate(TApplication.shuBeanI);
-
                     }
 
                     if (TApplication.yingBeanI != null) {

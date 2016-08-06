@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:text="保存退出"
+                android:text="退出"
                 android:textColor="@color/white"/>
 
         </RelativeLayout>

@@ -2,6 +2,7 @@ package com.tutu.pestcs.fragment.insert;
 
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 
 import com.tutu.pestcs.R;
@@ -17,6 +18,7 @@ import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -34,6 +36,15 @@ public class NoteFragment extends BaseFragment {
     @Override
     public void handleMessage(Message msg) {
 
+    }
+
+    @OnClick({R.id.save})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.save:
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                break;
+        }
     }
 
     @Override

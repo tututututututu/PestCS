@@ -23,11 +23,13 @@ import com.tutu.pestcs.bean.ZhangBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.ZhangDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -93,6 +95,24 @@ public class CockFragment extends BaseFragment {
     @Override
     public void handleMessage(Message msg) {
 
+    }
+
+    @OnClick({R.id.btn_save,R.id.btn_exit,R.id.btn_photos})
+    public void onClick(View v){
+
+        CheakRecoderDetail cheakRecoderDetail =  (CheakRecoderDetail)getActivity();
+        switch (v.getId()){
+            case R.id.btn_save:
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                cheakRecoderDetail.saveHeadData();
+                break;
+            case R.id.btn_exit:
+                cheakRecoderDetail.deleteRecodeDialog();
+                break;
+            case R.id.btn_photos:
+                cheakRecoderDetail.toPhotoActivity();
+                break;
+        }
     }
 
 

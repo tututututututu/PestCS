@@ -29,6 +29,7 @@ import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -170,6 +171,15 @@ public class MouseFragment extends BaseFragment {
     @Override
     public void handleMessage(Message msg) {
 
+    }
+
+    @OnClick({R.id.save})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.save:
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                break;
+        }
     }
 
     @Override

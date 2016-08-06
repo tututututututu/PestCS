@@ -835,6 +835,11 @@
                     </RadioGroup>
                 </HorizontalScrollView>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/save"
+                android:text="保存"
+                style="@style/btnSaveStyle"/>
         </LinearLayout>
 
 

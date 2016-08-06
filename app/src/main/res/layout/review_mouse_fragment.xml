@@ -1005,6 +1005,8 @@
                         android:text="个"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <include layout="@layout/review_save_delete_photo"/>
         </LinearLayout>
 
 

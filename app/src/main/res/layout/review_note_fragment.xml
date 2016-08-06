@@ -33,6 +33,7 @@
                 android:paddingLeft="8dp"
                 android:paddingTop="8dp"/>
 
+            <include layout="@layout/review_save_delete_photo"/>
 
         </LinearLayout>
 

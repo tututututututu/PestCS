@@ -298,22 +298,7 @@ public class CheakRecoderDetail extends BaseActivity {
                 showUnitTypeDialog();
                 break;
             case R.id.btn_save:
-//                editeable = !editeable;
-//                if (editeable) {
-//                    btnSave.setText("保存");
-//                    etUnitType.setEnabled(true);
-//                    etAddress.setEnabled(true);
-//                    cbZhongdian.setEnabled(true);
-//                    RxBus.postEvent(new ModifyModeEvent(unitycode, editeable), ModifyModeEvent.class);
-//                } else {
-//                    etUnitType.setEnabled(false);
-//                    btnSave.setText("修改");
-//                    etAddress.setEnabled(false);
-//                    cbZhongdian.setEnabled(false);
-//                    saveHeadData();//保存头部一些数据
-//                }
                 saveHeadData();
-
                 break;
             case R.id.btn_exit:
                 deleteRecodeDialog();
@@ -352,7 +337,7 @@ public class CheakRecoderDetail extends BaseActivity {
     }
 
 
-    private void saveHeadData() {
+    public void saveHeadData() {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             ToastUtils.showErrorToast("单位或地址不能为空");
@@ -381,7 +366,7 @@ public class CheakRecoderDetail extends BaseActivity {
 
     }
 
-    private void deleteRecodeDialog() {
+    public void deleteRecodeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("警告")
                 .setMessage("删除后不能恢复，是否删除该单位检查数据？")
@@ -456,7 +441,7 @@ public class CheakRecoderDetail extends BaseActivity {
         builder.create().show();
     }
 
-    private void toPhotoActivity() {
+    public void toPhotoActivity() {
         if (photosNameList == null || photosNameList.size() == 0) {
             ToastUtils.showToast("可能没有照片");
             return;

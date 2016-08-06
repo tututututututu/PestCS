@@ -3,6 +3,7 @@ package com.tutu.pestcs.fragment.review;
 import android.content.Context;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 
 import com.nanotasks.BackgroundWork;
@@ -19,11 +20,13 @@ import com.tutu.pestcs.bean.NoteBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.db.NoteDao;
 import com.tutu.pestcs.event.ModifyModeEvent;
+import com.tutu.pestcs.event.SaveInsertEvent;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -51,6 +54,25 @@ public class NoteFragment extends BaseFragment {
     @Override
     public void handleMessage(Message msg) {
 
+    }
+
+
+    @OnClick({R.id.btn_save,R.id.btn_exit,R.id.btn_photos})
+    public void onClick(View v){
+
+        CheakRecoderDetail cheakRecoderDetail =  (CheakRecoderDetail)getActivity();
+        switch (v.getId()){
+            case R.id.btn_save:
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                cheakRecoderDetail.saveHeadData();
+                break;
+            case R.id.btn_exit:
+                cheakRecoderDetail.deleteRecodeDialog();
+                break;
+            case R.id.btn_photos:
+                cheakRecoderDetail.toPhotoActivity();
+                break;
+        }
     }
 
     @Override

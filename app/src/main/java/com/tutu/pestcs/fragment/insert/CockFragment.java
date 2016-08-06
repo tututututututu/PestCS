@@ -24,6 +24,7 @@ import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.ToastUtils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -142,6 +143,16 @@ public class CockFragment extends BaseFragment {
                 })
 
         );
+    }
+
+
+    @OnClick({R.id.save})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.save:
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                break;
+        }
     }
 
     private boolean saveDada() {

@@ -1020,6 +1020,10 @@
                         android:text="个"/>
                 </LinearLayout>
             </LinearLayout>
+            <Button
+                android:id="@+id/save"
+                android:text="保存"
+                style="@style/btnSaveStyle"/>
         </LinearLayout>
 
 

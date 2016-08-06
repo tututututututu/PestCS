@@ -2,9 +2,9 @@
 
 <com.tutu.pestcs.widget.TuLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tbase"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/tbase"
     android:orientation="vertical">
 
     <com.tutu.pestcs.widget.OverScrollView
@@ -32,8 +32,16 @@
                 android:maxLength="200"
                 android:paddingLeft="8dp"
                 android:paddingTop="8dp"/>
+
+
+            <Button
+                android:id="@+id/save"
+                style="@style/btnSaveStyle"
+                android:text="保存"/>
         </LinearLayout>
 
+
     </com.tutu.pestcs.widget.OverScrollView>
+
 
 </com.tutu.pestcs.widget.TuLinearLayout>

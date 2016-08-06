@@ -72,10 +72,10 @@
                     android:id="@+id/et_unit_type"
                     style="@style/et_style"
                     android:layout_width="wrap_content"
+                    android:editable="false"
+                    android:enabled="true"
                     android:gravity="center_vertical"
                     android:hint="请填写"
-                    android:enabled="true"
-                    android:editable="false"
                     android:minWidth="100dp"
                     />
 
@@ -87,10 +87,10 @@
                     android:text="是否是重点单位"/>
 
                 <CheckBox
-                    android:enabled="true"
                     android:id="@+id/cb_zhongdian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:enabled="true"
                     />
             </LinearLayout>
 
@@ -109,9 +109,9 @@
                     android:text="单位名称/检查地点"/>
 
                 <EditText
-                    android:enabled="true"
                     android:id="@+id/et_address"
                     style="@style/et_style"
+                    android:enabled="true"
                     android:hint="请填写"
                     android:maxLength="15"/>
             </LinearLayout>
@@ -129,49 +129,7 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_selector"
-                android:text="保存"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/btn_exit"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_selector"
-                android:text="删除"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/btn_photos"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_selector"
-                android:text="查看照片"
-                android:textColor="@color/white"/>
-
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout

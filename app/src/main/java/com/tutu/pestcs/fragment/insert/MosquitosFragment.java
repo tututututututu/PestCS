@@ -28,6 +28,7 @@ import com.tutu.pestcs.widget.ToastUtils;
 import com.tutu.pestcs.widget.TuLinearLayout;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -162,6 +163,15 @@ public class MosquitosFragment extends BaseFragment {
     @Override
     public void handleMessage(Message msg) {
 
+    }
+
+    @OnClick({R.id.save})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.save:
+                RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
+                break;
+        }
     }
 
 
