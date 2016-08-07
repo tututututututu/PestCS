@@ -368,17 +368,17 @@ public class MosquitosFragment extends BaseFragment {
             if (verifyInput() == 2) {
                 TApplication.wenI = true;
                 TApplication.wenBeanI = bean;
-                ReviewDataCall.saveInserData(getActivity());
+                ReviewDataCall.saveInserData(getActivity(),false);
             } else if (verifyInput() == 1) {
                 TApplication.wenI = true;
                 TApplication.wenBeanI = null;
-                ReviewDataCall.saveInserData(getActivity());
+                ReviewDataCall.saveInserData(getActivity(),false);
             } else {
                 TApplication.wenI = false;
                 TApplication.wenBeanI = null;
             }
         } else {
-            ToastUtils.showErrorToast("请填写检查单位名称或地点");
+            ToastUtils.showToast("请填写检查单位名称或地点");
         }
         return false;
     }
@@ -452,7 +452,11 @@ public class MosquitosFragment extends BaseFragment {
 
 
         if (bean.getCheckDistance() < 1 && bean.getYouWenRenCi() < 1 && bean.getCaiYangShaoNum() < 1
-                ) {
+                &&!"17".equals(cheakInsertBean.getUnitClassID())) {
+            return 1;
+        }
+
+        if ("17".equals(cheakInsertBean.getUnitClassID())&&bean.getCaiYangShaoNum()<1){
             return 1;
         }
 

@@ -247,6 +247,7 @@ public class InsertActivity extends BaseActivity {
         tabs.setViewPager(pager);
         //tabs.setTabBackground(); //设置点击时的颜色变化
         tabs.setUnderlineHeight(2);
+        pager.setOffscreenPageLimit(5);
     }
 
     private void queryCurrentTask() {
@@ -331,6 +332,7 @@ public class InsertActivity extends BaseActivity {
                 }).setPositiveButton("保存", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                TApplication.insertFinish = true;
                 RxBus.postEvent(new SaveInsertEvent(),SaveInsertEvent.class);
                 dialog.cancel();
             }

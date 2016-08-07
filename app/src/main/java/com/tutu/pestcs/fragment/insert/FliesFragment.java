@@ -1,6 +1,5 @@
 package com.tutu.pestcs.fragment.insert;
 
-import android.content.DialogInterface;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -19,7 +18,6 @@ import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.YingBean;
 import com.tutu.pestcs.comfig.ActivityJumpParams;
 import com.tutu.pestcs.event.SaveInsertEvent;
-import com.tutu.pestcs.widget.AlderDialogHelper;
 import com.tutu.pestcs.widget.ContactDialog;
 import com.tutu.pestcs.widget.OverScrollView;
 import com.tutu.pestcs.widget.ToastUtils;
@@ -241,17 +239,17 @@ public class FliesFragment extends BaseFragment {
             if (verifyInput() == 2) {
                 TApplication.yingI = true;
                 TApplication.yingBeanI = yingBean;
-                ReviewDataCall.saveInserData(getActivity());
+                ReviewDataCall.saveInserData(getActivity(),false);
             } else if (verifyInput() == 1) {
                 TApplication.yingI = true;
                 TApplication.yingBeanI = null;
-                ReviewDataCall.saveInserData(getActivity());
+                ReviewDataCall.saveInserData(getActivity(),false);
             } else {
                 TApplication.yingI = false;
                 TApplication.yingBeanI = null;
             }
         } else {
-            ToastUtils.showErrorToast("请填写检查单位名称或地点");
+            ToastUtils.showToast("请填写检查单位名称或地点");
         }
         return false;
     }
@@ -324,23 +322,6 @@ public class FliesFragment extends BaseFragment {
 
     private int verifyInput() {
 
-        if (cheakInsertBean.getUnitClassID().equals("17")) {
-            AlderDialogHelper.showAlertDialog(getActivity(), "当前单位类型为<大中型水体>,无需保存蝇的相关数据", new DialogInterface
-                    .OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            }, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            return 0;
-        }
-
-
         if (TextUtils.isEmpty(yingBean.getUnitCode())){
             ContactDialog.show(getActivity(),getClass().getSimpleName()+"\n"+"verifyInput()"+"TextUtils.isEmpty(yingBean.getUnitCode()) is empty");
             return 0;
@@ -353,6 +334,10 @@ public class FliesFragment extends BaseFragment {
             return 1;
         }
 
+        if (cheakInsertBean.getUnitClassID().equals("17")) {
+            ToastUtils.showToast("当前类型为大中型水体，只保存蚊类检查数据");
+            return 1;
+        }
 
         if (yangxingfangshu > jianchafangshu) {
             ToastUtils.showWarningToast("蝇 <阳性房间数填写>不合法");

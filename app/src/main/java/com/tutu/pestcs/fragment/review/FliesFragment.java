@@ -187,11 +187,13 @@ public class FliesFragment extends BaseFragment {
         }, new Completion<YingBean>() {
             @Override
             public void onSuccess(Context context, YingBean result) {
-                addTextChangeListener();
+
                 if (result == null) {
+                    addTextChangeListener();
                     return;
                 }
                 yingBean = result;
+                addTextChangeListener();
                 initReviewData();
             }
 

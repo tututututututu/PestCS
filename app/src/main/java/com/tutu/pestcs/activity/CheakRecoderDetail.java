@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -69,12 +68,6 @@ public class CheakRecoderDetail extends BaseActivity {
     PagerSlidingTabStrip tabs;
     @Bind(R.id.pager)
     ViewPager pager;
-    @Bind(R.id.btn_save)
-    Button btnSave;
-    @Bind(R.id.btn_exit)
-    Button btnExit;
-    @Bind(R.id.btn_photos)
-    Button btnPhotos;
     @Bind(R.id.tv_set_current_task)
     TextView tvSetCurrentTask;
     @Bind(R.id.ll_no_current_task)
@@ -287,7 +280,7 @@ public class CheakRecoderDetail extends BaseActivity {
     }
 
 
-    @OnClick({R.id.et_unit_type, R.id.btn_save, R.id.btn_exit, R.id.btn_photos, R.id.ll_back})
+    @OnClick({R.id.et_unit_type,R.id.ll_back})
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.et_unit_type:
@@ -297,16 +290,7 @@ public class CheakRecoderDetail extends BaseActivity {
                 }
                 showUnitTypeDialog();
                 break;
-            case R.id.btn_save:
-                saveHeadData();
-                break;
-            case R.id.btn_exit:
-                deleteRecodeDialog();
-                break;
-            case R.id.btn_photos:
-                // TODO: 2016/6/19  照片浏览
-                toPhotoActivity();
-                break;
+
             case R.id.ll_back:
                 finish();
                 break;
@@ -320,6 +304,16 @@ public class CheakRecoderDetail extends BaseActivity {
             public void onCofirm(String cheakIndex, String cheakString) {
                 if (cheakIndex.equals("17")) {
                     ToastUtils.showErrorToast("大中型水体类型不能切换为其它类型");
+                    return;
+                }
+
+                if (cheakIndex.equals("15")) {
+                    ToastUtils.showErrorToast("垃圾中转站类型不能切换为其它类型");
+                    return;
+                }
+
+                if (cheakIndex.equals("16")) {
+                    ToastUtils.showErrorToast("公共厕所类型不能切换为其它类型");
                     return;
                 }
 

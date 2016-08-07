@@ -88,7 +88,7 @@ public class NoteFragment extends BaseFragment {
         if (((InsertActivity) getActivity()).canSave()) {
 
         }else {
-            ToastUtils.showErrorToast("请填写检查单位名称或地点");
+            ToastUtils.showToast("请填写检查单位名称或地点");
             return;
         }
 
@@ -98,7 +98,7 @@ public class NoteFragment extends BaseFragment {
             TApplication.noteBeanI = null;
         }
         TApplication.note = true;
-        ReviewDataCall.saveInserData(getActivity());
+        ReviewDataCall.saveInserData(getActivity(),false);
     }
 
     private boolean veryfyInput() {

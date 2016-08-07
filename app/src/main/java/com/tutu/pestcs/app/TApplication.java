@@ -41,6 +41,15 @@ public class TApplication extends Application {
     public static ZhangBean zhangBeanI = null;
     public static NoteBean noteBeanI = null;
 
+
+    /**
+     * 用来标识是否保存成功之后finish掉activity
+     */
+
+    public static boolean insertFinish = false;
+    public static boolean reviewFinish = false;
+
+
     @Override
     public void onCreate() {
         // TODO Auto-generated method stub
