@@ -2,9 +2,11 @@ package com.tutu.pestcs.db;
 
 import android.text.TextUtils;
 
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.bean.CheakInsertBean;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.bean.YingBean;
+import com.tutu.pestcs.event.ProgressChangeEvent;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -19,6 +21,7 @@ public class YingDao {
     public static void saveBindID(YingBean bean) {
         try {
             DBHelper.getDBManager().saveBindingId(bean);
+            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -27,6 +30,7 @@ public class YingDao {
     public static void saveOrUpdate(YingBean bean) {
         try {
             DBHelper.getDBManager().saveOrUpdate(bean);
+            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
             LogUtil.e("YingDao saveOrUpdate 变化一条记录=" + bean.toString());
         } catch (DbException e) {
             e.printStackTrace();
@@ -36,6 +40,7 @@ public class YingDao {
     public static void update(YingBean bean) {
         try {
             DBHelper.getDBManager().update(bean);
+            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,6 +72,7 @@ public class YingDao {
     public static void delete(YingBean bean) {
         try {
             DBHelper.getDBManager().delete(bean);
+            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -240,6 +246,7 @@ public class YingDao {
     public static void deleteByUnicode(String unicode){
         try {
             DBHelper.getDBManager().delete(YingBean.class,WhereBuilder.b("UnitCode","=",unicode));
+            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }

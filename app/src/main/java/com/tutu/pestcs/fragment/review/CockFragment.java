@@ -287,6 +287,10 @@ public class CockFragment extends BaseFragment {
             bean.setExpertCode(cheakInsertBean.getExpertCode());
         }
 
+        if("17".equals(bean.getUnitCode())){
+            return 1;
+        }
+
 
         if (chengchongyangxingfangjianshu > jianchafangshu) {
             ToastUtils.showErrorToast("蟑螂 <检查房间数填写>不合法");

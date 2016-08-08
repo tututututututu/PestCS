@@ -12,6 +12,7 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.KeyValueDataBean;
 import com.tutu.pestcs.bean.ProgressMouse;
@@ -20,6 +21,7 @@ import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.WenDao;
 import com.tutu.pestcs.db.YingDao;
+import com.tutu.pestcs.event.ProgressChangeEvent;
 import com.tutu.pestcs.utils.ComputeUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -63,6 +67,25 @@ public class MosquitosFragment extends BaseFragment {
     @Override
     public void initView() {
         getCurrentTask();
+        registReloadDataEvent();
+    }
+
+    private void registReloadDataEvent() {
+        RxBus.obtainEvent(ProgressChangeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ProgressChangeEvent>() {
+                    @Override
+                    public void call(ProgressChangeEvent event) {
+
+                        getCurrentTask();
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
     }
 
     private void getCurrentTask() {
@@ -94,11 +117,15 @@ public class MosquitosFragment extends BaseFragment {
 
 
     private void fillData() {
-        createTV();
+        tl_table.removeAllViews();
+        tl_table_wai.removeAllViews();
         initDataIn();
         initDataWai();
         tl_table.setStretchAllColumns(true);
         tl_table_wai.setStretchAllColumns(true);
+
+        tl_table.addView(TableRowFactory.create(getActivity()),new ViewGroup.LayoutParams(WC, MP));
+        tl_table_wai.addView(TableRowFactory.create(getActivity()),new ViewGroup.LayoutParams(WC, MP));
 
         for (int row = 0; row < inDoorData.size(); row++) {
             TableRow tableRow = new TableRow(mActivityContext);

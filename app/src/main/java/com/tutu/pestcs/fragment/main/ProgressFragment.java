@@ -39,6 +39,7 @@ public class ProgressFragment extends BaseFragment {
         tabs.setViewPager(pager);
         //tabs.setTabBackground(); //设置点击时的颜色变化
         tabs.setUnderlineHeight(2);
+        pager.setOffscreenPageLimit(4);
     }
 
     @Override

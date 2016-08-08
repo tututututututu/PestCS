@@ -13,7 +13,8 @@ import java.util.List;
 /**
  * Created by tutu on 16/4/21.
  */
-public class CheakInsertDao {
+public class CheakInsertDao{
+
     public static void saveBindID(CheakInsertBean bean) {
         try {
             DBHelper.getDBManager().saveBindingId(bean);
@@ -49,7 +50,6 @@ public class CheakInsertDao {
         }
         return null;
     }
-
 
     public static void delete(CheakInsertBean bean) {
         try {

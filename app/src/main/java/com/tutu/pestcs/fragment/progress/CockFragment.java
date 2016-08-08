@@ -12,6 +12,7 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 import com.tutu.pestcs.R;
+import com.tutu.pestcs.RxBus.RxBus;
 import com.tutu.pestcs.base.BaseFragment;
 import com.tutu.pestcs.bean.KeyValueDataBean;
 import com.tutu.pestcs.bean.ProgressMouse;
@@ -19,6 +20,7 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.ZhangDao;
+import com.tutu.pestcs.event.ProgressChangeEvent;
 import com.tutu.pestcs.utils.ComputeUtils;
 import com.tutu.pestcs.widget.ToastUtils;
 
@@ -26,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by tutu on 16/4/7.
@@ -35,6 +39,8 @@ public class CockFragment extends BaseFragment {
 
     @Bind(R.id.tl_table)
     TableLayout tl_table;
+
+    //任务分组数
     private int groupNum = 1;
 
 
@@ -60,12 +66,34 @@ public class CockFragment extends BaseFragment {
     @Override
     public void initView() {
         getCurrentTask();
+        registReloadDataEvent();
+    }
+
+
+    private void registReloadDataEvent() {
+        RxBus.obtainEvent(ProgressChangeEvent.class).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<ProgressChangeEvent>() {
+                    @Override
+                    public void call(ProgressChangeEvent event) {
+
+                        getCurrentTask();
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
     }
 
     private void fillData() {
-        createTV();
+        tl_table.removeAllViews();
         initData();
         tl_table.setStretchAllColumns(true);
+        tl_table.addView(TableRowFactory.create(getActivity()),new ViewGroup.LayoutParams(WC, MP));
+
 
         for (int row = 0; row < inDoorData.size(); row++) {
             TableRow tableRow = new TableRow(mActivityContext);
@@ -244,12 +272,12 @@ public class CockFragment extends BaseFragment {
 
     private void addRow(String name, int toCheakUnit, int toCheakRoom, int hadCheakUnit, int hadCheakRoom) {
         inDoorData.add(new ProgressMouse(name,
-                ComputeUtils.floatUp(toCheakUnit,groupNum),
-                ComputeUtils.floatUp(toCheakRoom,groupNum),
+                ComputeUtils.floatUp(toCheakUnit, groupNum),
+                ComputeUtils.floatUp(toCheakRoom, groupNum),
                 hadCheakUnit,
                 hadCheakRoom,
-                ComputeUtils.floatUp(toCheakUnit,groupNum) - hadCheakUnit,
-                ComputeUtils.floatUp(toCheakRoom,groupNum) - hadCheakRoom,
+                ComputeUtils.floatUp(toCheakUnit, groupNum) - hadCheakUnit,
+                ComputeUtils.floatUp(toCheakRoom, groupNum) - hadCheakRoom,
                 true));
     }
 }

@@ -544,6 +544,10 @@ public class MouseFragment extends BaseFragment {
             shuBean.setExpertCode(cheakInsertBean.getExpertCode());
         }
 
+        if("17".equals(shuBean.getUnitCode())){
+            return 1;
+        }
+
 
         if (yangxing > 0 && (shufen + shudong + shudao + yaoheng + shuzhua + shushi + huoshu) < yangxing) {
             ToastUtils.showErrorToast("鼠 <阳性房间数填写>不合法");

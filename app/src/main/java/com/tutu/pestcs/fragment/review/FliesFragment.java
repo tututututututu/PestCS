@@ -435,6 +435,9 @@ public class FliesFragment extends BaseFragment {
             yingBean.setExpertCode(cheakInsertBean.getExpertCode());
         }
 
+        if("17".equals(yingBean.getUnitCode())){
+            return 1;
+        }
 
         if (yangxingfangshu > jianchafangshu) {
             ToastUtils.showErrorToast("蝇 <阳性房间数填写>不合法");
