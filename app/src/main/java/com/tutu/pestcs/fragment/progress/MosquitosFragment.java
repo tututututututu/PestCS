@@ -20,7 +20,6 @@ import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.GuoBiaoUnitDao;
 import com.tutu.pestcs.db.TaskDao;
 import com.tutu.pestcs.db.WenDao;
-import com.tutu.pestcs.db.YingDao;
 import com.tutu.pestcs.event.ProgressChangeEvent;
 import com.tutu.pestcs.utils.ComputeUtils;
 import com.tutu.pestcs.widget.ToastUtils;
@@ -319,32 +318,32 @@ public class MosquitosFragment extends BaseFragment {
         }
 
 
-        int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("22");
-        int hadCCheakedRoomIn02 = WenDao.getHadCheakedRoomInCount("22");
+        int hadCCheakedUnitIn02 = WenDao.getHadCheakedUnitInCount("17");
+        int hadCCheakedRoomIn02 = WenDao.getHadCheakedRoomInCount("17");
 
         addRowWai("大中型水体(个)", Integer.parseInt(toCheakedBean.get(0).getKey()), Integer.parseInt(toCheakedBean.get(0)
                 .getValue
                         ()), hadCCheakedUnitIn02, hadCCheakedRoomIn02);
 
-        int hadCCheakedUnitIn01 = YingDao.getHadCheakedUnitInCountWai("01") + YingDao.getHadCheakedUnitInCountWai
-                ("02") + YingDao.getHadCheakedUnitInCountWai("03") + YingDao.getHadCheakedUnitInCountWai("04")
-                + YingDao.getHadCheakedUnitInCountWai("05") + YingDao.getHadCheakedUnitInCountWai("06") + YingDao
-                .getHadCheakedUnitInCountWai("07") + YingDao.getHadCheakedUnitInCountWai("08")
-                + YingDao.getHadCheakedUnitInCountWai("09") + YingDao.getHadCheakedUnitInCountWai("10") + YingDao
-                .getHadCheakedUnitInCountWai("11") + YingDao.getHadCheakedUnitInCountWai("12")
-                + YingDao.getHadCheakedUnitInCountWai("13") + YingDao.getHadCheakedUnitInCountWai("14") + YingDao
-                .getHadCheakedUnitInCountWai("15") + YingDao.getHadCheakedUnitInCountWai("16")
-                + YingDao.getHadCheakedUnitInCountWai("17") + YingDao.getHadCheakedUnitInCountWai("18");
-        int hadCCheakedRoomIn01 = YingDao.getHadCheakedRoomInCountWai("01") + YingDao.getHadCheakedRoomInCountWai
-                ("02") + YingDao.getHadCheakedRoomInCountWai("03") + YingDao.getHadCheakedRoomInCountWai("04")
-                + YingDao.getHadCheakedRoomInCountWai("05") + YingDao.getHadCheakedRoomInCountWai("06") + YingDao
-                .getHadCheakedRoomInCountWai("07") + YingDao.getHadCheakedRoomInCountWai("08")
-                + YingDao.getHadCheakedRoomInCountWai("09") + YingDao.getHadCheakedRoomInCountWai("10") + YingDao
-                .getHadCheakedRoomInCountWai("11") + YingDao.getHadCheakedRoomInCountWai("12")
-                + YingDao.getHadCheakedRoomInCountWai("13") + YingDao.getHadCheakedRoomInCountWai("14") + YingDao
-                .getHadCheakedRoomInCountWai("15") + YingDao.getHadCheakedRoomInCountWai("16")
-                + YingDao.getHadCheakedRoomInCountWai("17") + YingDao.getHadCheakedRoomInCountWai("18");
-
+        int hadCCheakedUnitIn01 = WenDao.getHadCheakedUnitInCountWai("01") + WenDao.getHadCheakedUnitInCountWai
+                ("02") + WenDao.getHadCheakedUnitInCountWai("03") + WenDao.getHadCheakedUnitInCountWai("04")
+                + WenDao.getHadCheakedUnitInCountWai("05") + WenDao.getHadCheakedUnitInCountWai("06") + WenDao
+                .getHadCheakedUnitInCountWai("07") + WenDao.getHadCheakedUnitInCountWai("08")
+                + WenDao.getHadCheakedUnitInCountWai("09") + WenDao.getHadCheakedUnitInCountWai("10") + WenDao
+                .getHadCheakedUnitInCountWai("11") + WenDao.getHadCheakedUnitInCountWai("12")
+                + WenDao.getHadCheakedUnitInCountWai("13") + WenDao.getHadCheakedUnitInCountWai("14") + WenDao
+                .getHadCheakedUnitInCountWai("15") + WenDao.getHadCheakedUnitInCountWai("16")
+                + WenDao.getHadCheakedUnitInCountWai("17") + WenDao.getHadCheakedUnitInCountWai("18");
+//        int hadCCheakedRoomIn01 = WenDao.getHadCheakedRoomInCountWai("01") + WenDao.getHadCheakedRoomInCountWai
+//                ("02") + WenDao.getHadCheakedRoomInCountWai("03") + WenDao.getHadCheakedRoomInCountWai("04")
+//                + WenDao.getHadCheakedRoomInCountWai("05") + WenDao.getHadCheakedRoomInCountWai("06") + WenDao
+//                .getHadCheakedRoomInCountWai("07") + WenDao.getHadCheakedRoomInCountWai("08")
+//                + WenDao.getHadCheakedRoomInCountWai("09") + WenDao.getHadCheakedRoomInCountWai("10") + WenDao
+//                .getHadCheakedRoomInCountWai("11") + WenDao.getHadCheakedRoomInCountWai("12")
+//                + WenDao.getHadCheakedRoomInCountWai("13") + WenDao.getHadCheakedRoomInCountWai("14") + WenDao
+//                .getHadCheakedRoomInCountWai("15") + WenDao.getHadCheakedRoomInCountWai("16")
+//                + WenDao.getHadCheakedRoomInCountWai("17") + WenDao.getHadCheakedRoomInCountWai("18");
+        int hadCCheakedRoomIn01 = 0;
         addRowWai("特殊场所诱蚊(人次)", Integer.parseInt(toCheakedBean.get(1).getKey()), Integer.parseInt(toCheakedBean.get(1)
                 .getValue
                         ()), hadCCheakedUnitIn01, hadCCheakedRoomIn01);

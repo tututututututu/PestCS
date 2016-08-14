@@ -191,7 +191,7 @@ public class ShuDao {
                         .getUnitCode())
                         .findFirst();
                 if (shubena != null) {
-                    count += shubena.getCheckRoom();
+                    count +=shubena.getCheckRoom();
                 }
             }
         } catch (DbException e) {
@@ -230,7 +230,7 @@ public class ShuDao {
                         .getUnitCode())
                         .findFirst();
                 if (shubena != null) {
-                    count += shubena.getCheckDistance();
+                    count +=shubena.getCheckRoom();
                 }
             }
         } catch (DbException e) {

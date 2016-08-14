@@ -21,7 +21,7 @@ public class YingDao {
     public static void saveBindID(YingBean bean) {
         try {
             DBHelper.getDBManager().saveBindingId(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class YingDao {
     public static void saveOrUpdate(YingBean bean) {
         try {
             DBHelper.getDBManager().saveOrUpdate(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
             LogUtil.e("YingDao saveOrUpdate 变化一条记录=" + bean.toString());
         } catch (DbException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class YingDao {
     public static void update(YingBean bean) {
         try {
             DBHelper.getDBManager().update(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +61,8 @@ public class YingDao {
             if (taskBean == null) {
                 return null;
             }
-            return DBHelper.getDBManager().selector(YingBean.class).where("TaskCode", "=", taskBean.getTaskCode()).findAll();
+            return DBHelper.getDBManager().selector(YingBean.class).where("TaskCode", "=", taskBean.getTaskCode())
+                    .findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -72,7 +73,7 @@ public class YingDao {
     public static void delete(YingBean bean) {
         try {
             DBHelper.getDBManager().delete(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -217,7 +218,8 @@ public class YingDao {
                         .getUnitCode())
                         .findFirst();
                 if (shubena != null) {
-                    count += shubena.getCheckDistance();
+                    count += shubena.getCheckDistance() + shubena.getLaJiRongQiNum() + shubena.getLaJiStation() +
+                            shubena.getToiletNum();
                 }
             }
         } catch (DbException e) {
@@ -243,10 +245,10 @@ public class YingDao {
         return count;
     }
 
-    public static void deleteByUnicode(String unicode){
+    public static void deleteByUnicode(String unicode) {
         try {
-            DBHelper.getDBManager().delete(YingBean.class,WhereBuilder.b("UnitCode","=",unicode));
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            DBHelper.getDBManager().delete(YingBean.class, WhereBuilder.b("UnitCode", "=", unicode));
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }

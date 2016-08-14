@@ -435,7 +435,7 @@ public class FliesFragment extends BaseFragment {
             yingBean.setExpertCode(cheakInsertBean.getExpertCode());
         }
 
-        if("17".equals(yingBean.getUnitCode())){
+        if("17".equals(yingBean.getUniType())){
             return 1;
         }
 

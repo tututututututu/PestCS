@@ -21,7 +21,7 @@ public class WenDao {
     public static void saveBindID(WenBean bean) {
         try {
             DBHelper.getDBManager().saveBindingId(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class WenDao {
     public static void saveOrUpdate(WenBean bean) {
         try {
             DBHelper.getDBManager().saveOrUpdate(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
             LogUtil.e("WenDao saveOrUpdate 变化一条记录=" + bean.toString());
         } catch (DbException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class WenDao {
     public static void update(WenBean bean) {
         try {
             DBHelper.getDBManager().update(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +61,8 @@ public class WenDao {
             if (taskBean == null) {
                 return null;
             }
-            return DBHelper.getDBManager().selector(WenBean.class).where("TaskCode", "=", taskBean.getTaskCode()).findAll();
+            return DBHelper.getDBManager().selector(WenBean.class).where("TaskCode", "=", taskBean.getTaskCode())
+                    .findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -72,7 +73,7 @@ public class WenDao {
     public static void delete(WenBean bean) {
         try {
             DBHelper.getDBManager().delete(bean);
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -174,7 +175,7 @@ public class WenDao {
                         .getUnitCode())
                         .findFirst();
                 if (shubena != null) {
-                    count += shubena.getCheckDistance();
+                    count+=shubena.getCheckDistance();
                 }
             }
         } catch (DbException e) {
@@ -199,10 +200,51 @@ public class WenDao {
         return count;
     }
 
-    public static void deleteByUnicode(String unicode){
+
+    public static int getHadCheakedRoomInCountWai(String unityTyppe) {
+        int count = 0;
         try {
-            DBHelper.getDBManager().delete(WenBean.class,WhereBuilder.b("UnitCode","=",unicode));
-            RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
+            List<CheakInsertBean> cheakInsertList = CheakInsertDao.queryCurrentTaskUnitCode(unityTyppe);
+            if (cheakInsertList == null || cheakInsertList.size() < 1) {
+                return 0;
+            }
+
+            for (CheakInsertBean bean : cheakInsertList) {
+                WenBean shubena = DBHelper.getDBManager().selector(WenBean.class).where("UnitCode", "=", bean
+                        .getUnitCode())
+                        .findFirst();
+                if (shubena != null) {
+                    count+=shubena.getCheckDistance();
+                }
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public static int getHadCheakedUnitInCountWai(String unitType) {
+
+        List<CheakInsertBean> list = CheakInsertDao.queryCurrentTaskUnitCode(unitType);
+        if (list == null || list.size() < 1) {
+            return 0;
+        }
+        int count = 0;
+        for (CheakInsertBean bean : list) {
+            WenBean shu = WenDao.queryByUnitID(bean.getUnitCode());
+            if (shu != null && shu.getYouWenRenCi() > 0) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
+    public static void deleteByUnicode(String unicode) {
+        try {
+            DBHelper.getDBManager().delete(WenBean.class, WhereBuilder.b("UnitCode", "=", unicode));
+            RxBus.postEvent(new ProgressChangeEvent(), ProgressChangeEvent.class);
         } catch (DbException e) {
             e.printStackTrace();
         }

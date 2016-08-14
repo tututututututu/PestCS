@@ -287,7 +287,7 @@ public class CockFragment extends BaseFragment {
             bean.setExpertCode(cheakInsertBean.getExpertCode());
         }
 
-        if("17".equals(bean.getUnitCode())){
+        if("17".equals(bean.getUniType())){
             return 1;
         }
 

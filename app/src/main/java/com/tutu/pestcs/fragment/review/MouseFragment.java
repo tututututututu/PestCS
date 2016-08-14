@@ -544,7 +544,7 @@ public class MouseFragment extends BaseFragment {
             shuBean.setExpertCode(cheakInsertBean.getExpertCode());
         }
 
-        if("17".equals(shuBean.getUnitCode())){
+        if("17".equals(shuBean.getUniType())){
             return 1;
         }
 

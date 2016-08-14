@@ -21,6 +21,7 @@ import com.tutu.pestcs.adapter.SetCurrentTaskAdapter;
 import com.tutu.pestcs.base.BaseActivity;
 import com.tutu.pestcs.bean.TaskBean;
 import com.tutu.pestcs.db.TaskDao;
+import com.tutu.pestcs.event.ProgressChangeEvent;
 import com.tutu.pestcs.event.SetCurrentTaskEvent;
 import com.tutu.pestcs.sp.SPUtils;
 import com.tutu.pestcs.widget.ToastUtils;
@@ -138,6 +139,7 @@ public class SetCurrenTask extends BaseActivity {
                         TaskDao.resetCurrent();
                         TaskDao.update(task);
                         readData();
+                        RxBus.postEvent(new ProgressChangeEvent(),ProgressChangeEvent.class);
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

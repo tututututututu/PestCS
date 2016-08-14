@@ -174,7 +174,7 @@ public class ZhangDao {
                         .getUnitCode())
                         .findFirst();
                 if (shubena != null) {
-                    count += shubena.getCheckRoom();
+                    count +=shubena.getCheckRoom();
                 }
             }
         } catch (DbException e) {

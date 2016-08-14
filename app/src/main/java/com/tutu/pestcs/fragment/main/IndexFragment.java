@@ -37,7 +37,7 @@ public class IndexFragment extends BaseFragment {
     GridView gridView;
 
     private IndexGVAdapter adapter;
-    private String[] text = {"任务设置", "重点类型", "当前任务", "数据录入", "数据统计", "数据管理", "用户管理", "修改密码", "退出系统"};
+    private String[] text = {"任务设置", "当前任务", "重点类型", "数据录入", "数据统计", "数据管理", "用户管理", "修改密码", "退出系统"};
     private int[] img = {R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R
             .mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap
             .ic_launcher, R
@@ -60,15 +60,16 @@ public class IndexFragment extends BaseFragment {
                 Intent intent = null;
                 switch (position) {
                     case 0:
-                        intent = new Intent(mActivityContext, SetCurrenTask.class);
+                        intent = new Intent(mActivityContext, TaskActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(mActivityContext, FocusTypeActivity.class);
+                        intent = new Intent(mActivityContext, SetCurrenTask.class);
                         startActivity(intent);
+
                         break;
                     case 2:
-                        intent = new Intent(mActivityContext, TaskActivity.class);
+                        intent = new Intent(mActivityContext, FocusTypeActivity.class);
                         startActivity(intent);
                         break;
                     case 3:
